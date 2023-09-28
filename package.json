@@ -13,9 +13,9 @@
   "license": "ISC",
   "dependencies": {
     "@cms/config": "workspace:^",
+    "@cms/template-engine": "workspace:^",
     "@cms/templates": "workspace:^",
     "@cms/ui": "workspace:^",
-    "@cms/template-engine": "workspace:^",
     "@nextui-org/react": "^2.1.13",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
@@ -30,7 +30,8 @@
     "react-icons": "^4.11.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
-    "typescript": "5.2.2"
+    "typescript": "5.2.2",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@types/node": "20.5.7",
