@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "ts-node": {
+    "compilerOptions": {
+      "target": "ES2018",
+      "module": "CommonJS",
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "allowJs": true,
+      "esModuleInterop": true,
+      "strict": true, 
+    }
+  }
+}

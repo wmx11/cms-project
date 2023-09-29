@@ -9,3 +9,147 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// Primary user data on the application level
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  profile       Profile?
+  accounts      Account[]
+  sessions      Session[]
+  is_admin      Boolean   @default(false)
+  date_created  DateTime  @default(now())
+  date_updated  DateTime  @updatedAt
+}
+
+// Profile data for the user-facing app
+model Profile {
+  id               String             @id @default(cuid())
+  article          Article[]
+  page             Page[]
+  profile_template Profile_Template[]
+  testimonial      Testimonial[]
+  user_id          String             @unique
+  user             User               @relation(fields: [user_id], references: [id])
+  date_created     DateTime           @default(now())
+  date_updated     DateTime           @updatedAt
+}
+
+// General articles / blog posts
+model Article {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  description  String
+  image        String
+  is_published Boolean  @default(false)
+  content      String
+  profile_id   String
+  profile      Profile  @relation(fields: [profile_id], references: [id])
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
+}
+
+model Testimonial {
+  id           String   @id @default(cuid())
+  image        String?
+  name         String
+  email        String
+  title        String
+  rating       Int?     @default(0)
+  review       String?
+  profile_id   String?
+  profile      Profile? @relation(fields: [profile_id], references: [id])
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
+}
+
+// This is where components will be registered
+// And used in the page builder
+// "Component" refers to the name of the component "Paragraph", "Card", "Block"
+model Component {
+  id           String   @id @default(cuid())
+  component    String
+  props        Json?
+  template_id  String
+  template     Template @relation(fields: [template_id], references: [id])
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
+}
+
+// This is where templates will be registered
+// With the components registered on the platform
+// Name refers to name of the template in the file system
+model Template {
+  id           String      @id @default(cuid())
+  name         String      @unique
+  component    Component[]
+  schema       Json?
+  date_created DateTime    @default(now())
+  date_updated DateTime    @updatedAt
+}
+
+// Holds data about personalized templates users can create
+// User relations are on the Profile table
+model Profile_Template {
+  id           String   @id @default(cuid())
+  profile_id   String
+  schema       Json?
+  profile      Profile  @relation(fields: [profile_id], references: [id])
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
+}
+
+// Repository to store pages built by users
+// The page structure (schema) and meta data will be taken from here
+model Page {
+  id           String   @id @default(cuid())
+  alias        String   @unique
+  profile_id   String
+  is_published Boolean  @default(false)
+  title        String?
+  description  String?
+  image        String?
+  icon         String?
+  schema       Json?
+  profile      Profile  @relation(fields: [profile_id], references: [id])
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  user_id           String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  user_id      String
+  expires      DateTime
+  user         User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
