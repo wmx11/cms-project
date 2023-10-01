@@ -29,7 +29,7 @@ model User {
 model Profile {
   id               String             @id @default(cuid())
   article          Article[]
-  page             Page[]
+  website          Website[]
   profile_template Profile_Template[]
   testimonial      Testimonial[]
   user_id          String             @unique
@@ -105,7 +105,7 @@ model Profile_Template {
 
 // Repository to store pages built by users
 // The page structure (schema) and meta data will be taken from here
-model Page {
+model Website {
   id           String   @id @default(cuid())
   alias        String   @unique
   profile_id   String
@@ -118,6 +118,8 @@ model Page {
   profile      Profile  @relation(fields: [profile_id], references: [id])
   date_created DateTime @default(now())
   date_updated DateTime @updatedAt
+
+  @@index([alias])
 }
 
 model Account {
