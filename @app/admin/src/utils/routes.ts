@@ -1,23 +1,17 @@
-const WEBSITE = 'website';
-const BLOG = 'blog';
-const TESTIMONIAL = 'testimonial';
-
-const EDIT = 'edit';
-const CREATE = 'create';
-
 const generateRoutes = (baseRouteName: string) => {
   const defaultPath = `/${baseRouteName}`;
   return {
-    create: `${defaultPath}/${CREATE}`,
+    create: `${defaultPath}/create`,
     default: defaultPath,
-    edit: `${defaultPath}/${EDIT}/$id`,
+    edit: `${defaultPath}/edit/$id`,
   };
 };
 
 const routes = {
-  website: generateRoutes(WEBSITE),
-  blog: generateRoutes(BLOG),
-  testimonials: generateRoutes(TESTIMONIAL),
+  website: generateRoutes('website'),
+  blog: generateRoutes('blog'),
+  testimonials: generateRoutes('testimonials'),
+  templates: generateRoutes('templates'),
 };
 
 export default routes;

@@ -1,7 +1,7 @@
 import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Heading: FC<PropsWithChildren & HTMLAttributes<HTMLHeadingElement>> = ({
+const Title: FC<PropsWithChildren & HTMLAttributes<HTMLHeadingElement>> = ({
   children,
   className,
 }) => {
@@ -12,4 +12,4 @@ const Heading: FC<PropsWithChildren & HTMLAttributes<HTMLHeadingElement>> = ({
   );
 };
 
-export default Heading;
+export default Title;

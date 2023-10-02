@@ -43,10 +43,10 @@ model Article {
   id           String   @id @default(cuid())
   title        String
   slug         String   @unique
-  description  String
-  image        String
+  description  String?
+  image        String?
   is_published Boolean  @default(false)
-  content      String
+  content      String?
   profile_id   String
   profile      Profile  @relation(fields: [profile_id], references: [id])
   date_created DateTime @default(now())
@@ -72,7 +72,7 @@ model Testimonial {
 // "Component" refers to the name of the component "Paragraph", "Card", "Block"
 model Component {
   id           String   @id @default(cuid())
-  component    String
+  component    String?
   props        Json?
   template_id  String
   template     Template @relation(fields: [template_id], references: [id])
@@ -82,10 +82,14 @@ model Component {
 
 // This is where templates will be registered
 // With the components registered on the platform
-// Name refers to name of the template in the file system
+// Slug refers to name of the template in the file system
 model Template {
   id           String      @id @default(cuid())
-  name         String      @unique
+  name         String?
+  slug         String?     @unique
+  is_published Boolean     @default(false)
+  description  String?
+  image        String?
   component    Component[]
   schema       Json?
   date_created DateTime    @default(now())

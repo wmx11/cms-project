@@ -8,6 +8,7 @@ export type Props = {
 
 export type Schema = {
   component: string;
+  category?: 'layout' | 'button' | 'navigation' | 'typography' | 'form';
   props: Props[];
 };
 
@@ -18,6 +19,10 @@ export type TemplateMetadata = {
   id: TemplateID;
   component: string;
   title: string;
+  name: string;
+  slug: string;
+  image: string;
+  category?: 'profile' | 'landing' | 'form' | 'portfolio' | 'sectioned';
   description: string;
   icon: string;
 };
