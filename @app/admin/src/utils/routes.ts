@@ -12,6 +12,7 @@ const routes = {
   blog: generateRoutes('blog'),
   testimonials: generateRoutes('testimonials'),
   templates: generateRoutes('templates'),
+  accounts: '/accounts'
 };
 
 export default routes;

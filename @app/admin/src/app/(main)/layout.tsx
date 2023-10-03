@@ -1,8 +1,8 @@
-import './globals.css';
+import '../globals.css';
 import type { Metadata } from 'next';
-import { Inter, Montserrat, Roboto } from 'next/font/google';
-import Providers from '../components/Providers';
-import AppShell from '../components/Layout/AppShell';
+import { Roboto } from 'next/font/google';
+import AppShell from '../../components/Layout/AppShell';
+import Providers from '../../components/Providers';
 
 const inter = Roboto({
   subsets: ['latin'],
@@ -22,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>
-          <AppShell>{children}</AppShell>
-        </Providers>
+        <main>
+          <Providers>
+            <AppShell>{children}</AppShell>
+          </Providers>
+        </main>
       </body>
     </html>
   );

@@ -1,31 +1,20 @@
+import { Link } from '@nextui-org/link';
 import { User } from '@nextui-org/user';
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownItem,
-} from '@nextui-org/dropdown';
-import { Link } from '@nextui-org/react';
-import React from 'react';
+import { getServerSession } from 'next-auth';
 
-const AppMenu = () => {
+const AppMenu = async () => {
+  const session = await getServerSession();
   return (
     <div>
       <div className="border-b p-4">
-        <Dropdown>
-          <DropdownTrigger>
-            <User name="Jane Doe" description="Product Designer" as="button" />
-          </DropdownTrigger>
-          <DropdownMenu>
-            <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
-            </DropdownItem>
-            <DropdownItem key="logout" color="danger">
-              Log Out
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
+        <User
+          name={session?.user?.name}
+          description={session?.user?.email}
+          avatarProps={{
+            src: session?.user?.image as string,
+          }}
+          as="button"
+        />
       </div>
       <div className="space-y-8 p-4">
         <div className="flex flex-col space-y-4">
