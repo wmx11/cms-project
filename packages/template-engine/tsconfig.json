@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.json",
+  "ts-node": {
+    "files": true,
+    "compilerOptions": {
+      "module": "CommonJS",
+      "lib": ["dom", "esnext"],
+      "rootDir": "./src",
+      "jsx": "react-jsx",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "noEmit": true
+    },
+  }
+}

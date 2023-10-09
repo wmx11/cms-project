@@ -8,23 +8,22 @@ export type Props = {
 
 export type Schema = {
   component: string;
-  category?: 'layout' | 'button' | 'navigation' | 'typography' | 'form';
   props: Props[];
+  category?: 'layout' | 'button' | 'navigation' | 'typography' | 'form';
+  description?: string | undefined;
 };
 
 export type TemplateID = string;
 
 export type TemplateMetadata = {
-  name: string;
-  id: TemplateID;
-  component: string;
-  title: string;
-  name: string;
-  slug: string;
-  image: string;
+  id?: string;
+  name?: string;
+  slug?: string;
+  image?: string;
+  description?: string;
+  icon?: string;
+  schema?: JSON;
   category?: 'profile' | 'landing' | 'form' | 'portfolio' | 'sectioned';
-  description: string;
-  icon: string;
 };
 
 export type TemplateSchema = {

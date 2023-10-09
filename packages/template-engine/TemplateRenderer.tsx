@@ -6,7 +6,7 @@ type Props = {
 };
 
 const TemplateRenderer = async ({ context }: Props) => {
-  const template = await parseSchema(context.schema, context.metadata.id);
+  const template = await parseSchema(context.schema, context.metadata.slug);
 
   if (!template || template.length === 0) {
     console.error('There has been an issue rendering the template');

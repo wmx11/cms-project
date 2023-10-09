@@ -33,8 +33,34 @@ const handler = NextAuth({
 
       return true;
     },
+
     redirect: ({ url, baseUrl }) => {
       return baseUrl;
+    },
+    jwt: async ({ token, account, profile }) => {
+      const user = await prisma.user.findUnique({
+        where: {
+          email: token.email || '',
+        },
+        select: {
+          profile: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+
+      Object.assign(token, { profileId: user?.profile?.id });
+
+      return token;
+    },
+    session: ({ session, token, user }) => {
+      if (token && session.user) {
+        Object.assign(session.user, { profileId: token.profileId });
+      }
+
+      return session;
     },
   },
   pages: {

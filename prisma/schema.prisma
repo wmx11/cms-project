@@ -23,6 +23,8 @@ model User {
   is_admin      Boolean   @default(false)
   date_created  DateTime  @default(now())
   date_updated  DateTime  @updatedAt
+
+  @@index([email])
 }
 
 // Profile data for the user-facing app
@@ -73,7 +75,9 @@ model Testimonial {
 model Component {
   id           String   @id @default(cuid())
   component    String?
-  props        Json?
+  category     String?
+  description  String?
+  schema       Json?
   template_id  String
   template     Template @relation(fields: [template_id], references: [id])
   date_created DateTime @default(now())
@@ -87,6 +91,7 @@ model Template {
   id           String      @id @default(cuid())
   name         String?
   slug         String?     @unique
+  category     String?
   is_published Boolean     @default(false)
   description  String?
   image        String?
@@ -119,6 +124,7 @@ model Website {
   image        String?
   icon         String?
   schema       Json?
+  draft_schema Json?
   profile      Profile  @relation(fields: [profile_id], references: [id])
   date_created DateTime @default(now())
   date_updated DateTime @updatedAt

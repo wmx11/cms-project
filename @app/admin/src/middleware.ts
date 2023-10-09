@@ -6,7 +6,7 @@ export default withAuth(function middleware() {}, {
     signIn: routes.accounts,
   },
   callbacks: {
-    authorized: ({ req, token }) => {
+    authorized: async ({ token }) => {
       if (!token) {
         return false;
       }
