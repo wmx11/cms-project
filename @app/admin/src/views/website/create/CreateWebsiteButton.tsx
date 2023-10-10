@@ -42,7 +42,7 @@ const CreateWebsiteButton = ({ templateId }: Props) => {
       // We cannot use redirect() in this server action because redirect() does not work between different route groups and layouts
       // Hence why we use useRouter on the client side instead
       if (!website.error) {
-        router.push(routes.website.edit.replace('$id', website.id));
+        return router.push(routes.website.edit.replace('$id', website.id));
       }
 
       setIsLoading(false);

@@ -5,7 +5,7 @@ const page = async () => {
   const websites = await withProfile(async (profile) => {
     return await prisma.website.findMany({
       where: {
-        profile_id: profile?.profile?.id,
+        profile_id: profile?.id,
       },
       select: {
         alias: true,

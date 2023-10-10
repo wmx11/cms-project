@@ -1,6 +1,6 @@
 import React from 'react';
 import ComponentsDropdown from '../../../../../components/ComponentsDropdown';
-import prisma from '@cms/data/prisma';
+import { getComponentsByTemplateId } from '@cms/data/component/getters';
 import parseSchema from '@cms/template-engine/parseSchema';
 
 type Props = {
@@ -10,11 +10,7 @@ type Props = {
 };
 
 const page = async ({ params }: Props) => {
-  const components = await prisma.component.findMany({
-    where: {
-      template_id: params.id,
-    },
-  });
+  const components = await getComponentsByTemplateId(params.id);
 
   const template = await parseSchema(
     [

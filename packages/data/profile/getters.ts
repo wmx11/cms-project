@@ -11,7 +11,7 @@ export const getProfileBySession = async () => {
     return null;
   }
 
-  return await prisma.user.findUnique({
+  const profile = await prisma.user.findUnique({
     where: {
       email: session?.user?.email || '',
     },
@@ -23,6 +23,8 @@ export const getProfileBySession = async () => {
       },
     },
   });
+
+  return profile?.profile;
 };
 
 // HOF of the getProfileBySession

@@ -10,10 +10,10 @@
 
 import { Website } from '@prisma/client';
 import slugify from 'slugify';
-import prisma from '../prisma';
-import { MaybeWithError } from '../types';
 import { z } from 'zod';
 import handleErrorMessages from '../handleErrorMessages';
+import prisma from '../prisma';
+import { MaybeWithError } from '../types';
 
 type CreateWebsiteProps = {
   templateId: string;
@@ -30,26 +30,21 @@ export const createWebsite = async ({
     const schema = z.object({
       templateId: z
         .string()
-        .min(1, { message: 'Must provide a valid template ID' }),
+        .min(1, { message: 'Please provide a valid template ID' }),
       alias: z
         .string()
-        .min(3, { message: 'Alias must be at least 3 characters long' })
-        .max(32, { message: 'Alias cannot be longer than 32 characters' }),
+        .min(3, {
+          message: 'Alias (website name) must be at least 3 characters long',
+        })
+        .max(32, {
+          message: 'Alias (website name) cannot be longer than 32 characters',
+        }),
       profileId: z
         .string()
-        .min(1, { message: 'Must provide a valid Profile ID' }),
+        .min(1, { message: 'Please provide a valid Profile ID' }),
     });
 
     schema.parse({ templateId, profileId, alias });
-
-    const templateSchema = await prisma.template.findUnique({
-      where: {
-        id: templateId,
-      },
-      select: {
-        schema: true,
-      },
-    });
 
     const existingWebsite = await prisma.website.findUnique({
       where: {
@@ -63,6 +58,15 @@ export const createWebsite = async ({
     if (existingWebsite) {
       throw `Website with name ${alias} already exists. Please choose another name.`;
     }
+
+    const templateSchema = await prisma.template.findUnique({
+      where: {
+        id: templateId,
+      },
+      select: {
+        schema: true,
+      },
+    });
 
     return await prisma.website.create({
       data: {

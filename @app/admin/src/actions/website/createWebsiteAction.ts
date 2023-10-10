@@ -1,10 +1,9 @@
 'use server';
 import handleErrorMessages from '@cms/data/handleErrorMessages';
-import prisma from '@cms/data/prisma';
+import { withProfile } from '@cms/data/profile/getters';
 import { MaybeWithError } from '@cms/data/types';
 import { createWebsite } from '@cms/data/website/setters';
 import { Website } from '@prisma/client';
-import { getServerSession } from 'next-auth';
 import slugify from 'slugify';
 
 type CreateWebsiteActionProps = {
@@ -17,27 +16,12 @@ const createWebsiteAction = async ({
   alias,
 }: CreateWebsiteActionProps): Promise<MaybeWithError<Website>> => {
   try {
-    const session = await getServerSession();
-
-    const profile = await prisma.profile.findFirst({
-      where: {
-        user: {
-          email: session?.user?.email,
-        },
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    if (!profile) {
-      throw 'Cannot find profile ID';
-    }
-
-    const website = await createWebsite({
-      templateId,
-      profileId: profile?.id,
-      alias: slugify(alias),
+    const website = await withProfile(async (profile) => {
+      return await createWebsite({
+        templateId,
+        profileId: profile?.id || '',
+        alias: slugify(alias),
+      });
     });
 
     if (website.error) {
