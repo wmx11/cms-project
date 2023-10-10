@@ -10,7 +10,12 @@ type Props = {
 };
 
 const page = async ({ params }: Props) => {
-  const components = await prisma.component.findMany();
+  const components = await prisma.component.findMany({
+    where: {
+      template_id: params.id,
+    },
+  });
+
   const template = await parseSchema(
     [
       {
@@ -19,7 +24,7 @@ const page = async ({ params }: Props) => {
           {
             name: 'className',
             type: 'string',
-            value: 'bg-blue-100',
+            value: 'bg-purple-200',
           },
           {
             name: 'children',
@@ -64,6 +69,21 @@ const page = async ({ params }: Props) => {
                             name: 'children',
                             type: 'string',
                             value: 'Test button',
+                          },
+                        ],
+                      },
+                      {
+                        component: 'Button',
+                        props: [
+                          {
+                            name: 'children',
+                            type: 'string',
+                            value: 'Test button 2',
+                          },
+                          {
+                            name: 'className',
+                            type: 'string',
+                            value: 'ml-4',
                           },
                         ],
                       },

@@ -7,7 +7,7 @@ const Button: FC<PropsWithChildren & HTMLAttributes<HTMLBaseElement>> = ({
   className,
 }) => {
   return (
-    <NextButton color="primary" size="lg">
+    <NextButton color="primary" size="lg" className={className}>
       {children}
     </NextButton>
   );

@@ -1,5 +1,8 @@
 import React from 'react';
 import GoBackButton from '../../GoBackButton';
+import { Button } from '@nextui-org/button';
+import { Publish } from '@cms/ui/components/Icons';
+import PublishButton from './PublishButton';
 
 const BuilderHeader = () => {
   return (
@@ -7,7 +10,9 @@ const BuilderHeader = () => {
       <div>
         <GoBackButton />
       </div>
-      <div></div>
+      <div>
+        <PublishButton />
+      </div>
     </div>
   );
 };

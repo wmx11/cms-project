@@ -1,4 +1,5 @@
 'use client';
+import { PROJECT_DEFAULT_URL } from '@cms/config/constants';
 import {
   Button,
   Input,
@@ -64,7 +65,9 @@ const CreateWebsiteButton = ({ templateId }: Props) => {
                 Create new website
               </ModalHeader>
               <ModalBody>
-                <div>https://{slugify(alias) || 'alias'}.brandforge.com</div>
+                <div>
+                  https://{slugify(alias) || '...'}.{PROJECT_DEFAULT_URL}
+                </div>
                 <Input
                   autoFocus
                   label="Website name"
