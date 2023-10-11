@@ -1,5 +1,5 @@
 import React from 'react';
-import GoogleButton from './GoogleButton';
+import GoogleButton from './components/GoogleButton';
 import Title from '@cms/ui/components/Title';
 import { Card, CardBody, CardFooter } from '@nextui-org/card';
 

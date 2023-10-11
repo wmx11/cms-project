@@ -1,12 +1,13 @@
 import Title from '@cms/ui/components/Title';
 import { Card, CardBody } from '@nextui-org/card';
+import Header from '../../components/Header';
 
 const Testimonials = () => {
   return (
     <div>
-      <div className="flex items-center justify-between flex-wrap gap-4 mb-4">
+      <Header>
         <Title className="mb-0">Testimonials</Title>
-      </div>
+      </Header>
       <div>
         <Card>
           <CardBody>You currently have no testimonials</CardBody>

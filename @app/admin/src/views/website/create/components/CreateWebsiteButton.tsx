@@ -13,9 +13,9 @@ import {
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import slugify from 'slugify';
-import createWebsiteAction from '../../../actions/website/createWebsiteAction';
-import useErrorMessage from '../../../hooks/useErrorMessage';
-import routes from '../../../utils/routes';
+import createWebsiteAction from '../../../../actions/website/createWebsiteAction';
+import useErrorMessage from '../../../../hooks/useErrorMessage';
+import routes from '../../../../utils/routes';
 
 type Props = {
   templateId: string;
@@ -54,10 +54,10 @@ const CreateWebsiteButton = ({ templateId }: Props) => {
 
   return (
     <>
-      <Button color="primary" onPress={onOpen}>
-        Select Template
+      <Button color="primary" onPress={onOpen} fullWidth>
+        Use Template
       </Button>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">
         <ModalContent>
           {(onClose) => (
             <>

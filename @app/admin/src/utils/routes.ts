@@ -10,7 +10,7 @@ const generateRoutes = (baseRouteName: string) => {
 const routes = {
   website: generateRoutes('website'),
   blog: generateRoutes('blog'),
-  testimonials: generateRoutes('testimonials'),
+  testimonials: generateRoutes('testimonial'),
   templates: generateRoutes('templates'),
   accounts: '/accounts'
 };

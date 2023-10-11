@@ -8,6 +8,9 @@ export const getComponentsByTemplateId = async (template_id: string) => {
   return await prisma.component.findMany({
     where: {
       template_id: template_id,
+      template: {
+        is_published: true,
+      },
     },
   });
 };
