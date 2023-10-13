@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import importComponent from './importComponent';
 import { Schema, TemplateID, TemplateSchema } from './types';
 
@@ -28,7 +29,11 @@ const parseSchema = async (
       }
     }
 
-    components.push(component.default(props));
+    const defaultComponent = component.default(props);
+
+    const componentCopy = { ...defaultComponent, key: item.component || '' };
+
+    components.push(componentCopy);
   }
 
   return components;

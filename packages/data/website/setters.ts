@@ -72,6 +72,7 @@ export const createWebsite = async ({
       data: {
         alias: slugify(alias),
         profile_id: profileId,
+        template_id: templateId,
         draft_schema: templateSchema?.schema
           ? JSON.stringify(templateSchema?.schema || [])
           : JSON.stringify([]),

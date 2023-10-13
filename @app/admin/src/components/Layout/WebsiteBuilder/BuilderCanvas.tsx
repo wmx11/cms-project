@@ -2,60 +2,48 @@
 import parseSchema from '@cms/template-engine/parseSchema';
 import { Schema } from '@cms/template-engine/types';
 import { Button } from '@nextui-org/react';
+import { Component } from '@prisma/client';
 import { useState } from 'react';
+import ComponentsDropdown from '../../ComponentsDropdown';
 
 type Props = {
   schema?: Schema[];
+  templateAlias: string;
+  templateComponents: Component[];
 };
 
-const BuilderCanvas = ({ schema }: Props) => {
+const BuilderCanvas = ({
+  schema,
+  templateAlias,
+  templateComponents,
+}: Props) => {
   // Stores the JSON schema
   const [websiteSchema, setWebsiteSchema] = useState<Schema[]>(schema || []);
   // Stores the React-rendered schema
   const [template, setTemplate] = useState<Schema[]>([]);
 
-  const handlePress = async () => {
-    const toPush: Schema = {
-      component: 'Section',
-      props: [
-        {
-          name: 'className',
-          type: 'string',
-          value: 'bg-white',
-        },
-        {
-          name: 'children',
-          type: 'component',
-          value: [
-            {
-              component: 'Container',
-              props: [
-                {
-                  name: 'children',
-                  type: 'component',
-                  value: [
-                    {
-                      component: 'Title',
-                      props: [
-                        {
-                          name: 'children',
-                          type: 'string',
-                          value: 'Test string 2',
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    };
+  console.log(template);
 
-    setWebsiteSchema((prevValue) => [...prevValue, toPush]);
+  const handleSelect = async (componentId: string) => {
+    const selectedComponent = templateComponents.find(
+      (item) => item.id === componentId
+    );
 
-    const render = await parseSchema(websiteSchema, 'landing-page');
+    if (!selectedComponent || !selectedComponent?.schema) {
+      return;
+    }
+
+    const componentSchema = JSON.parse(
+      (selectedComponent?.schema as string) || '[]'
+    );
+
+    const schemaArray = websiteSchema;
+
+    schemaArray.push(componentSchema);
+
+    setWebsiteSchema(schemaArray);
+
+    const render = await parseSchema(schemaArray, templateAlias);
 
     setTemplate(render);
   };
@@ -69,12 +57,20 @@ const BuilderCanvas = ({ schema }: Props) => {
   return (
     <div className="bg-zinc-100 min-h-screen max-h-screen p-2 overflow-auto">
       <div className="p-4 border border-dashed border-blue-300 text-center hover:border-blue-500 transition-colors">
-        <Button color="primary" onPress={handlePress}>
+        <Button color="primary" onPress={handleSelect}>
           Click me
         </Button>
+        <ComponentsDropdown
+          templateComponents={templateComponents}
+          onSelect={handleSelect}
+        />
       </div>
       <div>
-        <>{template}</>
+        <>
+          {template.map((block, index) => (
+            <>{block}</>
+          ))}
+        </>
       </div>
     </div>
   );

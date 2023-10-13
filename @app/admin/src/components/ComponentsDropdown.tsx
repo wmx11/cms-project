@@ -7,19 +7,31 @@ import {
   DropdownTrigger,
 } from '@nextui-org/dropdown';
 import React from 'react';
+import { Component } from '@prisma/client';
 
-const ComponentsDropdown = ({ items }) => {
+type Props = {
+  templateComponents: Component[];
+  onSelect?: () => void;
+};
+
+const ComponentsDropdown = ({ templateComponents, onSelect }: Props) => {
   return (
     <Dropdown showArrow>
       <DropdownTrigger>
         <Button color="primary">Add Component</Button>
       </DropdownTrigger>
-      <DropdownMenu items={items}>
-        {(item) => (
-          <DropdownItem description={item.description} key={item.id}>
-            {item.component}
-          </DropdownItem>
-        )}
+      <DropdownMenu items={templateComponents} onAction={onSelect}>
+        {(item) => {
+          const component = item as Component;
+          return (
+            <DropdownItem
+              description={component.description}
+              key={component.id}
+            >
+              {component.component}
+            </DropdownItem>
+          );
+        }}
       </DropdownMenu>
     </Dropdown>
   );

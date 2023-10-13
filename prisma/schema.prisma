@@ -96,6 +96,7 @@ model Template {
   description  String?
   image        String?
   component    Component[]
+  website      Website[]
   schema       Json?
   date_created DateTime    @default(now())
   date_updated DateTime    @updatedAt
@@ -118,6 +119,7 @@ model Website {
   id           String   @id @default(cuid())
   alias        String   @unique
   profile_id   String
+  template_id  String
   is_published Boolean  @default(false)
   title        String?
   description  String?
@@ -125,6 +127,7 @@ model Website {
   icon         String?
   schema       Json?
   draft_schema Json?
+  template     Template @relation(fields: [template_id], references: [id])
   profile      Profile  @relation(fields: [profile_id], references: [id])
   date_created DateTime @default(now())
   date_updated DateTime @updatedAt

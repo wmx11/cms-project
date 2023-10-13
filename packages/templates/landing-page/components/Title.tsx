@@ -1,3 +1,4 @@
+import { Schema } from '@cms/template-engine/types';
 import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -18,3 +19,24 @@ const Title: FC<PropsWithChildren & HTMLAttributes<HTMLTimeElement>> = ({
 };
 
 export default Title;
+
+export const schema: Schema = {
+  component: 'Title',
+  category: 'typography',
+  description: 'Use this to give titles to something',
+  props: [
+    {
+      name: 'children',
+      type: 'string',
+      value: '',
+      displayName: 'Your title',
+    },
+    {
+      name: 'className',
+      type: 'string',
+      value: '',
+      displayName: 'Title classes',
+      description: 'You can use Tailwind classes to style this title',
+    },
+  ],
+};

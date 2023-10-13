@@ -1,6 +1,6 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import prisma from '@cms/data/prisma';
-import NextAuth from 'next-auth';
+import NextAuth, { Profile } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import routes from '../../../../../utils/routes';
 
@@ -15,23 +15,46 @@ const handler = NextAuth({
   session: {
     strategy: 'jwt',
   },
-  callbacks: {
-    signIn: async ({ user }) => {
-      const profile = await prisma.profile.findFirst({
-        where: {
-          user_id: user.id,
-        },
-      });
-
-      if (!profile) {
-        await prisma.profile.create({
-          data: {
-            user_id: user.id,
+  events: {
+    createUser: async ({ user }) => {
+      try {
+        const existingProfile = await prisma.profile.findFirst({
+          where: {
+            user: {
+              email: user.email,
+            },
           },
         });
+
+        const existingUser = await prisma.user.findUnique({
+          where: {
+            email: user.email || '',
+          },
+          select: {
+            id: true,
+          },
+        });
+
+        if (!existingProfile && existingUser) {
+          await prisma.profile.create({
+            data: {
+              user_id: existingUser.id,
+            },
+          });
+        }
+      } catch (error) {
+        console.error('next_auth_createUser', error);
+      }
+    },
+  },
+  callbacks: {
+    signIn: async ({ user, profile, account }) => {
+      if (user.email && account?.provider === 'google') {
+        return (profile as Profile & { email_verified: boolean })
+          .email_verified;
       }
 
-      return true;
+      return false;
     },
 
     redirect: ({ url, baseUrl }) => {
