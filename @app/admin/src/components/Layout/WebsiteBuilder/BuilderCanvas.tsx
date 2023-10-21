@@ -11,6 +11,10 @@ import {
 } from '../../../utils/builder-tools/getDataSchema';
 import ComponentsDropdown from '../../ComponentsDropdown';
 import EditPopover from '../../EditPopover';
+import {
+  handleCanvasClick,
+  handleCanvasContextMenu,
+} from '../../Builder/Canvas/handleCanvasActions';
 
 type Props = {
   schema?: Schema[];
@@ -20,16 +24,13 @@ type Props = {
 
 const BuilderCanvas = ({ schema, templateId, templateComponents }: Props) => {
   const [renderedTemplate, setRenderedTemplate] = useState<Schema[]>([]);
-
   const [isOpen, setIsOpen] = useState(false);
-
-  const canvasRef = useRef<HTMLDivElement>(null);
-
-  const canvasOverlayRef = useRef<HTMLDivElement>(null);
-
   const [triggerRef, setTriggerRef] = useState<RefObject<HTMLElement>>({
     current: null,
   });
+  const canvasRef = useRef<HTMLDivElement>(null);
+  const canvasWrapperRef = useRef<HTMLDivElement>(null);
+  const canvasOverlayRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = async (componentId: React.Key, path: string) => {
     const selectedComponent = templateComponents.find(
@@ -57,13 +58,6 @@ const BuilderCanvas = ({ schema, templateId, templateComponents }: Props) => {
       templateId: templateId,
       componentsArray: [],
       isBuilder: true,
-      componentsDropdown: (
-        <ComponentsDropdown
-          templateComponents={templateComponents}
-          onSelect={(key, componentPath) => handleSelect(key, componentPath)}
-          isBuilder
-        />
-      ),
     });
 
     setRenderedTemplate(renderedTemplate);
@@ -76,39 +70,40 @@ const BuilderCanvas = ({ schema, templateId, templateComponents }: Props) => {
         templateId: templateId,
         componentsArray: [],
         isBuilder: true,
-        componentsDropdown: (
-          <ComponentsDropdown
-            templateComponents={templateComponents}
-            onSelect={(key, componentPath) => handleSelect(key, componentPath)}
-            isBuilder
-          />
-        ),
       }).then((renderedTemplate) => {
         setRenderedTemplate(renderedTemplate);
       });
-
-      // initCanvasControls({
-      //   templateComponents,
-      //   setTriggerRef,
-      //   handleSelect,
-      //   setIsOpen,
-      // });
     }
   }, [isOpen]);
 
   return (
-    <div className="bg-zinc-100 min-h-screen max-h-screen px-4 py-6 overflow-auto relative">
+    <div
+      ref={canvasWrapperRef}
+      className="bg-zinc-100 min-h-screen max-h-screen px-4 py-6 overflow-auto relative"
+    >
       <div
         ref={canvasRef}
         className="bg-white canvas min-h-screen shadow-md relative before:content-[''] before:absolute before:inset-[-16px]"
-        onClick={(e) => {
-          console.log(e);
-        }}
+        onContextMenu={handleCanvasContextMenu({
+          canvasRef,
+          canvasOverlayRef,
+          setIsOpen,
+          setTriggerRef,
+        })}
+        onClick={handleCanvasClick({
+          canvasRef,
+          canvasOverlayRef,
+          templateComponents,
+          handleSelect,
+          setIsOpen,
+          setTriggerRef,
+        })}
       >
         <div
           ref={canvasOverlayRef}
           className="canvas-overlay absolute inset-0"
         ></div>
+
         <>{renderedTemplate}</>
         <EditPopover
           isOpen={isOpen}

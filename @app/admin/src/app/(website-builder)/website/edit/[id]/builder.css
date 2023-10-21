@@ -1,9 +1,12 @@
 @keyframes canvas-element-controls {
-  0% {}
-  100% {}
+  0% {
+    transform: translateY(52px);
+  }
+  100% {
+    transform: translateY(46px);
+  }
 }
 
 .canvas--element-controls {
-  animation: canvas-element-controls;
-  
+  animation: canvas-element-controls 0.1s linear; 
 }

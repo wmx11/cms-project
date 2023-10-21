@@ -1,11 +1,10 @@
-import React from 'react';
-import importComponent from './importComponent';
-import { Props, Schema } from './types';
 import {
   DATA_ACCEPTS_CHILDREN,
   DATA_DESCRIPTION,
   DATA_LABEL,
 } from './constants/dataAttributes';
+import importComponent from './importComponent';
+import { Props, Schema } from './types';
 
 const generatePath = (
   path: string | undefined,
@@ -122,20 +121,12 @@ type ParseSchemaProps = {
   schema: Schema[];
   templateId: string;
   componentsArray: Schema[];
-  componentsDropdown?: React.ReactElement;
   isBuilder?: boolean;
   path?: string;
 };
 
 const parseSchema = async (options: ParseSchemaProps) => {
-  const {
-    schema,
-    templateId,
-    componentsArray = [],
-    componentsDropdown,
-    isBuilder,
-    path,
-  } = options;
+  const { schema, templateId, componentsArray = [], isBuilder, path } = options;
 
   const components = componentsArray;
 
@@ -188,25 +179,6 @@ const parseSchema = async (options: ParseSchemaProps) => {
           className: `${componentNodeModified?.props?.className} group relative border border-dashed border-violet-200 hover:border-violet-300 cursor-pointer transition-colors`,
         },
       });
-
-      // // If parseSchema is called from a WebsiteBuilder, modify the ComponentsDropdown element, pass the { path } prop and push it to the component's children
-      // if (
-      //   Array.isArray(componentNodeModified?.props?.children) &&
-      //   componentsDropdown
-      // ) {
-      //   const componentsDropdownModified = {
-      //     ...componentsDropdown,
-      //     key: `components_dropdown_${index}`,
-      //     props: {
-      //       ...componentsDropdown?.props,
-      //       path: generatePath(path, index, item),
-      //     },
-      //   };
-
-      //   componentNodeModified?.props?.children?.push(
-      //     componentsDropdownModified
-      //   );
-      // }
     }
 
     components.push(componentNodeModified);
