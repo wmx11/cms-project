@@ -6,26 +6,23 @@ import { Component } from '@prisma/client';
 
 type Props = {
   schema: Schema[];
-  templateAlias: string;
+  templateId: string;
   templateComponents: Component[];
 };
 
-const WebsiteBuilder = ({
-  schema,
-  templateAlias,
-  templateComponents,
-}: Props) => {
+const WebsiteBuilder = ({ schema, templateId, templateComponents }: Props) => {
   return (
     <div>
       <BuilderHeader />
       <div className="grid grid-cols-[1fr,320px]">
         <BuilderCanvas
           schema={schema}
-          templateAlias={templateAlias}
+          templateId={templateId}
           templateComponents={templateComponents}
         />
         <BuilderSidebar />
       </div>
+      <div data-schema={schema}></div>
     </div>
   );
 };

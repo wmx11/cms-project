@@ -2,11 +2,20 @@ import { Schema } from '@cms/template-engine/types';
 import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Section: FC<PropsWithChildren & HTMLAttributes<HTMLBaseElement>> = ({
-  children,
-  className,
-}) => {
-  return <section className={twMerge('py-24', className)}>{children}</section>;
+const Section: FC<PropsWithChildren & HTMLAttributes<HTMLBaseElement>> = (
+  props
+) => {
+  return (
+    <section
+      {...props}
+      style={JSON.parse((props.style as string) || '{}')}
+      id={props?.id}
+      data-label="Section"
+      className={twMerge('py-24', props?.className)}
+    >
+      {props?.children}
+    </section>
+  );
 };
 
 export default Section;
@@ -29,6 +38,13 @@ export const schema: Schema = {
       type: 'string',
       value: '',
       displayName: 'Section classes',
+      description: 'You can use Tailwind classes to style this section',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      value: '',
+      displayName: 'Section styles',
       description: 'You can use Tailwind classes to style this section',
     },
   ],

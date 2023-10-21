@@ -5,9 +5,14 @@ import { twMerge } from 'tailwind-merge';
 const Title: FC<PropsWithChildren & HTMLAttributes<HTMLTimeElement>> = ({
   children,
   className,
+  style,
+  id,
 }) => {
   return (
     <h1
+      id={id}
+      data-label="Title"
+      style={JSON.parse((style as string) || '{}')}
       className={twMerge(
         'text-7xl text-zinc-800 font-black mb-8 uppercase leading-tight',
         className
@@ -28,7 +33,7 @@ export const schema: Schema = {
     {
       name: 'children',
       type: 'string',
-      value: '',
+      value: 'Title',
       displayName: 'Your title',
     },
     {
@@ -36,6 +41,13 @@ export const schema: Schema = {
       type: 'string',
       value: '',
       displayName: 'Title classes',
+      description: 'You can use Tailwind classes to style this title',
+    },
+    {
+      name: 'style',
+      type: 'string',
+      value: '{}',
+      displayName: 'Title styles',
       description: 'You can use Tailwind classes to style this title',
     },
   ],

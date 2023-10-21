@@ -1,30 +1,37 @@
 'use client';
-import parseSchema from '@cms/template-engine/parseSchema';
+import parseSchema, {
+  handleAddRemoveComponent,
+} from '@cms/template-engine/parseSchema';
 import { Schema } from '@cms/template-engine/types';
-import { Button } from '@nextui-org/react';
 import { Component } from '@prisma/client';
-import { useState } from 'react';
+import React, { RefObject, useEffect, useRef, useState } from 'react';
+import {
+  getDataSchema,
+  setDataSchema,
+} from '../../../utils/builder-tools/getDataSchema';
 import ComponentsDropdown from '../../ComponentsDropdown';
+import EditPopover from '../../EditPopover';
 
 type Props = {
   schema?: Schema[];
-  templateAlias: string;
+  templateId: string;
   templateComponents: Component[];
 };
 
-const BuilderCanvas = ({
-  schema,
-  templateAlias,
-  templateComponents,
-}: Props) => {
-  // Stores the JSON schema
-  const [websiteSchema, setWebsiteSchema] = useState<Schema[]>(schema || []);
-  // Stores the React-rendered schema
-  const [template, setTemplate] = useState<Schema[]>([]);
+const BuilderCanvas = ({ schema, templateId, templateComponents }: Props) => {
+  const [renderedTemplate, setRenderedTemplate] = useState<Schema[]>([]);
 
-  console.log(template);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleSelect = async (componentId: string) => {
+  const canvasRef = useRef<HTMLDivElement>(null);
+
+  const canvasOverlayRef = useRef<HTMLDivElement>(null);
+
+  const [triggerRef, setTriggerRef] = useState<RefObject<HTMLElement>>({
+    current: null,
+  });
+
+  const handleSelect = async (componentId: React.Key, path: string) => {
     const selectedComponent = templateComponents.find(
       (item) => item.id === componentId
     );
@@ -37,40 +44,84 @@ const BuilderCanvas = ({
       (selectedComponent?.schema as string) || '[]'
     );
 
-    const schemaArray = websiteSchema;
+    const updatedSchema = handleAddRemoveComponent({
+      component: componentSchema,
+      schema: getDataSchema(),
+      path,
+    });
 
-    schemaArray.push(componentSchema);
+    setDataSchema(updatedSchema);
 
-    setWebsiteSchema(schemaArray);
+    const renderedTemplate = await parseSchema({
+      schema: updatedSchema,
+      templateId: templateId,
+      componentsArray: [],
+      isBuilder: true,
+      componentsDropdown: (
+        <ComponentsDropdown
+          templateComponents={templateComponents}
+          onSelect={(key, componentPath) => handleSelect(key, componentPath)}
+          isBuilder
+        />
+      ),
+    });
 
-    const render = await parseSchema(schemaArray, templateAlias);
-
-    setTemplate(render);
+    setRenderedTemplate(renderedTemplate);
   };
 
-  // useEffect(() => {
-  //   parseSchema(websiteSchema, 'landing-page').then((render) => {
-  //     setTemplate(render);
-  //   });
-  // }, []);
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      parseSchema({
+        schema: getDataSchema(),
+        templateId: templateId,
+        componentsArray: [],
+        isBuilder: true,
+        componentsDropdown: (
+          <ComponentsDropdown
+            templateComponents={templateComponents}
+            onSelect={(key, componentPath) => handleSelect(key, componentPath)}
+            isBuilder
+          />
+        ),
+      }).then((renderedTemplate) => {
+        setRenderedTemplate(renderedTemplate);
+      });
+
+      // initCanvasControls({
+      //   templateComponents,
+      //   setTriggerRef,
+      //   handleSelect,
+      //   setIsOpen,
+      // });
+    }
+  }, [isOpen]);
 
   return (
-    <div className="bg-zinc-100 min-h-screen max-h-screen p-2 overflow-auto">
-      <div className="p-4 border border-dashed border-blue-300 text-center hover:border-blue-500 transition-colors">
-        <Button color="primary" onPress={handleSelect}>
-          Click me
-        </Button>
+    <div className="bg-zinc-100 min-h-screen max-h-screen px-4 py-6 overflow-auto relative">
+      <div
+        ref={canvasRef}
+        className="bg-white canvas min-h-screen shadow-md relative before:content-[''] before:absolute before:inset-[-16px]"
+        onClick={(e) => {
+          console.log(e);
+        }}
+      >
+        <div
+          ref={canvasOverlayRef}
+          className="canvas-overlay absolute inset-0"
+        ></div>
+        <>{renderedTemplate}</>
+        <EditPopover
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          triggerRef={triggerRef}
+          setTriggerRef={setTriggerRef}
+        />
+      </div>
+      <div className="p-4 border border-dashed border-blue-300 text-center hover:border-blue-500 transition-colors bg-white">
         <ComponentsDropdown
           templateComponents={templateComponents}
           onSelect={handleSelect}
         />
-      </div>
-      <div>
-        <>
-          {template.map((block, index) => (
-            <>{block}</>
-          ))}
-        </>
       </div>
     </div>
   );

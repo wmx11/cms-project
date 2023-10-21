@@ -5,9 +5,16 @@ import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 const Button: FC<PropsWithChildren & HTMLAttributes<HTMLBaseElement>> = ({
   children,
   className,
+  id,
 }) => {
   return (
-    <NextButton color="primary" size="lg" className={className}>
+    <NextButton
+      id={id}
+      className={className}
+      data-label="Button"
+      color="primary"
+      size="lg"
+    >
       {children}
     </NextButton>
   );
@@ -24,7 +31,7 @@ export const schema: Schema = {
     {
       name: 'children',
       type: 'string',
-      value: '',
+      value: 'Button',
       displayName: 'Button text',
     },
     {

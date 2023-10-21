@@ -1,7 +1,7 @@
 import React from 'react';
 import GoBackButton from '../../GoBackButton';
 import { Button } from '@nextui-org/button';
-import { Publish } from '@cms/ui/components/Icons';
+import { Redo, Undo } from '@cms/ui/components/Icons';
 import PublishButton from './PublishButton';
 
 const BuilderHeader = () => {
@@ -9,6 +9,20 @@ const BuilderHeader = () => {
     <div className="p-2 border-b-1 border-zinc-200 flex justify-between">
       <div>
         <GoBackButton />
+      </div>
+      <div className="space-x-4">
+        <Button
+          color="primary"
+          size="sm"
+          variant="ghost"
+          startContent={<Undo />}
+        ></Button>
+        <Button
+          color="primary"
+          size="sm"
+          variant="ghost"
+          startContent={<Redo />}
+        ></Button>
       </div>
       <div>
         <PublishButton />

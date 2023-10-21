@@ -1,0 +1,9 @@
+@keyframes canvas-element-controls {
+  0% {}
+  100% {}
+}
+
+.canvas--element-controls {
+  animation: canvas-element-controls;
+  
+}

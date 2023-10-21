@@ -1,9 +1,13 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2015",
+  },
   "ts-node": {
     "files": true,
     "compilerOptions": {
       "module": "CommonJS",
+      "target": "ES2015",
       "lib": ["dom", "esnext"],
       "rootDir": "./src",
       "jsx": "react-jsx",

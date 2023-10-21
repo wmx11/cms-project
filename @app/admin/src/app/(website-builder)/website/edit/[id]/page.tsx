@@ -1,7 +1,6 @@
 import { getComponentsByWebsiteId } from '@cms/data/component/getters';
 import { getWebsiteDraftSchemaByWebsiteId } from '@cms/data/website/getters';
 import WebsiteBuilder from '../../../../../components/Layout/WebsiteBuilder/WebsiteBuilder';
-import { Schema } from '@cms/template-engine/types';
 
 type Props = {
   params: {
@@ -14,8 +13,8 @@ const page = async ({ params }: Props) => {
   const websiteDraftSchema = await getWebsiteDraftSchemaByWebsiteId(params.id);
   return (
     <WebsiteBuilder
-      schema={(websiteDraftSchema?.draft_schema as Schema[]) || []}
-      templateAlias={websiteDraftSchema?.template?.slug || ''}
+      schema={websiteDraftSchema?.draft_schema || []}
+      templateId={websiteDraftSchema?.template?.slug || ''}
       templateComponents={templateComponents}
     />
   );
