@@ -4,7 +4,7 @@ import React from 'react';
 
 const PublishButton = () => {
   return (
-    <Button color="primary" endContent={<Publish />}>
+    <Button color="primary" endContent={<Publish />} size="sm">
       Publish
     </Button>
   );

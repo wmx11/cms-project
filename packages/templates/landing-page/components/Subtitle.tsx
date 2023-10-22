@@ -10,6 +10,7 @@ const Subtitle: FC<PropsWithChildren & HTMLAttributes<HTMLTitleElement>> = ({
   return (
     <h2
       id={id}
+      data-editable
       data-label="Subtitle"
       className={twMerge('text-xl mb-2', className)}
     >

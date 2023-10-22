@@ -1,5 +1,6 @@
 import {
   DATA_ACCEPTS_CHILDREN,
+  DATA_COMPONENT,
   DATA_DESCRIPTION,
   DATA_LABEL,
 } from './constants/dataAttributes';
@@ -176,6 +177,7 @@ const parseSchema = async (options: ParseSchemaProps) => {
           [DATA_LABEL]: item.component,
           [DATA_ACCEPTS_CHILDREN]: acceptsChildren,
           [DATA_DESCRIPTION]: item.description,
+          [DATA_COMPONENT]: true,
           className: `${componentNodeModified?.props?.className} group relative border border-dashed border-violet-200 hover:border-violet-300 cursor-pointer transition-colors`,
         },
       });

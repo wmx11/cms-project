@@ -79,11 +79,11 @@ const BuilderCanvas = ({ schema, templateId, templateComponents }: Props) => {
   return (
     <div
       ref={canvasWrapperRef}
-      className="bg-zinc-100 min-h-screen max-h-screen px-4 py-6 overflow-auto relative"
+      className="bg-zinc-100 min-h-screen max-h-screen px-4 py-12 overflow-auto relative"
     >
       <div
         ref={canvasRef}
-        className="bg-white canvas min-h-screen shadow-md relative before:content-[''] before:absolute before:inset-[-16px]"
+        className="bg-white canvas min-h-screen shadow-md relative"
         onContextMenu={handleCanvasContextMenu({
           canvasRef,
           canvasOverlayRef,

@@ -6,7 +6,12 @@ const Paragraph: FC<
   PropsWithChildren & HTMLAttributes<HTMLParagraphElement>
 > = ({ children, id, className }) => {
   return (
-    <p id={id} data-label="Paragraph" className={twMerge('mb-2', className)}>
+    <p
+      id={id}
+      data-editable
+      data-label="Paragraph"
+      className={twMerge('mb-2', className)}
+    >
       {children}
     </p>
   );

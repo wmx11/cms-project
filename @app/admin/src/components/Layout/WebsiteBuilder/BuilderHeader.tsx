@@ -24,7 +24,8 @@ const BuilderHeader = () => {
           startContent={<Redo />}
         ></Button>
       </div>
-      <div>
+      <div className='space-x-4'>
+        <PublishButton />
         <PublishButton />
       </div>
     </div>

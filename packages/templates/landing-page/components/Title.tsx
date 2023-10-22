@@ -11,6 +11,7 @@ const Title: FC<PropsWithChildren & HTMLAttributes<HTMLTimeElement>> = ({
   return (
     <h1
       id={id}
+      data-editable
       data-label="Title"
       style={JSON.parse((style as string) || '{}')}
       className={twMerge(
@@ -28,6 +29,7 @@ export default Title;
 export const schema: Schema = {
   component: 'Title',
   category: 'typography',
+  editable: true,
   description: 'Use this to give titles to something',
   props: [
     {

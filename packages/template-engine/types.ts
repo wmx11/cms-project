@@ -9,7 +9,14 @@ export type Props = {
 export type Schema = {
   component: string;
   props: Props[];
-  category?: 'layout' | 'button' | 'navigation' | 'typography' | 'form';
+  editable?: boolean;
+  category?:
+    | 'layout'
+    | 'button'
+    | 'navigation'
+    | 'typography'
+    | 'text'
+    | 'form';
   description?: string | undefined;
 };
 

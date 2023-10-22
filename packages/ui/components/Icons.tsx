@@ -1,4 +1,4 @@
-import { MdPublish } from 'react-icons/md';
+import { MdOutlineDragIndicator, MdPublish } from 'react-icons/md';
 import {
   FaTrash,
   FaRegEdit,
@@ -17,3 +17,4 @@ export const Publish = MdPublish;
 export const Undo = FaUndo;
 export const Redo = FaRedo;
 export const Info = FaInfoCircle;
+export const Draggable = MdOutlineDragIndicator;

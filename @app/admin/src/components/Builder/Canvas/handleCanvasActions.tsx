@@ -2,6 +2,10 @@ import { MouseEvent, RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
 import CanvasElementControlButtons from './CanvasElementControlButtons';
 import { Component } from '@prisma/client';
+import {
+  DATA_COMPONENT,
+  DATA_EDITABLE,
+} from '@cms/template-engine/constants/dataAttributes';
 
 type HandleCanvasClickProps = {
   canvasRef: RefObject<HTMLDivElement>;
@@ -10,6 +14,30 @@ type HandleCanvasClickProps = {
   setTriggerRef: (ref: RefObject<HTMLElement>) => void;
   setIsOpen: (isOpen: boolean) => void;
   handleSelect: (key: React.Key, path: string) => void;
+};
+
+const handleEditableInput = (e: Event) => {
+  const target = e.target as HTMLBaseElement;
+
+  console.log(target.innerText);
+};
+
+const handleEditableBlur = (e: Event) => {
+  const target = e.target as HTMLBaseElement;
+
+  target.removeAttribute('contentEditable');
+
+  console.log(target);
+
+  target.classList.add(
+    'before:content-[""]',
+    'before:absolute',
+    'before:inset-0',
+    'relative'
+  );
+
+  target.removeEventListener('blur', handleEditableBlur);
+  target.removeEventListener('input', handleEditableInput);
 };
 
 export const handleCanvasClick =
@@ -33,6 +61,27 @@ export const handleCanvasClick =
       return;
     }
 
+    if (!target.hasAttribute(DATA_COMPONENT)) {
+      return;
+    }
+
+    if (
+      target.hasAttribute(DATA_EDITABLE) &&
+      target.contentEditable !== 'true'
+    ) {
+      target.classList.remove(
+        'before:content-[""]',
+        'before:absolute',
+        'before:inset-0'
+      );
+
+      target.setAttribute('contentEditable', 'true');
+      target.addEventListener('input', handleEditableInput);
+      target.addEventListener('blur', handleEditableBlur);
+      target.focus();
+      target.style.outline = 'none';
+    }
+
     const { x: canvasX, y: canvasY } = canvas.getBoundingClientRect();
 
     const {
@@ -51,8 +100,19 @@ export const handleCanvasClick =
     // Used to draw controls (add, edit, delete) for the selected element
     const controls = document.createElement('div');
 
-    highlight.classList.add('border-2', 'border-violet-900');
-    controls.classList.add('border-2', 'border-violet-900');
+    highlight.classList.add(
+      'border-2',
+      'border-violet-900',
+      'bg-violet-400/10'
+    );
+
+    controls.classList.add(
+      'border',
+      'border-violet-900',
+      'shadow-lg',
+      'rounded-lg',
+      'overflow-hidden'
+    );
 
     // Apply styles
     Object.assign(highlight.style, {
@@ -64,10 +124,10 @@ export const handleCanvasClick =
     });
 
     Object.assign(controls.style, {
-      transform: 'translateY(46px)',
+      transform: 'translateY(-46px) translateX(-2px)',
       position: 'absolute',
-      bottom: '0',
-      zIndex: '10',
+      top: '0',
+      zIndex: '100',
     });
 
     // Add element control buttons
@@ -112,13 +172,21 @@ export const handleCanvasContextMenu =
       return;
     }
 
-    const { x: canvasX, y: canvasY } = canvas.getBoundingClientRect();
+    if (!target.hasAttribute(DATA_COMPONENT)) {
+      return;
+    }
 
-    canvasOverlay.innerHTML = '';
+    const { x: canvasX, y: canvasY } = canvas.getBoundingClientRect();
 
     setTriggerRef({ current: null });
 
-    const contextTarget = document.createElement('div');
+    const contextTargetElement = document.querySelector(
+      '.context-target'
+    ) as HTMLDivElement;
+
+    const contextTarget = contextTargetElement
+      ? contextTargetElement
+      : document.createElement('div');
 
     Object.assign(contextTarget.style, {
       position: 'absolute',
@@ -130,7 +198,10 @@ export const handleCanvasContextMenu =
 
     contextTarget.id = target.id;
 
-    canvasOverlay.appendChild(contextTarget);
+    if (!contextTargetElement) {
+      contextTarget.classList.add('context-target');
+      canvasOverlay.appendChild(contextTarget);
+    }
 
     setTriggerRef({ current: contextTarget });
     setIsOpen(true);

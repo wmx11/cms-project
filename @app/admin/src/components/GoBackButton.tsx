@@ -12,7 +12,8 @@ const GoBackButton = () => {
       startContent={<ArrowLeft />}
       onPress={() => router.back()}
       color="primary"
-      variant='flat'
+      variant="flat"
+      size="sm"
     >
       Go back
     </Button>

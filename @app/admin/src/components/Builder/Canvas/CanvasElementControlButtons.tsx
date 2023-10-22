@@ -3,7 +3,7 @@ import {
   DATA_DESCRIPTION,
   DATA_LABEL,
 } from '@cms/template-engine/constants/dataAttributes';
-import { Edit, Info, Trash } from '@cms/ui/components/Icons';
+import { Draggable, Edit, Info, Trash } from '@cms/ui/components/Icons';
 import { Button, Tooltip } from '@nextui-org/react';
 import { Component } from '@prisma/client';
 import { RefObject } from 'react';
@@ -100,55 +100,82 @@ const CanvasElementControlButtons = ({
   handleSelect,
 }: CanvasElementControlButtonsProps) => {
   return (
-    <div className="relative flex justify-center">
-      <span className="rotate-45 bg-violet-900 w-[10px] h-[10px] absolute top-[-7px]"></span>
-      <div className="p-2  text-xs bg-violet-900 text-white flex-1">
+    <>
+      <div className="relative flex items-center bg-white">
+        <div className="p-2 text-xs bg-violet-900 text-white flex-1">
+          <Tooltip
+            showArrow
+            color="foreground"
+            delay={500}
+            content={target.getAttribute(DATA_DESCRIPTION) || ''}
+          >
+            <div className="flex gap-2 items-center">
+              <Info />
+              <span>{target.getAttribute(DATA_LABEL)}</span>
+            </div>
+          </Tooltip>
+        </div>
+        {target.getAttribute(DATA_ACCEPTS_CHILDREN) === 'true' && (
+          <Tooltip
+            showArrow
+            color="foreground"
+            delay={500}
+            content={`Add components inside selection (${target.getAttribute(
+              DATA_LABEL
+            )})`}
+          >
+            <div className="border-r-1 border-zinc-200">
+              <ComponentsDropdown
+                templateComponents={templateComponents}
+                onSelect={handleSelect}
+                isBuilder
+                path={target.id}
+                label="Add"
+              />
+            </div>
+          </Tooltip>
+        )}
         <Tooltip
           showArrow
-          placement="bottom"
-          color="secondary"
-          content={target.getAttribute(DATA_DESCRIPTION) || ''}
+          color="foreground"
+          delay={500}
+          content={`Change component contents and properties`}
         >
-          <div className="flex gap-2 items-center">
-            <Info />
-            <span>{target.getAttribute(DATA_LABEL)}</span>
-          </div>
+          <Button
+            className="border-r-1 border-zinc-200"
+            size="sm"
+            variant="light"
+            color="warning"
+            radius="none"
+            data-controls="true"
+            startContent={<Edit />}
+            onClick={() => {
+              setTriggerRef({ current: target });
+              setIsOpen(true);
+            }}
+          >
+            Edit
+          </Button>
+        </Tooltip>
+        <Tooltip
+          showArrow
+          color="foreground"
+          delay={500}
+          content={`Remove this component (${target.getAttribute(DATA_LABEL)})`}
+        >
+          <Button
+            variant="light"
+            color="danger"
+            size="sm"
+            radius="none"
+            data-controls="true"
+            startContent={<Trash />}
+          >
+            Delete
+          </Button>
         </Tooltip>
       </div>
-      {target.getAttribute(DATA_ACCEPTS_CHILDREN) === 'true' && (
-        <ComponentsDropdown
-          templateComponents={templateComponents}
-          onSelect={handleSelect}
-          isBuilder
-          path={target.id}
-          label="Add"
-        />
-      )}
-      <Button
-        color="warning"
-        size="sm"
-        radius="none"
-        data-controls="true"
-        startContent={<Edit />}
-        onClick={() => {
-          setTriggerRef({ current: target });
-          setIsOpen(true);
-        }}
-      >
-        Edit
-      </Button>
-      <div className="flex items-center">
-        <Button
-          color="danger"
-          size="sm"
-          radius="none"
-          data-controls="true"
-          startContent={<Trash />}
-        >
-          Delete
-        </Button>
-      </div>
-    </div>
+    </>
   );
 };
 

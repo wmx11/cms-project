@@ -38,6 +38,7 @@ const ComponentsDropdown = ({
         <DropdownTrigger>
           <Button
             color={isBuilder ? 'secondary' : 'primary'}
+            variant={isBuilder ? 'light' : 'solid'}
             radius={isBuilder ? 'none' : 'md'}
             size={isBuilder ? 'sm' : 'md'}
             data-controls="true"
