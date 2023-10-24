@@ -1,4 +1,5 @@
 'use client';
+import { Plus } from '@cms/ui/components/Icons';
 import { Button } from '@nextui-org/button';
 import {
   Dropdown,
@@ -6,16 +7,15 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from '@nextui-org/dropdown';
-import React from 'react';
 import { Component } from '@prisma/client';
-import { Plus } from '@cms/ui/components/Icons';
+import React from 'react';
 
 type Props = {
-  templateComponents: Component[];
-  onSelect: (key: React.Key, path: string) => void;
-  isBuilder?: boolean;
   path?: string;
   label?: string;
+  isBuilder?: boolean;
+  templateComponents: Component[];
+  onSelect: (key: React.Key, path: string) => void;
 };
 
 const ComponentsDropdown = ({

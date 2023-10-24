@@ -5,6 +5,7 @@ import { Card, CardBody } from '@nextui-org/card';
 import Link from 'next/link';
 import routes from '../../utils/routes';
 import Header from '../../components/Header';
+import SlateEditor from '../../components/Editor/SlateEditor';
 
 const BlogPosts = () => {
   return (
@@ -23,6 +24,7 @@ const BlogPosts = () => {
       <div>
         <Card>
           <CardBody>You currently have no blog posts</CardBody>
+          <SlateEditor />
         </Card>
       </div>
     </div>
