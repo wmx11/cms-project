@@ -16,7 +16,7 @@ import {
   handleCanvasContextMenu,
   handleCanvasMouseOver,
   handleCanvasResize,
-} from '../../Builder/Canvas/canvasHandlers';
+} from '../../Builder/Canvas/canvasEventsHandlers';
 import { DATA_CANVAS_OVERLAY } from '@cms/template-engine/constants/dataAttributes';
 
 type Props = {

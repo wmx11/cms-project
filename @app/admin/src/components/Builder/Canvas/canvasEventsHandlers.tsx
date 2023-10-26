@@ -1,25 +1,28 @@
-import { RefObject, MouseEvent } from 'react';
+import {
+  ACTIVE,
+  DATA_CANVAS_OVERLAY,
+  DATA_CANVAS_OVERLAY_HIGHLIGHT,
+  DATA_CANVAS_OVERLAY_HIGHLIGHT_LABEL,
+  DATA_COMPONENT,
+  DATA_TARGET_ID,
+  HOVER,
+} from '@cms/template-engine/constants/dataAttributes';
+import { MouseEvent, RefObject } from 'react';
+import { createRoot } from 'react-dom/client';
 import {
   HandleSelect,
   SetIsOpen,
   SetTriggerRef,
   TemplateComponents,
 } from '../../../types';
-import {
-  ACTIVE,
-  DATA_CANVAS_OVERLAY,
-  DATA_CANVAS_OVERLAY_HIGHLIGHT,
-  DATA_COMPONENT,
-  DATA_TARGET_ID,
-  HOVER,
-} from '@cms/template-engine/constants/dataAttributes';
+import CanvasElementControlButtons from '../Controls/CanvasElementControlButtons';
 import {
   canvasContextMenuTarget,
   canvasControls,
   canvasHighlight,
+  canvasHighlightLabel,
 } from './canvasOverlayElements';
-import { createRoot } from 'react-dom/client';
-import CanvasElementControlButtons from '../Controls/CanvasElementControlButtons';
+import { handleEditableContentClick } from './canvasComponentsEventsHandlers';
 
 type CanvasHandlerProps = {
   canvasRef: RefObject<HTMLDivElement>;
@@ -71,6 +74,8 @@ export const handleCanvasClick =
     if (!target.hasAttribute(DATA_COMPONENT)) {
       return null;
     }
+
+    handleEditableContentClick(target);
 
     // Reset the whole canvas overlay state
     canvasOverlay.innerHTML = '';
@@ -145,8 +150,13 @@ export const handleCanvasMouseOver =
     } = target.getBoundingClientRect();
 
     const highlight = canvasHighlight(HOVER);
+    const highlightLabel = canvasHighlightLabel(target);
 
     if (!highlight.element) {
+      return null;
+    }
+
+    if (target.hasAttribute(DATA_CANVAS_OVERLAY_HIGHLIGHT_LABEL)) {
       return null;
     }
 
@@ -160,11 +170,17 @@ export const handleCanvasMouseOver =
     // Apply styles
     Object.assign(highlight.element.style, {
       position: 'absolute',
+      display: 'flex',
+      justifyContent: 'center',
       height: `${targetHeight}px`,
       width: `${targetWidth}px`,
       top: `${targetY - canvasY}px`,
       left: `${targetX - canvasX}px`,
     });
+
+    if (highlightLabel.element && !highlight.existing) {
+      highlight.element.appendChild(highlightLabel.element);
+    }
 
     if (!highlight.existing) {
       canvasOverlay.appendChild(highlight.element);

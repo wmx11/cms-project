@@ -10,7 +10,6 @@ const Subtitle: FC<PropsWithChildren & HTMLAttributes<HTMLTitleElement>> = ({
   return (
     <h2
       id={id}
-      data-editable
       data-label="Subtitle"
       className={twMerge('text-xl mb-2', className)}
     >
@@ -24,6 +23,7 @@ export default Subtitle;
 export const schema: Schema = {
   component: 'Subtitle',
   category: 'typography',
+  editable: true,
   description:
     'Use Container components to keep your content within a specific width',
   props: [

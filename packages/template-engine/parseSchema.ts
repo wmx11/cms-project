@@ -2,8 +2,13 @@ import {
   DATA_ACCEPTS_CHILDREN,
   DATA_COMPONENT,
   DATA_DESCRIPTION,
+  DATA_EDITABLE,
   DATA_LABEL,
 } from './constants/dataAttributes';
+import {
+  STLYES_ELEMENT_INSIDE_BUILDER,
+  STYLES_CONTENT_EDITABLE,
+} from './constants/styles';
 import importComponent from './importComponent';
 import { Props, Schema } from './types';
 
@@ -167,7 +172,6 @@ const parseSchema = async (options: ParseSchemaProps) => {
       const acceptsChildren = Array.isArray(
         componentNodeModified?.props?.children
       );
-
       const hasChildren = componentNodeModified?.props?.children?.length > 0;
 
       Object.assign(componentNodeModified, {
@@ -175,10 +179,13 @@ const parseSchema = async (options: ParseSchemaProps) => {
           ...componentNodeModified?.props,
           id: generatePath(path, index, item),
           [DATA_LABEL]: item.component,
-          [DATA_ACCEPTS_CHILDREN]: acceptsChildren,
-          [DATA_DESCRIPTION]: item.description,
+          [DATA_EDITABLE]: item.editable,
           [DATA_COMPONENT]: true,
-          className: `${componentNodeModified?.props?.className} group relative border border-dashed border-violet-200 hover:border-violet-300 cursor-pointer transition-colors`,
+          [DATA_DESCRIPTION]: item.description,
+          [DATA_ACCEPTS_CHILDREN]: acceptsChildren,
+          className: `${componentNodeModified?.props?.className} ${
+            item.editable ? `${STYLES_CONTENT_EDITABLE} outline-none` : ''
+          } ${STLYES_ELEMENT_INSIDE_BUILDER}`,
         },
       });
     }

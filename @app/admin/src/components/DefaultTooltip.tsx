@@ -5,7 +5,7 @@ type Props = { content: string } & PropsWithChildren;
 
 const DefaultTooltip: FC<Props> = ({ children, content }) => {
   return (
-    <Tooltip showArrow color="secondary" content={content}>
+    <Tooltip showArrow color="secondary" content={content} delay={1000}>
       {children}
     </Tooltip>
   );

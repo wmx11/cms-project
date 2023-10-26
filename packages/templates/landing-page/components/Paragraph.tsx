@@ -6,12 +6,7 @@ const Paragraph: FC<
   PropsWithChildren & HTMLAttributes<HTMLParagraphElement>
 > = ({ children, id, className }) => {
   return (
-    <p
-      id={id}
-      data-editable
-      data-label="Paragraph"
-      className={twMerge('mb-2', className)}
-    >
+    <p id={id} data-label="Paragraph" className={twMerge('mb-2', className)}>
       {children}
     </p>
   );
@@ -22,6 +17,7 @@ export default Paragraph;
 export const schema: Schema = {
   component: 'Paragraph',
   category: 'typography',
+  richText: true,
   description:
     'Use Container components to keep your content within a specific width',
   props: [
