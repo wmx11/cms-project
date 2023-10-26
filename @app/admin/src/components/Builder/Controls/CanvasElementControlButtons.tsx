@@ -1,10 +1,10 @@
 import { DATA_ACCEPTS_CHILDREN } from '@cms/template-engine/constants/dataAttributes';
 import { CanvasElementControlButtonsOverlayTypes } from '../../../types';
-import AddElementButton from '../Controls/AddElementButton';
-import DeleteElementButton from '../Controls/DeleteElementButton';
-import EditElementButton from '../Controls/EditElementButton';
-import ElementInfoButton from '../Controls/ElementInfoButton';
-import TurnIntoButton from '../Controls/TurnIntoButton';
+import AddElementButton from './AddElementButton';
+import DeleteElementButton from './DeleteElementButton';
+import EditElementButton from './EditElementButton';
+import ElementInfoButton from './ElementInfoButton';
+import TurnIntoButton from './TurnIntoButton';
 
 // Selected component buttons that appear whenever you select a component
 const CanvasElementControlButtons = ({

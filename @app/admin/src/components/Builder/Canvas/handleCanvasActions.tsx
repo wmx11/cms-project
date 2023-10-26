@@ -1,6 +1,6 @@
 import { MouseEvent, RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
-import CanvasElementControlButtons from './CanvasElementControlButtons';
+import CanvasElementControlButtons from '../Controls/CanvasElementControlButtons';
 import { Component } from '@prisma/client';
 import {
   DATA_COMPONENT,

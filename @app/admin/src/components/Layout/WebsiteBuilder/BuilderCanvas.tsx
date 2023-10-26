@@ -14,7 +14,10 @@ import EditPopover from '../../EditPopover';
 import {
   handleCanvasClick,
   handleCanvasContextMenu,
-} from '../../Builder/Canvas/handleCanvasActions';
+  handleCanvasMouseOver,
+  handleCanvasResize,
+} from '../../Builder/Canvas/canvasHandlers';
+import { DATA_CANVAS_OVERLAY } from '@cms/template-engine/constants/dataAttributes';
 
 type Props = {
   schema?: Schema[];
@@ -73,7 +76,19 @@ const BuilderCanvas = ({ schema, templateId, templateComponents }: Props) => {
       }).then((renderedTemplate) => {
         setRenderedTemplate(renderedTemplate);
       });
+
+      window.addEventListener(
+        'resize',
+        handleCanvasResize({ canvasOverlayRef, canvasRef })
+      );
     }
+
+    return () => {
+      window.removeEventListener(
+        'resize',
+        handleCanvasResize({ canvasOverlayRef, canvasRef })
+      );
+    };
   }, [isOpen]);
 
   return (
@@ -83,6 +98,7 @@ const BuilderCanvas = ({ schema, templateId, templateComponents }: Props) => {
     >
       <div
         ref={canvasRef}
+        data-canvas
         className="bg-white canvas min-h-screen shadow-md relative"
         onContextMenu={handleCanvasContextMenu({
           canvasRef,
@@ -90,6 +106,7 @@ const BuilderCanvas = ({ schema, templateId, templateComponents }: Props) => {
           setIsOpen,
           setTriggerRef,
         })}
+        onMouseOver={handleCanvasMouseOver({ canvasRef, canvasOverlayRef })}
         onClick={handleCanvasClick({
           canvasRef,
           canvasOverlayRef,
@@ -101,6 +118,7 @@ const BuilderCanvas = ({ schema, templateId, templateComponents }: Props) => {
       >
         <div
           ref={canvasOverlayRef}
+          data-canvas-overlay
           className="canvas-overlay absolute inset-0"
         ></div>
 
