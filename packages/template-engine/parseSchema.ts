@@ -168,7 +168,6 @@ const parseSchema = async (options: ParseSchemaProps) => {
     };
 
     if (isBuilder) {
-      // If parseSchema is called from a WebsiteBuilder, add borders to elements
       const acceptsChildren = Array.isArray(
         componentNodeModified?.props?.children
       );

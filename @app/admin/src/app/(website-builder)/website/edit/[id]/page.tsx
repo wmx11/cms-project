@@ -13,7 +13,9 @@ const page = async ({ params }: Props) => {
   const websiteDraftSchema = await getWebsiteDraftSchemaByWebsiteId(params.id);
   return (
     <WebsiteBuilder
-      schema={websiteDraftSchema?.draft_schema || []}
+      draftSchema={
+        websiteDraftSchema?.draft_schema || [{ component: 'Title', props: [] }]
+      }
       templateId={websiteDraftSchema?.template?.slug || ''}
       templateComponents={templateComponents}
     />

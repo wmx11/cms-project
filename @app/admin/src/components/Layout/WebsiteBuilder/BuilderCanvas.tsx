@@ -1,33 +1,40 @@
 'use client';
-import parseSchema, {
-  handleAddRemoveComponent,
-} from '@cms/template-engine/parseSchema';
+import { handleAddRemoveComponent } from '@cms/template-engine/parseSchema';
 import { Schema } from '@cms/template-engine/types';
 import { Component } from '@prisma/client';
 import React, { RefObject, useEffect, useRef, useState } from 'react';
-import {
-  getDataSchema,
-  setDataSchema,
-} from '../../../utils/builder-tools/getDataSchema';
-import ComponentsDropdown from '../../ComponentsDropdown';
-import EditPopover from '../../EditPopover';
+import useGlobalStore from '../../../store/useGlobalStore';
 import {
   handleCanvasClick,
   handleCanvasContextMenu,
   handleCanvasMouseOver,
   handleCanvasResize,
 } from '../../Builder/Canvas/canvasEventsHandlers';
-import { DATA_CANVAS_OVERLAY } from '@cms/template-engine/constants/dataAttributes';
+import ComponentsDropdown from '../../ComponentsDropdown';
+import EditPopover from '../../EditPopover';
 
 type Props = {
-  schema?: Schema[];
+  draftSchema: Schema[];
   templateId: string;
   templateComponents: Component[];
 };
 
-const BuilderCanvas = ({ schema, templateId, templateComponents }: Props) => {
-  const [renderedTemplate, setRenderedTemplate] = useState<Schema[]>([]);
+const BuilderCanvas = ({
+  draftSchema,
+  templateId,
+  templateComponents,
+}: Props) => {
+  const {
+    schema,
+    setSchema,
+    renderedTemplate,
+    renderTemplate,
+    templateId: templateIdGlobal,
+    setTemplateId,
+  } = useGlobalStore();
+
   const [isOpen, setIsOpen] = useState(false);
+
   const [triggerRef, setTriggerRef] = useState<RefObject<HTMLElement>>({
     current: null,
   });
@@ -50,32 +57,22 @@ const BuilderCanvas = ({ schema, templateId, templateComponents }: Props) => {
 
     const updatedSchema = handleAddRemoveComponent({
       component: componentSchema,
-      schema: getDataSchema(),
+      schema,
       path,
     });
 
-    setDataSchema(updatedSchema);
-
-    const renderedTemplate = await parseSchema({
-      schema: updatedSchema,
-      templateId: templateId,
-      componentsArray: [],
-      isBuilder: true,
-    });
-
-    setRenderedTemplate(renderedTemplate);
+    setSchema(updatedSchema);
+    renderTemplate();
   };
 
   useEffect(() => {
+    if (!templateIdGlobal) {
+      setSchema(draftSchema);
+      setTemplateId(templateId);
+    }
+
     if (typeof window !== undefined) {
-      parseSchema({
-        schema: getDataSchema(),
-        templateId: templateId,
-        componentsArray: [],
-        isBuilder: true,
-      }).then((renderedTemplate) => {
-        setRenderedTemplate(renderedTemplate);
-      });
+      renderTemplate();
 
       window.addEventListener(
         'resize',

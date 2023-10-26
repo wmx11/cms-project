@@ -5,24 +5,27 @@ import BuilderSidebar from './BuilderSidebar';
 import { Component } from '@prisma/client';
 
 type Props = {
-  schema: Schema[];
+  draftSchema: Schema[];
   templateId: string;
   templateComponents: Component[];
 };
 
-const WebsiteBuilder = ({ schema, templateId, templateComponents }: Props) => {
+const WebsiteBuilder = ({
+  draftSchema,
+  templateId,
+  templateComponents,
+}: Props) => {
   return (
     <div>
       <BuilderHeader />
       <div className="grid grid-cols-[1fr,320px]">
         <BuilderCanvas
-          schema={schema}
+          draftSchema={draftSchema}
           templateId={templateId}
           templateComponents={templateComponents}
         />
         <BuilderSidebar />
       </div>
-      <div data-schema={schema}></div>
     </div>
   );
 };

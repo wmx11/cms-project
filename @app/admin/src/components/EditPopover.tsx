@@ -7,10 +7,7 @@ import {
   PopoverTrigger,
 } from '@nextui-org/react';
 import { RefObject } from 'react';
-import {
-  getDataSchema,
-  setDataSchema,
-} from '../utils/builder-tools/getDataSchema';
+import useGlobalStore from '../store/useGlobalStore';
 
 type Props = {
   triggerRef: RefObject<HTMLElement>;
@@ -25,7 +22,7 @@ const EditPopover = ({
   setIsOpen,
   setTriggerRef,
 }: Props) => {
-  const schema = getDataSchema();
+  const { schema, setSchema } = useGlobalStore();
 
   const componentSchema = getComponentSchemaFromPath(
     schema,
@@ -42,7 +39,7 @@ const EditPopover = ({
       backdrop="blur"
       onClose={() => {
         console.log('Schema saved');
-        setDataSchema(schema);
+        setSchema(schema);
         setTriggerRef({ current: null });
       }}
     >
