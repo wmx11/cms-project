@@ -6,16 +6,14 @@ export type Props = {
   description?: string | undefined;
 };
 
+// // Indicates whether the element is editable and will be contenteditable=true in the builder
 type SchemaWithEditable = { editable: boolean; richText?: never };
+// // Indicates whether the element is richText and will be a Slate editor in the builder
 type SchemaWithRichText = { editable?: never; richText: boolean };
 
 export type Schema = {
   component: string;
   props: Props[];
-  // // Indicates whether the element is editable and will be contenteditable=true in the builder
-  // editable?: boolean;
-  // // Indicates whether the element is richText and will be a Slate editor in the builder
-  // richText?: boolean;
   category?:
     | 'layout'
     | 'button'

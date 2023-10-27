@@ -1,5 +1,5 @@
 'use client';
-import { handleAddRemoveComponent } from '@cms/template-engine/parseSchema';
+import addComponent from '@cms/template-engine/modules/addComponent';
 import { Schema } from '@cms/template-engine/types';
 import { Component } from '@prisma/client';
 import React, { RefObject, useEffect, useRef, useState } from 'react';
@@ -55,14 +55,12 @@ const BuilderCanvas = ({
       (selectedComponent?.schema as string) || '[]'
     );
 
-    const updatedSchema = handleAddRemoveComponent({
-      component: componentSchema,
-      schema,
-      path,
-    });
+    const updatedSchema = addComponent({ componentSchema, schema, path });
 
-    setSchema(updatedSchema);
-    renderTemplate();
+    if (updatedSchema) {
+      setSchema(updatedSchema);
+      renderTemplate();
+    }
   };
 
   useEffect(() => {

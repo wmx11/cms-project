@@ -6,7 +6,6 @@ import EditElementButton from './EditElementButton';
 import ElementInfoButton from './ElementInfoButton';
 import TurnIntoButton from './TurnIntoButton';
 
-// Selected component buttons that appear whenever you select a component
 const CanvasElementControlButtons = ({
   target,
   templateComponents,

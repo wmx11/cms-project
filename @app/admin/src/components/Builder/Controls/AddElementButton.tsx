@@ -3,7 +3,6 @@ import { HandleSelect, Target, TemplateComponents } from '../../../types';
 import DefaultTooltip from '../../DefaultTooltip';
 import ComponentsDropdown from '../../ComponentsDropdown';
 
-// Inserts new component into a selected component
 const AddElementButton = ({
   target,
   templateComponents,

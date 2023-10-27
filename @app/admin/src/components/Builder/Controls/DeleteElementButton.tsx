@@ -1,4 +1,5 @@
 import { DATA_LABEL } from '@cms/template-engine/constants/dataAttributes';
+import removeComponent from '@cms/template-engine/modules/removeComponent';
 import { Trash } from '@cms/ui/components/Icons';
 import { Button } from '@nextui-org/react';
 import useGlobalStore from '../../../store/useGlobalStore';
@@ -19,11 +20,12 @@ const DeleteElementButton = ({ target }: Target) => {
         size="sm"
         radius="none"
         startContent={<Trash />}
-        onClick={async () => {
-          setSchema([]);
-          renderTemplate();
-          console.log(schema);
-          console.log('Everything got deleted');
+        onClick={() => {
+          const newSchema = removeComponent({ path: target.id, schema });
+          if (newSchema) {
+            setSchema(newSchema);
+            renderTemplate();
+          }
         }}
       >
         Delete

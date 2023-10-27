@@ -1,8 +1,8 @@
+import serializeSchema from '@cms/template-engine/modules/serializeSchema';
 import { Schema } from '@cms/template-engine/types';
 import { StateCreator } from 'zustand';
-import { TemplateSlice } from './createTemplateSlice';
-import parseSchema from '@cms/template-engine/parseSchema';
 import { SchemaSlice } from './createSchemaSlice';
+import { TemplateSlice } from './createTemplateSlice';
 
 export type RenderedTemplateSlice = {
   renderedTemplate: Schema[];
@@ -17,14 +17,13 @@ const createRenderedTemplateSlice: StateCreator<RenderedTemplateSlice> = (
   renderTemplate: async () => {
     const schema = (get() as unknown as SchemaSlice).schema;
     const templateId = (get() as unknown as TemplateSlice).templateId;
-    const parsedSchema = await parseSchema({
+    const serializedSchema = await serializeSchema({
       schema,
       templateId,
-      isBuilder: true,
-      componentsArray: [],
+      serializeForBuilder: true,
     });
-    const updatedRenderedTemplate = [...parsedSchema];
-    set(() => ({ renderedTemplate: updatedRenderedTemplate }));
+    const newRenderedTemplate = [...serializedSchema];
+    set(() => ({ renderedTemplate: newRenderedTemplate }));
   },
 });
 
