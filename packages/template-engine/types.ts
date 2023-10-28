@@ -7,9 +7,9 @@ export type Props = {
 };
 
 // // Indicates whether the element is editable and will be contenteditable=true in the builder
-type SchemaWithEditable = { editable: boolean; richText?: never };
+type SchemaWithEditable = { editable?: boolean; richText?: never };
 // // Indicates whether the element is richText and will be a Slate editor in the builder
-type SchemaWithRichText = { editable?: never; richText: boolean };
+type SchemaWithRichText = { editable?: never; richText?: boolean };
 
 export type Schema = {
   component: string;
