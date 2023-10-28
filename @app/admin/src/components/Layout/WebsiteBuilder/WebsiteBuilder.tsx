@@ -1,32 +1,27 @@
 import { Schema } from '@cms/template-engine/types';
+import { Component } from '@prisma/client';
 import BuilderCanvas from './BuilderCanvas';
 import BuilderHeader from './BuilderHeader';
 import BuilderSidebar from './BuilderSidebar';
-import { Component } from '@prisma/client';
+import BuilderProvider from '../../Builder/BuilderProvider';
 
 type Props = {
-  draftSchema: Schema[];
+  schema: Schema[];
   templateId: string;
   templateComponents: Component[];
 };
 
-const WebsiteBuilder = ({
-  draftSchema,
-  templateId,
-  templateComponents,
-}: Props) => {
+const WebsiteBuilder = (props: Props) => {
   return (
-    <div>
-      <BuilderHeader />
-      <div className="grid grid-cols-[1fr,320px]">
-        <BuilderCanvas
-          draftSchema={draftSchema}
-          templateId={templateId}
-          templateComponents={templateComponents}
-        />
-        <BuilderSidebar />
+    <BuilderProvider {...props}>
+      <div>
+        <BuilderHeader />
+        <div className="grid grid-cols-[1fr,320px]">
+          <BuilderCanvas />
+          <BuilderSidebar />
+        </div>
       </div>
-    </div>
+    </BuilderProvider>
   );
 };
 

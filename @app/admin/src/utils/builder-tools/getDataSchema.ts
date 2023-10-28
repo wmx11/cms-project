@@ -1,4 +1,4 @@
-import { DATA_SCHEMA } from '@cms/template-engine/constants/dataAttributes';
+import { DATA_SCHEMA } from '@cms/template-engine/constants';
 import { Schema } from '@cms/template-engine/types';
 
 export const getDataSchemaElement = () => {

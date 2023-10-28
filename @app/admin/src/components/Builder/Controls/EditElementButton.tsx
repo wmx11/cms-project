@@ -1,8 +1,8 @@
-import { Button } from "@nextui-org/react";
-import { SetIsOpen, SetTriggerRef, Target } from "../../../types";
-import DefaultTooltip from "../../DefaultTooltip";
-import { DATA_LABEL } from "@cms/template-engine/constants/dataAttributes";
-import { Edit } from "@cms/ui/components/Icons";
+import { Button } from '@nextui-org/react';
+import { SetIsOpen, SetTriggerRef, Target } from '../../../types';
+import DefaultTooltip from '../../DefaultTooltip';
+import { DATA_LABEL } from '@cms/template-engine/constants';
+import { Edit } from '@cms/ui/components/Icons';
 
 // Opens the editing popover for the selected component
 const EditElementButton = ({

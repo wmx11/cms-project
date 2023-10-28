@@ -13,7 +13,13 @@ const page = async ({ params }: Props) => {
   const websiteDraftSchema = await getWebsiteDraftSchemaByWebsiteId(params.id);
   return (
     <WebsiteBuilder
-      draftSchema={websiteDraftSchema?.draft_schema}
+      schema={[
+        {
+          component: 'Section',
+          richText: false,
+          props: [{ type: 'string', name: 'children', value: 'test' }],
+        },
+      ]}
       templateId={websiteDraftSchema?.template?.slug || ''}
       templateComponents={templateComponents}
     />

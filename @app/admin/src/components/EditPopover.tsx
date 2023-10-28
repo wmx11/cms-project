@@ -1,4 +1,5 @@
 'use client';
+import traverseComponentsTree from '@cms/template-engine/modules/traverseComponentsTree';
 import {
   Input,
   Popover,
@@ -6,8 +7,7 @@ import {
   PopoverTrigger,
 } from '@nextui-org/react';
 import { RefObject } from 'react';
-import useGlobalStore from '../store/useGlobalStore';
-import traverseComponentsTree from '@cms/template-engine/modules/traverseComponentsTree';
+import useBuilderProviderState from '../hooks/useBuilderProviderState';
 
 type Props = {
   triggerRef: RefObject<HTMLElement>;
@@ -22,7 +22,7 @@ const EditPopover = ({
   setIsOpen,
   setTriggerRef,
 }: Props) => {
-  const { schema, setSchema } = useGlobalStore();
+  const { schema, setSchema } = useBuilderProviderState();
 
   const componentSchema = traverseComponentsTree({
     schema,

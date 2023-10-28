@@ -1,9 +1,7 @@
 'use client';
 import addComponent from '@cms/template-engine/modules/addComponent';
-import { Schema } from '@cms/template-engine/types';
-import { Component } from '@prisma/client';
 import React, { RefObject, useEffect, useRef, useState } from 'react';
-import useGlobalStore from '../../../store/useGlobalStore';
+import useBuilderProviderState from '../../../hooks/useBuilderProviderState';
 import {
   handleCanvasClick,
   handleCanvasContextMenu,
@@ -13,28 +11,13 @@ import {
 import ComponentsDropdown from '../../ComponentsDropdown';
 import EditPopover from '../../EditPopover';
 
-type Props = {
-  draftSchema: Schema[];
-  templateId: string;
-  templateComponents: Component[];
-};
+const BuilderCanvas = () => {
+  const state = useBuilderProviderState();
 
-const BuilderCanvas = ({
-  draftSchema,
-  templateId,
-  templateComponents,
-}: Props) => {
-  const {
-    schema,
-    setSchema,
-    renderedTemplate,
-    renderTemplate,
-    templateId: templateIdGlobal,
-    setTemplateId,
-  } = useGlobalStore();
+  const { schema, renderedTemplate, templateComponents, renderTemplate } =
+    state;
 
   const [isOpen, setIsOpen] = useState(false);
-
   const [triggerRef, setTriggerRef] = useState<RefObject<HTMLElement>>({
     current: null,
   });
@@ -58,17 +41,11 @@ const BuilderCanvas = ({
     const updatedSchema = addComponent({ componentSchema, schema, path });
 
     if (updatedSchema) {
-      setSchema(updatedSchema);
-      renderTemplate();
+      renderTemplate(updatedSchema);
     }
   };
 
   useEffect(() => {
-    if (!templateIdGlobal) {
-      setSchema(draftSchema);
-      setTemplateId(templateId);
-    }
-
     if (typeof window !== undefined) {
       renderTemplate();
 
@@ -106,6 +83,7 @@ const BuilderCanvas = ({
           canvasRef,
           canvasOverlayRef,
           templateComponents,
+          state,
           handleSelect,
           setIsOpen,
           setTriggerRef,

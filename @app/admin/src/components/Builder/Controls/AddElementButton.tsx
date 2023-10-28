@@ -1,4 +1,4 @@
-import { DATA_LABEL } from '@cms/template-engine/constants/dataAttributes';
+import { DATA_LABEL } from '@cms/template-engine/constants';
 import { HandleSelect, Target, TemplateComponents } from '../../../types';
 import DefaultTooltip from '../../DefaultTooltip';
 import ComponentsDropdown from '../../ComponentsDropdown';

@@ -5,11 +5,11 @@ import {
   DATA_DESCRIPTION,
   DATA_EDITABLE,
   DATA_LABEL,
-} from '../constants/dataAttributes';
+} from '../constants';
 import {
   STLYES_ELEMENT_INSIDE_BUILDER,
   STYLES_CONTENT_EDITABLE,
-} from '../constants/styles';
+} from '../constants';
 import importComponent from '../importComponent';
 import { Schema } from '../types';
 import generatePath from './generatePath';
@@ -38,17 +38,17 @@ const serializeComponentForBuilder = (
 
   const acceptsChildren = Array.isArray(componentNodeCopy?.props?.children);
 
-  const classNames: string = `${
+  const className: string = `${
     componentNodeCopy?.props?.className
   } ${STLYES_ELEMENT_INSIDE_BUILDER} ${
-    item.editable ? STYLES_CONTENT_EDITABLE : ''
+    item.editable ? `${STYLES_CONTENT_EDITABLE} outline-none` : ''
   }`;
 
   Object.assign(componentNodeCopy, {
     props: {
       ...componentNodeCopy.props,
       id: generatePath(path, index, item),
-      className: classNames,
+      className,
       [DATA_COMPONENT]: true,
       [DATA_LABEL]: item.component,
       [DATA_EDITABLE]: item.editable,

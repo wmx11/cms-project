@@ -6,7 +6,7 @@ import { TemplateSlice } from './createTemplateSlice';
 
 export type RenderedTemplateSlice = {
   renderedTemplate: Schema[];
-  renderTemplate: () => void;
+  renderTemplate: (schema?: Schema[]) => void;
 };
 
 const createRenderedTemplateSlice: StateCreator<RenderedTemplateSlice> = (
@@ -14,14 +14,20 @@ const createRenderedTemplateSlice: StateCreator<RenderedTemplateSlice> = (
   get
 ) => ({
   renderedTemplate: [],
-  renderTemplate: async () => {
-    const schema = (get() as unknown as SchemaSlice).schema;
+  renderTemplate: async (schema?: Schema[]) => {
+    const _schema = (get() as unknown as SchemaSlice).schema;
     const templateId = (get() as unknown as TemplateSlice).templateId;
+
+    if (schema) {
+      (get() as unknown as SchemaSlice).setSchema(schema);
+    }
+
     const serializedSchema = await serializeSchema({
-      schema,
+      schema: schema ? schema : _schema,
       templateId,
       serializeForBuilder: true,
     });
+
     const newRenderedTemplate = [...serializedSchema];
     set(() => ({ renderedTemplate: newRenderedTemplate }));
   },

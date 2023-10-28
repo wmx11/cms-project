@@ -5,7 +5,7 @@ import {
   DATA_CANVAS_OVERLAY_HIGHLIGHT,
   DATA_CANVAS_OVERLAY_HIGHLIGHT_LABEL,
   DATA_LABEL,
-} from '@cms/template-engine/constants/dataAttributes';
+} from '@cms/template-engine/constants';
 
 export const canvasHighlight = (state: string = ACTIVE) => {
   if (typeof document === undefined) {

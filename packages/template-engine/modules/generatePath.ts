@@ -1,4 +1,4 @@
-import { PATH_SEPARATOR } from '../constants/constants';
+import { PATH_SEPARATOR } from '../constants';
 import { Schema } from '../types';
 
 /**

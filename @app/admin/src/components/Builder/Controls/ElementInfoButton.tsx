@@ -1,12 +1,8 @@
-import {
-  DATA_DESCRIPTION,
-  DATA_LABEL,
-} from '@cms/template-engine/constants/dataAttributes';
+import { DATA_DESCRIPTION, DATA_LABEL } from '@cms/template-engine/constants';
+import { Info } from '@cms/ui/components/Icons';
 import { Target } from '../../../types';
 import DefaultTooltip from '../../DefaultTooltip';
-import { Info } from '@cms/ui/components/Icons';
 
-// Displays the label of the selected component
 const ElementInfoButton = ({ target }: Target) => {
   return (
     <DefaultTooltip content={target.getAttribute(DATA_DESCRIPTION) || ''}>

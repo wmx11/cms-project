@@ -6,9 +6,10 @@ import {
   DATA_COMPONENT,
   DATA_TARGET_ID,
   HOVER,
-} from '@cms/template-engine/constants/dataAttributes';
+} from '@cms/template-engine/constants';
 import { MouseEvent, RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
+import { BuilderStoreState } from '../../../store/useGlobalStore';
 import {
   HandleSelect,
   SetIsOpen,
@@ -16,13 +17,13 @@ import {
   TemplateComponents,
 } from '../../../types';
 import CanvasElementControlButtons from '../Controls/CanvasElementControlButtons';
+import { handleEditableContentClick } from './canvasComponentsEventsHandlers';
 import {
   canvasContextMenuTarget,
   canvasControls,
   canvasHighlight,
   canvasHighlightLabel,
 } from './canvasOverlayElements';
-import { handleEditableContentClick } from './canvasComponentsEventsHandlers';
 
 type CanvasHandlerProps = {
   canvasRef: RefObject<HTMLDivElement>;
@@ -35,13 +36,14 @@ export const handleCanvasClick =
       HandleSelect &
       SetIsOpen &
       SetTriggerRef &
-      TemplateComponents
+      TemplateComponents & { state: BuilderStoreState }
   ) =>
   (event: MouseEvent<HTMLDivElement>) => {
     const {
       canvasRef: { current: canvas },
       canvasOverlayRef: { current: canvasOverlay },
       templateComponents,
+      state,
       setTriggerRef,
       setIsOpen,
       handleSelect,
@@ -112,10 +114,11 @@ export const handleCanvasClick =
     createRoot(controls.element).render(
       CanvasElementControlButtons({
         target,
+        templateComponents,
+        state,
         handleSelect,
         setIsOpen,
         setTriggerRef,
-        templateComponents,
       })
     );
 

@@ -1,14 +1,17 @@
-import { DATA_LABEL } from '@cms/template-engine/constants/dataAttributes';
+import { DATA_LABEL } from '@cms/template-engine/constants';
 import removeComponent from '@cms/template-engine/modules/removeComponent';
 import { Trash } from '@cms/ui/components/Icons';
 import { Button } from '@nextui-org/react';
-import useGlobalStore from '../../../store/useGlobalStore';
+import { BuilderStoreState } from '../../../store/useGlobalStore';
 import { Target } from '../../../types';
 import DefaultTooltip from '../../DefaultTooltip';
 
 // Removes the selected component
-const DeleteElementButton = ({ target }: Target) => {
-  const { schema, setSchema, renderTemplate } = useGlobalStore();
+const DeleteElementButton = ({
+  target,
+  state,
+}: Target & { state: BuilderStoreState }) => {
+  const { schema, renderTemplate } = state;
 
   return (
     <DefaultTooltip
@@ -23,8 +26,7 @@ const DeleteElementButton = ({ target }: Target) => {
         onClick={() => {
           const newSchema = removeComponent({ path: target.id, schema });
           if (newSchema) {
-            setSchema(newSchema);
-            renderTemplate();
+            renderTemplate(newSchema);
           }
         }}
       >
