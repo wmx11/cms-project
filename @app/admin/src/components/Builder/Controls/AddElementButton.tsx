@@ -18,7 +18,7 @@ const AddElementButton = ({
         <ComponentsDropdown
           templateComponents={templateComponents}
           onSelect={handleSelect}
-          isBuilder
+          isBuilder={true}
           path={target.id}
           label="Add"
         />

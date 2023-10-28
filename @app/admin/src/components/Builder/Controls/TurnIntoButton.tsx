@@ -2,13 +2,13 @@ import { DATA_LABEL } from '@cms/template-engine/constants';
 import traverseComponentsTree from '@cms/template-engine/modules/traverseComponentsTree';
 import { Transform } from '@cms/ui/components/Icons';
 import { Button } from '@nextui-org/react';
-import useBuilderProviderState from '../../../hooks/useBuilderProviderState';
-import { Target } from '../../../types';
+import { BuilderState, Target } from '../../../types';
 import DefaultTooltip from '../../DefaultTooltip';
 
 // Turns component into a different component
-const TurnIntoButton = ({ target }: Target) => {
-  const { schema } = useBuilderProviderState();
+const TurnIntoButton = ({ target, state }: Target & BuilderState) => {
+  const { schema } = state;
+
   return (
     <DefaultTooltip
       content={`Convert the ${target.getAttribute(

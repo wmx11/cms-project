@@ -82,7 +82,6 @@ const BuilderCanvas = () => {
         onClick={handleCanvasClick({
           canvasRef,
           canvasOverlayRef,
-          templateComponents,
           state,
           handleSelect,
           setIsOpen,

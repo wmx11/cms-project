@@ -9,8 +9,8 @@ import {
 } from '@cms/template-engine/constants';
 import { MouseEvent, RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BuilderStoreState } from '../../../store/useGlobalStore';
 import {
+  BuilderState,
   HandleSelect,
   SetIsOpen,
   SetTriggerRef,
@@ -36,13 +36,12 @@ export const handleCanvasClick =
       HandleSelect &
       SetIsOpen &
       SetTriggerRef &
-      TemplateComponents & { state: BuilderStoreState }
+      BuilderState
   ) =>
   (event: MouseEvent<HTMLDivElement>) => {
     const {
       canvasRef: { current: canvas },
       canvasOverlayRef: { current: canvasOverlay },
-      templateComponents,
       state,
       setTriggerRef,
       setIsOpen,
@@ -114,7 +113,6 @@ export const handleCanvasClick =
     createRoot(controls.element).render(
       CanvasElementControlButtons({
         target,
-        templateComponents,
         state,
         handleSelect,
         setIsOpen,

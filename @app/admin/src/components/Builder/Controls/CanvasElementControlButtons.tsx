@@ -1,20 +1,21 @@
 import { DATA_ACCEPTS_CHILDREN } from '@cms/template-engine/constants';
-import { CanvasElementControlButtonsOverlayTypes } from '../../../types';
+import {
+  BuilderState,
+  CanvasElementControlButtonsOverlayTypes,
+} from '../../../types';
 import AddElementButton from './AddElementButton';
 import DeleteElementButton from './DeleteElementButton';
 import EditElementButton from './EditElementButton';
 import ElementInfoButton from './ElementInfoButton';
 import TurnIntoButton from './TurnIntoButton';
-import { BuilderStoreState } from '../../../store/useGlobalStore';
 
 const CanvasElementControlButtons = ({
   target,
-  templateComponents,
   state,
   setIsOpen,
   handleSelect,
   setTriggerRef,
-}: CanvasElementControlButtonsOverlayTypes & { state: BuilderStoreState }) => {
+}: CanvasElementControlButtonsOverlayTypes & BuilderState) => {
   return (
     <>
       <div className="relative flex items-center bg-white [&>div]:border-r-1 [&>div]:border-zinc-200">
@@ -26,11 +27,13 @@ const CanvasElementControlButtons = ({
             <AddElementButton
               handleSelect={handleSelect}
               target={target}
-              templateComponents={templateComponents}
+              templateComponents={state.templateComponents}
             />
           </div>
         )}
-        <div>{/* <TurnIntoButton target={target} /> */}</div>
+        <div>
+          <TurnIntoButton target={target} state={state} />
+        </div>
         <div>
           <EditElementButton
             target={target}
