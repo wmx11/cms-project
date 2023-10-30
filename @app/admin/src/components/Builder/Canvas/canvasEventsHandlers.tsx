@@ -13,16 +13,18 @@ import {
   BuilderState,
   HandleSelect,
   SetIsOpen,
-  SetTriggerRef
+  SetTriggerRef,
 } from '../../../types';
 import CanvasElementControlButtons from '../Controls/CanvasElementControlButtons';
 import { handleEditableContentClick } from './canvasComponentsEventsHandlers';
 import {
+  canvasAddElementButton,
   canvasContextMenuTarget,
   canvasControls,
   canvasHighlight,
   canvasHighlightLabel,
 } from './canvasOverlayElements';
+import AddElementButton from '../Controls/AddElementButton';
 
 type CanvasHandlerProps = {
   canvasRef: RefObject<HTMLDivElement>;
@@ -84,12 +86,13 @@ export const handleCanvasClick =
 
     const controls = canvasControls();
 
-    if (!highlight.element || !controls.element) {
+    const addElementButton = canvasAddElementButton();
+
+    if (!highlight.element || !controls.element || !addElementButton.element) {
       return;
     }
 
     highlight.element.setAttribute(DATA_CANVAS_OVERLAY_HIGHLIGHT, ACTIVE);
-
     highlight.element.setAttribute(DATA_TARGET_ID, target.id);
 
     // Apply styles
@@ -108,6 +111,13 @@ export const handleCanvasClick =
       zIndex: '100',
     });
 
+    Object.assign(addElementButton.element.style, {
+      transform: `translateY(16px) translateX(${targetWidth / 2 - 32}px)`,
+      position: 'absolute',
+      bottom: '0',
+      zIndex: '100',
+    });
+
     // Add element control buttons
     createRoot(controls.element).render(
       CanvasElementControlButtons({
@@ -119,8 +129,23 @@ export const handleCanvasClick =
       })
     );
 
+    createRoot(addElementButton.element).render(
+      AddElementButton({
+        handleSelect,
+        templateComponents: state.templateComponents,
+        target,
+        path: '',
+        label: '',
+      })
+    );
+
     canvasOverlay.appendChild(highlight.element);
+
     highlight.element.appendChild(controls.element);
+
+    if (!addElementButton.existing) {
+      highlight.element.appendChild(addElementButton.element);
+    }
   };
 
 export const handleCanvasMouseOver =

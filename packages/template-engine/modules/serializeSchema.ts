@@ -10,7 +10,7 @@ import {
   STLYES_ELEMENT_INSIDE_BUILDER,
   STYLES_CONTENT_EDITABLE,
 } from '../constants';
-import importComponent from '../importComponent';
+import importComponent from './importComponent';
 import { Schema } from '../types';
 import generatePath from './generatePath';
 

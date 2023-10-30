@@ -36,7 +36,7 @@ const ComponentsDropdown = ({
   };
   return (
     <>
-      <Dropdown showArrow>
+      <Dropdown>
         <DropdownTrigger>
           <Button
             color={isCompact ? 'secondary' : 'primary'}

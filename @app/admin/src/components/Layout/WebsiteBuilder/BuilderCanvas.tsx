@@ -63,30 +63,39 @@ const BuilderCanvas = () => {
     };
   }, [isOpen]);
 
+  // Context menu handler
+  const onContextMenu = handleCanvasContextMenu({
+    canvasRef,
+    canvasOverlayRef,
+    setIsOpen,
+    setTriggerRef,
+  });
+
+  // Mouse over handler for hover effects
+  const onMouseOver = handleCanvasMouseOver({ canvasRef, canvasOverlayRef });
+
+  // Click handlers for the canvas highlights and controls
+  const onClick = handleCanvasClick({
+    canvasRef,
+    canvasOverlayRef,
+    state,
+    handleSelect,
+    setIsOpen,
+    setTriggerRef,
+  });
+
   return (
     <div
       ref={canvasWrapperRef}
-      className="bg-zinc-100 min-h-screen max-h-screen px-4 py-12 overflow-auto relative"
+      className="bg-zinc-100 min-h-screen max-h-screen px-2 py-12 overflow-auto relative"
     >
       <div
         ref={canvasRef}
         data-canvas
         className="bg-white canvas min-h-screen shadow-md relative"
-        onContextMenu={handleCanvasContextMenu({
-          canvasRef,
-          canvasOverlayRef,
-          setIsOpen,
-          setTriggerRef,
-        })}
-        onMouseOver={handleCanvasMouseOver({ canvasRef, canvasOverlayRef })}
-        onClick={handleCanvasClick({
-          canvasRef,
-          canvasOverlayRef,
-          state,
-          handleSelect,
-          setIsOpen,
-          setTriggerRef,
-        })}
+        onContextMenu={onContextMenu}
+        onMouseOver={onMouseOver}
+        onClick={onClick}
       >
         <div
           ref={canvasOverlayRef}
@@ -95,17 +104,20 @@ const BuilderCanvas = () => {
         ></div>
 
         <>{renderedTemplate}</>
+
+        {renderedTemplate.length < 1 && (
+          <ComponentsDropdown
+            templateComponents={templateComponents}
+            onSelect={handleSelect}
+            isCompact
+          />
+        )}
+
         <EditPopover
           isOpen={isOpen}
           setIsOpen={setIsOpen}
           triggerRef={triggerRef}
           setTriggerRef={setTriggerRef}
-        />
-      </div>
-      <div className="p-4 border border-dashed border-blue-300 text-center hover:border-blue-500 transition-colors bg-white">
-        <ComponentsDropdown
-          templateComponents={templateComponents}
-          onSelect={handleSelect}
         />
       </div>
     </div>

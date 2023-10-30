@@ -16,6 +16,8 @@ export const DATA_CANVAS_OVERLAY_HIGHLIGHT = 'data-canvas-overlay-highlight';
 export const DATA_CANVAS_OVERLAY_HIGHLIGHT_LABEL =
   'data-canvas-overlay-highlight-label';
 export const DATA_CANVAS_OVERLAY_CONTROLS = 'data-canvas-overlay-controls';
+export const DATA_CANVAS_OVERLAY_ADD_ELEMENT_BUTTON =
+  'data-canvas-overlay-add-element-button';
 export const DATA_CANVAS_OVERLAY_CONTEXT_MENU_TARGET =
   'data-canvas-overlay-context-menu-target';
 

@@ -1,4 +1,4 @@
-import { TemplateID } from './types';
+import { TemplateID } from '../types';
 
 const importComponent = async (id: TemplateID, component: string) => {
   if (!component || !id) {
@@ -7,7 +7,7 @@ const importComponent = async (id: TemplateID, component: string) => {
 
   try {
     const importedComponent = await import(
-      `../templates/${id}/components/${component}`
+      `../../templates/${id}/components/${component}`
     );
 
     return importedComponent;

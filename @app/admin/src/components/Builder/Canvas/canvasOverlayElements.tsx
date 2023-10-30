@@ -1,5 +1,6 @@
 import {
   ACTIVE,
+  DATA_CANVAS_OVERLAY_ADD_ELEMENT_BUTTON,
   DATA_CANVAS_OVERLAY_CONTEXT_MENU_TARGET,
   DATA_CANVAS_OVERLAY_CONTROLS,
   DATA_CANVAS_OVERLAY_HIGHLIGHT,
@@ -95,6 +96,36 @@ export const canvasControls = () => {
   );
 
   return { element: controls as HTMLDivElement, existing: false };
+};
+
+export const canvasAddElementButton = () => {
+  if (typeof document === undefined) {
+    return { element: null, existing: false };
+  }
+
+  const existingAddElementButton = document.querySelector(
+    `[${DATA_CANVAS_OVERLAY_ADD_ELEMENT_BUTTON}]`
+  );
+
+  if (existingAddElementButton) {
+    return {
+      element: existingAddElementButton as HTMLDivElement,
+      existing: true,
+    };
+  }
+
+  const addElementButton = document.createElement('div');
+
+  addElementButton.innerHTML = '+';
+
+  addElementButton.classList.add(
+    'rounded-full',
+    'bg-violet-500',
+    'text-xs',
+    'overflow-hidden'
+  );
+
+  return { element: addElementButton as HTMLDivElement, existing: false };
 };
 
 export const canvasContextMenuTarget = () => {
