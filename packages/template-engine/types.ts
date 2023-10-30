@@ -1,5 +1,5 @@
 export type Props = {
-  name: string;
+  name: string | 'children' | 'className';
   type: 'string' | 'number' | 'component';
   value: string | Schema[];
   displayName?: string | undefined;

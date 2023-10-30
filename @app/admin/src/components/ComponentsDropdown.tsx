@@ -14,6 +14,7 @@ type Props = {
   path?: string;
   label?: string;
   isBuilder?: boolean;
+  startContent?: JSX.Element;
   templateComponents: Component[];
   onSelect: (key: React.Key, path: string) => void;
 };
@@ -22,6 +23,7 @@ const ComponentsDropdown = ({
   templateComponents,
   onSelect,
   isBuilder,
+  startContent,
   path,
   label = 'Add component',
 }: Props) => {
@@ -42,7 +44,7 @@ const ComponentsDropdown = ({
             radius={isBuilder ? 'none' : 'md'}
             size={isBuilder ? 'sm' : 'md'}
             data-controls="true"
-            startContent={<Plus />}
+            startContent={startContent ? startContent : <Plus />}
           >
             {label}
           </Button>
