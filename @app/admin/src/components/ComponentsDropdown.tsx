@@ -13,7 +13,7 @@ import React from 'react';
 type Props = {
   path?: string;
   label?: string;
-  isBuilder?: boolean;
+  isCompact?: boolean;
   startContent?: JSX.Element;
   templateComponents: Component[];
   onSelect: (key: React.Key, path: string) => void;
@@ -22,7 +22,7 @@ type Props = {
 const ComponentsDropdown = ({
   templateComponents,
   onSelect,
-  isBuilder,
+  isCompact,
   startContent,
   path,
   label = 'Add component',
@@ -39,10 +39,10 @@ const ComponentsDropdown = ({
       <Dropdown showArrow>
         <DropdownTrigger>
           <Button
-            color={isBuilder ? 'secondary' : 'primary'}
-            variant={isBuilder ? 'light' : 'solid'}
-            radius={isBuilder ? 'none' : 'md'}
-            size={isBuilder ? 'sm' : 'md'}
+            color={isCompact ? 'secondary' : 'primary'}
+            variant={isCompact ? 'light' : 'solid'}
+            radius={isCompact ? 'none' : 'md'}
+            size={isCompact ? 'sm' : 'md'}
             data-controls="true"
             startContent={startContent ? startContent : <Plus />}
           >

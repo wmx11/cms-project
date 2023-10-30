@@ -1,15 +1,17 @@
 import { DATA_EDITABLE } from '@cms/template-engine/constants';
 import { STYLES_CONTENT_EDITABLE } from '@cms/template-engine/constants';
 
-export const handleEditableContentInput = (target: HTMLBaseElement) => {
+export const handleEditableContentInput = (event: Event) => {
+  const target = event.target as HTMLBaseElement;
   console.log(target.innerText);
 };
 
-export const handleEditableContentBlur = (target: HTMLBaseElement) => {
+export const handleEditableContentBlur = (event: Event) => {
+  const target = event.target as HTMLBaseElement;
   target.classList.add(...STYLES_CONTENT_EDITABLE.split(' '));
   target.removeAttribute('contenteditable');
-  target.removeEventListener('input', () => handleEditableContentInput(target));
-  target.removeEventListener('blur', () => handleEditableContentBlur(target));
+  target.removeEventListener('input', handleEditableContentInput, true);
+  target.removeEventListener('blur', handleEditableContentBlur, true);
 };
 
 export const handleEditableContentClick = (target: HTMLBaseElement) => {
@@ -26,8 +28,8 @@ export const handleEditableContentClick = (target: HTMLBaseElement) => {
   }
 
   target.classList.remove(...STYLES_CONTENT_EDITABLE.split(' '));
-  target.addEventListener('input', () => handleEditableContentInput(target));
-  target.addEventListener('blur', () => handleEditableContentBlur(target));
+  target.addEventListener('input', handleEditableContentInput, true);
+  target.addEventListener('blur', handleEditableContentBlur, true);
   target.setAttribute('contenteditable', 'true');
   target.focus();
 };

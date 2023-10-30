@@ -13,8 +13,7 @@ import {
   BuilderState,
   HandleSelect,
   SetIsOpen,
-  SetTriggerRef,
-  TemplateComponents,
+  SetTriggerRef
 } from '../../../types';
 import CanvasElementControlButtons from '../Controls/CanvasElementControlButtons';
 import { handleEditableContentClick } from './canvasComponentsEventsHandlers';
