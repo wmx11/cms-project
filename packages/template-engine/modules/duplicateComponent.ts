@@ -42,9 +42,7 @@ const duplicateComponent = (props: DuplicateComponentProps) => {
   // Creates a copy of the selected component.
   // We do this to drop any referencese to the old component
   // Therefore avoiding manipulating the new component and the old reference
-  const selectedComponentCopy: Schema = JSON.parse(
-    JSON.stringify(selectedComponent)
-  );
+  const selectedComponentCopy: Schema = structuredClone(selectedComponent);
 
   if (isTopLevel) {
     const componentIndex = copySchema.indexOf(selectedComponent);
@@ -65,11 +63,15 @@ const duplicateComponent = (props: DuplicateComponentProps) => {
     path: pathArray.slice(-2).join(PATH_SEPARATOR),
   });
 
+  if (!selectedChildComponent) {
+    return null;
+  }
+
   // Creates a copy of the selected component.
   // We do this to drop any referencese to the old component
   // Therefore avoiding manipulating the new component and the old reference
-  const selectedChildComponentCopy: Schema = JSON.parse(
-    JSON.stringify(selectedChildComponent)
+  const selectedChildComponentCopy: Schema = structuredClone(
+    selectedChildComponent
   );
 
   childrenArray.splice(componentIndex, 0, selectedChildComponentCopy);
