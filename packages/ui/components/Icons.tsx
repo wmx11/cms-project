@@ -1,5 +1,6 @@
 import { MdOutlineDragIndicator, MdPublish } from 'react-icons/md';
 import { TbTransform } from 'react-icons/tb';
+import { GoDuplicate } from 'react-icons/go';
 import {
   FaTrash,
   FaRegEdit,
@@ -26,3 +27,4 @@ export const Transform = TbTransform;
 export const Bold = FaBold;
 export const Italic = FaItalic;
 export const Underline = FaUnderline;
+export const Duplicate = GoDuplicate;

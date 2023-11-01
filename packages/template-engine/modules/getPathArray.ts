@@ -9,4 +9,17 @@ const getPathArray = (path: string) => path.split(PATH_SEPARATOR);
  */
 export const checkTopLevel = (pathArray: string[]) => pathArray.length === 2;
 
+export const getIndexFromPathArray = (
+  pathArray: string[],
+  position: number
+) => {
+  const index = parseInt(pathArray.at(position) as string, 10);
+
+  if (isNaN(index)) {
+    return null;
+  }
+
+  return index;
+};
+
 export default getPathArray;

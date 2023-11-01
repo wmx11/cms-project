@@ -5,6 +5,7 @@ import {
 } from '../../../types';
 import AddElementButton from './AddElementButton';
 import DeleteElementButton from './DeleteElementButton';
+import DuplicateElementButton from './DuplicateElementButton';
 import EditElementButton from './EditElementButton';
 import ElementInfoButton from './ElementInfoButton';
 import TurnIntoButton from './TurnIntoButton';
@@ -33,6 +34,9 @@ const CanvasElementControlButtons = ({
         )}
         <div>
           <TurnIntoButton target={target} state={state} />
+        </div>
+        <div>
+          <DuplicateElementButton target={target} state={state} />
         </div>
         <div>
           <EditElementButton

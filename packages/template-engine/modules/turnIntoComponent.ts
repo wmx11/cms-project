@@ -1,6 +1,10 @@
 import { Component } from '@prisma/client';
 import { Schema } from '../types';
-import getPathArray, { checkTopLevel } from './getPathArray';
+import { getComponentChildrenArray } from './getComponentChildrenArray';
+import getPathArray, {
+  checkTopLevel,
+  getIndexFromPathArray,
+} from './getPathArray';
 import traverseComponentsTree from './traverseComponentsTree';
 
 type TurnIntoComponentProps = {
@@ -75,13 +79,11 @@ const turnIntoComponent = (props: TurnIntoComponentProps) => {
     return copySchema;
   }
 
-  const childrenArray = selectedComponent.props.find(
-    (item) => item.type === 'component' && item.name === 'children'
-  )?.value as Schema[];
+  const childrenArray = getComponentChildrenArray(selectedComponent);
 
-  const indexToReplace = parseInt(pathArray.at(-2) as string, 10);
+  const indexToReplace = getIndexFromPathArray(pathArray, -2);
 
-  if (isNaN(indexToReplace)) {
+  if (indexToReplace === null) {
     return null;
   }
 
