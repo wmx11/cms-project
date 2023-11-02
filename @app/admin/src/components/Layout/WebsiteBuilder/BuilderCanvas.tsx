@@ -10,6 +10,7 @@ import {
 } from '../../Builder/Canvas/canvasEventsHandlers';
 import ComponentsDropdown from '../../ComponentsDropdown';
 import EditPopover from '../../EditPopover';
+import { initHandleDragAndDrop } from '../../Builder/Canvas/canvasDragAndDropHandlers';
 
 const BuilderCanvas = () => {
   const state = useBuilderProviderState();
@@ -53,6 +54,8 @@ const BuilderCanvas = () => {
         'resize',
         handleCanvasResize({ canvasOverlayRef, canvasRef })
       );
+
+      initHandleDragAndDrop();
     }
 
     return () => {

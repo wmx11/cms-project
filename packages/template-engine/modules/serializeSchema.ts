@@ -49,6 +49,7 @@ const serializeComponentForBuilder = (
       ...componentNodeCopy.props,
       id: generatePath(path, index, item),
       className,
+      draggable: true,
       [DATA_COMPONENT]: true,
       [DATA_LABEL]: item.component,
       [DATA_EDITABLE]: item.editable,

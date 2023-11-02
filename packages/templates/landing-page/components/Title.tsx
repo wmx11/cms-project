@@ -11,6 +11,7 @@ const Title: FC<PropsWithChildren & HTMLAttributes<HTMLTimeElement>> = ({
   return (
     <h1
       id={id}
+      draggable
       data-label="Title"
       style={JSON.parse((style as string) || '{}')}
       className={twMerge(
