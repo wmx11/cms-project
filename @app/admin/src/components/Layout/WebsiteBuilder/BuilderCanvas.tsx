@@ -41,21 +41,19 @@ const BuilderCanvas = () => {
 
     const updatedSchema = addComponent({ componentSchema, schema, path });
 
-    if (updatedSchema) {
-      renderTemplate(updatedSchema);
+    if (!updatedSchema) {
+      return null;
     }
+
+    renderTemplate(updatedSchema);
   };
 
   useEffect(() => {
     if (typeof window !== undefined) {
-      renderTemplate();
-
       window.addEventListener(
         'resize',
         handleCanvasResize({ canvasOverlayRef, canvasRef })
       );
-
-      initHandleDragAndDrop();
     }
 
     return () => {
@@ -65,6 +63,16 @@ const BuilderCanvas = () => {
       );
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    if (typeof window !== undefined && schema.length > 0) {
+      console.log('schema updated');
+
+      setTimeout(() => {
+        initHandleDragAndDrop({ canvasRef, canvasOverlayRef, state });
+      }, 500);
+    }
+  }, [schema]);
 
   // Context menu handler
   const onContextMenu = handleCanvasContextMenu({

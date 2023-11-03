@@ -26,7 +26,7 @@ import {
 } from './canvasOverlayElements';
 import AddElementButton from '../Controls/AddElementButton';
 
-type CanvasHandlerProps = {
+export type CanvasHandlerProps = {
   canvasRef: RefObject<HTMLDivElement>;
   canvasOverlayRef: RefObject<HTMLDivElement>;
 };

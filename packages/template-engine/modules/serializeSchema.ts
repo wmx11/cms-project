@@ -3,6 +3,7 @@ import {
   DATA_ACCEPTS_CHILDREN,
   DATA_COMPONENT,
   DATA_DESCRIPTION,
+  DATA_DND_INITIALIZED,
   DATA_EDITABLE,
   DATA_LABEL,
 } from '../constants';
@@ -50,10 +51,11 @@ const serializeComponentForBuilder = (
       id: generatePath(path, index, item),
       className,
       draggable: true,
-      [DATA_COMPONENT]: true,
       [DATA_LABEL]: item.component,
       [DATA_EDITABLE]: item.editable,
+      [DATA_COMPONENT]: true,
       [DATA_DESCRIPTION]: item.description,
+      [DATA_DND_INITIALIZED]: false,
       [DATA_ACCEPTS_CHILDREN]: acceptsChildren,
     },
   });
