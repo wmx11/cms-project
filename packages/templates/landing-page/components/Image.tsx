@@ -15,9 +15,9 @@ const Image = ({ src, width, height, className, id }: Props) => {
       id={id}
       data-label="Image"
       className={twMerge('mb-2', className)}
-      src={src}
-      width={width}
-      height={height}
+      src={'https://cdn.pixabay.com/photo/2018/08/29/19/01/fig-3640553_640.jpg'}
+      width={500}
+      height={500}
     />
   );
 };

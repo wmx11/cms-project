@@ -32,31 +32,30 @@ const getElementInsertPosition = (item: Element, cursorY: number) => {
     return isCursorBeyondHalfElement ? 'afterend' : 'beforebegin';
   }
 
-  return 'afterend';
+  return 'beforeend';
 };
 
-export const handleDragStart = (e: Event) => {
-  const event = e as DragEvent;
+export const handleDragStart = (e: DragEvent) => {
   const target = e.target as HTMLBaseElement;
   draggableElement = target;
-  event.dataTransfer?.clearData();
-  event.dataTransfer?.setData('text/plain', target.id as string);
+  e.dataTransfer?.clearData();
+  e.dataTransfer?.setData('text/plain', target.id as string);
 };
 
-export const handleDragEnd = (e: Event) => {
+export const handleDragEnd = (e: DragEvent) => {
   draggableElement = null;
 };
 
-export const handleDrag = (e: Event) => {
+export const handleDrag = (e: DragEvent) => {
   e.preventDefault();
 };
 
-export const handleDragOver = (e: Event) => {
+export const handleDragOver = (e: DragEvent) => {
   e.preventDefault();
-  const event = e as DragEvent;
+
   const target = e.target as HTMLBaseElement;
 
-  const position = getElementInsertPosition(target, event.clientY);
+  const position = getElementInsertPosition(target, e.clientY);
 
   const highlight = canvasDragAndDropHighlight({
     canvasOverlay: canvasOverlay as HTMLDivElement,
@@ -99,7 +98,7 @@ export const handleDragOver = (e: Event) => {
   });
 };
 
-export const handleDragEnter = (e: Event) => {
+export const handleDragEnter = (e: DragEvent) => {
   const target = e.target as HTMLBaseElement;
 
   if (target.getAttribute(DATA_ACCEPTS_CHILDREN) === 'false') {
@@ -115,18 +114,18 @@ export const handleDragEnter = (e: Event) => {
   });
 };
 
-export const handleDragLeave = (e: Event) => {
+export const handleDragLeave = (e: DragEvent) => {
   const target = e.target as HTMLBaseElement;
   Object.assign(target.style, {
     background: '',
   });
 };
 
-export const handleDrop = (e: Event) => {
+export const handleDrop = (e: DragEvent) => {
   e.preventDefault();
-  const event = e as DragEvent;
+  e.stopImmediatePropagation();
 
-  const data = event.dataTransfer?.getData('text');
+  const data = e.dataTransfer?.getData('text');
 
   const element = document.getElementById(data as string);
 
@@ -134,7 +133,7 @@ export const handleDrop = (e: Event) => {
 
   const elementInsertPosition = getElementInsertPosition(
     target as HTMLElement,
-    event.clientY
+    e.clientY
   );
 
   const highlight = canvasDragAndDropHighlight({
@@ -156,7 +155,7 @@ export const handleDrop = (e: Event) => {
 
   const newSchema = dragAndDropComponent({
     schema: builderState?.schema,
-    selectedComponentPath: draggableElement?.id as string,
+    selectedComponentPath: element?.id as string,
     targetComponentPath: target?.id as string,
     insertPosition: elementInsertPosition,
   });

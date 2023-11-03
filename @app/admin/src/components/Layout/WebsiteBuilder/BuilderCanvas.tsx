@@ -65,14 +65,12 @@ const BuilderCanvas = () => {
   }, [isOpen]);
 
   useEffect(() => {
-    if (typeof window !== undefined && schema.length > 0) {
+    if (typeof window !== undefined) {
       console.log('schema updated');
 
-      setTimeout(() => {
-        initHandleDragAndDrop({ canvasRef, canvasOverlayRef, state });
-      }, 500);
+      initHandleDragAndDrop({ canvasRef, canvasOverlayRef, state });
     }
-  }, [schema]);
+  }, [renderedTemplate]);
 
   // Context menu handler
   const onContextMenu = handleCanvasContextMenu({
