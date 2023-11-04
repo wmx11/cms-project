@@ -53,6 +53,8 @@ const BuilderCanvas = () => {
       );
     }
 
+    renderTemplate();
+
     return () => {
       window.removeEventListener(
         'resize',
