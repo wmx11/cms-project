@@ -11,10 +11,9 @@ import { MouseEvent, RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   BuilderState,
-  HandleSelect,
-  SetIsOpen,
-  SetTriggerRef,
+  HandleSelect
 } from '../../../types';
+import AddElementButton from '../Controls/AddElementButton';
 import CanvasElementControlButtons from '../Controls/CanvasElementControlButtons';
 import { handleEditableContentClick } from './canvasComponentsEventsHandlers';
 import {
@@ -24,7 +23,6 @@ import {
   canvasHighlight,
   canvasHighlightLabel,
 } from './canvasOverlayElements';
-import AddElementButton from '../Controls/AddElementButton';
 
 export type CanvasHandlerProps = {
   canvasRef: RefObject<HTMLDivElement>;
@@ -32,20 +30,12 @@ export type CanvasHandlerProps = {
 };
 
 export const handleCanvasClick =
-  (
-    props: CanvasHandlerProps &
-      HandleSelect &
-      SetIsOpen &
-      SetTriggerRef &
-      BuilderState
-  ) =>
+  (props: CanvasHandlerProps & HandleSelect & BuilderState) =>
   (event: MouseEvent<HTMLDivElement>) => {
     const {
       canvasRef: { current: canvas },
       canvasOverlayRef: { current: canvasOverlay },
       state,
-      setTriggerRef,
-      setIsOpen,
       handleSelect,
     } = props;
 
@@ -124,8 +114,6 @@ export const handleCanvasClick =
         target,
         state,
         handleSelect,
-        setIsOpen,
-        setTriggerRef,
       })
     );
 
@@ -213,15 +201,14 @@ export const handleCanvasMouseOver =
   };
 
 export const handleCanvasContextMenu =
-  (props: CanvasHandlerProps & SetIsOpen & SetTriggerRef) =>
+  (props: CanvasHandlerProps & BuilderState) =>
   (event: MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
 
     const {
       canvasRef: { current: canvas },
       canvasOverlayRef: { current: canvasOverlay },
-      setIsOpen,
-      setTriggerRef,
+      state,
     } = props;
 
     if (!canvas || !canvasOverlay) {
@@ -240,7 +227,7 @@ export const handleCanvasContextMenu =
 
     const { x: canvasX, y: canvasY } = canvas.getBoundingClientRect();
 
-    setTriggerRef({ current: null });
+    state.setTriggerRef({ current: null });
 
     const contextMenuTarget = canvasContextMenuTarget();
 
@@ -262,8 +249,8 @@ export const handleCanvasContextMenu =
       canvasOverlay.appendChild(contextMenuTarget.element);
     }
 
-    setTriggerRef({ current: contextMenuTarget.element });
-    setIsOpen(true);
+    state.setTriggerRef({ current: contextMenuTarget.element });
+    state.setIsOpen(true);
   };
 
 export const handleCanvasResize =

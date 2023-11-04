@@ -126,11 +126,9 @@ export const handleDrop = (e: DragEvent) => {
   e.stopImmediatePropagation();
 
   const data = e.dataTransfer?.getData('text');
-
   const element = document.getElementById(data as string);
-
   const target = e.target as HTMLBaseElement;
-
+  
   const elementInsertPosition = getElementInsertPosition(
     target as HTMLElement,
     e.clientY

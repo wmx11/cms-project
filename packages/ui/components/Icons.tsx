@@ -2,6 +2,17 @@ import { MdOutlineDragIndicator, MdPublish } from 'react-icons/md';
 import { TbTransform } from 'react-icons/tb';
 import { GoDuplicate } from 'react-icons/go';
 import {
+  CiTextAlignLeft,
+  CiTextAlignCenter,
+  CiTextAlignRight,
+  CiAlignLeft,
+  CiAlignCenterH,
+  CiAlignRight,
+  CiAlignTop,
+  CiAlignCenterV,
+  CiAlignBottom,
+} from 'react-icons/ci';
+import {
   FaTrash,
   FaRegEdit,
   FaArrowLeft,
@@ -28,3 +39,18 @@ export const Bold = FaBold;
 export const Italic = FaItalic;
 export const Underline = FaUnderline;
 export const Duplicate = GoDuplicate;
+
+// Text alignment
+export const TextAlignLeft = CiTextAlignLeft;
+export const TextAlignCenter = CiTextAlignCenter;
+export const TextAlignRight = CiTextAlignRight;
+
+// Horizontal alignment
+export const ItemsAlignLeft = CiAlignLeft;
+export const ItemsAlignCenterHorizontal = CiAlignCenterH;
+export const ItemsAlignRight = CiAlignRight;
+
+// Vertical alignment
+export const ItemsAlignTop = CiAlignTop;
+export const ItemsAlignCenterVertical = CiAlignCenterV;
+export const ItemsAlignBottom = CiAlignBottom;

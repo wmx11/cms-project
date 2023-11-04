@@ -1,28 +1,34 @@
 'use client';
 import traverseComponentsTree from '@cms/template-engine/modules/traverseComponentsTree';
 import {
+  Button,
   Input,
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@nextui-org/react';
-import { RefObject } from 'react';
 import useBuilderProviderState from '../hooks/useBuilderProviderState';
+import {
+  ItemsAlignBottom,
+  ItemsAlignCenterHorizontal,
+  ItemsAlignCenterVertical,
+  ItemsAlignLeft,
+  ItemsAlignRight,
+  ItemsAlignTop,
+  TextAlignCenter,
+  TextAlignLeft,
+  TextAlignRight,
+} from '@cms/ui/components/Icons';
 
-type Props = {
-  triggerRef: RefObject<HTMLElement>;
-  isOpen: boolean;
-  setIsOpen: (open: boolean) => void;
-  setTriggerRef: (ref: RefObject<HTMLElement>) => void;
-};
-
-const EditPopover = ({
-  triggerRef,
-  isOpen,
-  setIsOpen,
-  setTriggerRef,
-}: Props) => {
-  const { schema, setSchema } = useBuilderProviderState();
+const EditPopover = () => {
+  const {
+    schema,
+    renderTemplate,
+    isOpen,
+    setIsOpen,
+    setTriggerRef,
+    triggerRef,
+  } = useBuilderProviderState();
 
   const componentSchema = traverseComponentsTree({
     schema,
@@ -35,12 +41,11 @@ const EditPopover = ({
       onOpenChange={(open) => setIsOpen(open)}
       triggerRef={triggerRef}
       placement="bottom-start"
-      showArrow
       backdrop="blur"
       onClose={() => {
         console.log('Schema saved');
-        setSchema(schema);
         setTriggerRef({ current: null });
+        renderTemplate(schema);
       }}
     >
       <PopoverTrigger>
@@ -48,9 +53,12 @@ const EditPopover = ({
       </PopoverTrigger>
       <PopoverContent>
         <div className="space-y-4">
-          <p className="font-bold">
-            Edit Element ({componentSchema?.component})
-          </p>
+          <div>
+            <p className="font-bold">{componentSchema?.component} options</p>
+            <p className="text-zinc-500 text-xs">
+              Use these options to edit and change the element to your liking
+            </p>
+          </div>
           <div className="mt-2 flex flex-col gap-2 w-full">
             {componentSchema &&
               componentSchema.props.map((item, index) => {
@@ -83,6 +91,122 @@ const EditPopover = ({
                   />
                 );
               })}
+
+            <div>
+              <div>Text color</div>
+              <div>
+                <Input
+                  size="sm"
+                  radius="none"
+                  variant="flat"
+                  description="Choose a text color"
+                  type="color"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div>Background color</div>
+              <div>
+                <Input
+                  size="sm"
+                  radius="none"
+                  variant="flat"
+                  description="Choose a background color"
+                  type="color"
+                />
+              </div>
+            </div>
+
+            <div>
+              <div>Text alignment</div>
+              <div className="flex justify-between w-full">
+                <Button
+                  variant="light"
+                  color="secondary"
+                  radius="none"
+                  startContent={<TextAlignLeft />}
+                >
+                  Left
+                </Button>
+                <Button
+                  variant="light"
+                  color="secondary"
+                  radius="none"
+                  startContent={<TextAlignCenter />}
+                >
+                  Center
+                </Button>
+                <Button
+                  variant="light"
+                  color="secondary"
+                  radius="none"
+                  startContent={<TextAlignRight />}
+                >
+                  Right
+                </Button>
+              </div>
+            </div>
+
+            <div>
+              <div>Horizontal alignment</div>
+              <div className="flex justify-between w-full">
+                <Button
+                  variant="light"
+                  color="secondary"
+                  radius="none"
+                  startContent={<ItemsAlignLeft />}
+                >
+                  Left
+                </Button>
+                <Button
+                  variant="light"
+                  color="secondary"
+                  radius="none"
+                  startContent={<ItemsAlignCenterHorizontal />}
+                >
+                  Center
+                </Button>
+                <Button
+                  variant="light"
+                  color="secondary"
+                  radius="none"
+                  startContent={<ItemsAlignRight />}
+                >
+                  Right
+                </Button>
+              </div>
+            </div>
+
+            <div>
+              <div>Vertical alignment</div>
+              <div className="flex justify-between w-full">
+                <Button
+                  variant="light"
+                  color="secondary"
+                  radius="none"
+                  startContent={<ItemsAlignTop />}
+                >
+                  Top
+                </Button>
+                <Button
+                  variant="light"
+                  color="secondary"
+                  radius="none"
+                  startContent={<ItemsAlignCenterVertical />}
+                >
+                  Middle
+                </Button>
+                <Button
+                  variant="light"
+                  color="secondary"
+                  radius="none"
+                  startContent={<ItemsAlignBottom />}
+                >
+                  Bottom
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </PopoverContent>

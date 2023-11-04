@@ -2,15 +2,11 @@ import { DATA_LABEL } from '@cms/template-engine/constants';
 import removeComponent from '@cms/template-engine/modules/removeComponent';
 import { Trash } from '@cms/ui/components/Icons';
 import { Button } from '@nextui-org/react';
-import { BuilderStoreState } from '../../../store/useGlobalStore';
-import { Target } from '../../../types';
+import { BuilderState, Target } from '../../../types';
 import DefaultTooltip from '../../DefaultTooltip';
 
 // Removes the selected component
-const DeleteElementButton = ({
-  target,
-  state,
-}: Target & { state: BuilderStoreState }) => {
+const DeleteElementButton = ({ target, state }: Target & BuilderState) => {
   const { schema, renderTemplate } = state;
 
   return (
@@ -25,9 +21,12 @@ const DeleteElementButton = ({
         startContent={<Trash />}
         onClick={() => {
           const newSchema = removeComponent({ path: target.id, schema });
-          if (newSchema) {
-            renderTemplate(newSchema);
+
+          if (!newSchema) {
+            return null;
           }
+
+          renderTemplate(newSchema);
         }}
       >
         Delete

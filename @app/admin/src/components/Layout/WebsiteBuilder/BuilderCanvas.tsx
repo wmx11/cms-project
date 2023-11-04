@@ -1,7 +1,8 @@
 'use client';
 import addComponent from '@cms/template-engine/modules/addComponent';
-import React, { RefObject, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import useBuilderProviderState from '../../../hooks/useBuilderProviderState';
+import { initHandleDragAndDrop } from '../../Builder/Canvas/canvasDragAndDropHandlers';
 import {
   handleCanvasClick,
   handleCanvasContextMenu,
@@ -10,7 +11,6 @@ import {
 } from '../../Builder/Canvas/canvasEventsHandlers';
 import ComponentsDropdown from '../../ComponentsDropdown';
 import EditPopover from '../../EditPopover';
-import { initHandleDragAndDrop } from '../../Builder/Canvas/canvasDragAndDropHandlers';
 
 const BuilderCanvas = () => {
   const state = useBuilderProviderState();
@@ -18,10 +18,6 @@ const BuilderCanvas = () => {
   const { schema, renderedTemplate, templateComponents, renderTemplate } =
     state;
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [triggerRef, setTriggerRef] = useState<RefObject<HTMLElement>>({
-    current: null,
-  });
   const canvasRef = useRef<HTMLDivElement>(null);
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
   const canvasOverlayRef = useRef<HTMLDivElement>(null);
@@ -48,6 +44,7 @@ const BuilderCanvas = () => {
     renderTemplate(updatedSchema);
   };
 
+  // Initially add the resize handler
   useEffect(() => {
     if (typeof window !== undefined) {
       window.addEventListener(
@@ -62,12 +59,11 @@ const BuilderCanvas = () => {
         handleCanvasResize({ canvasOverlayRef, canvasRef })
       );
     };
-  }, [isOpen]);
+  }, []);
 
+  // Reinitialize DnD handler whenever the template changes
   useEffect(() => {
     if (typeof window !== undefined) {
-      console.log('schema updated');
-
       initHandleDragAndDrop({ canvasRef, canvasOverlayRef, state });
     }
   }, [renderedTemplate]);
@@ -76,8 +72,7 @@ const BuilderCanvas = () => {
   const onContextMenu = handleCanvasContextMenu({
     canvasRef,
     canvasOverlayRef,
-    setIsOpen,
-    setTriggerRef,
+    state,
   });
 
   // Mouse over handler for hover effects
@@ -89,8 +84,6 @@ const BuilderCanvas = () => {
     canvasOverlayRef,
     state,
     handleSelect,
-    setIsOpen,
-    setTriggerRef,
   });
 
   return (
@@ -122,12 +115,7 @@ const BuilderCanvas = () => {
           />
         )}
 
-        <EditPopover
-          isOpen={isOpen}
-          setIsOpen={setIsOpen}
-          triggerRef={triggerRef}
-          setTriggerRef={setTriggerRef}
-        />
+        <EditPopover />
       </div>
     </div>
   );

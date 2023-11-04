@@ -13,9 +13,7 @@ import TurnIntoButton from './TurnIntoButton';
 const CanvasElementControlButtons = ({
   target,
   state,
-  setIsOpen,
   handleSelect,
-  setTriggerRef,
 }: CanvasElementControlButtonsOverlayTypes & BuilderState) => {
   return (
     <>
@@ -39,11 +37,7 @@ const CanvasElementControlButtons = ({
           <DuplicateElementButton target={target} state={state} />
         </div>
         <div>
-          <EditElementButton
-            target={target}
-            setIsOpen={setIsOpen}
-            setTriggerRef={setTriggerRef}
-          />
+          <EditElementButton target={target} state={state} />
         </div>
         <div>
           <DeleteElementButton target={target} state={state} />

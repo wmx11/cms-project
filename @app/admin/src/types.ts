@@ -20,7 +20,4 @@ export type HandleSelect = {
 
 export type BuilderState = { state: BuilderStoreState };
 
-export type CanvasElementControlButtonsOverlayTypes = Target &
-  SetTriggerRef &
-  SetIsOpen &
-  HandleSelect;
+export type CanvasElementControlButtonsOverlayTypes = Target & HandleSelect;
