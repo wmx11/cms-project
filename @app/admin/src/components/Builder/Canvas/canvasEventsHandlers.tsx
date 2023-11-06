@@ -9,10 +9,7 @@ import {
 } from '@cms/template-engine/constants';
 import { MouseEvent, RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
-import {
-  BuilderState,
-  HandleSelect
-} from '../../../types';
+import { BuilderState, HandleSelect } from '../../../types';
 import AddElementButton from '../Controls/AddElementButton';
 import CanvasElementControlButtons from '../Controls/CanvasElementControlButtons';
 import { handleEditableContentClick } from './canvasComponentsEventsHandlers';
@@ -95,7 +92,7 @@ export const handleCanvasClick =
     });
 
     Object.assign(controls.element.style, {
-      transform: 'translateY(-46px) translateX(-2px)',
+      transform: `translateY(-46px) translateX(-2px)`,
       position: 'absolute',
       top: '0',
       zIndex: '100',

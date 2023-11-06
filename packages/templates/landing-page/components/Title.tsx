@@ -1,25 +1,31 @@
 import { Schema } from '@cms/template-engine/types';
-import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import {
+  textAlign
+} from '@cms/template-engine/variants/variants';
+import { VariantProps, cva } from 'class-variance-authority';
+import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Title: FC<PropsWithChildren & HTMLAttributes<HTMLTimeElement>> = ({
-  children,
-  className,
-  style,
-  id,
-}) => {
+const titleCva = cva(
+  'text-7xl text-zinc-800 font-black mb-8 uppercase leading-tight',
+  {
+    variants: {
+      textAlign,
+    },
+  }
+);
+
+type TitleVariantProps = VariantProps<typeof titleCva>;
+
+const Title: FC<
+  PropsWithChildren & HTMLAttributes<HTMLTimeElement> & TitleVariantProps
+> = (props) => {
   return (
     <h1
-      id={id}
-      draggable
-      data-label="Title"
-      style={JSON.parse((style as string) || '{}')}
-      className={twMerge(
-        'text-7xl text-zinc-800 font-black mb-8 uppercase leading-tight',
-        className
-      )}
+      style={JSON.parse((props.style as string) || '{}')}
+      className={twMerge(titleCva({ ...props } as TitleVariantProps))}
     >
-      {children}
+      {props.children}
     </h1>
   );
 };

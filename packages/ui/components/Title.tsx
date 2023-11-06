@@ -1,14 +1,23 @@
-import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import {
+  textAlign
+} from '@cms/template-engine/variants/variants';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Title: FC<PropsWithChildren & HTMLAttributes<HTMLHeadingElement>> = ({
-  children,
-  className,
-}) => {
+const titleCva = cva('text-4xl font-bold mb-4', {
+  variants: {
+    textAlign,
+  },
+});
+
+type TitleVariantProps = VariantProps<typeof titleCva>;
+
+const Title: FC<
+  PropsWithChildren & HTMLAttributes<HTMLHeadingElement> & TitleVariantProps
+> = ({ children, className, textAlign }) => {
   return (
-    <h1 className={twMerge('text-4xl font-bold mb-4', className)}>
-      {children}
-    </h1>
+    <h1 className={twMerge(titleCva({ textAlign, className }))}>{children}</h1>
   );
 };
 

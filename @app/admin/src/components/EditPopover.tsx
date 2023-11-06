@@ -66,6 +66,40 @@ const EditPopover = () => {
                   return null;
                 }
 
+                if (item.name === 'textAlign') {
+                  return (
+                    <div>
+                      <div>Text alignment</div>
+                      <div className="flex justify-between w-full">
+                        <Button
+                          variant="light"
+                          color="secondary"
+                          radius="none"
+                          startContent={<TextAlignLeft />}
+                        >
+                          Left
+                        </Button>
+                        <Button
+                          variant="light"
+                          color="secondary"
+                          radius="none"
+                          startContent={<TextAlignCenter />}
+                        >
+                          Center
+                        </Button>
+                        <Button
+                          variant="light"
+                          color="secondary"
+                          radius="none"
+                          startContent={<TextAlignRight />}
+                        >
+                          Right
+                        </Button>
+                      </div>
+                    </div>
+                  );
+                }
+
                 return (
                   <Input
                     key={`${item.name}_${index}`}
@@ -115,36 +149,6 @@ const EditPopover = () => {
                   description="Choose a background color"
                   type="color"
                 />
-              </div>
-            </div>
-
-            <div>
-              <div>Text alignment</div>
-              <div className="flex justify-between w-full">
-                <Button
-                  variant="light"
-                  color="secondary"
-                  radius="none"
-                  startContent={<TextAlignLeft />}
-                >
-                  Left
-                </Button>
-                <Button
-                  variant="light"
-                  color="secondary"
-                  radius="none"
-                  startContent={<TextAlignCenter />}
-                >
-                  Center
-                </Button>
-                <Button
-                  variant="light"
-                  color="secondary"
-                  radius="none"
-                  startContent={<TextAlignRight />}
-                >
-                  Right
-                </Button>
               </div>
             </div>
 

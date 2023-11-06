@@ -1,5 +1,11 @@
 export type Props = {
-  name: string | 'children' | 'className';
+  name:
+    | 'children'
+    | 'className'
+    | 'textAlign'
+    | 'horizontalAlign'
+    | 'verticalAlign'
+    | string;
   type: 'string' | 'number' | 'component';
   value: string | Schema[];
   displayName?: string | undefined;

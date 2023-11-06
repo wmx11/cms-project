@@ -10,7 +10,9 @@ const Websites = () => {
   return (
     <div>
       <Header>
-        <Title className="mb-0">Websites</Title>
+        <Title className="mb-0" textAlign="center">
+          Websites
+        </Title>
         <Button
           as={Link}
           href={routes.website.create}
