@@ -1,6 +1,7 @@
 import { MdOutlineDragIndicator, MdPublish } from 'react-icons/md';
 import { TbTransform } from 'react-icons/tb';
 import { GoDuplicate } from 'react-icons/go';
+import { CgDisplayFlex, CgSpaceBetween } from 'react-icons/cg';
 import {
   CiTextAlignLeft,
   CiTextAlignCenter,
@@ -23,6 +24,7 @@ import {
   FaBold,
   FaItalic,
   FaUnderline,
+  FaRegSquare,
 } from 'react-icons/fa';
 
 export const Plus = FaPlus;
@@ -49,8 +51,13 @@ export const TextAlignRight = CiTextAlignRight;
 export const ItemsAlignLeft = CiAlignLeft;
 export const ItemsAlignCenterHorizontal = CiAlignCenterH;
 export const ItemsAlignRight = CiAlignRight;
+export const ItemsAlignBetween = CgSpaceBetween;
 
 // Vertical alignment
 export const ItemsAlignTop = CiAlignTop;
 export const ItemsAlignCenterVertical = CiAlignCenterV;
 export const ItemsAlignBottom = CiAlignBottom;
+
+// Layout types
+export const LayoutBlock = FaRegSquare;
+export const LayoutFlex = CgDisplayFlex;

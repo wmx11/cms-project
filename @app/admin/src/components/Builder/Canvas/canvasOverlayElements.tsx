@@ -6,7 +6,7 @@ import {
   DATA_CANVAS_OVERLAY_HIGHLIGHT,
   DATA_CANVAS_OVERLAY_HIGHLIGHT_LABEL,
   DATA_LABEL,
-  DRATA_CANVAS_OVERLAY_DRAG_AND_DROP_HIGHLIGHT
+  DRATA_CANVAS_OVERLAY_DRAG_AND_DROP_HIGHLIGHT,
 } from '@cms/template-engine/constants';
 
 export const canvasHighlight = (state: string = ACTIVE) => {
@@ -118,8 +118,8 @@ export const canvasControls = () => {
 
   controls.classList.add(
     'border',
-    'border-violet-900',
-    'shadow-lg',
+    'border-zinc-300',
+    'shadow-xl',
     'rounded-lg',
     'overflow-hidden'
   );

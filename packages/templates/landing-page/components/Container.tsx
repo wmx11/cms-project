@@ -1,16 +1,51 @@
 import { Schema } from '@cms/template-engine/types';
-import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import {
+  horizontalAlign,
+  layoutType,
+  textAlign,
+  verticalAlign,
+} from '@cms/template-engine/variants/variants';
+import { VariantProps, cva } from 'class-variance-authority';
+import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Container: FC<PropsWithChildren & HTMLAttributes<HTMLDivElement>> = (
-  props
-) => {
+const containerCva = cva('container mx-auto p-4', {
+  variants: {
+    horizontalAlign,
+    verticalAlign,
+    textAlign,
+    layoutType,
+  },
+});
+
+type ContainerVariantProps = VariantProps<typeof containerCva>;
+
+const Container: FC<
+  PropsWithChildren & HTMLAttributes<HTMLDivElement> & ContainerVariantProps
+> = ({
+  layoutType,
+  textAlign,
+  horizontalAlign,
+  verticalAlign,
+  className,
+  children,
+  style,
+  ...restProps
+}) => {
   return (
     <div
-      {...props}
-      className={twMerge('container mx-auto p-4', props?.className)}
+      {...restProps}
+      className={twMerge(
+        containerCva({
+          className,
+          horizontalAlign,
+          layoutType,
+          textAlign,
+          verticalAlign,
+        })
+      )}
     >
-      {props?.children}
+      {children}
     </div>
   );
 };

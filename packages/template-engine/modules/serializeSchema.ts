@@ -6,14 +6,12 @@ import {
   DATA_DND_INITIALIZED,
   DATA_EDITABLE,
   DATA_LABEL,
-} from '../constants';
-import {
   STLYES_ELEMENT_INSIDE_BUILDER,
   STYLES_CONTENT_EDITABLE,
 } from '../constants';
-import importComponent from './importComponent';
 import { Schema } from '../types';
 import generatePath from './generatePath';
+import importComponent from './importComponent';
 
 type SerializeSchemaProps = {
   schema: Schema[];
@@ -63,6 +61,18 @@ const serializeComponentForBuilder = (
   return componentNodeCopy;
 };
 
+const applyLayoutControlProps = (
+  component: Schema,
+  componentProps: Record<string, string>
+) => {
+  const newComponentProps = {
+    ...componentProps,
+    ...component.componentVariants,
+  };
+
+  return newComponentProps;
+};
+
 const serializeSchema = async (props: SerializeSchemaProps) => {
   const {
     schema,
@@ -95,7 +105,14 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
       }
     }
 
-    const componentNode = component.default(componentProps);
+    const componentPropsWithLayoutControls = applyLayoutControlProps(
+      item,
+      componentProps
+    );
+
+    const componentNode = component.default(componentPropsWithLayoutControls);
+
+    // console.log(componentNode, componentPropsWithLayoutControls);
 
     const componentNodeCopy: React.ReactElement = {
       ...componentNode,

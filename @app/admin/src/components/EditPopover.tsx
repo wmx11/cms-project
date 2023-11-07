@@ -1,24 +1,18 @@
 'use client';
 import traverseComponentsTree from '@cms/template-engine/modules/traverseComponentsTree';
 import {
-  Button,
   Input,
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@nextui-org/react';
 import useBuilderProviderState from '../hooks/useBuilderProviderState';
-import {
-  ItemsAlignBottom,
-  ItemsAlignCenterHorizontal,
-  ItemsAlignCenterVertical,
-  ItemsAlignLeft,
-  ItemsAlignRight,
-  ItemsAlignTop,
-  TextAlignCenter,
-  TextAlignLeft,
-  TextAlignRight,
-} from '@cms/ui/components/Icons';
+import HorizontalAlignmentControls from './Builder/Controls/LayoutControls/HorizontalAlignmentControls';
+import TextAlignmentControls from './Builder/Controls/LayoutControls/TextAlignmentControls';
+import VerticalAlignmentControls from './Builder/Controls/LayoutControls/VerticalAlignmentControls';
+import LayoutTypeControls from './Builder/Controls/LayoutControls/LayoutTypeControls';
+import { DATA_TARGET_ID } from '@cms/template-engine/constants';
+import FlexColumnsControls from './Builder/Controls/LayoutControls/FlexColumnsControls';
 
 const EditPopover = () => {
   const {
@@ -30,9 +24,14 @@ const EditPopover = () => {
     triggerRef,
   } = useBuilderProviderState();
 
+  const path =
+    triggerRef.current?.getAttribute(DATA_TARGET_ID) ||
+    triggerRef.current?.id ||
+    '';
+
   const componentSchema = traverseComponentsTree({
     schema,
-    path: triggerRef.current?.id as string,
+    path,
   });
 
   return (
@@ -64,40 +63,6 @@ const EditPopover = () => {
               componentSchema.props.map((item, index) => {
                 if (item.type === 'component') {
                   return null;
-                }
-
-                if (item.name === 'textAlign') {
-                  return (
-                    <div>
-                      <div>Text alignment</div>
-                      <div className="flex justify-between w-full">
-                        <Button
-                          variant="light"
-                          color="secondary"
-                          radius="none"
-                          startContent={<TextAlignLeft />}
-                        >
-                          Left
-                        </Button>
-                        <Button
-                          variant="light"
-                          color="secondary"
-                          radius="none"
-                          startContent={<TextAlignCenter />}
-                        >
-                          Center
-                        </Button>
-                        <Button
-                          variant="light"
-                          color="secondary"
-                          radius="none"
-                          startContent={<TextAlignRight />}
-                        >
-                          Right
-                        </Button>
-                      </div>
-                    </div>
-                  );
                 }
 
                 return (
@@ -153,62 +118,37 @@ const EditPopover = () => {
             </div>
 
             <div>
+              <div>Text alignment</div>
+              <div className="flex justify-between w-full">
+                <TextAlignmentControls path={path} />
+              </div>
+            </div>
+
+            <div>
+              <div>Layout type</div>
+              <div className="flex justify-between w-full">
+                <LayoutTypeControls path={path} />
+              </div>
+            </div>
+
+            <div>
+              <div>Columns</div>
+              <div className="flex justify-between w-full">
+                <FlexColumnsControls path={path} />
+              </div>
+            </div>
+
+            <div>
               <div>Horizontal alignment</div>
               <div className="flex justify-between w-full">
-                <Button
-                  variant="light"
-                  color="secondary"
-                  radius="none"
-                  startContent={<ItemsAlignLeft />}
-                >
-                  Left
-                </Button>
-                <Button
-                  variant="light"
-                  color="secondary"
-                  radius="none"
-                  startContent={<ItemsAlignCenterHorizontal />}
-                >
-                  Center
-                </Button>
-                <Button
-                  variant="light"
-                  color="secondary"
-                  radius="none"
-                  startContent={<ItemsAlignRight />}
-                >
-                  Right
-                </Button>
+                <HorizontalAlignmentControls path={path} />
               </div>
             </div>
 
             <div>
               <div>Vertical alignment</div>
               <div className="flex justify-between w-full">
-                <Button
-                  variant="light"
-                  color="secondary"
-                  radius="none"
-                  startContent={<ItemsAlignTop />}
-                >
-                  Top
-                </Button>
-                <Button
-                  variant="light"
-                  color="secondary"
-                  radius="none"
-                  startContent={<ItemsAlignCenterVertical />}
-                >
-                  Middle
-                </Button>
-                <Button
-                  variant="light"
-                  color="secondary"
-                  radius="none"
-                  startContent={<ItemsAlignBottom />}
-                >
-                  Bottom
-                </Button>
+                <VerticalAlignmentControls path={path} />
               </div>
             </div>
           </div>

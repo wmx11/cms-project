@@ -3,6 +3,8 @@ import {
   horizontalAlign,
   textAlign,
   verticalAlign,
+  layoutType,
+  flexColumns,
 } from '@cms/template-engine/variants/variants';
 import { VariantProps, cva } from 'class-variance-authority';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
@@ -13,6 +15,8 @@ const sectionCva = cva('py-24', {
     horizontalAlign,
     verticalAlign,
     textAlign,
+    layoutType,
+    flexColumns,
   },
 });
 
@@ -21,6 +25,8 @@ type SectionVariantProps = VariantProps<typeof sectionCva>;
 const Section: FC<
   PropsWithChildren & HTMLAttributes<HTMLBaseElement> & SectionVariantProps
 > = ({
+  layoutType,
+  flexColumns,
   textAlign,
   horizontalAlign,
   verticalAlign,
@@ -35,8 +41,10 @@ const Section: FC<
       style={JSON.parse((style as string) || '{}')}
       className={twMerge(
         sectionCva({
-          horizontalAlign,
+          layoutType,
+          flexColumns,
           textAlign,
+          horizontalAlign,
           verticalAlign,
           className,
         })
@@ -66,13 +74,6 @@ export const schema: Schema = {
       name: 'className',
       type: 'string',
       value: '',
-      displayName: 'Section classes',
-      description: 'You can use Tailwind classes to style this section',
-    },
-    {
-      name: 'textAlign',
-      type: 'string',
-      value: 'center',
       displayName: 'Section classes',
       description: 'You can use Tailwind classes to style this section',
     },
