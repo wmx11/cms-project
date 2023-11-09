@@ -24,16 +24,31 @@ export const layoutType = {
 };
 
 export const flexColumns = {
-  1: 'md:[&>*]:max-w-[100%] flex-wrap [&>*]:w-full',
-  2: 'md:[&>*]:max-w-[50%] flex-wrap [&>*]:w-full',
-  3: 'md:[&>*]:max-w-[33.3%] flex-wrap [&>*]:w-full',
-  4: 'md:[&>*]:max-w-[25%] flex-wrap [&>*]:w-full',
-  5: 'md:[&>*]:max-w-[20%] flex-wrap [&>*]:w-full',
-  6: 'md:[&>*]:max-w-[16.6%] flex-wrap [&>*]:w-full',
-  7: 'md:[&>*]:max-w-[14.28%] flex-wrap [&>*]:w-full',
-  8: 'md:[&>*]:max-w-[12.5%] flex-wrap [&>*]:w-full',
-  9: 'md:[&>*]:max-w-[11.11%] flex-wrap [&>*]:w-full',
-  10: 'md:[&>*]:max-w-[10%] flex-wrap [&>*]:w-full',
-  11: 'md:[&>*]:max-w-[9.09%] flex-wrap [&>*]:w-full',
-  12: 'md:[&>*]:max-w-[8.33%] flex-wrap [&>*]:w-full',
+  1: 'flex-columns flex-columns--1',
+  2: 'flex-columns flex-columns--2',
+  3: 'flex-columns flex-columns--3',
+  4: 'flex-columns flex-columns--4',
+  5: 'flex-columns flex-columns--5',
+  6: 'flex-columns flex-columns--6',
+  7: 'flex-columns flex-columns--7',
+  8: 'flex-columns flex-columns--8',
+  9: 'flex-columns flex-columns--9',
+  10: 'flex-columns flex-columns--10',
+  11: 'flex-columns flex-columns--11',
+  12: 'flex-columns flex-columns--12',
+};
+
+export const elementGaps = {
+  1: 'gap gap--1',
+  2: 'gap gap--2',
+  3: 'gap gap--3',
+  4: 'gap gap--4',
+  5: 'gap gap--5',
+  6: 'gap gap--6',
+  7: 'gap gap--7',
+  8: 'gap gap--8',
+  9: 'gap gap--9',
+  10: 'gap gap--10',
+  11: 'gap gap--11',
+  12: 'gap gap--12',
 };

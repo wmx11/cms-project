@@ -1,4 +1,6 @@
 import { applyVariantsAndRenderTemplate } from '@cms/template-engine/modules/applyVariants';
+import traverseComponentsTree from '@cms/template-engine/modules/traverseComponentsTree';
+import { ComponentVariants } from '@cms/template-engine/types';
 import {
   TextAlignCenter,
   TextAlignLeft,
@@ -6,14 +8,20 @@ import {
 } from '@cms/ui/components/Icons';
 import { Button } from '@nextui-org/react';
 import useBuilderProviderState from '../../../../hooks/useBuilderProviderState';
+import setActiveVariantStyles from './setActiveVariantStyles';
 
 const TextAlignmentControls = ({ path }: { path: string }) => {
   const { schema, renderTemplate } = useBuilderProviderState();
   const applyVariant = applyVariantsAndRenderTemplate(renderTemplate);
+  const component = traverseComponentsTree({ schema, path });
+  const setActiveVariant = setActiveVariantStyles<
+    ComponentVariants['textAlign']
+  >(component?.componentVariants?.textAlign);
+
   return (
     <>
       <Button
-        variant="light"
+        variant={setActiveVariant('left')}
         color="secondary"
         radius="none"
         startContent={<TextAlignLeft />}
@@ -28,7 +36,7 @@ const TextAlignmentControls = ({ path }: { path: string }) => {
         Left
       </Button>
       <Button
-        variant="light"
+        variant={setActiveVariant('center')}
         color="secondary"
         radius="none"
         startContent={<TextAlignCenter />}
@@ -43,7 +51,7 @@ const TextAlignmentControls = ({ path }: { path: string }) => {
         Center
       </Button>
       <Button
-        variant="light"
+        variant={setActiveVariant('right')}
         color="secondary"
         radius="none"
         startContent={<TextAlignRight />}

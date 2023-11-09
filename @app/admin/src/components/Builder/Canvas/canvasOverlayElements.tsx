@@ -175,5 +175,10 @@ export const canvasContextMenuTarget = () => {
 
   const contextMenuTarget = document.createElement('div');
 
+  contextMenuTarget.setAttribute(
+    DATA_CANVAS_OVERLAY_CONTEXT_MENU_TARGET,
+    'true'
+  );
+
   return { element: contextMenuTarget as HTMLDivElement, existing: false };
 };

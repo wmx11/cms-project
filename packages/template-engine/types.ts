@@ -1,4 +1,5 @@
 import {
+  elementGaps,
   flexColumns,
   horizontalAlign,
   layoutType,
@@ -31,6 +32,7 @@ export type ComponentVariants = {
   verticalAlign?: keyof typeof verticalAlign;
   layoutType?: keyof typeof layoutType;
   flexColumns?: keyof typeof flexColumns;
+  elementGaps?: keyof typeof elementGaps;
 };
 
 export type Schema = {
@@ -48,12 +50,6 @@ export type Schema = {
 } & (SchemaWithEditable | SchemaWithRichText);
 
 export type TemplateID = string;
-
-export type VariantType =
-  | 'textAlign'
-  | 'horizontalAlign'
-  | 'verticalAlign'
-  | 'layoutType';
 
 export type TemplateMetadata = {
   id?: string;

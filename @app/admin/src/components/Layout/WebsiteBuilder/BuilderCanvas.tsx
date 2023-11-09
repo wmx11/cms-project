@@ -91,7 +91,7 @@ const BuilderCanvas = () => {
   return (
     <div
       ref={canvasWrapperRef}
-      className="bg-zinc-100 min-h-screen max-h-screen px-2 py-12 overflow-auto relative"
+      className="bg-zinc-100 min-h-screen px-2 py-12 relative"
     >
       <div
         ref={canvasRef}

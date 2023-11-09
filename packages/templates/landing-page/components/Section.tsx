@@ -5,6 +5,7 @@ import {
   verticalAlign,
   layoutType,
   flexColumns,
+  elementGaps,
 } from '@cms/template-engine/variants/variants';
 import { VariantProps, cva } from 'class-variance-authority';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
@@ -17,6 +18,7 @@ const sectionCva = cva('py-24', {
     textAlign,
     layoutType,
     flexColumns,
+    elementGaps,
   },
 });
 
@@ -27,6 +29,7 @@ const Section: FC<
 > = ({
   layoutType,
   flexColumns,
+  elementGaps,
   textAlign,
   horizontalAlign,
   verticalAlign,
@@ -46,6 +49,7 @@ const Section: FC<
           textAlign,
           horizontalAlign,
           verticalAlign,
+          elementGaps,
           className,
         })
       )}

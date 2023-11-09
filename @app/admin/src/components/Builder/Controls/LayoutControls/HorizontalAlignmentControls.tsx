@@ -7,14 +7,21 @@ import {
 } from '@cms/ui/components/Icons';
 import { Button } from '@nextui-org/react';
 import useBuilderProviderState from '../../../../hooks/useBuilderProviderState';
+import traverseComponentsTree from '@cms/template-engine/modules/traverseComponentsTree';
+import setActiveVariantStyles from './setActiveVariantStyles';
+import { ComponentVariants } from '@cms/template-engine/types';
 
 const HorizontalAlignmentControls = ({ path }: { path: string }) => {
   const { schema, renderTemplate } = useBuilderProviderState();
   const applyVariant = applyVariantsAndRenderTemplate(renderTemplate);
+  const component = traverseComponentsTree({ schema, path });
+  const setActiveVariant = setActiveVariantStyles<
+    ComponentVariants['horizontalAlign']
+  >(component?.componentVariants?.horizontalAlign);
   return (
     <>
       <Button
-        variant="light"
+        variant={setActiveVariant('left')}
         color="secondary"
         radius="none"
         startContent={<ItemsAlignLeft />}
@@ -29,7 +36,7 @@ const HorizontalAlignmentControls = ({ path }: { path: string }) => {
         Left
       </Button>
       <Button
-        variant="light"
+        variant={setActiveVariant('center')}
         color="secondary"
         radius="none"
         startContent={<ItemsAlignCenterHorizontal />}
@@ -44,7 +51,7 @@ const HorizontalAlignmentControls = ({ path }: { path: string }) => {
         Center
       </Button>
       <Button
-        variant="light"
+        variant={setActiveVariant('right')}
         color="secondary"
         radius="none"
         startContent={<ItemsAlignRight />}
@@ -59,7 +66,7 @@ const HorizontalAlignmentControls = ({ path }: { path: string }) => {
         Right
       </Button>
       <Button
-        variant="light"
+        variant={setActiveVariant('between')}
         color="secondary"
         radius="none"
         startContent={<ItemsAlignBetween />}

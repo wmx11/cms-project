@@ -1,7 +1,5 @@
 import { Schema } from '@cms/template-engine/types';
-import {
-  textAlign
-} from '@cms/template-engine/variants/variants';
+import { textAlign } from '@cms/template-engine/variants/variants';
 import { VariantProps, cva } from 'class-variance-authority';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';

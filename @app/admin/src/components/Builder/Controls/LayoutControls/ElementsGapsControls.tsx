@@ -1,27 +1,26 @@
 'use client';
 import { applyVariantsAndRenderTemplate } from '@cms/template-engine/modules/applyVariants';
-import { flexColumns } from '@cms/template-engine/variants/variants';
-import { Select, SelectItem } from '@nextui-org/react';
+import { elementGaps } from '@cms/template-engine/variants/variants';
+import { Select, SelectItem } from '@nextui-org/select';
 import { useState } from 'react';
 import useBuilderProviderState from '../../../../hooks/useBuilderProviderState';
 import traverseComponentsTree from '@cms/template-engine/modules/traverseComponentsTree';
 
-const FlexColumnsControls = ({ path }: { path: string }) => {
+const ElementsGapsControls = ({ path }: { path: string }) => {
   const { schema, renderTemplate } = useBuilderProviderState();
   const component = traverseComponentsTree({ path, schema });
 
   const [value, setValue] = useState(
-    `col_${component?.componentVariants?.flexColumns}`
+    `gap_${component?.componentVariants?.elementGaps}`
   );
-
+  
   const applyVariant = applyVariantsAndRenderTemplate(renderTemplate);
 
   return (
     <Select
       size="sm"
       radius="none"
-      label="Columns"
-      placeholder="Select the number of columns"
+      label="Gaps"
       selectedKeys={[value]}
       onChange={(e) => {
         setValue(e.target.value);
@@ -29,20 +28,20 @@ const FlexColumnsControls = ({ path }: { path: string }) => {
           path,
           schema,
           variant: {
-            flexColumns: e.target.value
+            elementGaps: e.target.value
               .split('_')
-              .at(-1) as unknown as keyof typeof flexColumns,
+              .at(-1) as unknown as keyof typeof elementGaps,
           },
         });
       }}
     >
-      {Object.keys(flexColumns).map((item) => (
-        <SelectItem key={`col_${item}`} value={`col_${item}`}>
-          {`${item} Columns`}
+      {Object.keys(elementGaps).map((item) => (
+        <SelectItem key={`gap_${item}`} value={`gap_${item}`}>
+          {`${(item as unknown as number) * 4}px Gap`}
         </SelectItem>
       ))}
     </Select>
   );
 };
 
-export default FlexColumnsControls;
+export default ElementsGapsControls;

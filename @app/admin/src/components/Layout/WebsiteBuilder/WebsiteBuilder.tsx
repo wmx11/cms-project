@@ -16,9 +16,9 @@ const WebsiteBuilder = (props: Props) => {
     <BuilderProvider {...props}>
       <div>
         <BuilderHeader />
-        <div className="grid grid-cols-[1fr,320px]">
+        <div className="grid">
           <BuilderCanvas />
-          <BuilderSidebar />
+          {/* <BuilderSidebar /> */}
         </div>
       </div>
     </BuilderProvider>

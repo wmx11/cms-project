@@ -1,18 +1,19 @@
 'use client';
+import { DATA_TARGET_ID } from '@cms/template-engine/constants';
 import traverseComponentsTree from '@cms/template-engine/modules/traverseComponentsTree';
 import {
-  Input,
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Textarea
 } from '@nextui-org/react';
 import useBuilderProviderState from '../hooks/useBuilderProviderState';
+import ElementsGapsControls from './Builder/Controls/LayoutControls/ElementsGapsControls';
+import FlexColumnsControls from './Builder/Controls/LayoutControls/FlexColumnsControls';
 import HorizontalAlignmentControls from './Builder/Controls/LayoutControls/HorizontalAlignmentControls';
+import LayoutTypeControls from './Builder/Controls/LayoutControls/LayoutTypeControls';
 import TextAlignmentControls from './Builder/Controls/LayoutControls/TextAlignmentControls';
 import VerticalAlignmentControls from './Builder/Controls/LayoutControls/VerticalAlignmentControls';
-import LayoutTypeControls from './Builder/Controls/LayoutControls/LayoutTypeControls';
-import { DATA_TARGET_ID } from '@cms/template-engine/constants';
-import FlexColumnsControls from './Builder/Controls/LayoutControls/FlexColumnsControls';
 
 const EditPopover = () => {
   const {
@@ -29,7 +30,7 @@ const EditPopover = () => {
     triggerRef.current?.id ||
     '';
 
-  const componentSchema = traverseComponentsTree({
+  const component = traverseComponentsTree({
     schema,
     path,
   });
@@ -42,7 +43,6 @@ const EditPopover = () => {
       placement="bottom-start"
       backdrop="blur"
       onClose={() => {
-        console.log('Schema saved');
         setTriggerRef({ current: null });
         renderTemplate(schema);
       }}
@@ -53,20 +53,20 @@ const EditPopover = () => {
       <PopoverContent>
         <div className="space-y-4">
           <div>
-            <p className="font-bold">{componentSchema?.component} options</p>
+            <p className="font-bold">{component?.component} options</p>
             <p className="text-zinc-500 text-xs">
               Use these options to edit and change the element to your liking
             </p>
           </div>
           <div className="mt-2 flex flex-col gap-2 w-full">
-            {componentSchema &&
-              componentSchema.props.map((item, index) => {
+            {component &&
+              component.props.map((item, index) => {
                 if (item.type === 'component') {
                   return null;
                 }
 
                 return (
-                  <Input
+                  <Textarea
                     key={`${item.name}_${index}`}
                     label={item.displayName}
                     description={item.description}
@@ -91,65 +91,45 @@ const EditPopover = () => {
                 );
               })}
 
-            <div>
-              <div>Text color</div>
-              <div>
-                <Input
-                  size="sm"
-                  radius="none"
-                  variant="flat"
-                  description="Choose a text color"
-                  type="color"
-                />
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <div className="font-semibold">Text alignment</div>
+                <div className="flex justify-between w-full">
+                  <TextAlignmentControls path={path} />
+                </div>
               </div>
-            </div>
 
-            <div>
-              <div>Background color</div>
-              <div>
-                <Input
-                  size="sm"
-                  radius="none"
-                  variant="flat"
-                  description="Choose a background color"
-                  type="color"
-                />
+              <div className="space-y-2">
+                <div className="font-semibold">Layout type</div>
+                <div className="flex justify-between w-full">
+                  <LayoutTypeControls path={path} />
+                </div>
               </div>
-            </div>
 
-            <div>
-              <div>Text alignment</div>
-              <div className="flex justify-between w-full">
-                <TextAlignmentControls path={path} />
-              </div>
-            </div>
+              {component?.componentVariants?.layoutType?.includes('flex') && (
+                <>
+                  <div className="space-y-2">
+                    <div className="flex justify-between w-full gap-4">
+                      <FlexColumnsControls path={path} />
+                      <ElementsGapsControls path={path} />
+                    </div>
+                  </div>
 
-            <div>
-              <div>Layout type</div>
-              <div className="flex justify-between w-full">
-                <LayoutTypeControls path={path} />
-              </div>
-            </div>
+                  <div className="space-y-2">
+                    <div className="font-semibold">Horizontal alignment</div>
+                    <div className="flex justify-between w-full">
+                      <HorizontalAlignmentControls path={path} />
+                    </div>
+                  </div>
 
-            <div>
-              <div>Columns</div>
-              <div className="flex justify-between w-full">
-                <FlexColumnsControls path={path} />
-              </div>
-            </div>
-
-            <div>
-              <div>Horizontal alignment</div>
-              <div className="flex justify-between w-full">
-                <HorizontalAlignmentControls path={path} />
-              </div>
-            </div>
-
-            <div>
-              <div>Vertical alignment</div>
-              <div className="flex justify-between w-full">
-                <VerticalAlignmentControls path={path} />
-              </div>
+                  <div className="space-y-2">
+                    <div className="font-semibold">Vertical alignment</div>
+                    <div className="flex justify-between w-full">
+                      <VerticalAlignmentControls path={path} />
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

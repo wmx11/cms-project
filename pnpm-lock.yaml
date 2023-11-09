@@ -55,7 +55,7 @@ importers:
         version: 5.0.1
       next:
         specifier: 13.5.4
-        version: 13.5.4(react-dom@18.2.0)(react@18.2.0)
+        version: 13.5.4(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
       next-auth:
         specifier: ^4.23.1
         version: 4.23.1(next@13.5.4)(react-dom@18.2.0)(react@18.2.0)
@@ -71,6 +71,9 @@ importers:
       react-icons:
         specifier: ^4.11.0
         version: 4.11.0(react@18.2.0)
+      sass:
+        specifier: ^1.69.5
+        version: 1.69.5
       slate:
         specifier: ^0.100.0
         version: 0.100.0
@@ -114,6 +117,9 @@ importers:
       '@cms/templates':
         specifier: workspace:^
         version: link:../../packages/templates
+      sass:
+        specifier: ^1.69.5
+        version: 1.69.5
 
   '@app/client':
     dependencies:
@@ -3676,6 +3682,10 @@ packages:
     resolution: {integrity: sha512-pwupu3eWfouuaowscykeckFmVTpqbzW+rXFCX8rQLkZzM9ftBmU/++Ra+o+L27mz03zJTlyV4UUr+fdKNffo4A==}
     dev: false
 
+  /immutable@4.3.4:
+    resolution: {integrity: sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==}
+    dev: false
+
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -4121,7 +4131,7 @@ packages:
       '@panva/hkdf': 1.1.1
       cookie: 0.5.0
       jose: 4.14.6
-      next: 13.5.4(react-dom@18.2.0)(react@18.2.0)
+      next: 13.5.4(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
       oauth: 0.9.15
       openid-client: 5.5.0
       preact: 10.18.1
@@ -4131,7 +4141,7 @@ packages:
       uuid: 8.3.2
     dev: false
 
-  /next@13.5.4(react-dom@18.2.0)(react@18.2.0):
+  /next@13.5.4(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5):
     resolution: {integrity: sha512-+93un5S779gho8y9ASQhb/bTkQF17FNQOtXLKAj3lsNgltEcF0C5PMLLncDmH+8X1EnJH1kbqAERa29nRXqhjA==}
     engines: {node: '>=16.14.0'}
     hasBin: true
@@ -4153,6 +4163,7 @@ packages:
       postcss: 8.4.31
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
+      sass: 1.69.5
       styled-jsx: 5.1.1(react@18.2.0)
       watchpack: 2.4.0
     optionalDependencies:
@@ -4699,6 +4710,16 @@ packages:
       call-bind: 1.0.2
       get-intrinsic: 1.2.1
       is-regex: 1.1.4
+    dev: false
+
+  /sass@1.69.5:
+    resolution: {integrity: sha512-qg2+UCJibLr2LCVOt3OlPhr/dqVHWOa9XtZf2OjbLs/T4VPSJ00udtgJxH3neXZm+QqX8B+3cU7RaLqp1iVfcQ==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.5.3
+      immutable: 4.3.4
+      source-map-js: 1.0.2
     dev: false
 
   /scheduler@0.23.0:

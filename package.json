@@ -34,6 +34,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
+    "sass": "^1.69.5",
     "slate": "^0.100.0",
     "slate-react": "^0.100.0",
     "slugify": "^1.6.6",

@@ -222,7 +222,7 @@ export const handleCanvasContextMenu =
       return;
     }
 
-    const { x: canvasX, y: canvasY } = canvas.getBoundingClientRect();
+    const { x: canvasX } = canvas.getBoundingClientRect();
 
     state.setTriggerRef({ current: null });
 
@@ -234,7 +234,7 @@ export const handleCanvasContextMenu =
 
     Object.assign(contextMenuTarget.element.style, {
       position: 'absolute',
-      top: `${event.pageY - canvasY}px`,
+      top: `${event.pageY - canvas.offsetTop * 2}px`,
       left: `${event.pageX - canvasX}px`,
       width: '100px',
       height: '1px',

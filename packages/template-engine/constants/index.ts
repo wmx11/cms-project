@@ -1,4 +1,4 @@
-export const PATH_SEPARATOR = '.';
+export const PATH_SEPARATOR = '_';
 
 export const ACTIVE = 'active';
 export const HOVER = 'hover';
