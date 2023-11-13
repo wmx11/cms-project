@@ -15,8 +15,8 @@ export type Props = {
     | 'horizontalAlign'
     | 'verticalAlign'
     | string;
-  type: 'string' | 'number' | 'component';
-  value: string | Schema[];
+  type: 'string' | 'number' | 'component' | 'boolean';
+  value: string | Schema[] | true | false;
   displayName?: string | undefined;
   description?: string | undefined;
 };
