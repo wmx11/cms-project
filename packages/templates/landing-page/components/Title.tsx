@@ -16,7 +16,7 @@ const titleCva = cva(
 type TitleVariantProps = VariantProps<typeof titleCva>;
 
 const Title: FC<
-  PropsWithChildren & HTMLAttributes<HTMLTimeElement> & TitleVariantProps
+  PropsWithChildren & HTMLAttributes<HTMLTitleElement> & TitleVariantProps
 > = (props) => {
   return (
     <h1

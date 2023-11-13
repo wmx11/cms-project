@@ -13,7 +13,6 @@ const Image = ({ src, width, height, className, id }: Props) => {
   return (
     <NextImage
       id={id}
-      data-label="Image"
       className={twMerge('mb-2', className)}
       src={'https://cdn.pixabay.com/photo/2018/08/29/19/01/fig-3640553_640.jpg'}
       width={500}
