@@ -112,8 +112,6 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
 
     const componentNode = component.default(componentPropsWithLayoutControls);
 
-    // console.log(componentNode, componentPropsWithLayoutControls);
-
     const componentNodeCopy: React.ReactElement = {
       ...componentNode,
       key: `${item.component}_${index}` || '',
