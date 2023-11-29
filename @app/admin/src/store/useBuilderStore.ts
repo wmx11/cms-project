@@ -1,7 +1,7 @@
 import { Schema } from '@cms/template-engine/types';
 import { Component } from '@prisma/client';
 import { createContext } from 'react';
-import { create, createStore } from 'zustand';
+import { createStore } from 'zustand';
 import createActionSlice, { ActionSlice } from './slices/createActionSlice';
 import createRenderedTemplateSlice, {
   RenderedTemplateSlice,
@@ -10,16 +10,7 @@ import createSchemaSlice, { SchemaSlice } from './slices/createSchemaSlice';
 import createTemplateSlice, {
   TemplateSlice,
 } from './slices/createTemplateSlice';
-
-const useGlobalStore = create<
-  SchemaSlice & RenderedTemplateSlice & TemplateSlice
->((...a) => ({
-  ...createSchemaSlice(...a),
-  ...createRenderedTemplateSlice(...a),
-  ...createTemplateSlice(...a),
-}));
-
-export default useGlobalStore;
+import createStylesSlice, { StylesSlice } from './slices/createStylesSlice';
 
 export type BuilderStore = ReturnType<typeof createBuilderStore>;
 
@@ -32,7 +23,8 @@ export type BuilderStoreProps = {
 export type BuilderStoreState = SchemaSlice &
   RenderedTemplateSlice &
   TemplateSlice &
-  ActionSlice;
+  ActionSlice &
+  StylesSlice;
 
 export const createBuilderStore = (initProps?: BuilderStoreProps) => {
   return createStore<BuilderStoreState>()((...a) => ({
@@ -40,6 +32,7 @@ export const createBuilderStore = (initProps?: BuilderStoreProps) => {
     ...createRenderedTemplateSlice(...a),
     ...createTemplateSlice(...a),
     ...createActionSlice(...a),
+    ...createStylesSlice(...a),
     ...initProps,
   }));
 };

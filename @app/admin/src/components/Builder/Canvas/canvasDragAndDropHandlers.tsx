@@ -4,7 +4,7 @@ import {
   DRAGGABLE,
 } from '@cms/template-engine/constants';
 import dragAndDropComponent from '@cms/template-engine/modules/dragAndDropComponent';
-import { BuilderStoreState } from '../../../store/useGlobalStore';
+import { BuilderStoreState } from '../../../store/useBuilderStore';
 import { BuilderState } from '../../../types';
 import { CanvasHandlerProps } from './canvasEventsHandlers';
 import { canvasDragAndDropHighlight } from './canvasOverlayElements';
@@ -128,7 +128,7 @@ export const handleDrop = (e: DragEvent) => {
   const data = e.dataTransfer?.getData('text');
   const element = document.getElementById(data as string);
   const target = e.target as HTMLBaseElement;
-  
+
   const elementInsertPosition = getElementInsertPosition(
     target as HTMLElement,
     e.clientY

@@ -11,12 +11,20 @@ import {
 } from '../../Builder/Canvas/canvasEventsHandlers';
 import ComponentsDropdown from '../../ComponentsDropdown';
 import EditPopover from '../../EditPopover';
+import builderJss from '@cms/template-engine/styles/builderJss';
 
 const BuilderCanvas = () => {
   const state = useBuilderProviderState();
 
-  const { schema, renderedTemplate, templateComponents, renderTemplate } =
-    state;
+  const {
+    schema,
+    renderedTemplate,
+    templateComponents,
+    renderTemplate,
+    styles,
+    setStyleSheet,
+    styleSheet,
+  } = state;
 
   const canvasRef = useRef<HTMLDivElement>(null);
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
@@ -52,6 +60,14 @@ const BuilderCanvas = () => {
         handleCanvasResize({ canvasOverlayRef, canvasRef })
       );
     }
+
+    const styleSheet = builderJss.createStyleSheet(styles, {
+      meta: 'builder-styles',
+    });
+
+    setStyleSheet(styleSheet);
+
+    styleSheet.attach();
 
     renderTemplate();
 

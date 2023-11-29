@@ -25,6 +25,7 @@ import {
   FaItalic,
   FaUnderline,
   FaRegSquare,
+  FaAngleDown,
 } from 'react-icons/fa';
 
 export const Plus = FaPlus;
@@ -41,6 +42,7 @@ export const Bold = FaBold;
 export const Italic = FaItalic;
 export const Underline = FaUnderline;
 export const Duplicate = GoDuplicate;
+export const ChevronDown = FaAngleDown;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;

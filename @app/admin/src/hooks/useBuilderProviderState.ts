@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useStore } from 'zustand';
-import { BuilderContext } from '../store/useGlobalStore';
+import { BuilderContext } from '../store/useBuilderStore';
 
 const useBuilderProviderState = () => {
   const store = useContext(BuilderContext);

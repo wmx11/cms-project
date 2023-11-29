@@ -9,7 +9,7 @@ export type ActionSlice = {
   SetTriggerRef;
 
 const createActionSlice: StateCreator<ActionSlice> = (set) => ({
-  isOpen: true,
+  isOpen: false,
   setIsOpen: (isOpen: boolean) => set(() => ({ isOpen })),
   triggerRef: { current: null },
   setTriggerRef: (triggerRef: RefObject<HTMLElement>) =>

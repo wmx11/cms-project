@@ -5,7 +5,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Textarea
+  Textarea,
 } from '@nextui-org/react';
 import useBuilderProviderState from '../hooks/useBuilderProviderState';
 import ElementsGapsControls from './Builder/Controls/LayoutControls/ElementsGapsControls';
@@ -14,6 +14,7 @@ import HorizontalAlignmentControls from './Builder/Controls/LayoutControls/Horiz
 import LayoutTypeControls from './Builder/Controls/LayoutControls/LayoutTypeControls';
 import TextAlignmentControls from './Builder/Controls/LayoutControls/TextAlignmentControls';
 import VerticalAlignmentControls from './Builder/Controls/LayoutControls/VerticalAlignmentControls';
+import FontSizeControls from './Builder/Controls/LayoutControls/FontSizeControls';
 
 const EditPopover = () => {
   const {
@@ -93,9 +94,29 @@ const EditPopover = () => {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <div className="font-semibold">Text alignment</div>
+                <div className="font-semibold">Text</div>
                 <div className="flex justify-between w-full">
                   <TextAlignmentControls path={path} />
+                </div>
+
+                <FontSizeControls path={path} />
+                <div>Font spacing</div>
+                <div>Text color</div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="font-semibold">Extra stuff</div>
+                <div>
+                  <div>Relative, absolute, sticky, fixed</div>
+                  <div>Top, bottom, left, right</div>
+                  <div>max width</div>
+                  <div>min width</div>
+                  <div>max height</div>
+                  <div>min height</div>
+                  <div>margin</div>
+                  <div>padding</div>
+                  <div>border</div>
+                  <div>background</div>
                 </div>
               </div>
 

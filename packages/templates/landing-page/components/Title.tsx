@@ -1,5 +1,5 @@
 import { Schema } from '@cms/template-engine/types';
-import { textAlign } from '@cms/template-engine/variants/variants';
+import { textAlign, fontSize } from '@cms/template-engine/variants/variants';
 import { VariantProps, cva } from 'class-variance-authority';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -9,6 +9,7 @@ const titleCva = cva(
   {
     variants: {
       textAlign,
+      fontSize,
     },
   }
 );

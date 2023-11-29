@@ -21,6 +21,7 @@ const FlexColumnsControls = ({ path }: { path: string }) => {
       size="sm"
       radius="none"
       label="Columns"
+      labelPlacement='outside'
       placeholder="Select the number of columns"
       selectedKeys={[value]}
       onChange={(e) => {

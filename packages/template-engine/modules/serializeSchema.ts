@@ -9,13 +9,14 @@ import {
   STLYES_ELEMENT_INSIDE_BUILDER,
   STYLES_CONTENT_EDITABLE,
 } from '../constants';
-import { Schema } from '../types';
+import { Props, Schema } from '../types';
 import generatePath from './generatePath';
 import importComponent from './importComponent';
 
 type SerializeSchemaProps = {
   schema: Schema[];
   templateId: string;
+  classes?: Record<string, string>;
   componentsArray?: React.ReactElement[];
   serializeForBuilder?: boolean;
   path?: string;
@@ -63,7 +64,7 @@ const serializeComponentForBuilder = (
 
 const applyLayoutControlProps = (
   component: Schema,
-  componentProps: Record<string, string>
+  componentProps: Record<Props['name'], string>
 ) => {
   const newComponentProps = {
     ...componentProps,
@@ -78,6 +79,7 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
     schema,
     templateId,
     componentsArray = [],
+    classes,
     path,
     serializeForBuilder,
   } = props;
@@ -86,7 +88,11 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
 
   for (const [index, item] of schema?.entries()) {
     const component = await importComponent(templateId, item.component);
-    const componentProps = {};
+    const componentId = generatePath(path, index, item);    
+    const styleSheetClassNames = classes
+      ? classes[componentId]
+      : '';
+    const componentProps: Record<Props['name'], string> = {};
 
     for (const prop of item.props) {
       if (prop.type !== 'component') {
@@ -104,6 +110,13 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
         Object.assign(componentProps, { [prop.name]: childComponent });
       }
     }
+
+    // if (componentProps.hasOwnProperty('className') && styleSheetClassNames) {
+      
+    //   Object.assign(componentProps, {
+    //     className: componentProps?.className?.concat(' ', styleSheetClassNames),
+    //   });
+    // }
 
     const componentPropsWithLayoutControls = applyLayoutControlProps(
       item,

@@ -1,19 +1,24 @@
 import { Schema } from '@cms/template-engine/types';
-import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import { fontSize, textAlign } from '@cms/template-engine/variants/variants';
+import { VariantProps, cva } from 'class-variance-authority';
+import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Subtitle: FC<PropsWithChildren & HTMLAttributes<HTMLTitleElement>> = ({
-  children,
-  className,
-  id,
-}) => {
+const subtitleCva = cva('text-xl mb-2', {
+  variants: {
+    textAlign,
+    fontSize,
+  },
+});
+
+type SubtitleVariantProps = VariantProps<typeof subtitleCva>;
+
+const Subtitle: FC<
+  PropsWithChildren & HTMLAttributes<HTMLTitleElement> & SubtitleVariantProps
+> = (props) => {
   return (
-    <h2
-      id={id}
-      data-label="Subtitle"
-      className={twMerge('text-xl mb-2', className)}
-    >
-      {children}
+    <h2 className={twMerge(subtitleCva({ ...props } as SubtitleVariantProps))}>
+      {props.children}
     </h2>
   );
 };
@@ -27,6 +32,13 @@ export const schema: Schema = {
   description:
     'Use Container components to keep your content within a specific width',
   props: [
+    {
+      name: 'className',
+      type: 'string',
+      value: '',
+      displayName: 'Title classes',
+      description: 'You can use Tailwind classes to style this title',
+    },
     {
       name: 'children',
       type: 'string',

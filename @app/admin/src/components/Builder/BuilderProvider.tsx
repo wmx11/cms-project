@@ -5,7 +5,7 @@ import {
   BuilderStore,
   BuilderStoreProps,
   createBuilderStore,
-} from '../../store/useGlobalStore';
+} from '../../store/useBuilderStore';
 
 type BuilderProviderProps = BuilderStoreProps & PropsWithChildren;
 

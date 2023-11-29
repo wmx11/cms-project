@@ -52,3 +52,22 @@ export const elementGaps = {
   11: 'gap gap--11',
   12: 'gap gap--12',
 };
+
+export const fontSize = {
+  10: 'font-size font-size--10',
+  11: 'font-size font-size--11',
+  12: 'font-size font-size--12',
+  13: 'font-size font-size--13',
+  14: 'font-size font-size--14',
+  15: 'font-size font-size--15',
+  16: 'font-size font-size--16',
+  20: 'font-size font-size--20',
+  24: 'font-size font-size--24',
+  32: 'font-size font-size--32',
+  36: 'font-size font-size--36',
+  40: 'font-size font-size--40',
+  48: 'font-size font-size--48',
+  64: 'font-size font-size--64',
+  96: 'font-size font-size--96',
+  128: 'font-size font-size--128',
+};

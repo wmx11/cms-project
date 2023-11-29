@@ -3,6 +3,7 @@ import { Schema } from '@cms/template-engine/types';
 import { StateCreator } from 'zustand';
 import { SchemaSlice } from './createSchemaSlice';
 import { TemplateSlice } from './createTemplateSlice';
+import { StylesSlice } from './createStylesSlice';
 
 export type RenderedTemplateSlice = {
   renderedTemplate: Schema[];
@@ -26,6 +27,7 @@ const createRenderedTemplateSlice: StateCreator<RenderedTemplateSlice> = (
       schema: schema ? schema : _schema,
       templateId,
       serializeForBuilder: true,
+      classes: (get() as unknown as StylesSlice).styleSheet?.classes,
     });
 
     const newRenderedTemplate = [...serializedSchema];

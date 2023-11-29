@@ -1,6 +1,6 @@
 import { Component } from '@prisma/client';
 import { RefObject } from 'react';
-import { BuilderStoreState } from './store/useGlobalStore';
+import { BuilderStoreState } from './store/useBuilderStore';
 
 export type Target = { target: HTMLBaseElement };
 

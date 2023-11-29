@@ -13,7 +13,7 @@ const ElementsGapsControls = ({ path }: { path: string }) => {
   const [value, setValue] = useState(
     `gap_${component?.componentVariants?.elementGaps}`
   );
-  
+
   const applyVariant = applyVariantsAndRenderTemplate(renderTemplate);
 
   return (
@@ -21,6 +21,7 @@ const ElementsGapsControls = ({ path }: { path: string }) => {
       size="sm"
       radius="none"
       label="Gaps"
+      labelPlacement="outside"
       selectedKeys={[value]}
       onChange={(e) => {
         setValue(e.target.value);

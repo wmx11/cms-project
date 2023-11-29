@@ -1,6 +1,7 @@
 import {
   elementGaps,
   flexColumns,
+  fontSize,
   horizontalAlign,
   layoutType,
   textAlign,
@@ -8,13 +9,7 @@ import {
 } from './variants/variants';
 
 export type Props = {
-  name:
-    | 'children'
-    | 'className'
-    | 'textAlign'
-    | 'horizontalAlign'
-    | 'verticalAlign'
-    | string;
+  name: 'children' | 'className' | string;
   type: 'string' | 'number' | 'component' | 'boolean';
   value: string | Schema[] | true | false;
   displayName?: string | undefined;
@@ -33,6 +28,7 @@ export type ComponentVariants = {
   layoutType?: keyof typeof layoutType;
   flexColumns?: keyof typeof flexColumns;
   elementGaps?: keyof typeof elementGaps;
+  fontSize?: keyof typeof fontSize;
 };
 
 export type Schema = {
