@@ -12,8 +12,8 @@ import { Website } from '@prisma/client';
 import slugify from 'slugify';
 import { z } from 'zod';
 import handleErrorMessages from '../handleErrorMessages';
-import prisma from '../prisma';
 import { MaybeWithError } from '../types';
+import db from '@cms/db';
 
 type CreateWebsiteProps = {
   templateId: string;
@@ -46,7 +46,7 @@ export const createWebsite = async ({
 
     schema.parse({ templateId, profileId, alias });
 
-    const existingWebsite = await prisma.website.findUnique({
+    const existingWebsite = await db.website.findUnique({
       where: {
         alias: slugify(alias),
       },
@@ -59,7 +59,7 @@ export const createWebsite = async ({
       throw `Website with name ${alias} already exists. Please choose another name.`;
     }
 
-    const templateSchema = await prisma.template.findUnique({
+    const templateSchema = await db.template.findUnique({
       where: {
         id: templateId,
       },
@@ -68,7 +68,7 @@ export const createWebsite = async ({
       },
     });
 
-    return await prisma.website.create({
+    return await db.website.create({
       data: {
         alias: slugify(alias),
         profile_id: profileId,

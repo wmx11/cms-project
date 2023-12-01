@@ -1,6 +1,5 @@
-import { StateCreator } from 'zustand';
-import builderJss from '@cms/template-engine/styles/builderJss';
 import { StyleSheet } from 'jss';
+import { StateCreator } from 'zustand';
 
 export type StylesSlice = {
   styles: Record<string, string>;

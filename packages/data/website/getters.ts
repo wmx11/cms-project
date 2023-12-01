@@ -1,8 +1,8 @@
-import prisma from '../prisma';
+import db from '@cms/db';
 
 export const getWebsiteDraftSchemaByWebsiteId = async (websiteId: string) => {
   try {
-    const website = await prisma.website.findUnique({
+    const website = await db.website.findUnique({
       where: {
         id: websiteId,
       },

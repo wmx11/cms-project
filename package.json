@@ -16,6 +16,7 @@
     "@auth/prisma-adapter": "^1.0.2",
     "@cms/config": "workspace:^",
     "@cms/data": "workspace:^",
+    "@cms/db": "workspace:^",
     "@cms/template-engine": "workspace:^",
     "@cms/templates": "workspace:^",
     "@cms/ui": "workspace:^",

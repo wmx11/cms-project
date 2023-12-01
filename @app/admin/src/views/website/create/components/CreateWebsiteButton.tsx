@@ -13,7 +13,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import slugify from 'slugify';
-import createWebsiteAction from '../../../../actions/website/createWebsiteAction';
+import createWebsiteAction from '../../../../app/(website-builder)/website/_actions/createWebsiteAction';
 import useErrorMessage from '../../../../hooks/useErrorMessage';
 import routes from '../../../../utils/routes';
 

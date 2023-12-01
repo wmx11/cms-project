@@ -3,9 +3,6 @@ import { Component } from '@prisma/client';
 import { createContext } from 'react';
 import { createStore } from 'zustand';
 import createActionSlice, { ActionSlice } from './slices/createActionSlice';
-import createRenderedTemplateSlice, {
-  RenderedTemplateSlice,
-} from './slices/createRenderedTemplateSlice';
 import createSchemaSlice, { SchemaSlice } from './slices/createSchemaSlice';
 import createTemplateSlice, {
   TemplateSlice,
@@ -21,7 +18,6 @@ export type BuilderStoreProps = {
 };
 
 export type BuilderStoreState = SchemaSlice &
-  RenderedTemplateSlice &
   TemplateSlice &
   ActionSlice &
   StylesSlice;
@@ -29,7 +25,6 @@ export type BuilderStoreState = SchemaSlice &
 export const createBuilderStore = (initProps?: BuilderStoreProps) => {
   return createStore<BuilderStoreState>()((...a) => ({
     ...createSchemaSlice(...a),
-    ...createRenderedTemplateSlice(...a),
     ...createTemplateSlice(...a),
     ...createActionSlice(...a),
     ...createStylesSlice(...a),
