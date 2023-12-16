@@ -45,20 +45,4 @@ const applyVariants = (props: ApplyVariantsProps) => {
   return copySchema;
 };
 
-export const applyVariantsAndRenderTemplate =
-  (renderTemplate: (schema: Schema[]) => void) =>
-  (props: ApplyVariantsProps) => {
-    const newSchema = applyVariants({
-      path: props.path,
-      schema: props.schema,
-      variant: props.variant,
-    });
-
-    if (!newSchema) {
-      return null;
-    }
-
-    return renderTemplate(newSchema);
-  };
-
 export default applyVariants;

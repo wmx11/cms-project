@@ -2,8 +2,8 @@
 import addComponent from '@cms/template-engine/modules/addComponent';
 import builderJss from '@cms/template-engine/styles/builderJss';
 import React, { useEffect, useRef } from 'react';
-import ComponentsDropdown from '../../../../../components/ComponentsDropdown';
-import useBuilderProviderState from '../../../../../hooks/useBuilderProviderState';
+import ComponentsDropdown from '@admin/components/ComponentsDropdown';
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import { initHandleDragAndDrop } from './canvas-handlers/canvasDragAndDropHandlers';
 import {
   handleCanvasClick,
@@ -12,15 +12,18 @@ import {
   handleCanvasResize,
 } from './canvas-handlers/canvasEventsHandlers';
 import EditPopover from '../EditPopover';
+import { BREAKPOINT_XS } from '@cms/template-engine/constants';
 
 const BuilderCanvas = () => {
   const state = useBuilderProviderState();
 
   const {
     schema,
+    styles,
+    breakpoint,
     renderedTemplate,
     templateComponents,
-    styles,
+    setStyleElement,
     renderTemplate,
     setStyleSheet,
   } = state;
@@ -62,11 +65,19 @@ const BuilderCanvas = () => {
 
     const styleSheet = builderJss.createStyleSheet(styles, {
       meta: 'builder-styles',
+      link: true,
     });
 
     setStyleSheet(styleSheet);
 
     styleSheet.attach();
+
+    const styleElement = document.querySelector('[data-meta="builder-styles"]');
+
+    if (styleElement) {
+      setStyleElement(styleElement);
+      styleElement.innerHTML = styleSheet.toString();
+    }
 
     renderTemplate();
 
@@ -106,12 +117,16 @@ const BuilderCanvas = () => {
   return (
     <div
       ref={canvasWrapperRef}
-      className="bg-zinc-100 min-h-screen px-2 py-12 relative"
+      className="bg-zinc-100 min-h-screen px-2 py-12 mt-[calc(49*2px)] relative flex items-center justify-center"
     >
       <div
         ref={canvasRef}
         data-canvas
-        className="bg-white canvas min-h-screen shadow-md relative"
+        className="bg-white canvas min-h-screen shadow-md relative transition-width"
+        style={{
+          width: breakpoint !== BREAKPOINT_XS ? `${breakpoint}px` : '100%',
+          containerType: 'inline-size',
+        }}
         onContextMenu={onContextMenu}
         onMouseOver={onMouseOver}
         onClick={onClick}

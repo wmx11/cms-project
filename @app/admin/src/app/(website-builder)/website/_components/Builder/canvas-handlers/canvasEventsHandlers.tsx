@@ -9,17 +9,15 @@ import {
 } from '@cms/template-engine/constants';
 import { MouseEvent, RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
-import AddElementButton from '../canvas-controls/element-overlay-controls/AddElementButton';
+import { BuilderState, HandleSelect } from '@admin/types';
 import CanvasElementControlButtons from '../canvas-controls/element-overlay-controls/CanvasElementControlButtons';
 import { handleEditableContentClick } from './canvasComponentsEventsHandlers';
 import {
-  canvasAddElementButton,
   canvasContextMenuTarget,
   canvasControls,
   canvasHighlight,
   canvasHighlightLabel,
 } from './canvasOverlayElements';
-import { BuilderState, HandleSelect } from '../../../../../../types';
 
 export type CanvasHandlerProps = {
   canvasRef: RefObject<HTMLDivElement>;
@@ -77,9 +75,7 @@ export const handleCanvasClick =
 
     const controls = canvasControls();
 
-    const addElementButton = canvasAddElementButton();
-
-    if (!highlight.element || !controls.element || !addElementButton.element) {
+    if (!highlight.element || !controls.element) {
       return;
     }
 
@@ -102,13 +98,6 @@ export const handleCanvasClick =
       zIndex: '100',
     });
 
-    Object.assign(addElementButton.element.style, {
-      transform: `translateY(16px) translateX(${targetWidth / 2 - 32}px)`,
-      position: 'absolute',
-      bottom: '0',
-      zIndex: '100',
-    });
-
     // Add element control buttons
     createRoot(controls.element).render(
       CanvasElementControlButtons({
@@ -118,23 +107,9 @@ export const handleCanvasClick =
       })
     );
 
-    createRoot(addElementButton.element).render(
-      AddElementButton({
-        handleSelect,
-        templateComponents: state.templateComponents,
-        target,
-        path: '',
-        label: '',
-      })
-    );
-
     canvasOverlay.appendChild(highlight.element);
 
     highlight.element.appendChild(controls.element);
-
-    if (!addElementButton.existing) {
-      highlight.element.appendChild(addElementButton.element);
-    }
   };
 
 export const handleCanvasMouseOver =

@@ -28,5 +28,12 @@ export const schema: Schema = {
       displayName: 'Container components',
       description: 'Put other components inside the container',
     },
+    {
+      name: 'className',
+      type: 'string',
+      value: '',
+      displayName: 'Title classes',
+      description: 'You can use Tailwind classes to style this title',
+    },
   ],
 };

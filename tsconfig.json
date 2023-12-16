@@ -20,7 +20,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
+      "@client/*": ["./@app/client/src/*"],
+      "@admin/*": ["./@app/admin/src/*"],
       "@cms/*": ["./packages/*"]
     }
   },

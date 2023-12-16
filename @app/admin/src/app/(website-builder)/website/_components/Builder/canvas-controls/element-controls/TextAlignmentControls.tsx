@@ -1,75 +1,47 @@
-import { applyVariantsAndRenderTemplate } from '@cms/template-engine/modules/applyVariants';
-import { ComponentVariants } from '@cms/template-engine/types';
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import useStyles from '@admin/hooks/useStyles';
 import {
   TextAlignCenter,
   TextAlignLeft,
   TextAlignRight,
 } from '@cms/ui/components/Icons';
-import { Button } from '@nextui-org/react';
-import useBuilderProviderState from '../../../../../../../hooks/useBuilderProviderState';
-import setActiveVariantStyles from './setActiveVariantStyles';
+import ButtonElement from '../ButtonElement';
+import getActiveButtonVariant from '@admin/utils/getActiveButtonVariant';
 
 const TextAlignmentControls = () => {
-  const {
-    schema,
-    selectedComponent,
-    selectedComonentPath: path,
-    renderTemplate,
-  } = useBuilderProviderState();
+  const { schema, renderTemplate } = useBuilderProviderState();
+  const { applyStyles, getActiveStyles } = useStyles();
 
-  const applyVariant = applyVariantsAndRenderTemplate(renderTemplate);
+  const handleOnChange = (value: string) => {
+    applyStyles({ textAlign: value });
+    renderTemplate(schema);
+  };
 
-  const setActiveVariant = setActiveVariantStyles<
-    ComponentVariants['textAlign']
-  >(selectedComponent?.componentVariants?.textAlign);
+  const activeStyle = getActiveStyles('textAlign');
 
   return (
     <>
-      <Button
-        variant={setActiveVariant('left')}
-        color="secondary"
-        radius="none"
-        startContent={<TextAlignLeft />}
-        onClick={() =>
-          applyVariant({
-            path,
-            schema,
-            variant: { textAlign: 'left' },
-          })
-        }
+      <ButtonElement
+        variant={getActiveButtonVariant('left', activeStyle)}
+        icon={<TextAlignLeft />}
+        onClick={() => handleOnChange('left')}
       >
         Left
-      </Button>
-      <Button
-        variant={setActiveVariant('center')}
-        color="secondary"
-        radius="none"
-        startContent={<TextAlignCenter />}
-        onClick={() =>
-          applyVariant({
-            path,
-            schema,
-            variant: { textAlign: 'center' },
-          })
-        }
+      </ButtonElement>
+      <ButtonElement
+        variant={getActiveButtonVariant('center', activeStyle)}
+        icon={<TextAlignCenter />}
+        onClick={() => handleOnChange('center')}
       >
         Center
-      </Button>
-      <Button
-        variant={setActiveVariant('right')}
-        color="secondary"
-        radius="none"
-        startContent={<TextAlignRight />}
-        onClick={() =>
-          applyVariant({
-            path,
-            schema,
-            variant: { textAlign: 'right' },
-          })
-        }
+      </ButtonElement>
+      <ButtonElement
+        variant={getActiveButtonVariant('right', activeStyle)}
+        icon={<TextAlignRight />}
+        onClick={() => handleOnChange('right')}
       >
         Right
-      </Button>
+      </ButtonElement>
     </>
   );
 };

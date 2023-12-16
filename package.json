@@ -30,6 +30,8 @@
     "framer-motion": "^10.16.4",
     "jss": "^10.10.0",
     "jss-plugin-camel-case": "^10.10.0",
+    "jss-plugin-nested": "^10.10.0",
+    "jss-plugin-props-sort": "^10.10.0",
     "jss-preset-default": "^10.10.0",
     "nanoid": "^5.0.1",
     "next": "13.5.4",

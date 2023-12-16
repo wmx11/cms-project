@@ -59,6 +59,12 @@ importers:
       jss-plugin-camel-case:
         specifier: ^10.10.0
         version: 10.10.0
+      jss-plugin-nested:
+        specifier: ^10.10.0
+        version: 10.10.0
+      jss-plugin-props-sort:
+        specifier: ^10.10.0
+        version: 10.10.0
       jss-preset-default:
         specifier: ^10.10.0
         version: 10.10.0

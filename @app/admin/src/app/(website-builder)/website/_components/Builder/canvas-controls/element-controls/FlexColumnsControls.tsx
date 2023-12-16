@@ -1,23 +1,29 @@
 'use client';
-import { applyVariantsAndRenderTemplate } from '@cms/template-engine/modules/applyVariants';
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import useStyles from '@admin/hooks/useStyles';
+import { DEFAULT_UNIT } from '@cms/template-engine/constants';
 import { flexColumns } from '@cms/template-engine/variants/variants';
 import { Select, SelectItem } from '@nextui-org/react';
-import { useState } from 'react';
-import useBuilderProviderState from '../../../../../../../hooks/useBuilderProviderState';
 
 const FlexColumnsControls = () => {
-  const {
-    schema,
-    selectedComponent,
-    selectedComonentPath: path,
-    renderTemplate,
-  } = useBuilderProviderState();
+  const { schema, renderTemplate } = useBuilderProviderState();
+  const { applyStyles, getActiveStyles } = useStyles();
 
-  const [value, setValue] = useState(
-    `col_${selectedComponent?.componentVariants?.flexColumns}`
-  );
-
-  const applyVariant = applyVariantsAndRenderTemplate(renderTemplate);
+  const handleOnChange = (value: string) => {
+    const columns = parseInt(value, 10);
+    applyStyles({
+      '--flex-columns': `${columns}`,
+      '--basis': `${100 / columns}%`,
+      width: '100%',
+      'flex-wrap': 'wrap',
+      '&>*': {
+        'flex-basis': `calc(var(--basis, 100%) - var(--gap, 0${DEFAULT_UNIT}))`,
+        'flex-grow': '1',
+        'flex-shrink': '1',
+      },
+    });
+    renderTemplate(schema);
+  };
 
   return (
     <Select
@@ -26,22 +32,13 @@ const FlexColumnsControls = () => {
       label="Columns"
       labelPlacement="outside"
       placeholder="Select the number of columns"
-      selectedKeys={[value]}
+      selectedKeys={[getActiveStyles('--flex-columns')]}
       onChange={(e) => {
-        setValue(e.target.value);
-        applyVariant({
-          path,
-          schema,
-          variant: {
-            flexColumns: e.target.value
-              .split('_')
-              .at(-1) as unknown as keyof typeof flexColumns,
-          },
-        });
+        handleOnChange(e.target.value);
       }}
     >
-      {Object.keys(flexColumns).map((item) => (
-        <SelectItem key={`col_${item}`} value={`col_${item}`}>
+      {flexColumns.map((item) => (
+        <SelectItem key={item} value={item}>
           {`${item} Columns`}
         </SelectItem>
       ))}

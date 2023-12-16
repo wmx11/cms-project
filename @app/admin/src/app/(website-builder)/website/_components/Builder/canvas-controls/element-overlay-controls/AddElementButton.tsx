@@ -1,11 +1,7 @@
 import { DATA_LABEL } from '@cms/template-engine/constants';
-import {
-  HandleSelect,
-  Target,
-  TemplateComponents,
-} from '../../../../../../../types';
-import ComponentsDropdown from '../../../../../../../components/ComponentsDropdown';
-import DefaultTooltip from '../../../../../../../components/DefaultTooltip';
+import { HandleSelect, Target, TemplateComponents } from '@admin/types';
+import ComponentsDropdown from '@admin/components/ComponentsDropdown';
+import DefaultTooltip from '@admin/components/DefaultTooltip';
 
 const AddElementButton = ({
   target,

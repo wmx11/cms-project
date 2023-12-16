@@ -8,7 +8,7 @@ import TurnIntoButton from './TurnIntoButton';
 import {
   BuilderState,
   CanvasElementControlButtonsOverlayTypes,
-} from '../../../../../../../types';
+} from '@admin/types';
 
 const CanvasElementControlButtons = ({
   target,

@@ -1,9 +1,8 @@
+import serializeSchema from '@cms/template-engine/modules/serializeSchema';
 import { Schema } from '@cms/template-engine/types';
 import { Component } from '@prisma/client';
 import { StateCreator } from 'zustand';
 import { SchemaSlice } from './createSchemaSlice';
-import serializeSchema from '@cms/template-engine/modules/serializeSchema';
-import { StylesSlice } from './createStylesSlice';
 
 export type TemplateSlice = {
   templateId: string;
@@ -30,7 +29,6 @@ const createTemplateSlice: StateCreator<TemplateSlice> = (set, get) => ({
       schema: schema ? schema : _schema,
       templateId,
       serializeForBuilder: true,
-      classes: (get() as unknown as StylesSlice).styleSheet?.classes,
     });
 
     const newRenderedTemplate = [...serializedSchema];

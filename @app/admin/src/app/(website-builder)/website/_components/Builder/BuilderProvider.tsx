@@ -5,7 +5,7 @@ import {
   BuilderStore,
   BuilderStoreProps,
   createBuilderStore,
-} from '../../../../../store/useBuilderStore';
+} from '@admin/store/useBuilderStore';
 
 type BuilderProviderProps = BuilderStoreProps & PropsWithChildren;
 

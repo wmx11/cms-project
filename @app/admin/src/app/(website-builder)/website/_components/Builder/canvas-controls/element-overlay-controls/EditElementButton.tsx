@@ -1,8 +1,8 @@
 import { DATA_LABEL } from '@cms/template-engine/constants';
 import { Edit } from '@cms/ui/components/Icons';
 import { Button } from '@nextui-org/react';
-import DefaultTooltip from '../../../../../../../components/DefaultTooltip';
-import { BuilderState, Target } from '../../../../../../../types';
+import DefaultTooltip from '@admin/components/DefaultTooltip';
+import { BuilderState, Target } from '@admin/types';
 
 // Opens the editing popover for the selected component
 const EditElementButton = ({ target, state }: Target & BuilderState) => {

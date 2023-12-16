@@ -1,23 +1,20 @@
 'use client';
-import { applyVariantsAndRenderTemplate } from '@cms/template-engine/modules/applyVariants';
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import useStyles from '@admin/hooks/useStyles';
+import { DEFAULT_UNIT } from '@cms/template-engine/constants';
 import { elementGaps } from '@cms/template-engine/variants/variants';
 import { Select, SelectItem } from '@nextui-org/select';
-import { useState } from 'react';
-import useBuilderProviderState from '../../../../../../../hooks/useBuilderProviderState';
 
 const ElementsGapsControls = () => {
-  const {
-    schema,
-    selectedComponent,
-    selectedComonentPath: path,
-    renderTemplate,
-  } = useBuilderProviderState();
-
-  const [value, setValue] = useState(
-    `gap_${selectedComponent?.componentVariants?.elementGaps}`
-  );
-
-  const applyVariant = applyVariantsAndRenderTemplate(renderTemplate);
+  const { schema, renderTemplate } = useBuilderProviderState();
+  const { applyStyles, getActiveStyles } = useStyles();
+  const handleOnChange = (key: string) => {
+    applyStyles({
+      '--gap': `${key}${DEFAULT_UNIT}`,
+      gap: 'var(--gap)',
+    });
+    renderTemplate(schema);
+  };
 
   return (
     <Select
@@ -25,23 +22,14 @@ const ElementsGapsControls = () => {
       radius="none"
       label="Gaps"
       labelPlacement="outside"
-      selectedKeys={[value]}
+      selectedKeys={[getActiveStyles('--gap', DEFAULT_UNIT)]}
       onChange={(e) => {
-        setValue(e.target.value);
-        applyVariant({
-          path,
-          schema,
-          variant: {
-            elementGaps: e.target.value
-              .split('_')
-              .at(-1) as unknown as keyof typeof elementGaps,
-          },
-        });
+        handleOnChange(e.target.value);
       }}
     >
-      {Object.keys(elementGaps).map((item) => (
-        <SelectItem key={`gap_${item}`} value={`gap_${item}`}>
-          {`${(item as unknown as number) * 4}px Gap`}
+      {elementGaps.map((item) => (
+        <SelectItem key={item} value={item}>
+          {`${item}px`}
         </SelectItem>
       ))}
     </Select>

@@ -1,4 +1,4 @@
-import { MdOutlineDragIndicator, MdPublish } from 'react-icons/md';
+import { MdOutlineDragIndicator, MdOutlinePhoneIphone, MdPublish } from 'react-icons/md';
 import { TbTransform } from 'react-icons/tb';
 import { GoDuplicate } from 'react-icons/go';
 import { CgDisplayFlex, CgSpaceBetween } from 'react-icons/cg';
@@ -26,6 +26,9 @@ import {
   FaUnderline,
   FaRegSquare,
   FaAngleDown,
+  FaSave,
+  FaDesktop,
+  FaTabletAlt,
 } from 'react-icons/fa';
 
 export const Plus = FaPlus;
@@ -43,6 +46,10 @@ export const Italic = FaItalic;
 export const Underline = FaUnderline;
 export const Duplicate = GoDuplicate;
 export const ChevronDown = FaAngleDown;
+export const Save = FaSave;
+export const Desktop = FaDesktop;
+export const Tablet = FaTabletAlt;
+export const Mobile = MdOutlinePhoneIphone;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;

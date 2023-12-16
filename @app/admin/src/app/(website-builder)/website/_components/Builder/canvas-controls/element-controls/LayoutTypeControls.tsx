@@ -1,72 +1,60 @@
-import { applyVariantsAndRenderTemplate } from '@cms/template-engine/modules/applyVariants';
-import { ComponentVariants } from '@cms/template-engine/types';
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import useStyles from '@admin/hooks/useStyles';
 import { LayoutBlock, LayoutFlex } from '@cms/ui/components/Icons';
-import { Button } from '@nextui-org/react';
-import useBuilderProviderState from '../../../../../../../hooks/useBuilderProviderState';
-import setActiveVariantStyles from './setActiveVariantStyles';
+import ButtonElement from '../ButtonElement';
 
 const LayoutTypeControls = () => {
-  const {
-    schema,
-    selectedComponent,
-    selectedComonentPath: path,
-    renderTemplate,
-  } = useBuilderProviderState();
+  const { schema, renderTemplate } = useBuilderProviderState();
+  const { applyStyles } = useStyles();
 
-  const applyVariant = applyVariantsAndRenderTemplate(renderTemplate);
-
-  const setActiveVariant = setActiveVariantStyles<
-    ComponentVariants['layoutType']
-  >(selectedComponent?.componentVariants?.layoutType);
+  const handleOnChange = (value: Record<string, string>) => {
+    applyStyles(value);
+    renderTemplate(schema);
+  };
 
   return (
     <>
-      <Button
-        variant={setActiveVariant('block')}
-        color="secondary"
-        radius="none"
-        startContent={<LayoutBlock />}
-        onClick={() =>
-          applyVariant({
-            path,
-            schema,
-            variant: { layoutType: 'block' },
-          })
-        }
+      <ButtonElement
+        icon={<LayoutBlock />}
+        onClick={() => handleOnChange({ display: 'block' })}
       >
         Block
-      </Button>
-      <Button
-        variant={setActiveVariant('flex')}
-        color="secondary"
-        radius="none"
-        startContent={<LayoutFlex />}
+      </ButtonElement>
+      <ButtonElement onClick={() => handleOnChange({ display: 'inline' })}>
+        Inline
+      </ButtonElement>
+      <ButtonElement
+        icon={<LayoutFlex />}
         onClick={() =>
-          applyVariant({
-            path,
-            schema,
-            variant: { layoutType: 'flex' },
+          handleOnChange({ display: 'flex', 'flex-direction': 'row' })
+        }
+      >
+        Flex Row
+      </ButtonElement>
+      <ButtonElement
+        onClick={() =>
+          handleOnChange({ display: 'flex', 'flex-direction': 'column' })
+        }
+      >
+        Flex Col
+      </ButtonElement>
+      <ButtonElement
+        onClick={() =>
+          handleOnChange({ display: 'flex', 'flex-direction': 'row-reverse' })
+        }
+      >
+        Flex Flex Row Reverse
+      </ButtonElement>
+      <ButtonElement
+        onClick={() =>
+          handleOnChange({
+            display: 'flex',
+            'flex-direction': 'column-reverse',
           })
         }
       >
-        Flex row
-      </Button>
-
-      <Button
-        variant={setActiveVariant('flexCol')}
-        color="secondary"
-        radius="none"
-        startContent={<LayoutFlex />}
-        onClick={() =>
-          applyVariant({
-            path,
-            schema,
-            variant: { layoutType: 'flexCol' },
-          })
-        }
-      >
-        Flex column
-      </Button>
+        Flex Flex Col Reverse
+      </ButtonElement>
     </>
   );
 };

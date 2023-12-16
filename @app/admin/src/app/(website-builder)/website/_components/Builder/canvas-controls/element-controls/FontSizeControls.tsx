@@ -1,5 +1,7 @@
 'use client';
-import { applyVariantsAndRenderTemplate } from '@cms/template-engine/modules/applyVariants';
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import useStyles from '@admin/hooks/useStyles';
+import { DEFAULT_UNIT } from '@cms/template-engine/constants';
 import { fontSize } from '@cms/template-engine/variants/variants';
 import { ChevronDown } from '@cms/ui/components/Icons';
 import {
@@ -7,79 +9,43 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownTrigger,
-  Input,
+  DropdownTrigger
 } from '@nextui-org/react';
-import { useState } from 'react';
-import useBuilderProviderState from '../../../../../../../hooks/useBuilderProviderState';
+import InputElement from '../InputElement';
 
 const FontSizeControls = () => {
-  const {
-    schema,
-    styleSheet,
-    selectedComonentPath: path,
-    selectedElement,
-    selectedComponent,
-    renderTemplate,
-  } = useBuilderProviderState();
-
-  const [value, setValue] = useState(
-    selectedComponent?.componentVariants?.fontSize?.toString() ||
-      window.getComputedStyle(selectedElement as Element).fontSize
-  );
-
-  const applyVariant = applyVariantsAndRenderTemplate(renderTemplate);
+  const { schema, renderTemplate } = useBuilderProviderState();
+  const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (key: string) => {
-    const componentClassName = selectedComponent?.props.find(
-      (item) => item.name === 'className'
-    );
-    if (!componentClassName) {
-      return;
-    }
-    setValue(key as string);
-    styleSheet?.replaceRule(path, { fontSize: `${key}px` });
-    componentClassName.value = styleSheet?.classes[path] || '';
+    applyStyles({ fontSize: `${key}${DEFAULT_UNIT}` });
     renderTemplate(schema);
   };
 
   return (
     <div className="flex items-end">
-      <Input
-        size="sm"
-        radius="none"
+      <InputElement
         type="number"
         label="Font size"
-        labelPlacement="outside"
-        fullWidth
-        value={value}
+        value={getActiveStyles('fontSize', DEFAULT_UNIT)}
         min={1}
-        onValueChange={(key) => {
-          handleOnChange(key);
-        }}
+        onChange={handleOnChange}
       />
       <Dropdown>
         <DropdownTrigger>
           <Button
-            radius="none"
             size="sm"
+            radius="none"
             startContent={<ChevronDown />}
           ></Button>
         </DropdownTrigger>
         <DropdownMenu
           aria-label="Dropdown menu with description"
           onAction={(key) => {
-            setValue(key as string);
-            applyVariant({
-              path,
-              schema,
-              variant: {
-                fontSize: key as keyof typeof fontSize,
-              },
-            });
+            handleOnChange(key as string);
           }}
         >
-          {Object.keys(fontSize).map((item) => (
+          {fontSize.map((item) => (
             <DropdownItem key={item}>{item.toString()}</DropdownItem>
           ))}
         </DropdownMenu>

@@ -14,7 +14,7 @@ const Image = ({ src, width, height, className, id }: Props) => {
     <NextImage
       id={id}
       className={twMerge('mb-2', className)}
-      src={'https://cdn.pixabay.com/photo/2018/08/29/19/01/fig-3640553_640.jpg'}
+      src={src}
       width={500}
       height={500}
     />

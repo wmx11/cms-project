@@ -1,7 +1,7 @@
 import { DATA_DESCRIPTION, DATA_LABEL } from '@cms/template-engine/constants';
 import { Info } from '@cms/ui/components/Icons';
-import { Target } from '../../../../../../../types';
-import DefaultTooltip from '../../../../../../../components/DefaultTooltip';
+import { Target } from '@admin/types';
+import DefaultTooltip from '@admin/components/DefaultTooltip';
 
 const ElementInfoButton = ({ target }: Target) => {
   return (

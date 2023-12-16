@@ -1,9 +1,9 @@
 import { DATA_LABEL } from '@cms/template-engine/constants';
 import turnIntoComponent from '@cms/template-engine/modules/turnIntoComponent';
 import { Transform } from '@cms/ui/components/Icons';
-import ComponentsDropdown from '../../../../../../../components/ComponentsDropdown';
-import DefaultTooltip from '../../../../../../../components/DefaultTooltip';
-import { BuilderState, Target } from '../../../../../../../types';
+import ComponentsDropdown from '@admin/components/ComponentsDropdown';
+import DefaultTooltip from '@admin/components/DefaultTooltip';
+import { BuilderState, Target } from '@admin/types';
 
 // Turns component into a different component
 const TurnIntoButton = ({ target, state }: Target & BuilderState) => {

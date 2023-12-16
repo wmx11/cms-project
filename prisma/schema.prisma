@@ -116,21 +116,22 @@ model Profile_Template {
 // Repository to store pages built by users
 // The page structure (schema) and meta data will be taken from here
 model Website {
-  id           String   @id @default(cuid())
-  alias        String   @unique
-  profile_id   String
-  template_id  String
-  is_published Boolean  @default(false)
-  title        String?
-  description  String?
-  image        String?
-  icon         String?
-  schema       Json?
-  draft_schema Json?
-  template     Template @relation(fields: [template_id], references: [id])
-  profile      Profile  @relation(fields: [profile_id], references: [id])
-  date_created DateTime @default(now())
-  date_updated DateTime @updatedAt
+  id            String   @id @default(cuid())
+  alias         String   @unique
+  profile_id    String
+  template_id   String
+  is_published  Boolean  @default(false)
+  title         String?
+  description   String?
+  image         String?
+  icon          String?
+  schema        Json?
+  styles_schema Json?
+  draft_schema  Json?
+  template      Template @relation(fields: [template_id], references: [id])
+  profile       Profile  @relation(fields: [profile_id], references: [id])
+  date_created  DateTime @default(now())
+  date_updated  DateTime @updatedAt
 
   @@index([alias])
 }

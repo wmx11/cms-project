@@ -16,7 +16,6 @@ import importComponent from './importComponent';
 type SerializeSchemaProps = {
   schema: Schema[];
   templateId: string;
-  classes?: Record<string, string>;
   componentsArray?: React.ReactElement[];
   serializeForBuilder?: boolean;
   path?: string;
@@ -62,24 +61,11 @@ const serializeComponentForBuilder = (
   return componentNodeCopy;
 };
 
-const applyLayoutControlProps = (
-  component: Schema,
-  componentProps: Record<Props['name'], string>
-) => {
-  const newComponentProps = {
-    ...componentProps,
-    ...component.componentVariants,
-  };
-
-  return newComponentProps;
-};
-
 const serializeSchema = async (props: SerializeSchemaProps) => {
   const {
     schema,
     templateId,
     componentsArray = [],
-    classes,
     path,
     serializeForBuilder,
   } = props;
@@ -88,10 +74,6 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
 
   for (const [index, item] of schema?.entries()) {
     const component = await importComponent(templateId, item.component);
-    const componentId = generatePath(path, index, item);    
-    const styleSheetClassNames = classes
-      ? classes[componentId]
-      : '';
     const componentProps: Record<Props['name'], string> = {};
 
     for (const prop of item.props) {
@@ -111,19 +93,7 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
       }
     }
 
-    // if (componentProps.hasOwnProperty('className') && styleSheetClassNames) {
-      
-    //   Object.assign(componentProps, {
-    //     className: componentProps?.className?.concat(' ', styleSheetClassNames),
-    //   });
-    // }
-
-    const componentPropsWithLayoutControls = applyLayoutControlProps(
-      item,
-      componentProps
-    );
-
-    const componentNode = component.default(componentPropsWithLayoutControls);
+    const componentNode = component.default(componentProps);
 
     const componentNodeCopy: React.ReactElement = {
       ...componentNode,

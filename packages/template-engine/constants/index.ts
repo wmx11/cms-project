@@ -1,9 +1,11 @@
+// GENERIC
 export const PATH_SEPARATOR = '_';
-
+export const DEFAULT_UNIT = 'px';
 export const ACTIVE = 'active';
 export const HOVER = 'hover';
 export const DRAGGABLE = 'draggable';
 
+//DATA ATTRIBUTES
 export const DATA_LABEL = 'data-label';
 export const DATA_CANVAS = 'data-canvas';
 export const DATA_SCHEMA = 'data-schema';
@@ -25,7 +27,40 @@ export const DATA_CANVAS_OVERLAY_ADD_ELEMENT_BUTTON =
 export const DATA_CANVAS_OVERLAY_CONTEXT_MENU_TARGET =
   'data-canvas-overlay-context-menu-target';
 
+// STYLES
 export const STYLES_CONTENT_EDITABLE =
   'before:content-[""] before:absolute before:inset-0 before:z-10';
 export const STLYES_ELEMENT_INSIDE_BUILDER =
   'relative border border-dashed border-violet-200 hover:border-violet-300 cursor-pointer transition-colors';
+
+export const BREAKPOINT_XS = 10;
+export const BREAKPOINT_SM = 640;
+export const BREAKPOINT_MD = 768;
+export const BREAKPOINT_LG = 1024;
+export const BREAKPOINT_XL = 1280;
+export const BREAKPOINT_2XL = 1536;
+
+export const BREAKPOINT_XS_KEY = `@container (min-width: ${BREAKPOINT_XS}px)`;
+export const BREAKPOINT_SM_KEY = `@container (min-width: ${BREAKPOINT_SM}px)`;
+export const BREAKPOINT_MD_KEY = `@container (min-width: ${BREAKPOINT_MD}px)`;
+export const BREAKPOINT_LG_KEY = `@container (min-width: ${BREAKPOINT_LG}px)`;
+export const BREAKPOINT_XL_KEY = `@container (min-width: ${BREAKPOINT_XL}px)`;
+export const BREAKPOINT_2XL_KEY = `@container (min-width: ${BREAKPOINT_2XL}px)`;
+
+type BreakpointsMap = {
+  [BREAKPOINT_XS]: typeof BREAKPOINT_XS_KEY;
+  [BREAKPOINT_SM]: typeof BREAKPOINT_SM_KEY;
+  [BREAKPOINT_MD]: typeof BREAKPOINT_MD_KEY;
+  [BREAKPOINT_LG]: typeof BREAKPOINT_LG_KEY;
+  [BREAKPOINT_XL]: typeof BREAKPOINT_XL_KEY;
+  [BREAKPOINT_2XL]: typeof BREAKPOINT_2XL_KEY;
+};
+
+export const BREAKPOINTS_MAP: BreakpointsMap = {
+  [BREAKPOINT_XS]: BREAKPOINT_XS_KEY,
+  [BREAKPOINT_SM]: BREAKPOINT_SM_KEY,
+  [BREAKPOINT_MD]: BREAKPOINT_MD_KEY,
+  [BREAKPOINT_LG]: BREAKPOINT_LG_KEY,
+  [BREAKPOINT_XL]: BREAKPOINT_XL_KEY,
+  [BREAKPOINT_2XL]: BREAKPOINT_2XL_KEY,
+};

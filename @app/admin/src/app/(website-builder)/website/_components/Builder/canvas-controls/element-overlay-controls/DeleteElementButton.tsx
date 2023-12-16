@@ -2,8 +2,8 @@ import { DATA_LABEL } from '@cms/template-engine/constants';
 import removeComponent from '@cms/template-engine/modules/removeComponent';
 import { Trash } from '@cms/ui/components/Icons';
 import { Button } from '@nextui-org/react';
-import DefaultTooltip from '../../../../../../../components/DefaultTooltip';
-import { BuilderState, Target } from '../../../../../../../types';
+import DefaultTooltip from '@admin/components/DefaultTooltip';
+import { BuilderState, Target } from '@admin/types';
 
 // Removes the selected component
 const DeleteElementButton = ({ target, state }: Target & BuilderState) => {

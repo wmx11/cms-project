@@ -4,6 +4,7 @@ import {
   fontSize,
   horizontalAlign,
   layoutType,
+  positionType,
   textAlign,
   verticalAlign,
 } from './variants/variants';
@@ -29,6 +30,7 @@ export type ComponentVariants = {
   flexColumns?: keyof typeof flexColumns;
   elementGaps?: keyof typeof elementGaps;
   fontSize?: keyof typeof fontSize;
+  positionType?: keyof typeof positionType;
 };
 
 export type Schema = {

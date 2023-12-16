@@ -6,7 +6,7 @@ import {
   PopoverTrigger,
   Textarea,
 } from '@nextui-org/react';
-import useBuilderProviderState from '../../../../hooks/useBuilderProviderState';
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import ElementsGapsControls from './Builder/canvas-controls/element-controls/ElementsGapsControls';
 import FlexColumnsControls from './Builder/canvas-controls/element-controls/FlexColumnsControls';
 import FontSizeControls from './Builder/canvas-controls/element-controls/FontSizeControls';
