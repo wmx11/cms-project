@@ -18,11 +18,11 @@ const BuilderPage = (props: Props) => {
         <div className="fixed top-0 w-full z-10">
           <BuilderHeader />
         </div>
-        <div className="grid grid-cols-[1fr,280px]">
+        <div className="grid grid-cols-[1fr,320px]">
           <div className="max-h-screen overflow-auto">
             <BuilderCanvas />
           </div>
-          <div className="fixed top-[49px] bottom-0 right-0 max-w-[280px] overflow-auto border-l-1 border-zinc-20">
+          <div className="fixed top-[49px] bottom-0 right-0 max-w-[320px] overflow-auto border-l-1 border-zinc-20 z-10">
             <BuilderSidebar />
           </div>
         </div>

@@ -1,8 +1,8 @@
-import { Button } from '@nextui-org/react';
+import { Button, ButtonVariantProps } from '@nextui-org/react';
 import React, { PropsWithChildren } from 'react';
 
 type ButtonElementProps = {
-  variant?: 'solid' | 'light';
+  variant?: ButtonVariantProps['variant'];
   icon?: React.ReactElement | string;
   onClick?: () => void;
 } & PropsWithChildren;

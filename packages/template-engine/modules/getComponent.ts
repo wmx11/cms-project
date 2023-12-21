@@ -5,6 +5,10 @@ type GetComponentProps = {
   path: string;
 };
 
+/**
+ * 
+ * @deprecated
+*/
 const getComponent = (props: GetComponentProps) => {
   if (!props.path) {
     return null;

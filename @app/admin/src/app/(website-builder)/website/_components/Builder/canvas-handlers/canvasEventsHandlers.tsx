@@ -56,6 +56,9 @@ export const handleCanvasClick =
     // Reset the whole canvas overlay state if the click happens outside of the element
     if (target.hasAttribute(DATA_CANVAS_OVERLAY)) {
       canvasOverlay.innerHTML = '';
+      state.setSelectedElement(null);
+      state.setSelectedComponentPath('');
+      state.setSelectedComponent('');
     }
 
     if (!target.hasAttribute(DATA_COMPONENT)) {

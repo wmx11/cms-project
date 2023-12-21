@@ -9,7 +9,7 @@ import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownTrigger
+  DropdownTrigger,
 } from '@nextui-org/react';
 import InputElement from '../InputElement';
 
@@ -17,8 +17,8 @@ const FontSizeControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
   const { applyStyles, getActiveStyles } = useStyles();
 
-  const handleOnChange = (key: string) => {
-    applyStyles({ fontSize: `${key}${DEFAULT_UNIT}` });
+  const handleOnChange = (value: string) => {
+    applyStyles({ fontSize: `${value}${DEFAULT_UNIT}` });
     renderTemplate(schema);
   };
 
@@ -40,9 +40,8 @@ const FontSizeControls = () => {
           ></Button>
         </DropdownTrigger>
         <DropdownMenu
-          aria-label="Dropdown menu with description"
-          onAction={(key) => {
-            handleOnChange(key as string);
+          onAction={(value) => {
+            handleOnChange(value as string);
           }}
         >
           {fontSize.map((item) => (

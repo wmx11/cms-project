@@ -31,7 +31,7 @@ const BuilderHeader = () => {
           <PublishButton />
         </div>
       </div>
-      <div className="grid  grid-cols-[1fr,280px]">
+      <div className="grid  grid-cols-[1fr,320px]">
         <div className="p-2 border-b-1 border-zinc-200 flex justify-end items-center bg-white z-10">
           <BreakpointControls />
         </div>

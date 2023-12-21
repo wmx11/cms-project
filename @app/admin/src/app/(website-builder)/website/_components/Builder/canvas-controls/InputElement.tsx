@@ -17,6 +17,7 @@ const InputElement = (props: InputElementsProps) => {
       radius="none"
       label={props.label}
       labelPlacement="outside"
+      placeholder='-'
       fullWidth
       type={props.type || 'text'}
       endContent={props.icon}

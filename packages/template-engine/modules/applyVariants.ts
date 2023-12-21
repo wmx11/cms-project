@@ -7,6 +7,9 @@ type ApplyVariantsProps = {
   variant: ComponentVariants;
 };
 
+/**
+ * @deprecated
+ */
 const applyVariants = (props: ApplyVariantsProps) => {
   if (!props.schema) {
     console.error('[applyVariants]: No schema provided');

@@ -13,7 +13,7 @@ const FlexColumnsControls = () => {
     const columns = parseInt(value, 10);
     applyStyles({
       '--flex-columns': `${columns}`,
-      '--basis': `${100 / columns}%`,
+      '--basis': `calc(100% / var(--flex-columns, 1))`,
       width: '100%',
       'flex-wrap': 'wrap',
       '&>*': {

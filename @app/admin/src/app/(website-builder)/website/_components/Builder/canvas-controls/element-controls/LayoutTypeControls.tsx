@@ -2,6 +2,7 @@ import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import { LayoutBlock, LayoutFlex } from '@cms/ui/components/Icons';
 import ButtonElement from '../ButtonElement';
+import ControlsWrapper from '../ControlsWrapper';
 
 const LayoutTypeControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
@@ -13,7 +14,7 @@ const LayoutTypeControls = () => {
   };
 
   return (
-    <>
+    <ControlsWrapper>
       <ButtonElement
         icon={<LayoutBlock />}
         onClick={() => handleOnChange({ display: 'block' })}
@@ -55,7 +56,7 @@ const LayoutTypeControls = () => {
       >
         Flex Flex Col Reverse
       </ButtonElement>
-    </>
+    </ControlsWrapper>
   );
 };
 

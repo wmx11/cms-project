@@ -1,15 +1,16 @@
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
+import getActiveButtonVariant from '@admin/utils/getActiveButtonVariant';
 import {
   TextAlignCenter,
   TextAlignLeft,
   TextAlignRight,
 } from '@cms/ui/components/Icons';
 import ButtonElement from '../ButtonElement';
-import getActiveButtonVariant from '@admin/utils/getActiveButtonVariant';
 
 const TextAlignmentControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
+  
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: string) => {

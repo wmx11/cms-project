@@ -6,9 +6,7 @@ import { Select, SelectItem } from '@nextui-org/react';
 
 const PositionControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
-
   const { applyStyles, getActiveStyles } = useStyles();
-
   const handleOnChange = (value: string) => {
     applyStyles({ position: value });
     renderTemplate(schema);
@@ -21,7 +19,7 @@ const PositionControls = () => {
         radius="none"
         label="Position"
         labelPlacement="outside"
-        selectedKeys={[getActiveStyles('position') || 'static']}
+        selectedKeys={[getActiveStyles('position')]}
         onChange={(e) => {
           handleOnChange(e.target.value);
         }}

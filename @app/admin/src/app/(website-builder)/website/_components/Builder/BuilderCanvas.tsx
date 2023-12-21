@@ -13,6 +13,7 @@ import {
 } from './canvas-handlers/canvasEventsHandlers';
 import EditPopover from '../EditPopover';
 import { BREAKPOINT_XS } from '@cms/template-engine/constants';
+import { SheetsManager } from 'jss';
 
 const BuilderCanvas = () => {
   const state = useBuilderProviderState();
@@ -63,14 +64,19 @@ const BuilderCanvas = () => {
       );
     }
 
+    const manager = new SheetsManager();
+
     const styleSheet = builderJss.createStyleSheet(styles, {
       meta: 'builder-styles',
       link: true,
     });
 
-    setStyleSheet(styleSheet);
+    const key = {};
 
-    styleSheet.attach();
+    manager.add(key, styleSheet);
+    manager.manage(key);
+
+    setStyleSheet(styleSheet);
 
     const styleElement = document.querySelector('[data-meta="builder-styles"]');
 
