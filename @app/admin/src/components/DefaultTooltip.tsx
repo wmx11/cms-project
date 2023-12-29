@@ -3,7 +3,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@cms/ui/components/Tooltip';
+} from '@cms/packages/ui/components/Tooltip';
 import { FC, PropsWithChildren } from 'react';
 
 type Props = { content: string } & PropsWithChildren;

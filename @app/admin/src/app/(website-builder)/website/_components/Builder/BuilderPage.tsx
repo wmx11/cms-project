@@ -1,4 +1,4 @@
-import { Schema } from '@cms/template-engine/types';
+import { Schema } from '@cms/packages/template-engine/types';
 import { Component } from '@prisma/client';
 import BuilderProvider from './BuilderProvider';
 import BuilderCanvas from './BuilderCanvas';

@@ -11,27 +11,9 @@ importers:
       '@auth/prisma-adapter':
         specifier: ^1.0.2
         version: 1.0.2(@prisma/client@5.3.1)
-      '@cms/config':
+      '@cms/packages':
         specifier: workspace:^
-        version: link:packages/config
-      '@cms/data':
-        specifier: workspace:^
-        version: link:packages/data
-      '@cms/db':
-        specifier: workspace:^
-        version: link:packages/db
-      '@cms/lib':
-        specifier: workspace:^
-        version: link:packages/lib
-      '@cms/template-engine':
-        specifier: workspace:^
-        version: link:packages/template-engine
-      '@cms/templates':
-        specifier: workspace:^
-        version: link:packages/templates
-      '@cms/ui':
-        specifier: workspace:^
-        version: link:packages/ui
+        version: link:packages
       '@nextui-org/react':
         specifier: ^2.2.9
         version: 2.2.9(@types/react@18.2.21)(framer-motion@10.16.4)(react-dom@18.2.0)(react@18.2.0)(tailwind-variants@0.1.18)(tailwindcss@3.3.3)
@@ -156,18 +138,13 @@ importers:
 
   '@app/admin':
     dependencies:
-      '@cms/templates':
-        specifier: workspace:^
-        version: link:../../packages/templates
       sass:
         specifier: ^1.69.5
         version: 1.69.5
 
-  '@app/client':
-    dependencies:
-      '@cms/templates':
-        specifier: workspace:^
-        version: link:../../packages/templates
+  '@app/client': {}
+
+  packages: {}
 
   packages/config: {}
 

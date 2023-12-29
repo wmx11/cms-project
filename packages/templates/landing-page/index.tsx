@@ -1,5 +1,8 @@
-import TemplateRenderer from '@cms/template-engine/TemplateRenderer';
-import { TemplateMetadata, TemplateSchema } from '@cms/template-engine/types';
+import TemplateRenderer from '@cms/packages/template-engine/TemplateRenderer';
+import {
+  TemplateMetadata,
+  TemplateSchema,
+} from '@cms/packages/template-engine/types';
 
 type Props = {
   context: TemplateSchema;

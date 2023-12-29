@@ -4,7 +4,7 @@ import {
   ItemsAlignBottom,
   ItemsAlignCenterVertical,
   ItemsAlignTop,
-} from '@cms/ui/components/Icons';
+} from '@cms/packages/ui/components/Icons';
 import ButtonElement from '../ButtonElement';
 import getActiveButtonVariant from '@admin/utils/getActiveButtonVariant';
 

@@ -2,7 +2,7 @@
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import { renderInputControlComponents } from '@admin/utils/renderControlComponents';
-import { DEFAULT_UNIT } from '@cms/template-engine/constants';
+import { DEFAULT_UNIT } from '@cms/packages/template-engine/constants';
 import { useState } from 'react';
 import UnitSelect from '../../../UnitSelect';
 import ControlsWrapper from '../ControlsWrapper';
@@ -10,7 +10,7 @@ import { JssStyle } from 'jss';
 
 const MarginAndPaddingControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
-  
+
   const { applyStyles, getActiveStyles } = useStyles();
 
   const [unit, setUnit] = useState(DEFAULT_UNIT);

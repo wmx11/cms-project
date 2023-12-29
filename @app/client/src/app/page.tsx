@@ -1,6 +1,6 @@
-import TemplateSchema from '@cms/templates/landing-page/schema.json';
+import TemplateSchema from '@cms/packages/templates/landing-page/schema.json';
 import { Metadata } from 'next';
-import prisma from '@cms/data/prisma';
+import prisma from '@cms/packages/data/prisma';
 import { IconURL } from 'next/dist/lib/metadata/types/metadata-types';
 
 const getPageData = async () => {
@@ -27,7 +27,7 @@ export const generateMetadata = async (): Promise<Metadata> => {
 
 export default async function Home() {
   const page = await import(
-    `@cms/templates/${TemplateSchema.metadata.id}/${TemplateSchema.metadata.component}`
+    `@cms/packages/templates/${TemplateSchema.metadata.id}/${TemplateSchema.metadata.component}`
   );
   return page.default({
     context: TemplateSchema,

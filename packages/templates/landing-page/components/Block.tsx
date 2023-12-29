@@ -1,4 +1,4 @@
-import { Schema } from '@cms/template-engine/types';
+import { Schema } from '@cms/packages/template-engine/types';
 import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 

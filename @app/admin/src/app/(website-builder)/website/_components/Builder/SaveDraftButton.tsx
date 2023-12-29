@@ -1,4 +1,4 @@
-import { Save } from '@cms/ui/components/Icons';
+import { Save } from '@cms/packages/ui/components/Icons';
 import { Button } from '@nextui-org/button';
 
 const SaveDraftButton = () => {

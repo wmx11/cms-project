@@ -1,4 +1,4 @@
-import { Schema } from '@cms/template-engine/types';
+import { Schema } from '@cms/packages/template-engine/types';
 import { Image as NextImage } from '@nextui-org/image';
 import { HTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';

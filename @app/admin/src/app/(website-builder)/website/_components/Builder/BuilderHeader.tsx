@@ -1,4 +1,4 @@
-import { Redo, Undo } from '@cms/ui/components/Icons';
+import { Redo, Undo } from '@cms/packages/ui/components/Icons';
 import { Button } from '@nextui-org/button';
 import GoBackButton from '@admin/components/GoBackButton';
 import PublishButton from './PublishButton';

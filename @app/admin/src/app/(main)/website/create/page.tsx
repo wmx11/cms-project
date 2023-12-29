@@ -1,4 +1,4 @@
-import { getTemplates } from '@cms/data/template/getters';
+import { getTemplates } from '@cms/packages/data/template/getters';
 import { Template } from '@prisma/client';
 import Create from '../../../../views/website/create/Create';
 

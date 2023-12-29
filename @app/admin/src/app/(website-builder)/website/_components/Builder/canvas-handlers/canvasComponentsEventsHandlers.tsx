@@ -1,5 +1,5 @@
-import { DATA_EDITABLE } from '@cms/template-engine/constants';
-import { STYLES_CONTENT_EDITABLE } from '@cms/template-engine/constants';
+import { DATA_EDITABLE } from '@cms/packages/template-engine/constants';
+import { STYLES_CONTENT_EDITABLE } from '@cms/packages/template-engine/constants';
 
 export const handleEditableContentInput = (event: Event) => {
   const target = event.target as HTMLBaseElement;

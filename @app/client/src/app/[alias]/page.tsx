@@ -1,4 +1,4 @@
-import prisma from '@cms/data/prisma';
+import prisma from '@cms/packages/data/prisma';
 import { Metadata } from 'next';
 import { IconURL } from 'next/dist/lib/metadata/types/metadata-types';
 import React, { cache } from 'react';

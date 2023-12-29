@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../Header';
 import GoBackButton from '../GoBackButton';
-import Title from '@cms/ui/components/Title';
+import Title from '@cms/packages/ui/components/Title';
 
 type Props = {
   title?: string;

@@ -11,7 +11,7 @@ import {
   BREAKPOINT_2XL,
   BREAKPOINT_XS,
   BREAKPOINT_XS_KEY,
-} from '@cms/template-engine/constants';
+} from '@cms/packages/template-engine/constants';
 import { StyleSheet } from 'jss';
 import { StateCreator } from 'zustand';
 import { JssStyle } from 'jss';

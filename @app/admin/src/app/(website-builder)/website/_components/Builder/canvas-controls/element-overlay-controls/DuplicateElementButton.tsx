@@ -1,5 +1,5 @@
-import duplicateComponent from '@cms/template-engine/modules/duplicateComponent';
-import { Duplicate } from '@cms/ui/components/Icons';
+import duplicateComponent from '@cms/packages/template-engine/modules/duplicateComponent';
+import { Duplicate } from '@cms/packages/ui/components/Icons';
 import { Button } from '@nextui-org/react';
 import { BuilderState, Target } from '@admin/types';
 

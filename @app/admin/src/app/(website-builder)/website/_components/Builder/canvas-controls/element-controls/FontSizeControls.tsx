@@ -1,9 +1,9 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
-import { DEFAULT_UNIT } from '@cms/template-engine/constants';
-import { fontSize } from '@cms/template-engine/variants/variants';
-import { ChevronDown } from '@cms/ui/components/Icons';
+import { DEFAULT_UNIT } from '@cms/packages/template-engine/constants';
+import { fontSize } from '@cms/packages/template-engine/variants/variants';
+import { ChevronDown } from '@cms/packages/ui/components/Icons';
 import {
   Button,
   Dropdown,

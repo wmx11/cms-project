@@ -6,7 +6,7 @@ import {
   BREAKPOINT_SM,
   BREAKPOINT_XL,
   BREAKPOINT_XS,
-} from '@cms/template-engine/constants';
+} from '@cms/packages/template-engine/constants';
 import { Button } from '@nextui-org/react';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import getActiveButtonVariant from '@admin/utils/getActiveButtonVariant';

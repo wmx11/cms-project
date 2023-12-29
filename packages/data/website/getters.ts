@@ -1,4 +1,4 @@
-import db from '@cms/db';
+import db from '@cms/packages/db';
 
 export const getWebsiteDraftSchemaByWebsiteId = async (websiteId: string) => {
   try {

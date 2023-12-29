@@ -2,8 +2,8 @@ import {
   DATA_ACCEPTS_CHILDREN,
   DATA_DND_INITIALIZED,
   DRAGGABLE,
-} from '@cms/template-engine/constants';
-import dragAndDropComponent from '@cms/template-engine/modules/dragAndDropComponent';
+} from '@cms/packages/template-engine/constants';
+import dragAndDropComponent from '@cms/packages/template-engine/modules/dragAndDropComponent';
 import { BuilderStoreState } from '@admin/store/useBuilderStore';
 import { BuilderState } from '@admin/types';
 import { CanvasHandlerProps } from './canvasEventsHandlers';

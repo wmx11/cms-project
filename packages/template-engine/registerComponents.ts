@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import prisma from '@cms/data/prisma';
+import prisma from '@cms/packages/data/prisma';
 import { Schema, TemplateMetadata } from './types';
 
 const registerComponents = async (template: string[] = [], update = false) => {
@@ -53,7 +53,9 @@ const registerComponents = async (template: string[] = [], update = false) => {
     });
 
     if (!existingTemplate) {
-      const importedTemplate = await import(`@cms/templates/${template}/index`);
+      const importedTemplate = await import(
+        `@cms/packages/templates/${template}/index`
+      );
 
       if (!importedTemplate) {
         console.error('Cannot import template');
@@ -94,7 +96,7 @@ const registerComponents = async (template: string[] = [], update = false) => {
 
     for (const component of components) {
       const importedComponent = await import(
-        `@cms/templates/${existingTemplate.slug}/components/${component}`
+        `@cms/packages/templates/${existingTemplate.slug}/components/${component}`
       );
 
       if (!importedComponent) {

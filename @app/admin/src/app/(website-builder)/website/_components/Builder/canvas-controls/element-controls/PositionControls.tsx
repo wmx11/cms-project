@@ -1,7 +1,7 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
-import { positionType } from '@cms/template-engine/variants/variants';
+import { positionType } from '@cms/packages/template-engine/variants/variants';
 import { Select, SelectItem } from '@nextui-org/react';
 
 const PositionControls = () => {

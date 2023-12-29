@@ -6,7 +6,7 @@ import {
   DATA_COMPONENT,
   DATA_TARGET_ID,
   HOVER,
-} from '@cms/template-engine/constants';
+} from '@cms/packages/template-engine/constants';
 import { MouseEvent, RefObject } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BuilderState, HandleSelect } from '@admin/types';

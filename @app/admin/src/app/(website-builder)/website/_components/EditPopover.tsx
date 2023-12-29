@@ -1,5 +1,5 @@
 'use client';
-import { DATA_TARGET_ID } from '@cms/template-engine/constants';
+import { DATA_TARGET_ID } from '@cms/packages/template-engine/constants';
 import {
   Popover,
   PopoverContent,

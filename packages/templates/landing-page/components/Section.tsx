@@ -1,4 +1,4 @@
-import { Schema } from '@cms/template-engine/types';
+import { Schema } from '@cms/packages/template-engine/types';
 import {
   horizontalAlign,
   textAlign,
@@ -6,7 +6,7 @@ import {
   layoutType,
   flexColumns,
   elementGaps,
-} from '@cms/template-engine/variants/variants';
+} from '@cms/packages/template-engine/variants/variants';
 import { VariantProps, cva } from 'class-variance-authority';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';

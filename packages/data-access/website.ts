@@ -1,5 +1,5 @@
-import db from '@cms/db';
-import { Website, WebsiteDTO } from '@cms/db/schema';
+import db from '@cms/packages/db';
+import { Website, WebsiteDTO } from '@cms/packages/db/schema';
 
 export type CreateWebsite = (data: WebsiteDTO) => Promise<Website>;
 export type GetWebsiteByAlias = (alias: string) => Promise<Website | null>;

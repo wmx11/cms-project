@@ -1,4 +1,4 @@
-import { Schema } from '@cms/template-engine/types';
+import { Schema } from '@cms/packages/template-engine/types';
 import { Component } from '@prisma/client';
 import { createContext } from 'react';
 import { createStore } from 'zustand';

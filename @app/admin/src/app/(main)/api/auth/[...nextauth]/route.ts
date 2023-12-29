@@ -1,5 +1,5 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
-import prisma from '@cms/data/prisma';
+import prisma from '@cms/packages/data/prisma';
 import NextAuth, { Profile } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import routes from '../../../../../utils/routes';

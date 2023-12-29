@@ -1,13 +1,13 @@
-import prisma from '@cms/data/prisma';
-import { withProfile } from '@cms/data/profile/getters';
-import { Button } from '@cms/ui/components/Button';
+import prisma from '@cms/packages/data/prisma';
+import { withProfile } from '@cms/packages/data/profile/getters';
+import { Button } from '@cms/packages/ui/components/Button';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from '@cms/ui/components/Card';
-import { Edit, Trash } from '@cms/ui/components/Icons';
+} from '@cms/packages/ui/components/Card';
+import { Edit, Trash } from '@cms/packages/ui/components/Icons';
 import Link from 'next/link';
 import PageWithHeader from '../../../components/Layout/PageWithHeader';
 import routes from '../../../utils/routes';

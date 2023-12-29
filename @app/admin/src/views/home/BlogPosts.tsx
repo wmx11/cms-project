@@ -1,7 +1,7 @@
-import { Button } from '@cms/ui/components/Button';
-import { Card, CardContent } from '@cms/ui/components/Card';
-import { Plus } from '@cms/ui/components/Icons';
-import Title from '@cms/ui/components/Title';
+import { Button } from '@cms/packages/ui/components/Button';
+import { Card, CardContent } from '@cms/packages/ui/components/Card';
+import { Plus } from '@cms/packages/ui/components/Icons';
+import Title from '@cms/packages/ui/components/Title';
 import Link from 'next/link';
 import Header from '../../components/Header';
 import routes from '../../utils/routes';

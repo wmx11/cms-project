@@ -1,6 +1,6 @@
 'use client';
-import addComponent from '@cms/template-engine/modules/addComponent';
-import builderJss from '@cms/template-engine/styles/builderJss';
+import addComponent from '@cms/packages/template-engine/modules/addComponent';
+import builderJss from '@cms/packages/template-engine/styles/builderJss';
 import React, { useEffect, useRef } from 'react';
 import ComponentsDropdown from '@admin/components/ComponentsDropdown';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
@@ -12,7 +12,7 @@ import {
   handleCanvasResize,
 } from './canvas-handlers/canvasEventsHandlers';
 import EditPopover from '../EditPopover';
-import { BREAKPOINT_XS } from '@cms/template-engine/constants';
+import { BREAKPOINT_XS } from '@cms/packages/template-engine/constants';
 import { SheetsManager } from 'jss';
 
 const BuilderCanvas = () => {

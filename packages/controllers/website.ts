@@ -1,7 +1,10 @@
-import { CreateWebsite, GetWebsiteByAlias } from '@cms/data-access/website';
-import { WebsiteDTO } from '@cms/db/schema';
-import { WebsiteEntity } from '@cms/entities/website';
-import { AuthError, GetUser } from '@cms/lib/auth';
+import {
+  CreateWebsite,
+  GetWebsiteByAlias,
+} from '@cms/packages/data-access/website';
+import { WebsiteDTO } from '@cms/packages/db/schema';
+import { WebsiteEntity } from '@cms/packages/entities/website';
+import { AuthError, GetUser } from '@cms/packages/lib/auth';
 
 const mapWebsiteToDTO = (website: WebsiteEntity): WebsiteDTO => {
   return {

@@ -1,10 +1,10 @@
 'use client';
-import { Bold, Italic, Underline } from '@cms/ui/components/Icons';
+import { Bold, Italic, Underline } from '@cms/packages/ui/components/Icons';
 import { Button, ButtonProps } from '@nextui-org/react';
 import {
   toggleBoldMark,
   toggleItalicMark,
-  toggleUnderlineMark
+  toggleUnderlineMark,
 } from './commands';
 import { CustomEditor } from './types';
 

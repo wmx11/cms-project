@@ -1,5 +1,5 @@
-import Title from '@cms/ui/components/Title';
-import { Card, CardContent } from '@cms/ui/components/Card';
+import Title from '@cms/packages/ui/components/Title';
+import { Card, CardContent } from '@cms/packages/ui/components/Card';
 import Header from '../../components/Header';
 
 const Testimonials = () => {

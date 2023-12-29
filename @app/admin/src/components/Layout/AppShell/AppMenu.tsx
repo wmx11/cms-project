@@ -1,5 +1,9 @@
 import routes from '@admin/utils/routes';
-import { Avatar, AvatarFallback, AvatarImage } from '@cms/ui/components/Avatar';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from '@cms/packages/ui/components/Avatar';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 

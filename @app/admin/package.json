@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@cms/templates": "workspace:^",
     "sass": "^1.69.5"
   }
 }

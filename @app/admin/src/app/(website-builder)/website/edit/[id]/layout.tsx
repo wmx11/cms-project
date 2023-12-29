@@ -1,5 +1,5 @@
 import React from 'react';
-import '@cms/template-engine/styles/global.scss';
+import '@cms/packages/template-engine/styles/global.scss';
 
 type Props = {
   children: React.ReactNode;

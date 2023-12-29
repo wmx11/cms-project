@@ -1,6 +1,6 @@
 'use client';
-import { Button } from '@cms/ui/components/Button';
-import { ArrowLeft } from '@cms/ui/components/Icons';
+import { Button } from '@cms/packages/ui/components/Button';
+import { ArrowLeft } from '@cms/packages/ui/components/Icons';
 import { useRouter } from 'next/navigation';
 
 const GoBackButton = () => {

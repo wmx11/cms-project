@@ -1,4 +1,4 @@
-import { DATA_ACCEPTS_CHILDREN } from '@cms/template-engine/constants';
+import { DATA_ACCEPTS_CHILDREN } from '@cms/packages/template-engine/constants';
 import AddElementButton from './AddElementButton';
 import DeleteElementButton from './DeleteElementButton';
 import DuplicateElementButton from './DuplicateElementButton';

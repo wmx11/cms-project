@@ -5,12 +5,12 @@ import {
   TextAlignCenter,
   TextAlignLeft,
   TextAlignRight,
-} from '@cms/ui/components/Icons';
+} from '@cms/packages/ui/components/Icons';
 import ButtonElement from '../ButtonElement';
 
 const TextAlignmentControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
-  
+
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: string) => {

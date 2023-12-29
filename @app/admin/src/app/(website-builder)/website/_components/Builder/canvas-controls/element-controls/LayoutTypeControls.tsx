@@ -1,6 +1,6 @@
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
-import { LayoutBlock, LayoutFlex } from '@cms/ui/components/Icons';
+import { LayoutBlock, LayoutFlex } from '@cms/packages/ui/components/Icons';
 import ButtonElement from '../ButtonElement';
 import ControlsWrapper from '../ControlsWrapper';
 

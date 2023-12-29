@@ -13,7 +13,7 @@ import slugify from 'slugify';
 import { z } from 'zod';
 import handleErrorMessages from '../handleErrorMessages';
 import { MaybeWithError } from '../types';
-import db from '@cms/db';
+import db from '@cms/packages/db';
 
 type CreateWebsiteProps = {
   templateId: string;

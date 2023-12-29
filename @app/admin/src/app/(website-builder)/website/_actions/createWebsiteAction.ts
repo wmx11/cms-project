@@ -1,8 +1,8 @@
 'use server';
-import handleErrorMessages from '@cms/data/handleErrorMessages';
-import { withProfile } from '@cms/data/profile/getters';
-import { MaybeWithError } from '@cms/data/types';
-import { createWebsite } from '@cms/data/website/setters';
+import handleErrorMessages from '@cms/packages/data/handleErrorMessages';
+import { withProfile } from '@cms/packages/data/profile/getters';
+import { MaybeWithError } from '@cms/packages/data/types';
+import { createWebsite } from '@cms/packages/data/website/setters';
 import { Website } from '@prisma/client';
 import slugify from 'slugify';
 

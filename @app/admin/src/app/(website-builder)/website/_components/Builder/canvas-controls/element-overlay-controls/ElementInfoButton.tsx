@@ -1,5 +1,8 @@
-import { DATA_DESCRIPTION, DATA_LABEL } from '@cms/template-engine/constants';
-import { Info } from '@cms/ui/components/Icons';
+import {
+  DATA_DESCRIPTION,
+  DATA_LABEL,
+} from '@cms/packages/template-engine/constants';
+import { Info } from '@cms/packages/ui/components/Icons';
 import { Target } from '@admin/types';
 import DefaultTooltip from '@admin/components/DefaultTooltip';
 

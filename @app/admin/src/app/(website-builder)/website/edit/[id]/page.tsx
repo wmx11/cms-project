@@ -1,5 +1,5 @@
-import { getComponentsByWebsiteId } from '@cms/data/component/getters';
-import { getWebsiteDraftSchemaByWebsiteId } from '@cms/data/website/getters';
+import { getComponentsByWebsiteId } from '@cms/packages/data/component/getters';
+import { getWebsiteDraftSchemaByWebsiteId } from '@cms/packages/data/website/getters';
 import BuilderPage from '../../_components/Builder/BuilderPage';
 
 type Props = {

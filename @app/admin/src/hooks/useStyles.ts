@@ -1,5 +1,5 @@
 import { StylesObject } from '@admin/store/slices/createStylesSlice';
-import { BREAKPOINTS_MAP } from '@cms/template-engine/constants';
+import { BREAKPOINTS_MAP } from '@cms/packages/template-engine/constants';
 import { JssStyle } from 'jss';
 import useBuilderProviderState from './useBuilderProviderState';
 

@@ -1,5 +1,5 @@
 'use client';
-import { Plus } from '@cms/ui/components/Icons';
+import { Plus } from '@cms/packages/ui/components/Icons';
 import { Button } from '@nextui-org/button';
 import {
   Dropdown,

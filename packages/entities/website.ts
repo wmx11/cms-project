@@ -1,4 +1,4 @@
-import { WebsiteDTO } from '@cms/db/schema';
+import { WebsiteDTO } from '@cms/packages/db/schema';
 import { Prisma } from '@prisma/client';
 import slugify from 'slugify';
 import { z } from 'zod';

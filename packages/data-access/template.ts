@@ -1,4 +1,4 @@
-import db from '@cms/db';
+import db from '@cms/packages/db';
 
 export type CreateTemplate = () => Promise<void>;
 export type GetTemplate = () => Promise<void>;

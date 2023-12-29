@@ -1,5 +1,5 @@
 'use client';
-import { PROJECT_DEFAULT_URL } from '@cms/config/constants';
+import { PROJECT_DEFAULT_URL } from '@cms/packages/config/constants';
 import {
   Button,
   Input,

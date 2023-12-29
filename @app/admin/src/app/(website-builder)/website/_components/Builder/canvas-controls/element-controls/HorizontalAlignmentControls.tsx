@@ -6,7 +6,7 @@ import {
   ItemsAlignCenterHorizontal,
   ItemsAlignLeft,
   ItemsAlignRight,
-} from '@cms/ui/components/Icons';
+} from '@cms/packages/ui/components/Icons';
 import ButtonElement from '../ButtonElement';
 
 const HorizontalAlignmentControls = () => {

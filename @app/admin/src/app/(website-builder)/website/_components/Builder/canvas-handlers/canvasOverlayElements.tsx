@@ -7,7 +7,7 @@ import {
   DATA_CANVAS_OVERLAY_HIGHLIGHT_LABEL,
   DATA_LABEL,
   DRATA_CANVAS_OVERLAY_DRAG_AND_DROP_HIGHLIGHT,
-} from '@cms/template-engine/constants';
+} from '@cms/packages/template-engine/constants';
 
 export const canvasHighlight = (state: string = ACTIVE) => {
   if (typeof document === undefined) {

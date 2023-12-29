@@ -1,4 +1,4 @@
-import { Schema } from '@cms/template-engine/types';
+import { Schema } from '@cms/packages/template-engine/types';
 import { Button as NextButton } from '@nextui-org/button';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 
