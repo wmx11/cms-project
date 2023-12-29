@@ -1,6 +1,5 @@
 'use client';
-import { Button } from '@nextui-org/button';
-import React from 'react';
+import { Button } from '@cms/ui/components/Button';
 import { ArrowLeft } from '@cms/ui/components/Icons';
 import { useRouter } from 'next/navigation';
 
@@ -8,14 +7,8 @@ const GoBackButton = () => {
   const router = useRouter();
 
   return (
-    <Button
-      startContent={<ArrowLeft />}
-      onPress={() => router.back()}
-      color="primary"
-      variant="flat"
-      size="sm"
-    >
-      Go back
+    <Button onClick={() => router.back()}>
+      <ArrowLeft className="h-3 w-3 mr-2" /> Go back
     </Button>
   );
 };

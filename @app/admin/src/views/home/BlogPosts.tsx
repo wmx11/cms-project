@@ -1,30 +1,26 @@
+import { Button } from '@cms/ui/components/Button';
+import { Card, CardContent } from '@cms/ui/components/Card';
 import { Plus } from '@cms/ui/components/Icons';
 import Title from '@cms/ui/components/Title';
-import { Button } from '@nextui-org/button';
-import { Card, CardBody } from '@nextui-org/card';
 import Link from 'next/link';
-import routes from '../../utils/routes';
 import Header from '../../components/Header';
-import SlateEditor from '../../components/Editor/SlateEditor';
+import routes from '../../utils/routes';
 
 const BlogPosts = () => {
   return (
     <div>
       <Header>
         <Title className="mb-0">Blog Posts</Title>
-        <Button
-          as={Link}
-          href={routes.blog.create}
-          color="primary"
-          endContent={<Plus />}
-        >
-          Create New
+        <Button asChild>
+          <Link href={routes.blog.create}>
+            <Plus className="h-3 w-3 mr-2" />
+            Create New
+          </Link>
         </Button>
       </Header>
       <div>
         <Card>
-          <CardBody>You currently have no blog posts</CardBody>
-          <SlateEditor />
+          <CardContent>You currently have no blog posts</CardContent>
         </Card>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import Title from '@cms/ui/components/Title';
-import { Card, CardBody } from '@nextui-org/card';
+import { Card, CardContent } from '@cms/ui/components/Card';
 import Header from '../../components/Header';
 
 const Testimonials = () => {
@@ -10,7 +10,7 @@ const Testimonials = () => {
       </Header>
       <div>
         <Card>
-          <CardBody>You currently have no testimonials</CardBody>
+          <CardContent>You currently have no testimonials</CardContent>
         </Card>
       </div>
     </div>

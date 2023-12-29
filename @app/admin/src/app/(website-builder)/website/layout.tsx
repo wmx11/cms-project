@@ -1,6 +1,6 @@
-import React from 'react';
 import Providers from '@admin/components/Providers';
-import '@admin/app/globals.css';
+import '@cms/config/global.css';
+import React from 'react';
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (

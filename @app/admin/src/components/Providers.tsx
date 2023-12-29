@@ -5,9 +5,9 @@ import React, { FC, PropsWithChildren } from 'react';
 
 const Providers: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <NextUIProvider>
+    <>
       <SessionProvider>{children}</SessionProvider>
-    </NextUIProvider>
+    </>
   );
 };
 

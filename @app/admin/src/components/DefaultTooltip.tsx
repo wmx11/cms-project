@@ -1,13 +1,21 @@
-import { Tooltip } from '@nextui-org/react';
-import React, { FC, PropsWithChildren } from 'react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@cms/ui/components/Tooltip';
+import { FC, PropsWithChildren } from 'react';
 
 type Props = { content: string } & PropsWithChildren;
 
 const DefaultTooltip: FC<Props> = ({ children, content }) => {
   return (
-    <Tooltip showArrow color="secondary" content={content} delay={1000}>
-      {children}
-    </Tooltip>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>{children}</TooltipTrigger>
+        <TooltipContent>{content}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 

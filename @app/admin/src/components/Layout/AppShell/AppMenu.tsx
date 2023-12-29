@@ -1,7 +1,7 @@
-import { Link } from '@nextui-org/link';
-import { User } from '@nextui-org/user';
+import routes from '@admin/utils/routes';
+import { Avatar, AvatarFallback, AvatarImage } from '@cms/ui/components/Avatar';
 import { getServerSession } from 'next-auth';
-import routes from '../../../utils/routes';
+import Link from 'next/link';
 
 const AppMenu = async () => {
   const session = await getServerSession();
@@ -9,29 +9,17 @@ const AppMenu = async () => {
   return (
     <div>
       <div className="border-b p-4">
-        <User
-          name={session?.user?.name}
-          description={session?.user?.email}
-          avatarProps={{
-            src: session?.user?.image as string,
-          }}
-          as="button"
-        />
+        <Avatar>
+          <AvatarImage src={session?.user?.image || ''} />
+          <AvatarFallback>{session?.user?.name || ''}</AvatarFallback>
+        </Avatar>
       </div>
       <div className="space-y-8 p-4">
         <div className="flex flex-col space-y-4">
-          <Link isBlock href="/" color="foreground">
-            Dashboard
-          </Link>
-          <Link isBlock href={routes.website.default} color="foreground">
-            My websites
-          </Link>
-          <Link isBlock href={routes.blog.default} color="foreground">
-            Blog posts
-          </Link>
-          <Link isBlock href={routes.testimonials.default} color="foreground">
-            Testimonials
-          </Link>
+          <Link href="/">Dashboard</Link>
+          <Link href={routes.website.default}>My websites</Link>
+          <Link href={routes.blog.default}>Blog posts</Link>
+          <Link href={routes.testimonials.default}>Testimonials</Link>
         </div>
       </div>
     </div>

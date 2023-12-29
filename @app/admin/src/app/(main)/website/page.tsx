@@ -1,8 +1,13 @@
 import prisma from '@cms/data/prisma';
 import { withProfile } from '@cms/data/profile/getters';
+import { Button } from '@cms/ui/components/Button';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from '@cms/ui/components/Card';
 import { Edit, Trash } from '@cms/ui/components/Icons';
-import { Button } from '@nextui-org/button';
-import { Card, CardBody, CardFooter } from '@nextui-org/card';
 import Link from 'next/link';
 import PageWithHeader from '../../../components/Layout/PageWithHeader';
 import routes from '../../../utils/routes';
@@ -28,21 +33,21 @@ const page = async () => {
         {websites.map((item, index) => {
           return (
             <Card key={`website_${index}`}>
-              <CardBody>
+              <CardHeader></CardHeader>
+              <CardContent>
                 <p>{item.title}</p>
                 <p>Alias: {item.alias}</p>
                 <p>Published: {item.is_published.toString()}</p>
-              </CardBody>
+              </CardContent>
               <CardFooter className="flex justify-between gap-2">
-                <Button
-                  color="warning"
-                  as={Link}
-                  href={routes.website.edit.replace('$id', item.id)}
-                  endContent={<Edit />}
-                >
-                  Edit
+                <Button variant="secondary" asChild>
+                  <Link href={routes.website.edit.replace('$id', item.id)}>
+                    <Edit className="h-3 w-3 mr-2" />
+                    Edit
+                  </Link>
                 </Button>
-                <Button color="danger" endContent={<Trash />}>
+                <Button variant="destructive">
+                  <Trash className="h-3 w-3 mr-2" />
                   Remove
                 </Button>
               </CardFooter>

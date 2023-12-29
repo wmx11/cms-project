@@ -1,10 +1,10 @@
+import { Button } from '@cms/ui/components/Button';
+import { Card, CardContent } from '@cms/ui/components/Card';
 import { Plus } from '@cms/ui/components/Icons';
 import Title from '@cms/ui/components/Title';
-import { Button } from '@nextui-org/button';
-import { Card, CardBody } from '@nextui-org/card';
 import Link from 'next/link';
-import routes from '../../utils/routes';
 import Header from '../../components/Header';
+import routes from '../../utils/routes';
 
 const Websites = () => {
   return (
@@ -13,18 +13,16 @@ const Websites = () => {
         <Title className="mb-0" textAlign="center">
           Websites
         </Title>
-        <Button
-          as={Link}
-          href={routes.website.create}
-          color="primary"
-          endContent={<Plus />}
-        >
-          Create New
+        <Button asChild>
+          <Link href={routes.website.create}>
+            <Plus className="h-3 w-3 mr-2" />
+            Create New
+          </Link>
         </Button>
       </Header>
       <div>
         <Card>
-          <CardBody>You currently have no websites</CardBody>
+          <CardContent>You currently have no websites</CardContent>
         </Card>
       </div>
     </div>

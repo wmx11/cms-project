@@ -1,4 +1,4 @@
-import '../globals.css';
+import '@cms/config/global.css';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import AppShell from '../../components/Layout/AppShell';
