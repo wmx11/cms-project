@@ -22,7 +22,7 @@ const HorizontalAlignmentControls = () => {
   const activeStyle = getActiveStyles('justify-content');
 
   return (
-    <>
+    <div className="flex gap-4 space-between flex-wrap">
       <ButtonElement
         variant={getActiveButtonVariant('start', activeStyle)}
         icon={<ItemsAlignLeft />}
@@ -51,7 +51,7 @@ const HorizontalAlignmentControls = () => {
       >
         Between
       </ButtonElement>
-    </>
+    </div>
   );
 };
 

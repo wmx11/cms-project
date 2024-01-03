@@ -2,10 +2,17 @@ import Providers from '@admin/components/Providers';
 import '@cms/packages/config/global.css';
 import React from 'react';
 
+import { Roboto } from 'next/font/google';
+
+const inter = Roboto({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '700'],
+});
+
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html>
-      <body>
+      <body className={inter.className}>
         <main>
           <Providers>{children}</Providers>
         </main>

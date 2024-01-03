@@ -21,7 +21,7 @@ const TextAlignmentControls = () => {
   const activeStyle = getActiveStyles('textAlign');
 
   return (
-    <>
+    <div className="flex gap-4 space-between flex-wrap">
       <ButtonElement
         variant={getActiveButtonVariant('left', activeStyle)}
         icon={<TextAlignLeft />}
@@ -43,7 +43,7 @@ const TextAlignmentControls = () => {
       >
         Right
       </ButtonElement>
-    </>
+    </div>
   );
 };
 

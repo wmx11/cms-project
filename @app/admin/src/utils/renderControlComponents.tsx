@@ -32,7 +32,7 @@ export const renderInputControlComponents = <T extends InputControlProps>(
       key={data.label}
       label={data.label}
       type="number"
-      icon={data.icon}
+      endContent={data.icon}
       value={data.value}
       onChange={data.onChange}
     />

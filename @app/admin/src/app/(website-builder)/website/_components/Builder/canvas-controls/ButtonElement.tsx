@@ -1,8 +1,8 @@
-import { Button, ButtonVariantProps } from '@nextui-org/react';
+import { Button, ButtonProps } from '@cms/packages/ui/components/Button';
 import React, { PropsWithChildren } from 'react';
 
 type ButtonElementProps = {
-  variant?: ButtonVariantProps['variant'];
+  variant?: ButtonProps['variant'];
   icon?: React.ReactElement | string;
   onClick?: () => void;
 } & PropsWithChildren;
@@ -11,13 +11,14 @@ const ButtonElement = (props: ButtonElementProps) => {
   return (
     <Button
       size="sm"
-      variant={props.variant || 'light'}
+      variant={props.variant || 'default'}
       color="secondary"
-      radius="none"
-      startContent={props.icon}
       onClick={props.onClick}
     >
-      {props.children}
+      <>
+        {props.icon && <span className="h-3 w-3 mr-2">{props.icon}</span>}
+        {props.children}
+      </>
     </Button>
   );
 };

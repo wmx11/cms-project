@@ -1,9 +1,11 @@
 'use client';
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import { BREAKPOINT_XS } from '@cms/packages/template-engine/constants';
 import addComponent from '@cms/packages/template-engine/modules/addComponent';
 import builderJss from '@cms/packages/template-engine/styles/builderJss';
+import { SheetsManager } from 'jss';
 import React, { useEffect, useRef } from 'react';
-import ComponentsDropdown from '@admin/components/ComponentsDropdown';
-import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import ComponentsListDialog from '../ComponentsListDialog';
 import { initHandleDragAndDrop } from './canvas-handlers/canvasDragAndDropHandlers';
 import {
   handleCanvasClick,
@@ -11,9 +13,8 @@ import {
   handleCanvasMouseOver,
   handleCanvasResize,
 } from './canvas-handlers/canvasEventsHandlers';
-import EditPopover from '../EditPopover';
-import { BREAKPOINT_XS } from '@cms/packages/template-engine/constants';
-import { SheetsManager } from 'jss';
+
+import Kbd from '@cms/packages/ui/components/Kbd';
 
 const BuilderCanvas = () => {
   const state = useBuilderProviderState();
@@ -24,6 +25,8 @@ const BuilderCanvas = () => {
     breakpoint,
     renderedTemplate,
     templateComponents,
+    selectedComonentPath,
+    setIsOpen,
     setStyleElement,
     renderTemplate,
     setStyleSheet,
@@ -46,7 +49,11 @@ const BuilderCanvas = () => {
       (selectedComponent?.schema as string) || '[]'
     );
 
-    const updatedSchema = addComponent({ componentSchema, schema, path });
+    const updatedSchema = addComponent({
+      componentSchema,
+      schema,
+      path,
+    });
 
     if (!updatedSchema) {
       return null;
@@ -95,6 +102,19 @@ const BuilderCanvas = () => {
     };
   }, []);
 
+  // Command handlers
+  useEffect(() => {
+    const handleCommandKey = (e: KeyboardEvent) => {
+      if (e.key === '/' && e.ctrlKey) {
+        setIsOpen(true);
+        return;
+      }
+    };
+
+    document.addEventListener('keydown', handleCommandKey);
+    return () => document.removeEventListener('keydown', handleCommandKey);
+  }, []);
+
   // Reinitialize DnD handler whenever the template changes
   useEffect(() => {
     if (typeof window !== undefined) {
@@ -123,7 +143,7 @@ const BuilderCanvas = () => {
   return (
     <div
       ref={canvasWrapperRef}
-      className="bg-zinc-100 min-h-screen px-2 py-12 mt-[calc(49*2px)] relative flex items-center justify-center"
+      className="bg-zinc-100 min-h-screen px-3 py-12 mt-[calc(49*2px)] relative flex items-center justify-center"
     >
       <div
         ref={canvasRef}
@@ -137,6 +157,10 @@ const BuilderCanvas = () => {
         onMouseOver={onMouseOver}
         onClick={onClick}
       >
+        <p className="text-sm text-muted-foreground p-4 absolute top-[-45px]">
+          Press <Kbd>CTRL</Kbd> + <Kbd>/</Kbd> to add a component...
+        </p>
+
         <div
           ref={canvasOverlayRef}
           data-canvas-overlay
@@ -145,15 +169,7 @@ const BuilderCanvas = () => {
 
         <>{renderedTemplate}</>
 
-        {renderedTemplate.length < 1 && (
-          <ComponentsDropdown
-            templateComponents={templateComponents}
-            onSelect={handleSelect}
-            isCompact
-          />
-        )}
-
-        <EditPopover />
+        <ComponentsListDialog />
       </div>
     </div>
   );

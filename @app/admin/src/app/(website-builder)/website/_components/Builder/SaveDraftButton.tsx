@@ -1,15 +1,10 @@
 import { Save } from '@cms/packages/ui/components/Icons';
-import { Button } from '@nextui-org/button';
+import { Button } from '@cms/packages/ui/components/Button';
 
 const SaveDraftButton = () => {
   return (
-    <Button
-      color="secondary"
-      variant="bordered"
-      endContent={<Save />}
-      size="sm"
-    >
-      Save Draft
+    <Button variant="outline" size="sm">
+      <Save className="h-3 w-3 mr-2" /> Save Draft
     </Button>
   );
 };

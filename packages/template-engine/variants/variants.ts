@@ -24,11 +24,35 @@ export const layoutType = {
 };
 
 export const positionType = [
-  'fixed',
-  'static',
-  'sticky',
-  'relative',
-  'absolute',
+  {
+    value: 'fixed',
+    label: 'Fixed',
+    description:
+      'The element is removed from the normal document flow and is positioned relative to the whole page.',
+  },
+  {
+    value: 'static',
+    label: 'Static',
+    description: 'Default positioning of the element.',
+  },
+  {
+    value: 'sticky',
+    label: 'Sticky',
+    description:
+      'The element is positioned relative to the nearest scrolling block.',
+  },
+  {
+    value: 'relative',
+    label: 'Relative',
+    description:
+      'The element is positioned relative to itself. Use this when other elements inside are positioned absolute.',
+  },
+  {
+    value: 'absolute',
+    label: 'Absolute',
+    description:
+      'The element is removed from the normal document flow and positioned relative to its closest relative element.',
+  },
 ];
 
 export const flexColumns = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];

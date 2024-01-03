@@ -1,29 +1,40 @@
-import { Input } from '@nextui-org/react';
-import React from 'react';
+import { Input } from '@cms/packages/ui/components/Input';
+import React, { FC } from 'react';
 
-type InputElementsProps = {
+interface InputElementsProps {
   label: string;
   type?: string;
+  className?: string;
   value: string;
   min?: number;
-  icon?: React.ReactElement | string;
+  endContent?: React.ReactElement | string;
   onChange?: (value: string) => void;
-};
+}
 
-const InputElement = (props: InputElementsProps) => {
+const InputElement: FC<InputElementsProps> = (props) => {
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!props.onChange) {
+      return;
+    }
+
+    if (!e) {
+      return;
+    }
+
+    props.onChange(e?.target?.value);
+  };
+
   return (
     <Input
-      size="sm"
-      radius="none"
       label={props.label}
-      labelPlacement="outside"
-      placeholder='-'
-      fullWidth
+      name={props.label}
+      placeholder="-"
       type={props.type || 'text'}
-      endContent={props.icon}
       value={props.value}
       min={props.min}
-      onValueChange={props.onChange}
+      className={props.className}
+      endContent={props.endContent}
+      onChange={handleOnChange}
     />
   );
 };

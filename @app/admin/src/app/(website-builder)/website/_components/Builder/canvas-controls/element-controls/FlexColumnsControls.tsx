@@ -3,7 +3,13 @@ import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import { DEFAULT_UNIT } from '@cms/packages/template-engine/constants';
 import { flexColumns } from '@cms/packages/template-engine/variants/variants';
-import { Select, SelectItem } from '@nextui-org/react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@cms/packages/ui/components/Select';
 
 const FlexColumnsControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
@@ -22,26 +28,25 @@ const FlexColumnsControls = () => {
         'flex-shrink': '1',
       },
     });
+    
     renderTemplate(schema);
   };
 
   return (
     <Select
-      size="sm"
-      radius="none"
-      label="Columns"
-      labelPlacement="outside"
-      placeholder="Select the number of columns"
-      selectedKeys={[getActiveStyles('--flex-columns')]}
-      onChange={(e) => {
-        handleOnChange(e.target.value);
-      }}
+      value={getActiveStyles('--flex-columns')}
+      onValueChange={handleOnChange}
     >
-      {flexColumns.map((item) => (
-        <SelectItem key={item} value={item}>
-          {`${item} Columns`}
-        </SelectItem>
-      ))}
+      <SelectTrigger>
+        <SelectValue placeholder="Columns" />
+      </SelectTrigger>
+      <SelectContent>
+        {flexColumns.map((item) => (
+          <SelectItem key={item} value={item.toString()}>
+            {`${item} columns`}
+          </SelectItem>
+        ))}
+      </SelectContent>
     </Select>
   );
 };

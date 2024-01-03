@@ -4,6 +4,7 @@ import BuilderProvider from './BuilderProvider';
 import BuilderCanvas from './BuilderCanvas';
 import BuilderHeader from './BuilderHeader';
 import BuilderSidebar from './BuilderSidebar';
+import { ScrollArea } from '@cms/packages/ui/components/ScrollArea';
 
 type Props = {
   schema: Schema[];
@@ -19,11 +20,13 @@ const BuilderPage = (props: Props) => {
           <BuilderHeader />
         </div>
         <div className="grid grid-cols-[1fr,320px]">
-          <div className="max-h-screen overflow-auto">
+          <ScrollArea  className="h-full max-h-screen w-full">
             <BuilderCanvas />
-          </div>
-          <div className="fixed top-[49px] bottom-0 right-0 max-w-[320px] overflow-auto border-l-1 border-zinc-20 z-10">
-            <BuilderSidebar />
+          </ScrollArea>
+          <div className="fixed top-[53px] bottom-0 right-0 max-w-[320px] w-full border-l border-zinc-200 z-10">
+            <ScrollArea className="h-full w-full">
+              <BuilderSidebar />
+            </ScrollArea>
           </div>
         </div>
       </div>

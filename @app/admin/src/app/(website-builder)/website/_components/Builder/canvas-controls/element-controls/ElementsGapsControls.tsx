@@ -3,14 +3,20 @@ import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import { DEFAULT_UNIT } from '@cms/packages/template-engine/constants';
 import { elementGaps } from '@cms/packages/template-engine/variants/variants';
-import { Select, SelectItem } from '@nextui-org/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@cms/packages/ui/components/Select';
 
 const ElementsGapsControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
   const { applyStyles, getActiveStyles } = useStyles();
-  const handleOnChange = (key: string) => {
+  const handleOnChange = (value: string) => {
     applyStyles({
-      '--gap': `${key}${DEFAULT_UNIT}`,
+      '--gap': `${value}${DEFAULT_UNIT}`,
       gap: 'var(--gap)',
     });
     renderTemplate(schema);
@@ -18,20 +24,19 @@ const ElementsGapsControls = () => {
 
   return (
     <Select
-      size="sm"
-      radius="none"
-      label="Gaps"
-      labelPlacement="outside"
-      selectedKeys={[getActiveStyles('--gap', DEFAULT_UNIT)]}
-      onChange={(e) => {
-        handleOnChange(e.target.value);
-      }}
+      value={getActiveStyles('--gap', DEFAULT_UNIT)}
+      onValueChange={handleOnChange}
     >
-      {elementGaps.map((item) => (
-        <SelectItem key={item} value={item}>
-          {`${item}px`}
-        </SelectItem>
-      ))}
+      <SelectTrigger>
+        <SelectValue placeholder="Gap size" />
+      </SelectTrigger>
+      <SelectContent>
+        {elementGaps.map((item) => (
+          <SelectItem key={item} value={item.toString()}>
+            {`${item} px`}
+          </SelectItem>
+        ))}
+      </SelectContent>
     </Select>
   );
 };

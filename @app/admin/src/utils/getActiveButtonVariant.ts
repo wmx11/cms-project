@@ -1,4 +1,4 @@
 const getActiveButtonVariant = <T>(comparator: T, value: T) =>
-  comparator === value ? 'solid' : 'light';
+  comparator === value ? 'default' : 'secondary';
 
 export default getActiveButtonVariant;

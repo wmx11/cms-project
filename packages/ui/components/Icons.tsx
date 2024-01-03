@@ -1,4 +1,8 @@
-import { MdOutlineDragIndicator, MdOutlinePhoneIphone, MdPublish } from 'react-icons/md';
+import {
+  MdOutlineDragIndicator,
+  MdOutlinePhoneIphone,
+  MdPublish,
+} from 'react-icons/md';
 import { TbTransform } from 'react-icons/tb';
 import { GoDuplicate } from 'react-icons/go';
 import { CgDisplayFlex, CgSpaceBetween } from 'react-icons/cg';
@@ -30,6 +34,7 @@ import {
   FaDesktop,
   FaTabletAlt,
 } from 'react-icons/fa';
+import { GrPowerReset } from "react-icons/gr";
 
 export const Plus = FaPlus;
 export const Trash = FaTrash;
@@ -50,6 +55,7 @@ export const Save = FaSave;
 export const Desktop = FaDesktop;
 export const Tablet = FaTabletAlt;
 export const Mobile = MdOutlinePhoneIphone;
+export const Reset = GrPowerReset;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;

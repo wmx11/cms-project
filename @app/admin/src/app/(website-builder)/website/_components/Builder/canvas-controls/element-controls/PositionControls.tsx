@@ -2,7 +2,13 @@
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import { positionType } from '@cms/packages/template-engine/variants/variants';
-import { Select, SelectItem } from '@nextui-org/react';
+import {
+  Select,
+  SelectItem,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+} from '@cms/packages/ui/components/Select';
 
 const PositionControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
@@ -15,20 +21,22 @@ const PositionControls = () => {
   return (
     <div>
       <Select
-        size="sm"
-        radius="none"
-        label="Position"
-        labelPlacement="outside"
-        selectedKeys={[getActiveStyles('position')]}
-        onChange={(e) => {
-          handleOnChange(e.target.value);
-        }}
+        value={getActiveStyles('position')}
+        onValueChange={handleOnChange}
       >
-        {positionType.map((item) => (
-          <SelectItem className="capitalize" key={item} value={item}>
-            {item}
-          </SelectItem>
-        ))}
+        <SelectTrigger>
+          <SelectValue placeholder="Position" />
+        </SelectTrigger>
+        <SelectContent>
+          {positionType.map((item) => (
+            <SelectItem key={item.value} value={item.value}>
+              <div className='text-left'>
+                <div>{item.label}</div>
+                <div className="text-xs max-w-[200px]">{item.description}</div>
+              </div>
+            </SelectItem>
+          ))}
+        </SelectContent>
       </Select>
     </div>
   );
