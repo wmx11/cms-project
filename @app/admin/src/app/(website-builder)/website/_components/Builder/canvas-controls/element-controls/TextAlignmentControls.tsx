@@ -21,7 +21,7 @@ const TextAlignmentControls = () => {
   const activeStyle = getActiveStyles('textAlign');
 
   return (
-    <div className="flex gap-4 space-between flex-wrap">
+    <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border">
       <ButtonElement
         variant={getActiveButtonVariant('left', activeStyle)}
         icon={<TextAlignLeft />}

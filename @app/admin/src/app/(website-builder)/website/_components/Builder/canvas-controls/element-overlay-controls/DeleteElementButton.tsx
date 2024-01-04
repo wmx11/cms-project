@@ -1,35 +1,43 @@
+import DefaultTooltip from '@admin/components/DefaultTooltip';
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import { DATA_LABEL } from '@cms/packages/template-engine/constants';
 import removeComponent from '@cms/packages/template-engine/modules/removeComponent';
+import { Button } from '@cms/packages/ui/components/Button';
 import { Trash } from '@cms/packages/ui/components/Icons';
-import { Button } from '@nextui-org/react';
-import DefaultTooltip from '@admin/components/DefaultTooltip';
-import { BuilderState, Target } from '@admin/types';
+import Kbd from '@cms/ui/components/Kbd';
 
-// Removes the selected component
-const DeleteElementButton = ({ target, state }: Target & BuilderState) => {
-  const { schema, renderTemplate } = state;
+const DeleteElementButton = () => {
+  const { schema, selectedElement, selectedComonentPath, renderTemplate } =
+    useBuilderProviderState();
+
+  const handleOnClick = () => {
+    const newSchema = removeComponent({
+      path: selectedComonentPath,
+      schema,
+    });
+
+    if (!newSchema) {
+      return null;
+    }
+
+    renderTemplate(newSchema);
+  };
 
   return (
     <DefaultTooltip
-      content={`Remove this ${target.getAttribute(DATA_LABEL)} component`}
+      content={`Remove this ${selectedElement?.getAttribute(
+        DATA_LABEL
+      )} component`}
     >
       <Button
-        color="secondary"
-        variant="light"
-        size="sm"
-        radius="none"
-        startContent={<Trash />}
-        onClick={() => {
-          const newSchema = removeComponent({ path: target.id, schema });
-
-          if (!newSchema) {
-            return null;
-          }
-
-          renderTemplate(newSchema);
-        }}
+        variant="destructive"
+        size="xs"
+        onClick={handleOnClick}
+        className="rounded-none"
       >
-        Delete
+        <Trash className="h-3 w-3 mr-2" />
+        <span className="mr-2">Delete</span>
+        <Kbd>Del</Kbd>
       </Button>
     </DefaultTooltip>
   );

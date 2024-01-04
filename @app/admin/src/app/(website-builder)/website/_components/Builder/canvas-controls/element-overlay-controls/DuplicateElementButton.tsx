@@ -1,13 +1,18 @@
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import duplicateComponent from '@cms/packages/template-engine/modules/duplicateComponent';
+import { Button } from '@cms/packages/ui/components/Button';
 import { Duplicate } from '@cms/packages/ui/components/Icons';
-import { Button } from '@nextui-org/react';
-import { BuilderState, Target } from '@admin/types';
+import Kbd from '@cms/ui/components/Kbd';
 
-const DuplicateElementButton = ({ target, state }: Target & BuilderState) => {
-  const { schema, renderTemplate } = state;
+const DuplicateElementButton = () => {
+  const { schema, selectedComonentPath, renderTemplate } =
+    useBuilderProviderState();
 
-  const handleClick = () => {
-    const newSchema = duplicateComponent({ schema, path: target.id });
+  const handleOnClick = () => {
+    const newSchema = duplicateComponent({
+      schema,
+      path: selectedComonentPath,
+    });
 
     if (!newSchema) {
       return null;
@@ -18,14 +23,14 @@ const DuplicateElementButton = ({ target, state }: Target & BuilderState) => {
 
   return (
     <Button
-      color="secondary"
-      variant="light"
-      size="sm"
-      radius="none"
-      startContent={<Duplicate />}
-      onClick={handleClick}
+      variant="default"
+      size="xs"
+      onClick={handleOnClick}
+      className="rounded-none"
     >
-      Duplicate
+      <Duplicate className="h-3 w-3 mr-2" />
+      <span className='mr-2'>Duplicate</span>
+      <Kbd>⌘D</Kbd>
     </Button>
   );
 };

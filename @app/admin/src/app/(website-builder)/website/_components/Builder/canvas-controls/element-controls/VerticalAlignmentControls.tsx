@@ -21,7 +21,7 @@ const VerticalAlignmentControls = () => {
   const activeStyle = getActiveStyles('align-items');
 
   return (
-    <div className="flex gap-4 space-between flex-wrap">
+    <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border">
       <ButtonElement
         variant={getActiveButtonVariant('start', activeStyle)}
         icon={<ItemsAlignTop />}

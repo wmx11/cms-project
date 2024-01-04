@@ -1,19 +1,25 @@
+import DefaultTooltip from '@admin/components/DefaultTooltip';
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import {
   DATA_DESCRIPTION,
   DATA_LABEL,
 } from '@cms/packages/template-engine/constants';
 import { Info } from '@cms/packages/ui/components/Icons';
-import { Target } from '@admin/types';
-import DefaultTooltip from '@admin/components/DefaultTooltip';
 
-const ElementInfoButton = ({ target }: Target) => {
+const ElementInfoButton = () => {
+  const { selectedElement } = useBuilderProviderState();
+
   return (
-    <DefaultTooltip content={target.getAttribute(DATA_DESCRIPTION) || ''}>
-      <div className="flex gap-2 items-center">
-        <Info />
-        <span>{target.getAttribute(DATA_LABEL)}</span>
-      </div>
-    </DefaultTooltip>
+    <div className="flex text-xs px-2 bg-violet-500 text-white">
+      <DefaultTooltip
+        content={selectedElement?.getAttribute(DATA_DESCRIPTION) || ''}
+      >
+        <div className="flex items-center">
+          <Info className="h-3 w-3 mr-2" />
+          <span>{selectedElement?.getAttribute(DATA_LABEL)}</span>
+        </div>
+      </DefaultTooltip>
+    </div>
   );
 };
 

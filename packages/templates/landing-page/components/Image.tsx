@@ -1,5 +1,5 @@
 import { Schema } from '@cms/packages/template-engine/types';
-import { Image as NextImage } from '@nextui-org/image';
+import NextImage from 'next/image';
 import { HTMLAttributes } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -11,7 +11,8 @@ type Props = {
 
 const Image = ({ src, width, height, className, id }: Props) => {
   return (
-    <NextImage
+    <img
+      alt="alt stuff"
       id={id}
       className={twMerge('mb-2', className)}
       src={src}

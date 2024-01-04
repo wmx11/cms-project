@@ -32,7 +32,9 @@ const createTemplateSlice: StateCreator<TemplateSlice> = (set, get) => ({
     });
 
     const newRenderedTemplate = [...serializedSchema];
-    set(() => ({ renderedTemplate: newRenderedTemplate }));
+    set(() => ({
+      renderedTemplate: newRenderedTemplate,
+    }));
   },
 });
 

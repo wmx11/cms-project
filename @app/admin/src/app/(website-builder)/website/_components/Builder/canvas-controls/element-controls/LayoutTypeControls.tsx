@@ -1,6 +1,5 @@
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
-import { LayoutBlock, LayoutFlex } from '@cms/packages/ui/components/Icons';
 import {
   Select,
   SelectContent,
@@ -9,8 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@cms/ui/components/Select';
-import ButtonElement from '../ButtonElement';
-import ControlsWrapper from '../ControlsWrapper';
 
 const LayoutTypeControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
@@ -26,7 +23,6 @@ const LayoutTypeControls = () => {
       value={getActiveStyles('--layout-type')}
       onValueChange={(value) => {
         handleOnChange(JSON.parse(value));
-        console.log(value);
       }}
     >
       <SelectTrigger>
@@ -48,75 +44,29 @@ const LayoutTypeControls = () => {
         <SelectItem value='{ "--layout-type": "flex-row", "display": "flex", "flex-direction": "row" }'>
           <SelectItemWithDescription
             label="Flex Row"
-            description="The selected element will have its children displayed in a line"
+            description="The selected element will have its children displayed in a row"
           />
         </SelectItem>
-        <SelectItem value='{ "--layout-type": "flex-column", "display": "flex", "flex-direction": "colummn" }'>
+        <SelectItem value='{ "--layout-type": "flex-column", "display": "flex", "flex-direction": "column" }'>
           <SelectItemWithDescription
             label="Flex Column"
-            description="Something"
+            description="The selected element will have its children displayed in a column"
           />
         </SelectItem>
         <SelectItem value='{ "--layout-type": "flex-row-reverse", "display": "flex", "flex-direction": "row-reverse" }'>
           <SelectItemWithDescription
             label="Flex Row Reverse"
-            description="Something"
+            description="The selected element will have its children displayed in a reversed row"
           />
         </SelectItem>
         <SelectItem value='{ "--layout-type": "flex-column-reverse", "display": "flex", "flex-direction": "column-reverse" }'>
           <SelectItemWithDescription
             label="Flex Column Reverse"
-            description="Something"
+            description="The selected element will have its children displayed in a reversed column"
           />
         </SelectItem>
       </SelectContent>
     </Select>
-  );
-
-  return (
-    <ControlsWrapper>
-      <ButtonElement
-        icon={<LayoutBlock />}
-        onClick={() => handleOnChange({ display: 'block' })}
-      >
-        Block
-      </ButtonElement>
-      <ButtonElement onClick={() => handleOnChange({ display: 'inline' })}>
-        Inline
-      </ButtonElement>
-      <ButtonElement
-        icon={<LayoutFlex />}
-        onClick={() =>
-          handleOnChange({ display: 'flex', 'flex-direction': 'row' })
-        }
-      >
-        Flex Row
-      </ButtonElement>
-      <ButtonElement
-        onClick={() =>
-          handleOnChange({ display: 'flex', 'flex-direction': 'column' })
-        }
-      >
-        Flex Col
-      </ButtonElement>
-      <ButtonElement
-        onClick={() =>
-          handleOnChange({ display: 'flex', 'flex-direction': 'row-reverse' })
-        }
-      >
-        Flex Flex Row Reverse
-      </ButtonElement>
-      <ButtonElement
-        onClick={() =>
-          handleOnChange({
-            display: 'flex',
-            'flex-direction': 'column-reverse',
-          })
-        }
-      >
-        Flex Flex Col Reverse
-      </ButtonElement>
-    </ControlsWrapper>
   );
 };
 

@@ -1,3 +1,4 @@
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import ControlsWrapper from './ControlsWrapper';
 import ElementsGapsControls from './element-controls/ElementsGapsControls';
 import FlexColumnsControls from './element-controls/FlexColumnsControls';
@@ -17,23 +18,29 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@cms/packages/ui/components/Accordion';
+import { Badge } from '@cms/packages/ui/components/Badge';
+import { BREAKPOINT_XS, DATA_LABEL } from '@cms/template-engine/constants';
 
 const StyleControls = () => {
+  const { selectedElement, selectedComponent, breakpoint } =
+    useBuilderProviderState();
+
   const controls = [
     {
       key: 'text',
-      title: 'Text Controls',
-      description: 'Text alignment and sizing',
+      title: 'Text',
+      description: 'Text alignemnt, sizing, colors, and typography.',
       component: (
-        <>
+        <div className="space-y-2">
           <TextAlignmentControls />
           <FontSizeControls />
-        </>
+          <div>Color</div>
+        </div>
       ),
     },
     {
       key: 'position',
-      title: 'Position Controls',
+      title: 'Position',
       description: 'What position type the element uses',
       component: (
         <>
@@ -43,7 +50,7 @@ const StyleControls = () => {
     },
     {
       key: 'positioned-controls',
-      title: 'Positioned Element Controls',
+      title: 'Position Coordinates',
       description: 'How the element is positioned in the X and Y axis.',
       component: (
         <>
@@ -52,26 +59,8 @@ const StyleControls = () => {
       ),
     },
     {
-      key: 'height-width',
-      title: 'Height & Width',
-      component: (
-        <>
-          <HeightAndWidthControls />
-        </>
-      ),
-    },
-    {
-      key: 'margin-padding',
-      title: 'Margin & Padding',
-      component: (
-        <>
-          <MarginAndPaddingControls />
-        </>
-      ),
-    },
-    {
       key: 'layout-controls',
-      title: 'Layout Controls',
+      title: 'Layout',
       description: 'What is the selected element layout type',
       component: (
         <>
@@ -110,22 +99,80 @@ const StyleControls = () => {
         </>
       ),
     },
+
+    {
+      key: 'overflow',
+      title: 'Overflow',
+      description: 'Overflow and stacking controls of the element.',
+      component: (
+        <>
+          <div>Z index</div>
+          <div>Oveflow</div>
+        </>
+      ),
+    },
+    {
+      key: 'height-width',
+      title: 'Height & Width',
+      description: 'Height and width controls of the element.',
+      component: (
+        <>
+          <HeightAndWidthControls />
+        </>
+      ),
+    },
+    {
+      key: 'margin-padding',
+      title: 'Margin & Padding',
+      description: 'Maring and padding controls of the element.',
+      component: (
+        <>
+          <MarginAndPaddingControls />
+        </>
+      ),
+    },
   ];
 
   return (
-    <Accordion type="multiple" defaultValue={controls.map((item) => item.key)}>
-      {controls.map((data) => (
-        <AccordionItem value={data.key} key={data.key}>
-          <AccordionTrigger>
-            <div className="text-left">
-              <div className="font-bold text-sm">{data.title}</div>
-              <span className="text-xs">{data?.description}</span>
-            </div>
-          </AccordionTrigger>
-          <AccordionContent className="mt-2">{data.component}</AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
+    <div>
+      <div className="bg-zinc-100/80 p-2 rounded-md border mb-2">
+        <div className="space-x-2">
+          <Badge>{selectedElement?.getAttribute(DATA_LABEL)}</Badge>
+          {breakpoint !== BREAKPOINT_XS ? (
+            <>
+              <Badge>@{breakpoint}px</Badge>
+            </>
+          ) : (
+            ''
+          )}
+        </div>
+      </div>
+      <div className="mb-2">
+        {selectedComponent?.props
+          ?.filter((item) => item.type === 'string')
+          .map((item) => (
+            <div>{item?.value || ''}</div>
+          ))}
+      </div>
+      <Accordion
+        type="multiple"
+        defaultValue={controls.map((item) => item.key)}
+      >
+        {controls.map((data) => (
+          <AccordionItem value={data.key} key={data.key}>
+            <AccordionTrigger className="bg-zinc-100/80 p-2">
+              <div className="text-left">
+                <div className="font-bold text-sm">{data.title}</div>
+                <span className="text-xs">{data?.description}</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="p-2">
+              {data.component}
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
+    </div>
   );
 };
 

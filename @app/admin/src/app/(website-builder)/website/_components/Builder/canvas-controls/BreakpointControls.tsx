@@ -19,7 +19,7 @@ const BreakpointControls = () => {
     <div className="flex items-center gap-2">
       <div>
         <div className="text-xs">Breakpoint:</div>
-        <div className="text-xs">
+        <div className={`text-xs ${breakpoint === BREAKPOINT_XS ? '' : 'text-red-500'}`}>
           {breakpoint === BREAKPOINT_XS ? '100%' : `${breakpoint}px`}
         </div>
       </div>

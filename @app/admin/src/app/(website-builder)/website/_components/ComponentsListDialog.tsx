@@ -13,13 +13,13 @@ import React from 'react';
 
 const ComponentsListDialog = () => {
   const {
-    isOpen,
+    isCommandOpen,
     templateComponents,
     selectedComonentPath,
     selectedComponent,
     schema,
     renderTemplate,
-    setIsOpen,
+    setIsCommandOpen,
   } = useBuilderProviderState();
 
   const handleSelect = (componentId: string, path: string) => {
@@ -33,17 +33,17 @@ const ComponentsListDialog = () => {
 
     const componentSchema = JSON.parse(selectedComponent?.schema as string);
 
-    const updatedSchema = addComponent({
+    const newSchema = addComponent({
       componentSchema,
       schema,
       path,
     });
 
-    if (!updatedSchema) {
+    if (!newSchema) {
       return null;
     }
 
-    renderTemplate(updatedSchema);
+    renderTemplate(newSchema);
   };
 
   const componentsToRender = () => {
@@ -59,7 +59,7 @@ const ComponentsListDialog = () => {
   };
 
   return (
-    <CommandDialog open={isOpen} onOpenChange={setIsOpen}>
+    <CommandDialog open={isCommandOpen} onOpenChange={setIsCommandOpen}>
       <CommandInput placeholder="Type a command to search..." />
       <CommandList>
         <CommandEmpty>No components found.</CommandEmpty>
@@ -69,7 +69,7 @@ const ComponentsListDialog = () => {
               key={item.id}
               onSelect={() => {
                 handleSelect(item.id, selectedComonentPath);
-                setIsOpen(false);
+                setIsCommandOpen(false);
               }}
             >
               <div className="p-2 cursor-pointer">

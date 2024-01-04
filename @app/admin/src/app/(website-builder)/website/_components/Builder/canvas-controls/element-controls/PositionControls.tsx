@@ -32,7 +32,7 @@ const PositionControls = () => {
             <SelectItem key={item.value} value={item.value}>
               <div className='text-left'>
                 <div>{item.label}</div>
-                <div className="text-xs max-w-[200px]">{item.description}</div>
+                <div className="text-xs max-w-[200px] text-zinc-500">{item.description}</div>
               </div>
             </SelectItem>
           ))}

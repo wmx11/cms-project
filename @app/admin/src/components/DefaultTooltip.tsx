@@ -6,9 +6,11 @@ import {
 } from '@cms/packages/ui/components/Tooltip';
 import { FC, PropsWithChildren } from 'react';
 
-type Props = { content: string } & PropsWithChildren;
+interface DefaultTooltipProps extends PropsWithChildren {
+  content: string;
+}
 
-const DefaultTooltip: FC<Props> = ({ children, content }) => {
+const DefaultTooltip: FC<DefaultTooltipProps> = ({ children, content }) => {
   return (
     <TooltipProvider>
       <Tooltip>

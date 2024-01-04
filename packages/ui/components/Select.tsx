@@ -157,7 +157,7 @@ const SelectItemWithDescription: React.FC<SelectItemWithDescriptionProps> = (
   return (
     <div className="text-left">
       <div>{props.label}</div>
-      <div className="text-xs max-w-[200px]">{props.description}</div>
+      <div className="text-xs max-w-[200px] text-zinc-500">{props.description}</div>
     </div>
   );
 };
