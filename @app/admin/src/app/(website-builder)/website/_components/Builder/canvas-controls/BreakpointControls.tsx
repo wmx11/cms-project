@@ -17,17 +17,18 @@ const BreakpointControls = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <div>
-        <div className="text-xs">Breakpoint:</div>
-        <div className={`text-xs ${breakpoint === BREAKPOINT_XS ? '' : 'text-red-500'}`}>
-          {breakpoint === BREAKPOINT_XS ? '100%' : `${breakpoint}px`}
-        </div>
+      <div
+        className={`text-xs ${
+          breakpoint === BREAKPOINT_XS ? '' : 'text-red-500'
+        }`}
+      >
+        {breakpoint === BREAKPOINT_XS ? '100%' : `${breakpoint}px`}
       </div>
       <div className="space-x-2">
         <Button
           onClick={() => setBreakpoint(BREAKPOINT_2XL)}
           color="secondary"
-          size="sm"
+          size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_2XL, breakpoint)}
         >
           <Desktop className="h-3 w-3 mr-2" />
@@ -36,7 +37,7 @@ const BreakpointControls = () => {
         <Button
           onClick={() => setBreakpoint(BREAKPOINT_XL)}
           color="secondary"
-          size="sm"
+          size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_XL, breakpoint)}
         >
           <Desktop className="h-3 w-3 mr-2" />
@@ -45,7 +46,7 @@ const BreakpointControls = () => {
         <Button
           onClick={() => setBreakpoint(BREAKPOINT_LG)}
           color="secondary"
-          size="sm"
+          size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_LG, breakpoint)}
         >
           <Desktop className="h-3 w-3 mr-2" />
@@ -54,7 +55,7 @@ const BreakpointControls = () => {
         <Button
           onClick={() => setBreakpoint(BREAKPOINT_MD)}
           color="secondary"
-          size="sm"
+          size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_MD, breakpoint)}
         >
           <Tablet className="h-3 w-3 mr-2" />
@@ -63,7 +64,7 @@ const BreakpointControls = () => {
         <Button
           onClick={() => setBreakpoint(BREAKPOINT_SM)}
           color="secondary"
-          size="sm"
+          size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_SM, breakpoint)}
         >
           <Mobile className="h-3 w-3 mr-2" />
@@ -72,7 +73,7 @@ const BreakpointControls = () => {
         <Button
           onClick={() => setBreakpoint(BREAKPOINT_XS)}
           variant="destructive"
-          size="sm"
+          size="xs"
         >
           <Reset className="h-3 w-3 mr-2" />
           Reset

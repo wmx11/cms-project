@@ -14,7 +14,12 @@ const PositionedElementControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: JssStyle) => {
-    applyStyles(value);
+    const shouldRender = applyStyles(value);
+
+    if (!shouldRender) {
+      return;
+    }
+
     renderTemplate(schema);
   };
 
@@ -23,7 +28,12 @@ const PositionedElementControls = () => {
       {renderInputControlComponents(
         ['Top', 'Right', 'Bottom', 'Left', 'Inset'].map((item) => ({
           label: item,
-          icon: item === 'Top' ? <UnitSelect onChange={setUnit} /> : unit,
+          icon:
+            item === 'Top' ? (
+              <UnitSelect className="mr-2" onChange={setUnit} />
+            ) : (
+              <span className="mr-2">{unit}</span>
+            ),
           styleProp: item.toLowerCase(),
           value: getActiveStyles(item.toLowerCase(), unit),
           onChange: (value) => {

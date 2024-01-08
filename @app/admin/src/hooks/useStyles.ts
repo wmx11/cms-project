@@ -53,20 +53,23 @@ const useStyles = () => {
     );
 
     if (!componentClassName) {
-      return;
+      return false;
     }
 
     const className = styleSheet?.classes[selectedComonentPath];
 
     if (!className) {
-      return;
+      return false;
     }
 
     if (!componentClassName.value.toString().includes(className)) {
       componentClassName.value = componentClassName.value
         .toString()
         .concat(' ', className);
+      return true;
     }
+
+    return false;
   };
 
   const applyStyleSheetToDocument = () => {
@@ -130,8 +133,8 @@ const useStyles = () => {
       stylesCopy = applyStylesForDefaultBreakpoint(props, stylesCopy);
     }
     setStyles(stylesCopy);
-    applyClassNameToComponent();
     applyStyleSheetToDocument();
+    return applyClassNameToComponent();
   };
 
   return {

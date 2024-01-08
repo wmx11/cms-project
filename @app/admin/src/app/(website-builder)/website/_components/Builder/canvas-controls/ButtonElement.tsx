@@ -1,13 +1,13 @@
 import { Button, ButtonProps } from '@cms/packages/ui/components/Button';
-import React, { PropsWithChildren } from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 
-type ButtonElementProps = {
+interface ButtonElementProps extends PropsWithChildren {
   variant?: ButtonProps['variant'];
   icon?: React.ReactElement | string;
   onClick?: () => void;
-} & PropsWithChildren;
+}
 
-const ButtonElement = (props: ButtonElementProps) => {
+const ButtonElement: FC<ButtonElementProps> = (props) => {
   return (
     <Button
       size="sm"

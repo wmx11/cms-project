@@ -62,13 +62,13 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
         ref={canvasOverlayHighlightActiveRef}
         style={highlightStyles}
         data-target-id={selectedComonentPath}
-        className="border border-violet-900 bg-violet-100/10 absolute"
+        className="border border-violet-900 bg-violet-100/10 absolute empty:hidden"
       >
         {selectedElement && (
           <div
             data-canvas-overlay-controls
             ref={canvasOverlayControlsRef}
-            className="flex border border-zinc-200 bg-white shadow-xl absolute top-0 translate-y-[-30px] translate-x-[-2px] pointer-events-auto"
+            className="flex  border-zinc-200 bg-white shadow-xl absolute top-0 translate-y-[-29px] translate-x-[-1px] pointer-events-auto z-10"
           >
             <ElementInfoButton />
             <DuplicateElementButton />
@@ -80,12 +80,14 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
         data-canvas-overlay-highlight="hover"
         ref={props.canvasOverlayHighlightHoverRef}
         style={highlightStyles}
-        className="border border-violet-900 bg-violet-400/10 absolute flex justify-center"
+        className="border-2 border-violet-900 bg-violet-400/10 absolute flex justify-center"
       >
         <div
           data-canvas-overlay-highlight-label
           ref={props.canvasOverlayLabelRef}
-          className={`px-4 py-1 rounded-full bg-violet-500 text-xs absolute text-white translate-y-[-12px] ${selectedElement ? 'block' : 'hidden'}`}
+          className={`px-4 py-1 rounded-full bg-violet-500 text-xs absolute text-white translate-y-[-12px] ${
+            selectedElement ? 'block' : 'hidden'
+          }`}
         >
           {selectedComponent?.component}
         </div>

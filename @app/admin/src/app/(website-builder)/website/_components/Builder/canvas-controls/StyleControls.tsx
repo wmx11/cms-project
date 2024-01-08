@@ -1,3 +1,4 @@
+'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import ControlsWrapper from './ControlsWrapper';
 import ElementsGapsControls from './element-controls/ElementsGapsControls';
@@ -11,7 +12,6 @@ import PositionControls from './element-controls/PositionControls';
 import PositionedElementControls from './element-controls/PositionedElementControls';
 import TextAlignmentControls from './element-controls/TextAlignmentControls';
 import VerticalAlignmentControls from './element-controls/VerticalAlignmentControls';
-
 import {
   Accordion,
   AccordionContent,
@@ -20,6 +20,9 @@ import {
 } from '@cms/packages/ui/components/Accordion';
 import { Badge } from '@cms/packages/ui/components/Badge';
 import { BREAKPOINT_XS, DATA_LABEL } from '@cms/template-engine/constants';
+import OverflowControls from './element-controls/OverflowControls';
+import ZIndexControls from './element-controls/ZIndexControls';
+import ColorControls from './element-controls/ColorControls';
 
 const StyleControls = () => {
   const { selectedElement, selectedComponent, breakpoint } =
@@ -34,7 +37,17 @@ const StyleControls = () => {
         <div className="space-y-2">
           <TextAlignmentControls />
           <FontSizeControls />
-          <div>Color</div>
+        </div>
+      ),
+    },
+    {
+      key: 'effects',
+      title: 'Effects',
+      description: 'Text & background colors, shadows, borders, etc.',
+      component: (
+        <div className="space-y-2">
+          <ColorControls label="Text color" type="color" />
+          <ColorControls label="Background color" type="background" />
         </div>
       ),
     },
@@ -105,10 +118,10 @@ const StyleControls = () => {
       title: 'Overflow',
       description: 'Overflow and stacking controls of the element.',
       component: (
-        <>
-          <div>Z index</div>
-          <div>Oveflow</div>
-        </>
+        <div className="space-y-4">
+          <ZIndexControls />
+          <OverflowControls />
+        </div>
       ),
     },
     {
@@ -147,13 +160,13 @@ const StyleControls = () => {
           )}
         </div>
       </div>
-      <div className="mb-2">
+      {/* <div className="mb-2">
         {selectedComponent?.props
           ?.filter((item) => item.type === 'string')
           .map((item) => (
             <div>{item?.value || ''}</div>
           ))}
-      </div>
+      </div> */}
       <Accordion
         type="multiple"
         defaultValue={controls.map((item) => item.key)}

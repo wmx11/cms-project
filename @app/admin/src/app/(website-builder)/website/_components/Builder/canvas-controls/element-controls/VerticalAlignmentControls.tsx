@@ -14,7 +14,12 @@ const VerticalAlignmentControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: string) => {
-    applyStyles({ 'align-items': value });
+    const shouldRender = applyStyles({ 'align-items': value });
+
+    if (!shouldRender) {
+      return;
+    }
+
     renderTemplate(schema);
   };
 

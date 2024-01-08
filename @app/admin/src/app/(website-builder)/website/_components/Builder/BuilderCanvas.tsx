@@ -61,7 +61,7 @@ const BuilderCanvas = () => {
   }, [renderedTemplate]);
 
   return (
-    <div className="bg-zinc-100 min-h-screen px-3 py-12 mt-[calc(49*2px)] relative flex items-center justify-center">
+    <div className="bg-zinc-100 min-h-screen px-2 pb-2 pt-12 mt-[53px] relative flex items-center justify-center">
       <div
         ref={canvasRef}
         data-canvas

@@ -16,7 +16,12 @@ const MarginAndPaddingControls = () => {
   const [unit, setUnit] = useState(DEFAULT_UNIT);
 
   const handleOnChange = (value: JssStyle) => {
-    applyStyles(value);
+    const shouldRender = applyStyles(value);
+
+    if (!shouldRender) {
+      return;
+    }
+
     renderTemplate(schema);
   };
 
@@ -36,9 +41,9 @@ const MarginAndPaddingControls = () => {
           label: item,
           icon:
             item === 'Margin' || item === 'Padding' ? (
-              <UnitSelect onChange={setUnit} />
+              <UnitSelect className="mr-2" onChange={setUnit} />
             ) : (
-              unit
+              <span className="mr-2">{unit}</span>
             ),
           styleProp: item.toLowerCase(),
           value: getActiveStyles(item.toLowerCase(), unit),

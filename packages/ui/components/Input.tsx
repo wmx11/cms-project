@@ -1,22 +1,30 @@
 import * as React from 'react';
 import { cn } from '@cms/packages/lib/utils';
+import { Label } from './Label';
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   endContent?: React.ReactElement | string;
+  startContent?: React.ReactElement | string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
     return (
-      <div className='w-full'>
+      <div className="w-full">
         {props.label && (
-          <label htmlFor={props.name} className="text-xs">
+          <Label htmlFor={props.name} className="text-xs">
             {props.label}
-          </label>
+          </Label>
         )}
         <div className="relative flex items-center rounded-md border border-input">
+          {props.startContent && (
+            <div className="text-xs text-zinc-500 mr-2">
+              {props.startContent}
+            </div>
+          )}
+
           <input
             type={type}
             className={cn(
@@ -27,7 +35,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           {props.endContent && (
-            <div className="text-xs text-zinc-500 mr-2">{props.endContent}</div>
+            <div className="text-xs text-zinc-500">{props.endContent}</div>
           )}
         </div>
       </div>

@@ -12,8 +12,14 @@ const HeightAndWidthControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
   const { applyStyles, getActiveStyles } = useStyles();
   const [unit, setUnit] = useState(DEFAULT_UNIT);
+
   const handleOnChange = (value: JssStyle) => {
-    applyStyles(value);
+    const shouldRender = applyStyles(value);
+
+    if (!shouldRender) {
+      return;
+    }
+
     renderTemplate(schema);
   };
 
@@ -29,7 +35,12 @@ const HeightAndWidthControls = () => {
           'Min-height',
         ].map((item) => ({
           label: item,
-          icon: item === 'Width' ? <UnitSelect onChange={setUnit} /> : unit,
+          icon:
+            item === 'Width' ? (
+              <UnitSelect className="mr-2" onChange={setUnit} />
+            ) : (
+              <span className="mr-2">{unit}</span>
+            ),
           styleProp: item.toLowerCase(),
           value: getActiveStyles(item.toLowerCase(), unit),
           onChange: (value) =>

@@ -1,3 +1,4 @@
+'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import getActiveButtonVariant from '@admin/utils/getActiveButtonVariant';
@@ -14,11 +15,16 @@ const TextAlignmentControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: string) => {
-    applyStyles({ textAlign: value });
+    const shouldRender = applyStyles({ 'text-align': value });
+
+    if (!shouldRender) {
+      return;
+    }
+
     renderTemplate(schema);
   };
 
-  const activeStyle = getActiveStyles('textAlign');
+  const activeStyle = getActiveStyles('text-align');
 
   return (
     <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border">

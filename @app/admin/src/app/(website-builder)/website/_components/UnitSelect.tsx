@@ -1,12 +1,13 @@
-import React, { FC } from 'react';
+import { FC, HTMLProps } from 'react';
 
-type UnitSelectProps = {
+interface UnitSelectProps
+  extends Omit<HTMLProps<HTMLSelectElement>, 'onChange'> {
   onChange: (unit: string) => void;
-};
+}
 
-const UnitSelect: FC<UnitSelectProps> = ({ onChange }) => {
+const UnitSelect: FC<UnitSelectProps> = (props) => {
   return (
-    <select onChange={(e) => onChange(e.target.value)}>
+    <select {...props} onChange={(e) => props.onChange(e.target.value)}>
       <option value=""></option>
       <option value="px">px</option>
       <option value="%">%</option>

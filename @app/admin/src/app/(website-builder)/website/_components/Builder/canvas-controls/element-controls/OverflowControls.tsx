@@ -1,25 +1,23 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
-import { DEFAULT_UNIT } from '@cms/packages/template-engine/constants';
-import { elementGaps } from '@cms/packages/template-engine/variants/variants';
+import { overflowType } from '@cms/template-engine/variants/variants';
 import {
   Select,
   SelectContent,
   SelectItem,
+  SelectItemWithDescription,
   SelectTrigger,
   SelectValue,
-} from '@cms/packages/ui/components/Select';
+} from '@cms/ui/components/Select';
 import { Label } from '@cms/ui/components/Label';
 
-const ElementsGapsControls = () => {
+const OverflowControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
   const { applyStyles, getActiveStyles } = useStyles();
+
   const handleOnChange = (value: string) => {
-    const shouldRender = applyStyles({
-      '--gap': `${value}${DEFAULT_UNIT}`,
-      gap: 'var(--gap)',
-    });
+    const shouldRender = applyStyles({ overflow: value });
 
     if (!shouldRender) {
       return;
@@ -30,18 +28,21 @@ const ElementsGapsControls = () => {
 
   return (
     <div>
-      <Label htmlFor="gapSize">Gap size</Label>
+      <Label htmlFor="overflowControls">Overflow</Label>
       <Select
-        value={getActiveStyles('--gap', DEFAULT_UNIT)}
+        value={getActiveStyles('overflow')}
         onValueChange={handleOnChange}
       >
-        <SelectTrigger id="gapSize">
-          <SelectValue placeholder="Gap size" />
+        <SelectTrigger id="overflowControls">
+          <SelectValue placeholder="Overflow type" />
         </SelectTrigger>
         <SelectContent>
-          {elementGaps.map((item) => (
-            <SelectItem key={item} value={item.toString()}>
-              {`${item} px`}
+          {overflowType.map((item) => (
+            <SelectItem key={item.value} value={item.value}>
+              <SelectItemWithDescription
+                label={item.label}
+                description={item.description}
+              />
             </SelectItem>
           ))}
         </SelectContent>
@@ -50,4 +51,4 @@ const ElementsGapsControls = () => {
   );
 };
 
-export default ElementsGapsControls;
+export default OverflowControls;

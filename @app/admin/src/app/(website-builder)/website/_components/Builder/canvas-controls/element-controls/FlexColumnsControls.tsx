@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@cms/packages/ui/components/Select';
+import { Label } from '@cms/ui/components/Label';
 
 const FlexColumnsControls = () => {
   const { schema, renderTemplate } = useBuilderProviderState();
@@ -17,7 +18,7 @@ const FlexColumnsControls = () => {
 
   const handleOnChange = (value: string) => {
     const columns = parseInt(value, 10);
-    applyStyles({
+    const shouldRender = applyStyles({
       '--flex-columns': `${columns}`,
       '--basis': `calc(100% / var(--flex-columns, 1))`,
       width: '100%',
@@ -28,26 +29,33 @@ const FlexColumnsControls = () => {
         'flex-shrink': '1',
       },
     });
-    
+
+    if (!shouldRender) {
+      return;
+    }
+
     renderTemplate(schema);
   };
 
   return (
-    <Select
-      value={getActiveStyles('--flex-columns')}
-      onValueChange={handleOnChange}
-    >
-      <SelectTrigger>
-        <SelectValue placeholder="Columns" />
-      </SelectTrigger>
-      <SelectContent>
-        {flexColumns.map((item) => (
-          <SelectItem key={item} value={item.toString()}>
-            {`${item} columns`}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div>
+      <Label htmlFor="columns">Columns</Label>
+      <Select
+        value={getActiveStyles('--flex-columns')}
+        onValueChange={handleOnChange}
+      >
+        <SelectTrigger id="columns">
+          <SelectValue placeholder="Columns" />
+        </SelectTrigger>
+        <SelectContent>
+          {flexColumns.map((item) => (
+            <SelectItem key={item} value={item.toString()}>
+              {`${item} columns`}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
 

@@ -9,27 +9,28 @@ const BuilderHeader = () => {
   return (
     <>
       <div className="p-2 bg-white border-b border-zinc-200 flex justify-between z-50">
-        <div>
-          <GoBackButton />
-        </div>
-        <div className="space-x-4">
+        <div></div>
+        {/* <div className="space-x-4">
           <Button size="sm">
             <Undo />
           </Button>
           <Button size="sm">
             <Redo />
           </Button>
+        </div> */}
+        <div>
+
+          <BreakpointControls />
         </div>
         <div className="space-x-4">
           <SaveDraftButton />
           <PublishButton />
         </div>
       </div>
-      <div className="grid  grid-cols-[1fr,320px]">
+      {/* <div className="grid  grid-cols-[1fr,320px]">
         <div className="p-2 border-b border-zinc-200 flex justify-end items-center bg-white z-10">
-          <BreakpointControls />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

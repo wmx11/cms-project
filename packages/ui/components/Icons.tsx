@@ -2,6 +2,7 @@ import {
   MdOutlineDragIndicator,
   MdOutlinePhoneIphone,
   MdPublish,
+  MdColorize,
 } from 'react-icons/md';
 import { TbTransform } from 'react-icons/tb';
 import { GoDuplicate } from 'react-icons/go';
@@ -34,12 +35,13 @@ import {
   FaDesktop,
   FaTabletAlt,
 } from 'react-icons/fa';
-import { GrPowerReset } from "react-icons/gr";
+import { GrPowerReset } from 'react-icons/gr';
 
 export const Plus = FaPlus;
 export const Trash = FaTrash;
 export const Edit = FaRegEdit;
 export const ArrowLeft = FaArrowLeft;
+export const ColorPicker = MdColorize;
 export const Publish = MdPublish;
 export const Undo = FaUndo;
 export const Redo = FaRedo;
