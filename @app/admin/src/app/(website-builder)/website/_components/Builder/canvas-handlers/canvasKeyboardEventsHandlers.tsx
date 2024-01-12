@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 export const useKeyboardEvents = () => {
   const {
     schema,
+    selectedElement,
     selectedComonentPath,
     setIsCommandOpen,
     setSelectedElement,
@@ -38,6 +39,7 @@ export const useKeyboardEvents = () => {
           break;
 
         case 'Escape':
+          selectedElement?.blur();
           resetSelection();
           break;
 

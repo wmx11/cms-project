@@ -47,14 +47,14 @@ export const BREAKPOINT_LG_KEY = `@container (min-width: ${BREAKPOINT_LG}px)`;
 export const BREAKPOINT_XL_KEY = `@container (min-width: ${BREAKPOINT_XL}px)`;
 export const BREAKPOINT_2XL_KEY = `@container (min-width: ${BREAKPOINT_2XL}px)`;
 
-type BreakpointsMap = {
+interface BreakpointsMap {
   [BREAKPOINT_XS]: typeof BREAKPOINT_XS_KEY;
   [BREAKPOINT_SM]: typeof BREAKPOINT_SM_KEY;
   [BREAKPOINT_MD]: typeof BREAKPOINT_MD_KEY;
   [BREAKPOINT_LG]: typeof BREAKPOINT_LG_KEY;
   [BREAKPOINT_XL]: typeof BREAKPOINT_XL_KEY;
   [BREAKPOINT_2XL]: typeof BREAKPOINT_2XL_KEY;
-};
+}
 
 export const BREAKPOINTS_MAP: BreakpointsMap = {
   [BREAKPOINT_XS]: BREAKPOINT_XS_KEY,
@@ -64,3 +64,11 @@ export const BREAKPOINTS_MAP: BreakpointsMap = {
   [BREAKPOINT_XL]: BREAKPOINT_XL_KEY,
   [BREAKPOINT_2XL]: BREAKPOINT_2XL_KEY,
 };
+
+// CSS Variables
+export const LAYOUT_TYPE = '--layout-type';
+export const GAP = '--gap';
+export const FLEX_COLUMNS = '--flex-columns';
+export const BASIS = '--basis';
+
+// Theme variables

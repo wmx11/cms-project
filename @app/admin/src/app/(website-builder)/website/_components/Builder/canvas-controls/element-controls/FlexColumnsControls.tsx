@@ -1,7 +1,11 @@
 'use client';
-import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
-import { DEFAULT_UNIT } from '@cms/packages/template-engine/constants';
+import {
+  DEFAULT_UNIT,
+  FLEX_COLUMNS,
+  GAP,
+  BASIS,
+} from '@cms/packages/template-engine/constants';
 import { flexColumns } from '@cms/packages/template-engine/variants/variants';
 import {
   Select,
@@ -13,35 +17,28 @@ import {
 import { Label } from '@cms/ui/components/Label';
 
 const FlexColumnsControls = () => {
-  const { schema, renderTemplate } = useBuilderProviderState();
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: string) => {
     const columns = parseInt(value, 10);
-    const shouldRender = applyStyles({
-      '--flex-columns': `${columns}`,
-      '--basis': `calc(100% / var(--flex-columns, 1))`,
+    applyStyles({
+      [FLEX_COLUMNS]: `${columns}`,
+      [BASIS]: `calc(100% / var(${FLEX_COLUMNS}, 1))`,
       width: '100%',
       'flex-wrap': 'wrap',
       '&>*': {
-        'flex-basis': `calc(var(--basis, 100%) - var(--gap, 0${DEFAULT_UNIT}))`,
+        'flex-basis': `calc(var(${BASIS}, 100%) - var(${GAP}, 0${DEFAULT_UNIT}))`,
         'flex-grow': '1',
         'flex-shrink': '1',
       },
     });
-
-    if (!shouldRender) {
-      return;
-    }
-
-    renderTemplate(schema);
   };
 
   return (
     <div>
       <Label htmlFor="columns">Columns</Label>
       <Select
-        value={getActiveStyles('--flex-columns')}
+        value={getActiveStyles(FLEX_COLUMNS)}
         onValueChange={handleOnChange}
       >
         <SelectTrigger id="columns">

@@ -34,10 +34,12 @@ import {
   FaSave,
   FaDesktop,
   FaTabletAlt,
+  FaCog,
 } from 'react-icons/fa';
 import { GrPowerReset } from 'react-icons/gr';
 
 export const Plus = FaPlus;
+export const Cog = FaCog;
 export const Trash = FaTrash;
 export const Edit = FaRegEdit;
 export const ArrowLeft = FaArrowLeft;

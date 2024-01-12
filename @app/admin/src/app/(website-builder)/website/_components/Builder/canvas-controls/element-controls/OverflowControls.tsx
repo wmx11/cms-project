@@ -1,7 +1,7 @@
 'use client';
-import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import { overflowType } from '@cms/template-engine/variants/variants';
+import { Label } from '@cms/ui/components/Label';
 import {
   Select,
   SelectContent,
@@ -10,20 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@cms/ui/components/Select';
-import { Label } from '@cms/ui/components/Label';
 
 const OverflowControls = () => {
-  const { schema, renderTemplate } = useBuilderProviderState();
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: string) => {
-    const shouldRender = applyStyles({ overflow: value });
-
-    if (!shouldRender) {
-      return;
-    }
-
-    renderTemplate(schema);
+    applyStyles({ overflow: value });
   };
 
   return (

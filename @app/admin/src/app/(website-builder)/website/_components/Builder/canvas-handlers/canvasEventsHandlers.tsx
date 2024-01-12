@@ -2,10 +2,9 @@ import {
   DATA_CANVAS_OVERLAY,
   DATA_CANVAS_OVERLAY_HIGHLIGHT_LABEL,
   DATA_COMPONENT,
-  DATA_LABEL
+  DATA_LABEL,
 } from '@cms/packages/template-engine/constants';
 import { MouseEvent, RefObject } from 'react';
-import { handleEditableContentClick } from './canvasComponentsEventsHandlers';
 
 export type CanvasHandlerProps = {
   canvasRef: RefObject<HTMLDivElement>;
@@ -34,8 +33,6 @@ export const handleCanvasClick =
     if (!target.hasAttribute(DATA_COMPONENT)) {
       return null;
     }
-
-    handleEditableContentClick(target);
 
     state.setSelectedElement(target);
     state.setSelectedComponentPath(target.id || '');

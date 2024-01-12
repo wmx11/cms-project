@@ -1,28 +1,15 @@
 import { Schema } from '@cms/packages/template-engine/types';
-import {
-  fontSize,
-  textAlign,
-} from '@cms/packages/template-engine/variants/variants';
-import { VariantProps, cva } from 'class-variance-authority';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const subtitleCva = cva('text-xl mb-2', {
-  variants: {
-    textAlign,
-    fontSize,
-  },
-});
-
-type SubtitleVariantProps = VariantProps<typeof subtitleCva>;
-
-const Subtitle: FC<
-  PropsWithChildren & HTMLAttributes<HTMLTitleElement> & SubtitleVariantProps
-> = (props) => {
+const Subtitle: FC<PropsWithChildren & HTMLAttributes<HTMLTitleElement>> = (
+  props
+) => {
   return (
-    <h2 className={twMerge(subtitleCva({ ...props } as SubtitleVariantProps))}>
-      {props.children}
-    </h2>
+    <h2
+      className={twMerge('mb-2', props.className)}
+      dangerouslySetInnerHTML={{ __html: props.children || '' }}
+    ></h2>
   );
 };
 

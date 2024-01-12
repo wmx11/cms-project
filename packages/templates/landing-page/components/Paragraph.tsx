@@ -1,15 +1,11 @@
 import { Schema } from '@cms/packages/template-engine/types';
-import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import { FC, HTMLProps, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Paragraph: FC<
-  PropsWithChildren & HTMLAttributes<HTMLParagraphElement>
-> = ({ children, id, className }) => {
-  return (
-    <p id={id} data-label="Paragraph" className={twMerge('mb-2', className)}>
-      {children}
-    </p>
-  );
+const Paragraph: FC<PropsWithChildren & HTMLProps<HTMLParagraphElement>> = (
+  props
+) => {
+  return <p className={twMerge('mb-2', props.className)}>{props.children}</p>;
 };
 
 export default Paragraph;

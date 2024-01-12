@@ -4,10 +4,11 @@ import { BREAKPOINT_XS } from '@cms/packages/template-engine/constants';
 import builderJss from '@cms/packages/template-engine/styles/builderJss';
 import Kbd from '@cms/packages/ui/components/Kbd';
 import { SheetsManager } from 'jss';
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import ComponentsListDialog from '../ComponentsListDialog';
 import CanvasOverlay from './CanvasOverlay';
-import { useKeyboardEvents } from './canvas-handlers/canvasComponentsKeyboardEventsHandlers';
+import { useEditableContentControls } from './canvas-handlers/canvasComponentsEventsHandlers';
+import { useKeyboardEvents } from './canvas-handlers/canvasKeyboardEventsHandlers';
 import { initHandleDragAndDrop } from './canvas-handlers/canvasDragAndDropHandlers';
 import {
   handleCanvasClick,
@@ -33,6 +34,7 @@ const BuilderCanvas = () => {
 
   // Initialize keyboard event handler
   useKeyboardEvents();
+  useEditableContentControls();
 
   // Initialize styles handler
   useEffect(() => {
@@ -75,7 +77,7 @@ const BuilderCanvas = () => {
           canvasOverlayLabelRef,
           canvasOverlayHighlightHoverRef,
         })}
-      onClick={handleCanvasClick({
+        onClick={handleCanvasClick({
           setSelectedComponent: state.setSelectedComponent,
           setSelectedComponentPath: state.setSelectedComponentPath,
           setSelectedElement: state.setSelectedElement,
@@ -84,15 +86,12 @@ const BuilderCanvas = () => {
         <p className="text-sm text-muted-foreground p-4 absolute top-[-45px]">
           Press <Kbd>⌘</Kbd> + <Kbd>/</Kbd> to add a component...
         </p>
-
         <CanvasOverlay
           canvasRef={canvasRef}
           canvasOverlayLabelRef={canvasOverlayLabelRef}
           canvasOverlayHighlightHoverRef={canvasOverlayHighlightHoverRef}
         />
-
         <>{renderedTemplate}</>
-
         <ComponentsListDialog />
       </div>
     </div>

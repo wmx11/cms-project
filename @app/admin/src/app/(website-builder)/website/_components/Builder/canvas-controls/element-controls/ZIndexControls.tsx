@@ -1,20 +1,12 @@
 'use client';
-import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import InputElement from '../InputElement';
 
 const ZIndexControls = () => {
-  const { schema, renderTemplate } = useBuilderProviderState();
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: string) => {
-    const shouldRender = applyStyles({ 'z-index': value });
-
-    if (!shouldRender) {
-      return;
-    }
-
-    renderTemplate(schema);
+    applyStyles({ 'z-index': value });
   };
 
   return (

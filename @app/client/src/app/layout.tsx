@@ -1,9 +1,12 @@
-import './globals.css';
+import '@cms/packages/config/global.css';
 import Providers from '@/components/Providers';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Roboto({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '700'],
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -18,7 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <main>
+          <Providers>{children}</Providers>
+        </main>
       </body>
     </html>
   );

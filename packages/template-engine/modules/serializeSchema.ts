@@ -13,20 +13,20 @@ import { Props, Schema } from '../types';
 import generatePath from './generatePath';
 import importComponent from './importComponent';
 
-type SerializeSchemaProps = {
+interface SerializeSchemaProps {
   schema: Schema[];
   templateId: string;
   componentsArray?: React.ReactElement[];
   serializeForBuilder?: boolean;
   path?: string;
-};
+}
 
-type SerializeComponentForBuilderProps = {
+interface SerializeComponentForBuilderProps {
   componentNode: React.ReactElement;
   path: string;
   index: number;
   item: Schema;
-};
+}
 
 const serializeComponentForBuilder = (
   props: SerializeComponentForBuilderProps
@@ -40,7 +40,7 @@ const serializeComponentForBuilder = (
   const className: string = `${
     componentNodeCopy?.props?.className
   } ${STLYES_ELEMENT_INSIDE_BUILDER} ${
-    item.editable ? `${STYLES_CONTENT_EDITABLE} outline-none cursor-text` : ''
+    item.editable ? `${'STYLES_CONTENT_EDITABLE'} outline-none cursor-text` : ''
   }`;
 
   Object.assign(componentNodeCopy, {
@@ -55,6 +55,7 @@ const serializeComponentForBuilder = (
       [DATA_DESCRIPTION]: item.description,
       [DATA_DND_INITIALIZED]: false,
       [DATA_ACCEPTS_CHILDREN]: acceptsChildren,
+      tabindex: 0,
     },
   });
 

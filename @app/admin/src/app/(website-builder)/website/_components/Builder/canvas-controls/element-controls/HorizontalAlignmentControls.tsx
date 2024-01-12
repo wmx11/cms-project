@@ -1,5 +1,4 @@
 'use client';
-import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import getActiveButtonVariant from '@admin/utils/getActiveButtonVariant';
 import {
@@ -11,18 +10,10 @@ import {
 import ButtonElement from '../ButtonElement';
 
 const HorizontalAlignmentControls = () => {
-  const { schema, renderTemplate } = useBuilderProviderState();
-
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: string) => {
-    const shouldRender = applyStyles({ 'justify-content': value });
-
-    if (!shouldRender) {
-      return;
-    }
-
-    renderTemplate(schema);
+    applyStyles({ 'justify-content': value });
   };
 
   const activeStyle = getActiveStyles('justify-content');

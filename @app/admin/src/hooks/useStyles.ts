@@ -2,9 +2,11 @@ import { StylesObject } from '@admin/store/slices/createStylesSlice';
 import { BREAKPOINTS_MAP } from '@cms/packages/template-engine/constants';
 import { JssStyle } from 'jss';
 import useBuilderProviderState from './useBuilderProviderState';
+import { useMemo } from 'react';
 
 const useStyles = () => {
   const {
+    schema,
     styles,
     styleSheet,
     breakpoint,
@@ -13,39 +15,44 @@ const useStyles = () => {
     styleElement,
     selectedElement,
     setStyles,
+    renderTemplate,
   } = useBuilderProviderState();
 
-  const getActiveStyles = (styleProp: string, unit?: string): string => {
-    if (!selectedComonentPath) {
-      return '';
-    }
+  const getActiveStyles = useMemo(
+    () =>
+      (styleProp: string, unit?: string): string => {
+        if (!selectedComonentPath) {
+          return '';
+        }
 
-    let activeStyles = '';
+        let activeStyles = '';
 
-    const entry = styles[BREAKPOINTS_MAP[breakpoint]];
+        const entry = styles[BREAKPOINTS_MAP[breakpoint]];
 
-    const componentStyles = entry[
-      selectedComonentPath as keyof typeof entry
-    ] as JssStyle;
+        const componentStyles = entry[
+          selectedComonentPath as keyof typeof entry
+        ] as JssStyle;
 
-    if (!componentStyles && selectedElement) {
-      const computedStyle = window.getComputedStyle(selectedElement);
-      activeStyles = computedStyle[
-        styleProp as keyof typeof computedStyle
-      ] as string;
-    }
+        if (!componentStyles && selectedElement) {
+          const computedStyle = window.getComputedStyle(selectedElement);
+          activeStyles = computedStyle[
+            styleProp as keyof typeof computedStyle
+          ] as string;
+        }
 
-    if (componentStyles) {
-      activeStyles =
-        componentStyles[styleProp as keyof JssStyle]?.toString() ?? '';
-    }
+        if (componentStyles) {
+          activeStyles =
+            componentStyles[styleProp as keyof JssStyle]?.toString() ?? '';
+        }
 
-    if (unit) {
-      return activeStyles?.replace(unit, '');
-    }
+        if (unit) {
+          return activeStyles?.replace(unit, '');
+        }
 
-    return activeStyles;
-  };
+        return activeStyles;
+      },
+    [styles, selectedComponent]
+  );
 
   const applyClassNameToComponent = () => {
     const componentClassName = selectedComponent?.props.find(
@@ -127,14 +134,23 @@ const useStyles = () => {
 
   const applyStyles = (props: JssStyle) => {
     let stylesCopy = { ...styles };
+
     if (breakpoint) {
       stylesCopy = applyStylesForBreakpoint(props, stylesCopy);
     } else {
       stylesCopy = applyStylesForDefaultBreakpoint(props, stylesCopy);
     }
     setStyles(stylesCopy);
+
     applyStyleSheetToDocument();
-    return applyClassNameToComponent();
+
+    const shouldRender = applyClassNameToComponent();
+
+    if (!shouldRender) {
+      return;
+    }
+
+    renderTemplate(schema);
   };
 
   return {

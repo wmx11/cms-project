@@ -1,23 +1,11 @@
 import { Schema } from '@cms/packages/template-engine/types';
-import { Button as NextButton } from '@nextui-org/button';
+import { Button as ButtonComponent } from '@cms/packages/ui/components/Button';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 
-const Button: FC<PropsWithChildren & HTMLAttributes<HTMLBaseElement>> = ({
-  children,
-  className,
-  id,
-}) => {
-  return (
-    <NextButton
-      id={id}
-      className={className}
-      data-label="Button"
-      color="primary"
-      size="lg"
-    >
-      {children}
-    </NextButton>
-  );
+const Button: FC<PropsWithChildren & HTMLAttributes<HTMLButtonElement>> = (
+  props
+) => {
+  return <ButtonComponent {...props}></ButtonComponent>;
 };
 
 export default Button;
@@ -25,6 +13,7 @@ export default Button;
 export const schema: Schema = {
   component: 'Button',
   category: 'button',
+  editable: true,
   description:
     'Use Button components to link to other pages or add a call to action',
   props: [

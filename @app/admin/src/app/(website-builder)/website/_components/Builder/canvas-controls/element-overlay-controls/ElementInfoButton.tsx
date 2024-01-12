@@ -1,3 +1,4 @@
+'use client';
 import DefaultTooltip from '@admin/components/DefaultTooltip';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import {

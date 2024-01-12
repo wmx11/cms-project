@@ -2,16 +2,10 @@ import { Schema } from '@cms/packages/template-engine/types';
 import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Block: FC<PropsWithChildren & HTMLAttributes<HTMLDivElement>> = ({
-  children,
-  className,
-  id,
-}) => {
-  return (
-    <div id={id} data-label="Block" className={twMerge('', className)}>
-      {children}
-    </div>
-  );
+const Block: FC<PropsWithChildren & HTMLAttributes<HTMLDivElement>> = (
+  props
+) => {
+  return <div {...props} className={twMerge('', props.className)}></div>;
 };
 
 export default Block;

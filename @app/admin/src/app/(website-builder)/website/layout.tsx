@@ -1,5 +1,6 @@
-import Providers from '@admin/components/Providers';
 import '@cms/packages/config/global.css';
+import { Toaster } from '@cms/ui/components/Toaster';
+import Providers from '@admin/components/Providers';
 import React from 'react';
 
 import { Roboto } from 'next/font/google';
@@ -15,6 +16,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
       <body className={inter.className}>
         <main>
           <Providers>{children}</Providers>
+          <Toaster />
         </main>
       </body>
     </html>

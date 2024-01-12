@@ -1,5 +1,4 @@
 'use client';
-import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import { positionType } from '@cms/packages/template-engine/variants/variants';
 import {
@@ -13,17 +12,10 @@ import {
 import { Label } from '@cms/ui/components/Label';
 
 const PositionControls = () => {
-  const { schema, renderTemplate } = useBuilderProviderState();
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: string) => {
-    const shouldRender = applyStyles({ position: value });
-
-    if (!shouldRender) {
-      return;
-    }
-
-    renderTemplate(schema);
+    applyStyles({ position: value });
   };
 
   return (

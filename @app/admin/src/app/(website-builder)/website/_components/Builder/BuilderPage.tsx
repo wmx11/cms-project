@@ -5,14 +5,15 @@ import BuilderCanvas from './BuilderCanvas';
 import BuilderHeader from './BuilderHeader';
 import BuilderSidebar from './BuilderSidebar';
 import { ScrollArea } from '@cms/packages/ui/components/ScrollArea';
+import { FC } from 'react';
 
-type Props = {
+interface BuilderPageProps {
   schema: Schema[];
   templateId: string;
   templateComponents: Component[];
-};
+}
 
-const BuilderPage = (props: Props) => {
+const BuilderPage: FC<BuilderPageProps> = (props) => {
   return (
     <BuilderProvider {...props}>
       <div className="overflow-hidden">
@@ -20,7 +21,7 @@ const BuilderPage = (props: Props) => {
           <BuilderHeader />
         </div>
         <div className="grid grid-cols-[1fr,320px]">
-          <ScrollArea  className="h-full max-h-screen w-full">
+          <ScrollArea className="h-full max-h-screen w-full">
             <BuilderCanvas />
           </ScrollArea>
           <div className="fixed top-[53px] bottom-0 right-0 max-w-[320px] w-full border-l border-zinc-200 z-10">

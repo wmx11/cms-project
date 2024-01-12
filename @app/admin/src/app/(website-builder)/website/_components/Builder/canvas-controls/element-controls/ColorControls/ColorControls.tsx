@@ -1,5 +1,4 @@
 'use client';
-import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import { Button } from '@cms/ui/components/Button';
 import { ColorPicker } from '@cms/ui/components/Icons';
@@ -10,7 +9,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@cms/ui/components/Popover';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import {
   Tabs,
@@ -18,29 +17,19 @@ import {
   TabsList,
   TabsTrigger,
 } from '@cms/ui/components/Tabs';
-import ColorPickerComponent from 'react-best-gradient-color-picker';
-
-interface ColorControlsProps {
-  type: 'color' | 'background';
-  label?: string;
-}
+import { useColorPicker } from 'react-best-gradient-color-picker';
+import BackgroundImageController from './BackgroundImageController';
+import ColorController from './ColorController';
+import { ColorControlsProps } from './types';
 
 const ColorControls: FC<ColorControlsProps> = (props) => {
-  const { schema, renderTemplate } = useBuilderProviderState();
-  const { applyStyles, getActiveStyles } = useStyles();
-  const [colorString, setColorString] = useState(getActiveStyles(props.type));
+  const { getActiveStyles } = useStyles();
 
-  const handleChange = (value: string) => {
-    const shouldRender = applyStyles({ [props.type]: value });
+  const currentColorString = getActiveStyles(props.type);
 
-    setColorString(value);
+  const { valueToHex } = useColorPicker(currentColorString);
 
-    if (!shouldRender) {
-      return;
-    }
-
-    renderTemplate(schema);
-  };
+  const hexValue = valueToHex();
 
   return (
     <div>
@@ -49,36 +38,45 @@ const ColorControls: FC<ColorControlsProps> = (props) => {
       </Label>
       <Input
         id={`colorPicker${props.type}`}
-        value={colorString}
+        value={hexValue}
+        readOnly
         startContent={
           <Popover>
             <PopoverTrigger>
               <Button
                 size="icon"
                 className="border"
-                style={{ background: colorString }}
+                style={{
+                  background:
+                    props.type === 'background' ? currentColorString : hexValue,
+                }}
               >
                 <ColorPicker />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[100px]]">
+            <PopoverContent className="w-[330px]" side="left">
               <Tabs>
                 <TabsList>
                   <TabsTrigger value="color">Colors</TabsTrigger>
-                  <TabsTrigger value="image">Image</TabsTrigger>
+
+                  {props.type === 'background' && (
+                    <TabsTrigger value="image">Image</TabsTrigger>
+                  )}
                 </TabsList>
-                <TabsContent value="color"></TabsContent>
-                <TabsContent value="image">
-                  <div>Fill, fit, crop, tile</div>
+
+                <TabsContent value="color">
+                  <ColorController
+                    onChange={props.onChange}
+                    type={props.type}
+                  />
                 </TabsContent>
+
+                {props.type === 'background' && (
+                  <TabsContent value="image">
+                    <BackgroundImageController />
+                  </TabsContent>
+                )}
               </Tabs>
-              <div className="mb-4">
-                <ColorPickerComponent
-                  value={colorString}
-                  onChange={handleChange}
-                  className=""
-                />
-              </div>
             </PopoverContent>
           </Popover>
         }

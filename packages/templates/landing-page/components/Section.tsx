@@ -1,61 +1,12 @@
 import { Schema } from '@cms/packages/template-engine/types';
-import {
-  horizontalAlign,
-  textAlign,
-  verticalAlign,
-  layoutType,
-  flexColumns,
-  elementGaps,
-} from '@cms/packages/template-engine/variants/variants';
-import { VariantProps, cva } from 'class-variance-authority';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const sectionCva = cva('py-24', {
-  variants: {
-    horizontalAlign,
-    verticalAlign,
-    textAlign,
-    layoutType,
-    flexColumns,
-    elementGaps,
-  },
-});
-
-type SectionVariantProps = VariantProps<typeof sectionCva>;
-
-const Section: FC<
-  PropsWithChildren & HTMLAttributes<HTMLBaseElement> & SectionVariantProps
-> = ({
-  layoutType,
-  flexColumns,
-  elementGaps,
-  textAlign,
-  horizontalAlign,
-  verticalAlign,
-  className,
-  children,
-  style,
-  ...restProps
-}) => {
+const Section: FC<PropsWithChildren & HTMLAttributes<HTMLBaseElement>> = (
+  props
+) => {
   return (
-    <section
-      {...restProps}
-      style={JSON.parse((style as string) || '{}')}
-      className={twMerge(
-        sectionCva({
-          layoutType,
-          flexColumns,
-          textAlign,
-          horizontalAlign,
-          verticalAlign,
-          elementGaps,
-          className,
-        })
-      )}
-    >
-      {children}
-    </section>
+    <section {...props} className={twMerge('py-24', props.className)}></section>
   );
 };
 
@@ -79,13 +30,6 @@ export const schema: Schema = {
       type: 'string',
       value: '',
       displayName: 'Section classes',
-      description: 'You can use Tailwind classes to style this section',
-    },
-    {
-      name: 'style',
-      type: 'string',
-      value: '',
-      displayName: 'Section styles',
       description: 'You can use Tailwind classes to style this section',
     },
   ],

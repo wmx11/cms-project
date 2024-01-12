@@ -55,6 +55,9 @@ model Article {
   date_updated DateTime @updatedAt
 }
 
+// Article shall become the Content table instead
+// model Content {}
+
 model Testimonial {
   id           String   @id @default(cuid())
   image        String?
@@ -135,6 +138,18 @@ model Website {
 
   @@index([alias])
 }
+
+// Template shall be the JSON schema of a Site
+// model Template { id            String   @id @default(cuid()) }
+
+// Site shall be the whole Website that is being built
+// model Site { id            String   @id @default(cuid()) }
+
+// Page shall be the individual page on the Site
+// model Page { id            String   @id @default(cuid()) }
+
+// Add Form support
+// model Form {}
 
 model Account {
   id                String  @id @default(cuid())

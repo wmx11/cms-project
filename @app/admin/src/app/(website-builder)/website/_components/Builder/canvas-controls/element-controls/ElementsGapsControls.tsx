@@ -1,7 +1,6 @@
 'use client';
-import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
-import { DEFAULT_UNIT } from '@cms/packages/template-engine/constants';
+import { DEFAULT_UNIT, GAP } from '@cms/packages/template-engine/constants';
 import { elementGaps } from '@cms/packages/template-engine/variants/variants';
 import {
   Select,
@@ -13,26 +12,20 @@ import {
 import { Label } from '@cms/ui/components/Label';
 
 const ElementsGapsControls = () => {
-  const { schema, renderTemplate } = useBuilderProviderState();
   const { applyStyles, getActiveStyles } = useStyles();
+
   const handleOnChange = (value: string) => {
-    const shouldRender = applyStyles({
-      '--gap': `${value}${DEFAULT_UNIT}`,
-      gap: 'var(--gap)',
+    applyStyles({
+      [GAP]: `${value}${DEFAULT_UNIT}`,
+      gap: `var(${GAP})`,
     });
-
-    if (!shouldRender) {
-      return;
-    }
-
-    renderTemplate(schema);
   };
 
   return (
     <div>
       <Label htmlFor="gapSize">Gap size</Label>
       <Select
-        value={getActiveStyles('--gap', DEFAULT_UNIT)}
+        value={getActiveStyles(GAP, DEFAULT_UNIT)}
         onValueChange={handleOnChange}
       >
         <SelectTrigger id="gapSize">

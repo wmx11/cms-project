@@ -1,12 +1,20 @@
-import TemplateSchema from '@cms/packages/templates/landing-page/schema.json';
+import { StylesProvider } from '@/components/Providers';
+import db from '@cms/packages/db';
+import serializeSchema from '@cms/packages/template-engine/modules/serializeSchema';
 import { Metadata } from 'next';
-import prisma from '@cms/packages/data/prisma';
 import { IconURL } from 'next/dist/lib/metadata/types/metadata-types';
 
 const getPageData = async () => {
-  const pageData = await prisma.page.findFirst({
+  const pageData = await db.website.findFirst({
     where: {
-      id: 'cln4fb2120004uq909huoc0rz',
+      id: 'clnrig4130001uq1hyx39vq56',
+    },
+    include: {
+      template: {
+        select: {
+          slug: true,
+        },
+      },
     },
   });
 
@@ -26,10 +34,22 @@ export const generateMetadata = async (): Promise<Metadata> => {
 };
 
 export default async function Home() {
-  const page = await import(
-    `@cms/packages/templates/${TemplateSchema.metadata.id}/${TemplateSchema.metadata.component}`
-  );
-  return page.default({
-    context: TemplateSchema,
+  const pageData = await getPageData();
+
+  if (!pageData?.draft_schema || !pageData.template.slug) {
+    return null;
+  }
+
+  const templateJson = JSON.parse(pageData.draft_schema as string);
+
+  const template = serializeSchema({
+    schema: templateJson,
+    templateId: pageData?.template.slug,
   });
+
+  return (
+    <StylesProvider>
+      <>{template}</>
+    </StylesProvider>
+  );
 }

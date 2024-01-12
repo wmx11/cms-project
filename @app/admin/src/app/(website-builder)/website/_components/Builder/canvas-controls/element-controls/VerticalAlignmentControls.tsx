@@ -1,26 +1,18 @@
-import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+'use client';
 import useStyles from '@admin/hooks/useStyles';
+import getActiveButtonVariant from '@admin/utils/getActiveButtonVariant';
 import {
   ItemsAlignBottom,
   ItemsAlignCenterVertical,
   ItemsAlignTop,
 } from '@cms/packages/ui/components/Icons';
 import ButtonElement from '../ButtonElement';
-import getActiveButtonVariant from '@admin/utils/getActiveButtonVariant';
 
 const VerticalAlignmentControls = () => {
-  const { schema, renderTemplate } = useBuilderProviderState();
-
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: string) => {
-    const shouldRender = applyStyles({ 'align-items': value });
-
-    if (!shouldRender) {
-      return;
-    }
-
-    renderTemplate(schema);
+    applyStyles({ 'align-items': value });
   };
 
   const activeStyle = getActiveStyles('align-items');

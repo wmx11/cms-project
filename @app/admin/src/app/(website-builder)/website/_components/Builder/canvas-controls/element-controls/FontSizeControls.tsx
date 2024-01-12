@@ -1,10 +1,8 @@
 'use client';
-import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import { DEFAULT_UNIT } from '@cms/packages/template-engine/constants';
 import { fontSize } from '@cms/packages/template-engine/variants/variants';
 import { ChevronDown } from '@cms/packages/ui/components/Icons';
-import InputElement from '../InputElement';
 import {
   Select,
   SelectContent,
@@ -12,21 +10,15 @@ import {
   SelectTrigger,
 } from '@cms/packages/ui/components/Select';
 import ButtonElement from '../ButtonElement';
+import InputElement from '../InputElement';
 
 const FontSizeControls = () => {
-  const { schema, renderTemplate } = useBuilderProviderState();
   const { applyStyles, getActiveStyles } = useStyles();
 
   const handleOnChange = (value: string) => {
-    const shouldRender = applyStyles({
+    applyStyles({
       'font-size': `${value}${DEFAULT_UNIT}`,
     });
-
-    if (!shouldRender) {
-      return;
-    }
-
-    renderTemplate(schema);
   };
 
   return (

@@ -1,23 +1,15 @@
 import { Schema } from '@cms/packages/template-engine/types';
-import NextImage from 'next/image';
-import { HTMLAttributes } from 'react';
+import { FC, HTMLProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-type Props = {
-  src: string;
-  width?: number;
-  height?: number;
-} & HTMLAttributes<HTMLImageElement>;
-
-const Image = ({ src, width, height, className, id }: Props) => {
+const Image: FC<HTMLProps<HTMLImageElement>> = (props) => {
   return (
     <img
+      {...props}
       alt="alt stuff"
-      id={id}
-      className={twMerge('mb-2', className)}
-      src={src}
-      width={500}
-      height={500}
+      className={twMerge('mb-2', props.className)}
+      width={props.width}
+      height={props.height}
     />
   );
 };
@@ -35,6 +27,12 @@ export const schema: Schema = {
       type: 'string',
       value: 'https://nextui.org/images/hero-card-complete.jpeg',
       displayName: 'Image source',
+    },
+    {
+      name: 'alt',
+      type: 'string',
+      value: 'Image alternative tag',
+      displayName: 'Image alt tag',
     },
     {
       name: 'className',

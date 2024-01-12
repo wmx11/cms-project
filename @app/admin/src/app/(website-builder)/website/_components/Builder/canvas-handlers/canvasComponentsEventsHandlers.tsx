@@ -1,35 +1,65 @@
-import { DATA_EDITABLE } from '@cms/packages/template-engine/constants';
-import { STYLES_CONTENT_EDITABLE } from '@cms/packages/template-engine/constants';
+'use client';
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import {
+  DATA_EDITABLE,
+  STYLES_CONTENT_EDITABLE,
+} from '@cms/packages/template-engine/constants';
+import { useEffect } from 'react';
 
-export const handleEditableContentInput = (event: Event) => {
-  const target = event.target as HTMLBaseElement;
-  console.log(target.innerText);
-};
+export const useEditableContentControls = () => {
+  const { selectedElement, selectedComponent, renderedTemplate } =
+    useBuilderProviderState();
 
-export const handleEditableContentBlur = (event: Event) => {
-  const target = event.target as HTMLBaseElement;
-  target.classList.add(...STYLES_CONTENT_EDITABLE.split(' '));
-  target.removeAttribute('contenteditable');
-  target.removeEventListener('input', handleEditableContentInput, true);
-  target.removeEventListener('blur', handleEditableContentBlur, true);
-};
+  useEffect(() => {
+    if (!selectedElement) {
+      return;
+    }
 
-export const handleEditableContentClick = (target: HTMLBaseElement) => {
-  if (!target) {
-    return null;
-  }
+    if (!selectedElement.hasAttribute(DATA_EDITABLE)) {
+      return;
+    }
 
-  if (!target.hasAttribute(DATA_EDITABLE)) {
-    return null;
-  }
+    if (selectedElement.getAttribute('contenteditable') === 'true') {
+      return;
+    }
 
-  if (target.getAttribute('contenteditable') === 'true') {
-    return null;
-  }
+    const handleEditableContentInput = (event: Event) => {
+      const target = event.target as HTMLBaseElement;
 
-  target.classList.remove(...STYLES_CONTENT_EDITABLE.split(' '));
-  target.addEventListener('input', handleEditableContentInput, true);
-  target.addEventListener('blur', handleEditableContentBlur, true);
-  target.setAttribute('contenteditable', 'true');
-  target.focus();
+      const componentValue = selectedComponent?.props.find(
+        (item) => item.type === 'string' && item.name === 'children'
+      );
+
+      if (componentValue) {
+        componentValue.value = target.innerHTML;
+      }
+    };
+
+    const handleEditableContentBlur = (event: Event) => {
+      const target = event.target as HTMLBaseElement;
+      // target.classList.add(...STYLES_CONTENT_EDITABLE.split(' '));
+      target.removeAttribute('contenteditable');
+      target.removeEventListener('input', handleEditableContentInput, true);
+      target.removeEventListener('blur', handleEditableContentBlur, true);
+    };
+
+    // selectedElement.classList.remove(...STYLES_CONTENT_EDITABLE.split(' '));
+    selectedElement.addEventListener('input', handleEditableContentInput, true);
+    selectedElement.addEventListener('blur', handleEditableContentBlur, true);
+    selectedElement.setAttribute('contenteditable', 'true');
+    selectedElement.focus();
+
+    return () => {
+      selectedElement.removeEventListener(
+        'input',
+        handleEditableContentInput,
+        true
+      );
+      selectedElement.removeEventListener(
+        'blur',
+        handleEditableContentBlur,
+        true
+      );
+    };
+  }, [selectedElement, renderedTemplate]);
 };

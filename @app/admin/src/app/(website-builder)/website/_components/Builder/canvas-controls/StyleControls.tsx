@@ -1,17 +1,5 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
-import ControlsWrapper from './ControlsWrapper';
-import ElementsGapsControls from './element-controls/ElementsGapsControls';
-import FlexColumnsControls from './element-controls/FlexColumnsControls';
-import FontSizeControls from './element-controls/FontSizeControls';
-import HeightAndWidthControls from './element-controls/HeightAndWidthControls';
-import HorizontalAlignmentControls from './element-controls/HorizontalAlignmentControls';
-import LayoutTypeControls from './element-controls/LayoutTypeControls';
-import MarginAndPaddingControls from './element-controls/MarginAndPaddingControls';
-import PositionControls from './element-controls/PositionControls';
-import PositionedElementControls from './element-controls/PositionedElementControls';
-import TextAlignmentControls from './element-controls/TextAlignmentControls';
-import VerticalAlignmentControls from './element-controls/VerticalAlignmentControls';
 import {
   Accordion,
   AccordionContent,
@@ -20,13 +8,26 @@ import {
 } from '@cms/packages/ui/components/Accordion';
 import { Badge } from '@cms/packages/ui/components/Badge';
 import { BREAKPOINT_XS, DATA_LABEL } from '@cms/template-engine/constants';
+import ControlsWrapper from './ControlsWrapper';
+import BackgroundColorControls from './element-controls/ColorControls/BackgroundColorControls';
+import TextColoControls from './element-controls/ColorControls/TextColorControls';
+import ElementsGapsControls from './element-controls/ElementsGapsControls';
+import FlexColumnsControls from './element-controls/FlexColumnsControls';
+import FontSizeControls from './element-controls/FontSizeControls';
+import HeightAndWidthControls from './element-controls/HeightAndWidthControls';
+import HorizontalAlignmentControls from './element-controls/HorizontalAlignmentControls';
+import LayoutTypeControls from './element-controls/LayoutTypeControls';
+import MarginAndPaddingControls from './element-controls/MarginAndPaddingControls';
 import OverflowControls from './element-controls/OverflowControls';
+import PositionControls from './element-controls/PositionControls';
+import PositionedElementControls from './element-controls/PositionedElementControls';
+import ShadowControls from './element-controls/ShadowControls';
+import TextAlignmentControls from './element-controls/TextAlignmentControls';
+import VerticalAlignmentControls from './element-controls/VerticalAlignmentControls';
 import ZIndexControls from './element-controls/ZIndexControls';
-import ColorControls from './element-controls/ColorControls';
 
 const StyleControls = () => {
-  const { selectedElement, selectedComponent, breakpoint } =
-    useBuilderProviderState();
+  const { selectedElement, breakpoint } = useBuilderProviderState();
 
   const controls = [
     {
@@ -37,6 +38,8 @@ const StyleControls = () => {
         <div className="space-y-2">
           <TextAlignmentControls />
           <FontSizeControls />
+          <TextColoControls />
+          <ShadowControls label="Text shadow" type="text-shadow" />
         </div>
       ),
     },
@@ -46,8 +49,8 @@ const StyleControls = () => {
       description: 'Text & background colors, shadows, borders, etc.',
       component: (
         <div className="space-y-2">
-          <ColorControls label="Text color" type="color" />
-          <ColorControls label="Background color" type="background" />
+          <BackgroundColorControls />
+          <ShadowControls label="Box shadow" type="box-shadow" />
         </div>
       ),
     },
@@ -160,13 +163,7 @@ const StyleControls = () => {
           )}
         </div>
       </div>
-      {/* <div className="mb-2">
-        {selectedComponent?.props
-          ?.filter((item) => item.type === 'string')
-          .map((item) => (
-            <div>{item?.value || ''}</div>
-          ))}
-      </div> */}
+
       <Accordion
         type="multiple"
         defaultValue={controls.map((item) => item.key)}
