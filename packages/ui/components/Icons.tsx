@@ -3,6 +3,7 @@ import {
   MdOutlinePhoneIphone,
   MdPublish,
   MdColorize,
+  MdGrid4X4,
 } from 'react-icons/md';
 import { TbTransform } from 'react-icons/tb';
 import { GoDuplicate } from 'react-icons/go';
@@ -60,6 +61,7 @@ export const Desktop = FaDesktop;
 export const Tablet = FaTabletAlt;
 export const Mobile = MdOutlinePhoneIphone;
 export const Reset = GrPowerReset;
+export const Grid = MdGrid4X4;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;

@@ -55,7 +55,7 @@ const serializeComponentForBuilder = (
       [DATA_DESCRIPTION]: item.description,
       [DATA_DND_INITIALIZED]: false,
       [DATA_ACCEPTS_CHILDREN]: acceptsChildren,
-      tabindex: 0,
+      ...(item.editable ? { contentEditable: true } : {}),
     },
   });
 

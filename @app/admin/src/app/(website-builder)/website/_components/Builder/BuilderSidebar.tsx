@@ -13,7 +13,6 @@ const BuilderSidebar = () => {
           <pre>{JSON.stringify(styles, null, 2)}</pre>
         </code> */}
 
-        {/* <StyleControls /> */}
         {selectedComponent ? (
           <StyleControls />
         ) : (

@@ -51,7 +51,7 @@ const useStyles = () => {
 
         return activeStyles;
       },
-    [styles, selectedComponent]
+    [styles, selectedElement]
   );
 
   const applyClassNameToComponent = () => {

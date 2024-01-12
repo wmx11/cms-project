@@ -10,7 +10,7 @@ export interface InputProps
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, type, startContent, endContent, ...props }, ref) => {
     return (
       <div className="w-full">
         {props.label && (
@@ -19,12 +19,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </Label>
         )}
         <div className="relative flex items-center rounded-md border border-input">
-          {props.startContent && (
-            <div className="text-xs text-zinc-500 mr-2">
-              {props.startContent}
-            </div>
+          {startContent && (
+            <div className="text-xs text-zinc-500 mr-2">{startContent}</div>
           )}
-
           <input
             type={type}
             className={cn(
@@ -34,8 +31,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             {...props}
           />
-          {props.endContent && (
-            <div className="text-xs text-zinc-500">{props.endContent}</div>
+          {endContent && (
+            <div className="text-xs text-zinc-500">{endContent}</div>
           )}
         </div>
       </div>

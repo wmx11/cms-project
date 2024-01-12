@@ -19,9 +19,9 @@ export const useEditableContentControls = () => {
       return;
     }
 
-    if (selectedElement.getAttribute('contenteditable') === 'true') {
-      return;
-    }
+    // if (selectedElement.getAttribute('contenteditable') === 'true') {
+    //   return;
+    // }
 
     const handleEditableContentInput = (event: Event) => {
       const target = event.target as HTMLBaseElement;
@@ -38,7 +38,7 @@ export const useEditableContentControls = () => {
     const handleEditableContentBlur = (event: Event) => {
       const target = event.target as HTMLBaseElement;
       // target.classList.add(...STYLES_CONTENT_EDITABLE.split(' '));
-      target.removeAttribute('contenteditable');
+      // target.removeAttribute('contenteditable');
       target.removeEventListener('input', handleEditableContentInput, true);
       target.removeEventListener('blur', handleEditableContentBlur, true);
     };
@@ -46,7 +46,7 @@ export const useEditableContentControls = () => {
     // selectedElement.classList.remove(...STYLES_CONTENT_EDITABLE.split(' '));
     selectedElement.addEventListener('input', handleEditableContentInput, true);
     selectedElement.addEventListener('blur', handleEditableContentBlur, true);
-    selectedElement.setAttribute('contenteditable', 'true');
+    // selectedElement.setAttribute('contenteditable', 'true');
     selectedElement.focus();
 
     return () => {

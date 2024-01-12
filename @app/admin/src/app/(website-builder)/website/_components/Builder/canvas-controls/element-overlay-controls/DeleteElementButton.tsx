@@ -24,22 +24,16 @@ const DeleteElementButton = () => {
   };
 
   return (
-    <DefaultTooltip
-      content={`Remove this ${selectedElement?.getAttribute(
-        DATA_LABEL
-      )} component`}
+    <Button
+      variant="destructive"
+      size="xs"
+      onClick={handleOnClick}
+      className="rounded-none"
     >
-      <Button
-        variant="destructive"
-        size="xs"
-        onClick={handleOnClick}
-        className="rounded-none"
-      >
-        <Trash className="h-3 w-3 mr-2" />
-        <span className="mr-2">Delete</span>
-        <Kbd>Del</Kbd>
-      </Button>
-    </DefaultTooltip>
+      <Trash className="h-3 w-3 mr-2" />
+      <span className="mr-2">Delete</span>
+      <Kbd>Del</Kbd>
+    </Button>
   );
 };
 

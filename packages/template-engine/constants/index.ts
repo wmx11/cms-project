@@ -31,7 +31,7 @@ export const DATA_CANVAS_OVERLAY_CONTEXT_MENU_TARGET =
 export const STYLES_CONTENT_EDITABLE =
   'before:content-[""] before:absolute before:inset-0 before:z-10';
 export const STLYES_ELEMENT_INSIDE_BUILDER =
-  'relative border border-dashed border-violet-200 hover:border-violet-300 cursor-pointer transition-colors';
+  'relative border border-dashed border-violet-200 hover:border-violet-300 cursor-pointer transition-colors m-[-1px]';
 
 export const BREAKPOINT_XS = 10;
 export const BREAKPOINT_SM = 640;

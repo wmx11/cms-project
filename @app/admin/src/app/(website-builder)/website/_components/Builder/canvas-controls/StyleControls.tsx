@@ -9,8 +9,8 @@ import {
 import { Badge } from '@cms/packages/ui/components/Badge';
 import { BREAKPOINT_XS, DATA_LABEL } from '@cms/template-engine/constants';
 import ControlsWrapper from './ControlsWrapper';
-import BackgroundColorControls from './element-controls/ColorControls/BackgroundColorControls';
-import TextColoControls from './element-controls/ColorControls/TextColorControls';
+// import BackgroundColorControls from './element-controls/ColorControls/BackgroundColorControls';
+// import TextColoControls from './element-controls/ColorControls/TextColorControls';
 import ElementsGapsControls from './element-controls/ElementsGapsControls';
 import FlexColumnsControls from './element-controls/FlexColumnsControls';
 import FontSizeControls from './element-controls/FontSizeControls';
@@ -21,134 +21,156 @@ import MarginAndPaddingControls from './element-controls/MarginAndPaddingControl
 import OverflowControls from './element-controls/OverflowControls';
 import PositionControls from './element-controls/PositionControls';
 import PositionedElementControls from './element-controls/PositionedElementControls';
-import ShadowControls from './element-controls/ShadowControls';
+// import ShadowControls from './element-controls/ShadowControls';
 import TextAlignmentControls from './element-controls/TextAlignmentControls';
 import VerticalAlignmentControls from './element-controls/VerticalAlignmentControls';
 import ZIndexControls from './element-controls/ZIndexControls';
+import dynamic from 'next/dynamic';
+import { useMemo } from 'react';
+
+const DynamicShadowControls = dynamic(
+  () => import('./element-controls/ShadowControls'),
+  {
+    loading: () => <p>It's loading</p>,
+  }
+);
+
+const DynamicBackgroundColorControls = dynamic(
+  () => import('./element-controls/ColorControls/BackgroundColorControls'),
+  {
+    loading: () => <p>It's loading</p>,
+  }
+);
+
+const DynamicTextColorControls = dynamic(
+  () => import('./element-controls/ColorControls/TextColorControls'),
+  {
+    loading: () => <p>It's loading</p>,
+  }
+);
+
+const controls = [
+  {
+    key: 'text',
+    title: 'Text',
+    description: 'Text alignemnt, sizing, colors, and typography.',
+    component: (
+      <div className="space-y-2">
+        <TextAlignmentControls />
+        <FontSizeControls />
+        <DynamicTextColorControls />
+        <DynamicShadowControls label="Text shadow" type="text-shadow" />
+      </div>
+    ),
+  },
+  {
+    key: 'effects',
+    title: 'Effects',
+    description: 'Text & background colors, shadows, borders, etc.',
+    component: (
+      <div className="space-y-2">
+        <DynamicBackgroundColorControls />
+        <DynamicShadowControls label="Box shadow" type="box-shadow" />
+      </div>
+    ),
+  },
+  {
+    key: 'position',
+    title: 'Position',
+    description: 'What position type the element uses',
+    component: (
+      <>
+        <PositionControls />
+      </>
+    ),
+  },
+  {
+    key: 'positioned-controls',
+    title: 'Position Coordinates',
+    description: 'How the element is positioned in the X and Y axis.',
+    component: (
+      <>
+        <PositionedElementControls />
+      </>
+    ),
+  },
+  {
+    key: 'layout-controls',
+    title: 'Layout',
+    description: 'What is the selected element layout type',
+    component: (
+      <>
+        <LayoutTypeControls />
+      </>
+    ),
+  },
+  {
+    key: 'columns-gaps',
+    title: 'Columns & Gaps',
+    description: 'How many columns & gap spacing the element has',
+    component: (
+      <ControlsWrapper>
+        <FlexColumnsControls />
+        <ElementsGapsControls />
+      </ControlsWrapper>
+    ),
+  },
+  {
+    key: 'horizontal-alignment',
+    title: 'Horizontal Alignment (X axis)',
+    description: 'How the items inside the element are aligned on the X axis',
+    component: (
+      <>
+        <HorizontalAlignmentControls />
+      </>
+    ),
+  },
+  {
+    key: 'vertical-alignment',
+    title: 'Vertical Alignment (Y axis)',
+    description: 'How the items inside the element are aligned on the Y axis',
+    component: (
+      <>
+        <VerticalAlignmentControls />
+      </>
+    ),
+  },
+
+  {
+    key: 'overflow',
+    title: 'Overflow',
+    description: 'Overflow and stacking controls of the element.',
+    component: (
+      <div className="space-y-4">
+        <ZIndexControls />
+        <OverflowControls />
+      </div>
+    ),
+  },
+  {
+    key: 'height-width',
+    title: 'Height & Width',
+    description: 'Height and width controls of the element.',
+    component: (
+      <>
+        <HeightAndWidthControls />
+      </>
+    ),
+  },
+  {
+    key: 'margin-padding',
+    title: 'Margin & Padding',
+    description: 'Maring and padding controls of the element.',
+    component: (
+      <>
+        <MarginAndPaddingControls />
+      </>
+    ),
+  },
+];
 
 const StyleControls = () => {
   const { selectedElement, breakpoint } = useBuilderProviderState();
-
-  const controls = [
-    {
-      key: 'text',
-      title: 'Text',
-      description: 'Text alignemnt, sizing, colors, and typography.',
-      component: (
-        <div className="space-y-2">
-          <TextAlignmentControls />
-          <FontSizeControls />
-          <TextColoControls />
-          <ShadowControls label="Text shadow" type="text-shadow" />
-        </div>
-      ),
-    },
-    {
-      key: 'effects',
-      title: 'Effects',
-      description: 'Text & background colors, shadows, borders, etc.',
-      component: (
-        <div className="space-y-2">
-          <BackgroundColorControls />
-          <ShadowControls label="Box shadow" type="box-shadow" />
-        </div>
-      ),
-    },
-    {
-      key: 'position',
-      title: 'Position',
-      description: 'What position type the element uses',
-      component: (
-        <>
-          <PositionControls />
-        </>
-      ),
-    },
-    {
-      key: 'positioned-controls',
-      title: 'Position Coordinates',
-      description: 'How the element is positioned in the X and Y axis.',
-      component: (
-        <>
-          <PositionedElementControls />
-        </>
-      ),
-    },
-    {
-      key: 'layout-controls',
-      title: 'Layout',
-      description: 'What is the selected element layout type',
-      component: (
-        <>
-          <LayoutTypeControls />
-        </>
-      ),
-    },
-    {
-      key: 'columns-gaps',
-      title: 'Columns & Gaps',
-      description: 'How many columns & gap spacing the element has',
-      component: (
-        <ControlsWrapper>
-          <FlexColumnsControls />
-          <ElementsGapsControls />
-        </ControlsWrapper>
-      ),
-    },
-    {
-      key: 'horizontal-alignment',
-      title: 'Horizontal Alignment (X axis)',
-      description: 'How the items inside the element are aligned on the X axis',
-      component: (
-        <>
-          <HorizontalAlignmentControls />
-        </>
-      ),
-    },
-    {
-      key: 'vertical-alignment',
-      title: 'Vertical Alignment (Y axis)',
-      description: 'How the items inside the element are aligned on the Y axis',
-      component: (
-        <>
-          <VerticalAlignmentControls />
-        </>
-      ),
-    },
-
-    {
-      key: 'overflow',
-      title: 'Overflow',
-      description: 'Overflow and stacking controls of the element.',
-      component: (
-        <div className="space-y-4">
-          <ZIndexControls />
-          <OverflowControls />
-        </div>
-      ),
-    },
-    {
-      key: 'height-width',
-      title: 'Height & Width',
-      description: 'Height and width controls of the element.',
-      component: (
-        <>
-          <HeightAndWidthControls />
-        </>
-      ),
-    },
-    {
-      key: 'margin-padding',
-      title: 'Margin & Padding',
-      description: 'Maring and padding controls of the element.',
-      component: (
-        <>
-          <MarginAndPaddingControls />
-        </>
-      ),
-    },
-  ];
-
   return (
     <div>
       <div className="bg-zinc-100/80 p-2 rounded-md border mb-2">
@@ -163,7 +185,6 @@ const StyleControls = () => {
           )}
         </div>
       </div>
-
       <Accordion
         type="multiple"
         defaultValue={controls.map((item) => item.key)}

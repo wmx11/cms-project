@@ -24,7 +24,7 @@ const BuilderPage: FC<BuilderPageProps> = (props) => {
           <ScrollArea className="h-full max-h-screen w-full">
             <BuilderCanvas />
           </ScrollArea>
-          <div className="fixed top-[53px] bottom-0 right-0 max-w-[320px] w-full border-l border-zinc-200 z-10">
+          <div className="fixed top-[57px] bottom-0 right-0 max-w-[320px] w-full border-l border-zinc-200 z-10">
             <ScrollArea className="h-full w-full">
               <BuilderSidebar />
             </ScrollArea>
