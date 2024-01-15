@@ -21,10 +21,12 @@ const MarginAndPaddingControls = () => {
         [
           'Margin',
           'Margin-top',
+          'Margin-right',
           'Margin-bottom',
           'Margin-left',
           'Padding',
           'Padding-top',
+          'Padding-right  ',
           'Padding-bottom',
           'Padding-left',
         ].map((item) => ({

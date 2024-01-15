@@ -1,8 +1,7 @@
-import { StylesObject } from '@admin/store/slices/createStylesSlice';
+import { StylesObjectWithBreakpoints } from '@admin/store/slices/createStylesSlice';
 import { BREAKPOINTS_MAP } from '@cms/packages/template-engine/constants';
 import { JssStyle } from 'jss';
 import useBuilderProviderState from './useBuilderProviderState';
-import { useMemo } from 'react';
 
 const useStyles = () => {
   const {
@@ -18,41 +17,38 @@ const useStyles = () => {
     renderTemplate,
   } = useBuilderProviderState();
 
-  const getActiveStyles = useMemo(
-    () =>
-      (styleProp: string, unit?: string): string => {
-        if (!selectedComonentPath) {
-          return '';
-        }
+  const getActiveStyles = (styleProp: string, unit?: string): string => {
+    if (!selectedComonentPath) {
+      return '';
+    }
 
-        let activeStyles = '';
+    const activeBreakpont = BREAKPOINTS_MAP[breakpoint];
+    const entry = styles[activeBreakpont];
 
-        const entry = styles[BREAKPOINTS_MAP[breakpoint]];
+    let activeStyles = '';
 
-        const componentStyles = entry[
-          selectedComonentPath as keyof typeof entry
-        ] as JssStyle;
+    const componentStyles = entry[
+      selectedComonentPath as keyof typeof entry
+    ] as JssStyle;
 
-        if (!componentStyles && selectedElement) {
-          const computedStyle = window.getComputedStyle(selectedElement);
-          activeStyles = computedStyle[
-            styleProp as keyof typeof computedStyle
-          ] as string;
-        }
+    if (!componentStyles && selectedElement) {
+      const computedStyle = window.getComputedStyle(selectedElement);
+      activeStyles = computedStyle[
+        styleProp as keyof typeof computedStyle
+      ] as string;
+    }
 
-        if (componentStyles) {
-          activeStyles =
-            componentStyles[styleProp as keyof JssStyle]?.toString() ?? '';
-        }
+    if (componentStyles) {
+      activeStyles =
+        componentStyles[styleProp as keyof JssStyle]?.toString() ?? '';
+    }
 
-        if (unit) {
-          return activeStyles?.replace(unit, '');
-        }
+    if (unit) {
+      activeStyles = activeStyles?.replace(unit, '');
+    }
 
-        return activeStyles;
-      },
-    [styles, selectedElement]
-  );
+    return activeStyles;
+  };
 
   const applyClassNameToComponent = () => {
     const componentClassName = selectedComponent?.props.find(
@@ -89,57 +85,25 @@ const useStyles = () => {
 
   const applyStylesForBreakpoint = (
     stylesObject: JssStyle,
-    _stylesCopy: StylesObject
+    _stylesCopy: StylesObjectWithBreakpoints
   ) => {
     const stylesCopy = _stylesCopy;
 
-    const stylesCopyBreakpointEntry = stylesCopy[BREAKPOINTS_MAP[breakpoint]];
-    (stylesCopyBreakpointEntry[
-      selectedComonentPath as keyof typeof stylesCopyBreakpointEntry
-    ] as JssStyle) = {
-      ...(stylesCopyBreakpointEntry[
-        selectedComonentPath as keyof typeof stylesCopyBreakpointEntry
-      ] as JssStyle),
+    const entry = stylesCopy[BREAKPOINTS_MAP[breakpoint]];
+
+    (entry[selectedComonentPath as keyof typeof entry] as JssStyle) = {
+      ...(entry[selectedComonentPath as keyof typeof entry] as JssStyle),
       ...stylesObject,
     };
 
-    styleSheet?.replaceRule(
-      BREAKPOINTS_MAP[breakpoint],
-      stylesCopyBreakpointEntry
-    );
-
-    return stylesCopy;
-  };
-
-  const applyStylesForDefaultBreakpoint = (
-    stylesObject: JssStyle,
-    _stylesCopy: StylesObject
-  ) => {
-    const stylesCopy = _stylesCopy;
-
-    (stylesCopy[selectedComonentPath as keyof typeof stylesCopy] as JssStyle) =
-      {
-        ...(stylesCopy[
-          selectedComonentPath as keyof typeof stylesCopy
-        ] as JssStyle),
-        ...stylesObject,
-      };
-    styleSheet?.replaceRule(
-      selectedComonentPath,
-      stylesCopy[selectedComonentPath as keyof typeof stylesCopy] as JssStyle
-    );
+    styleSheet?.replaceRule(BREAKPOINTS_MAP[breakpoint], entry);
 
     return stylesCopy;
   };
 
   const applyStyles = (props: JssStyle) => {
-    let stylesCopy = { ...styles };
+    const stylesCopy = applyStylesForBreakpoint(props, styles);
 
-    if (breakpoint) {
-      stylesCopy = applyStylesForBreakpoint(props, stylesCopy);
-    } else {
-      stylesCopy = applyStylesForDefaultBreakpoint(props, stylesCopy);
-    }
     setStyles(stylesCopy);
 
     applyStyleSheetToDocument();

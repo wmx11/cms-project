@@ -3,6 +3,7 @@ import camelCase from 'jss-plugin-camel-case';
 import propSort from 'jss-plugin-props-sort';
 import nested from 'jss-plugin-nested';
 import preset from 'jss-preset-default';
+import globalStyles from 'jss-plugin-global';
 
 const jss = create().setup({
   ...preset(),
@@ -12,6 +13,6 @@ const jss = create().setup({
   },
 });
 
-jss.use(camelCase(), propSort(), nested());
+jss.use(camelCase(), propSort(), nested(), globalStyles());
 
 export default jss;

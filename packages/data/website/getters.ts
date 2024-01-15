@@ -18,7 +18,11 @@ export const getWebsiteDraftSchemaByWebsiteId = async (websiteId: string) => {
     });
 
     const parsedSchema = JSON.parse((website?.draft_schema as string) || '[]');
-    const parsedStyles = JSON.parse((website?.styles_schema as string) || '{}');
+    let parsedStyles = JSON.parse((website?.styles_schema as string) || '{}');
+
+    if (!Object.keys(parsedStyles).length) {
+      parsedStyles = null;
+    }
 
     return {
       ...website,

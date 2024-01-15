@@ -16,7 +16,7 @@ const OpacityControls = () => {
         {
           label: 'Opacity',
           styleProp: 'opacity',
-          value: getActiveStyles('opacity'),
+          value: getActiveStyles('opacity') || '1',
           icon: <Eye className="mr-2" />,
           min: 0,
           max: 1,

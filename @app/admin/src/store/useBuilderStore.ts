@@ -4,16 +4,18 @@ import { createContext } from 'react';
 import { createStore } from 'zustand';
 import createActionSlice, { ActionSlice } from './slices/createActionSlice';
 import createSchemaSlice, { SchemaSlice } from './slices/createSchemaSlice';
+import createStylesSlice, {
+  StylesObjectWithBreakpoints,
+  StylesSlice,
+} from './slices/createStylesSlice';
 import createTemplateSlice, {
   TemplateSlice,
 } from './slices/createTemplateSlice';
-import createStylesSlice, { StylesSlice } from './slices/createStylesSlice';
-import { JssStyle } from 'jss';
 
 export type BuilderStore = ReturnType<typeof createBuilderStore>;
 
 export interface BuilderStoreProps {
-  styles: JssStyle;
+  styles: StylesObjectWithBreakpoints;
   schema: Schema[];
   templateId: string;
   templateComponents: Component[];

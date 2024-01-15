@@ -67,7 +67,7 @@ const BuilderCanvas = () => {
       <div
         ref={canvasRef}
         data-canvas
-        className="bg-white canvas min-h-screen shadow-md relative transition-width"
+        className="bg-white canvas min-h-screen shadow-md relative transition"
         style={{
           width: breakpoint !== BREAKPOINT_XS ? `${breakpoint}px` : '100%',
           containerType: 'inline-size',

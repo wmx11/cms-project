@@ -26,12 +26,12 @@ const layoutTypes = {
     'flex-direction': 'column',
   },
   'flex-row-reverse': {
-    [LAYOUT_TYPE]: 'flex-row-reverse',
+    [LAYOUT_TYPE]: 'row-reverse',
     display: 'flex',
     'flex-direction': 'row-reverse',
   },
   'flex-column-reverse': {
-    [LAYOUT_TYPE]: 'flex-column-reverse',
+    [LAYOUT_TYPE]: 'column-reverse',
     display: 'flex',
     'flex-direction': 'column-reverse',
   },
@@ -48,7 +48,8 @@ const LayoutTypeControls = () => {
     <div>
       <Label htmlFor="elementLayoutType">Element Layout Type</Label>
       <Select
-        value={getActiveStyles(LAYOUT_TYPE)}
+        defaultValue="block"
+        value={getActiveStyles(LAYOUT_TYPE) || 'block'}
         onValueChange={handleOnChange}
       >
         <SelectTrigger id="elementLayoutType">

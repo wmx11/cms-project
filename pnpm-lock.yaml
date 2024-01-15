@@ -83,6 +83,9 @@ importers:
       jss-plugin-camel-case:
         specifier: ^10.10.0
         version: 10.10.0
+      jss-plugin-global:
+        specifier: ^10.10.0
+        version: 10.10.0
       jss-plugin-nested:
         specifier: ^10.10.0
         version: 10.10.0

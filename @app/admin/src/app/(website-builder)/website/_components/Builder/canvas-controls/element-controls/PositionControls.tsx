@@ -22,7 +22,8 @@ const PositionControls = () => {
     <div>
       <Label htmlFor="elementPosition">Element Position</Label>
       <Select
-        value={getActiveStyles('position')}
+        defaultValue="static"
+        value={getActiveStyles('position') || 'static'}
         onValueChange={handleOnChange}
       >
         <SelectTrigger id="elementPosition">

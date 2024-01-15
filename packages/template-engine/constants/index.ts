@@ -47,7 +47,7 @@ export const BREAKPOINT_LG_KEY = `@container (min-width: ${BREAKPOINT_LG}px)`;
 export const BREAKPOINT_XL_KEY = `@container (min-width: ${BREAKPOINT_XL}px)`;
 export const BREAKPOINT_2XL_KEY = `@container (min-width: ${BREAKPOINT_2XL}px)`;
 
-interface BreakpointsMap {
+export interface BreakpointsMap {
   [BREAKPOINT_XS]: typeof BREAKPOINT_XS_KEY;
   [BREAKPOINT_SM]: typeof BREAKPOINT_SM_KEY;
   [BREAKPOINT_MD]: typeof BREAKPOINT_MD_KEY;

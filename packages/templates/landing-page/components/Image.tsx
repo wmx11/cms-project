@@ -1,17 +1,9 @@
 import { Schema } from '@cms/packages/template-engine/types';
 import { FC, HTMLProps } from 'react';
-import { twMerge } from 'tailwind-merge';
+import ImageComponent from '../client-components/Image';
 
 const Image: FC<HTMLProps<HTMLImageElement>> = (props) => {
-  return (
-    <img
-      {...props}
-      alt="alt stuff"
-      className={twMerge('mb-2', props.className)}
-      width={props.width}
-      height={props.height}
-    />
-  );
+  return <ImageComponent {...props} />;
 };
 
 export default Image;
