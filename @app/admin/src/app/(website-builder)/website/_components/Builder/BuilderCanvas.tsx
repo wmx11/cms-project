@@ -37,7 +37,7 @@ const BuilderCanvas = () => {
   useEditableContentControls();
 
   // Initialize styles handler
-  useEffect(() => {
+  useEffect(() => { 
     const manager = new SheetsManager();
     const styleSheet = builderJss.createStyleSheet(styles, {
       meta: 'builder-styles',
@@ -63,7 +63,7 @@ const BuilderCanvas = () => {
   }, [renderedTemplate]);
 
   return (
-    <div className="bg-zinc-100 min-h-screen px-2 pb-2 pt-12 mt-[53px] relative flex items-center justify-center">
+    <div className="bg-zinc-100 min-h-screen px-3 pb-2 pt-12 mt-[53px] relative flex items-center justify-center">
       <div
         ref={canvasRef}
         data-canvas

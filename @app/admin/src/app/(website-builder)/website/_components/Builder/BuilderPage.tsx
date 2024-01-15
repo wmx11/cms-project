@@ -1,17 +1,12 @@
-import { Schema } from '@cms/packages/template-engine/types';
-import { Component } from '@prisma/client';
-import BuilderProvider from './BuilderProvider';
-import BuilderCanvas from './BuilderCanvas';
-import BuilderHeader from './BuilderHeader';
-import BuilderSidebar from './BuilderSidebar';
+import { BuilderStoreProps } from '@admin/store/useBuilderStore';
 import { ScrollArea } from '@cms/packages/ui/components/ScrollArea';
 import { FC } from 'react';
+import BuilderCanvas from './BuilderCanvas';
+import BuilderHeader from './BuilderHeader';
+import BuilderProvider from './BuilderProvider';
+import BuilderSidebar from './BuilderSidebar';
 
-interface BuilderPageProps {
-  schema: Schema[];
-  templateId: string;
-  templateComponents: Component[];
-}
+interface BuilderPageProps extends BuilderStoreProps {}
 
 const BuilderPage: FC<BuilderPageProps> = (props) => {
   return (

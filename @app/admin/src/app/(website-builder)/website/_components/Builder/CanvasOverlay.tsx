@@ -80,7 +80,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
         data-canvas-overlay-highlight="hover"
         ref={props.canvasOverlayHighlightHoverRef}
         style={highlightStyles}
-        className="border-2 border-violet-900 absolute flex justify-center"
+        className="border-2 border-violet-900 absolute flex justify-center pointer-events-none"
       >
         <div
           data-canvas-overlay-highlight-label

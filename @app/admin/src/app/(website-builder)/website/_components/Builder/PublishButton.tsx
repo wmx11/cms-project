@@ -9,10 +9,10 @@ import { toast } from 'sonner';
 const PublishButton = () => {
   const params = useParams<{ id: string }>();
 
-  const { schema } = useBuilderProviderState();
+  const { schema, styles } = useBuilderProviderState();
 
   const handleOnClick = async () => {
-    await updateWebsiteAction({ id: params.id, schema });
+    await updateWebsiteAction({ id: params.id, schema, styles });
     toast.success('Draft schema has been saved', { position: 'top-center' });
   };
 

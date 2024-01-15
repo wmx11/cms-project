@@ -7,6 +7,7 @@ export const getWebsiteDraftSchemaByWebsiteId = async (websiteId: string) => {
         id: websiteId,
       },
       select: {
+        styles_schema: true,
         draft_schema: true,
         template: {
           select: {
@@ -17,9 +18,11 @@ export const getWebsiteDraftSchemaByWebsiteId = async (websiteId: string) => {
     });
 
     const parsedSchema = JSON.parse((website?.draft_schema as string) || '[]');
+    const parsedStyles = JSON.parse((website?.styles_schema as string) || '{}');
 
     return {
       ...website,
+      styles_schema: parsedStyles,
       draft_schema: parsedSchema,
     };
   } catch (error) {

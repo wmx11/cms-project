@@ -26,7 +26,7 @@ import TextAlignmentControls from './element-controls/TextAlignmentControls';
 import VerticalAlignmentControls from './element-controls/VerticalAlignmentControls';
 import ZIndexControls from './element-controls/ZIndexControls';
 import dynamic from 'next/dynamic';
-import { useMemo } from 'react';
+import OpacityControls from './element-controls/OpacityControls';
 
 const DynamicShadowControls = dynamic(
   () => import('./element-controls/ShadowControls'),
@@ -69,6 +69,7 @@ const controls = [
     description: 'Text & background colors, shadows, borders, etc.',
     component: (
       <div className="space-y-2">
+        <OpacityControls />
         <DynamicBackgroundColorControls />
         <DynamicShadowControls label="Box shadow" type="box-shadow" />
       </div>

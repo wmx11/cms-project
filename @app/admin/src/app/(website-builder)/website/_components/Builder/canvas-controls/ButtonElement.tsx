@@ -1,7 +1,9 @@
 import { Button, ButtonProps } from '@cms/packages/ui/components/Button';
-import React, { FC, PropsWithChildren } from 'react';
+import React, { FC, HTMLProps, PropsWithChildren } from 'react';
 
 interface ButtonElementProps extends PropsWithChildren {
+  className?: string;
+  asChild?: boolean;
   variant?: ButtonProps['variant'];
   icon?: React.ReactElement | string;
   onClick?: () => void;
@@ -10,6 +12,7 @@ interface ButtonElementProps extends PropsWithChildren {
 const ButtonElement: FC<ButtonElementProps> = (props) => {
   return (
     <Button
+      {...props}
       size="sm"
       variant={props.variant || 'default'}
       color="secondary"

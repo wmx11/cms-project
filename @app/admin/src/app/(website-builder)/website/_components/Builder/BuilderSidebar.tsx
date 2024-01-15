@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from '@cms/ui/components/Card';
 import StyleControls from './canvas-controls/StyleControls';
 
 const BuilderSidebar = () => {
-  const { selectedComponent } = useBuilderProviderState();
+  const { selectedComponent, styles } = useBuilderProviderState();
 
   return (
     <>

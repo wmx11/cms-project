@@ -5,13 +5,16 @@ import React from 'react';
 
 interface GeneralProps {
   label: string;
-  icon: React.ReactElement | string;
+  icon?: React.ReactElement | string;
 }
 
 interface InputControlProps extends GeneralProps {
   styleProp: string;
   value: string;
   unit?: string;
+  min?: number;
+  max?: number;
+  step?: number;
   onChange: (value: string) => void;
 }
 
@@ -29,6 +32,7 @@ export const renderInputControlComponents = <T extends InputControlProps>(
 ) => {
   return renderControlComponents(data, (data) => (
     <InputElement
+      {...data}
       key={data.label}
       label={data.label}
       type="number"

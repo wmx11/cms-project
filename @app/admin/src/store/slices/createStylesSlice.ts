@@ -16,14 +16,7 @@ import { StyleSheet } from 'jss';
 import { StateCreator } from 'zustand';
 import { JssStyle } from 'jss';
 
-export type StylesObject = {
-  [BREAKPOINT_XS_KEY]: JssStyle;
-  [BREAKPOINT_SM_KEY]: JssStyle;
-  [BREAKPOINT_MD_KEY]: JssStyle;
-  [BREAKPOINT_LG_KEY]: JssStyle;
-  [BREAKPOINT_XL_KEY]: JssStyle;
-  [BREAKPOINT_2XL_KEY]: JssStyle;
-} & JssStyle;
+export type StylesObject = JssStyle;
 
 export type Breakpoints =
   | typeof BREAKPOINT_XS

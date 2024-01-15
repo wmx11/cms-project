@@ -13,6 +13,7 @@ const page = async ({ params }: Props) => {
   const websiteDraftSchema = await getWebsiteDraftSchemaByWebsiteId(params.id);
   return (
     <BuilderPage
+      styles={websiteDraftSchema?.styles_schema}
       schema={websiteDraftSchema?.draft_schema}
       templateId={websiteDraftSchema?.template?.slug || ''}
       templateComponents={templateComponents}

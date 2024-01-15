@@ -8,14 +8,16 @@ import createTemplateSlice, {
   TemplateSlice,
 } from './slices/createTemplateSlice';
 import createStylesSlice, { StylesSlice } from './slices/createStylesSlice';
+import { JssStyle } from 'jss';
 
 export type BuilderStore = ReturnType<typeof createBuilderStore>;
 
-export type BuilderStoreProps = {
+export interface BuilderStoreProps {
+  styles: JssStyle;
   schema: Schema[];
   templateId: string;
   templateComponents: Component[];
-};
+}
 
 export type BuilderStoreState = SchemaSlice &
   TemplateSlice &

@@ -7,7 +7,7 @@ import { IconURL } from 'next/dist/lib/metadata/types/metadata-types';
 const getPageData = async () => {
   const pageData = await db.website.findFirst({
     where: {
-      id: 'clnsmf6oi0001uqax5x2z3vp5',
+      id: 'clnrig4130001uq1hyx39vq56',
     },
     include: {
       template: {
@@ -41,6 +41,7 @@ export default async function Home() {
   }
 
   const templateJson = JSON.parse(pageData.draft_schema as string);
+  const stylesJson = JSON.parse((pageData.styles_schema as string) || '{}');
 
   const template = serializeSchema({
     schema: templateJson,
@@ -48,7 +49,7 @@ export default async function Home() {
   });
 
   return (
-    <StylesProvider>
+    <StylesProvider styles={stylesJson}>
       <>{template}</>
     </StylesProvider>
   );

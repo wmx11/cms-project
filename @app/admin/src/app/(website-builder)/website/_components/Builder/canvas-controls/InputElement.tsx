@@ -7,6 +7,8 @@ interface InputElementsProps {
   className?: string;
   value: string;
   min?: number;
+  max?: number;
+  step?: number;
   endContent?: React.ReactElement | string;
   onChange?: (value: string) => void;
 }
@@ -32,6 +34,8 @@ const InputElement: FC<InputElementsProps> = (props) => {
       type={props.type || 'text'}
       value={props.value}
       min={props.min}
+      max={props.max}
+      step={props.step}
       className={props.className}
       endContent={props.endContent}
       onChange={handleOnChange}

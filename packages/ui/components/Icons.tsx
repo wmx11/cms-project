@@ -36,6 +36,7 @@ import {
   FaDesktop,
   FaTabletAlt,
   FaCog,
+  FaEye
 } from 'react-icons/fa';
 import { GrPowerReset } from 'react-icons/gr';
 
@@ -62,6 +63,7 @@ export const Tablet = FaTabletAlt;
 export const Mobile = MdOutlinePhoneIphone;
 export const Reset = GrPowerReset;
 export const Grid = MdGrid4X4;
+export const Eye = FaEye;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;
