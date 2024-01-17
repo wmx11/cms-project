@@ -1,51 +1,55 @@
+import { CgDisplayFlex, CgSpaceBetween } from 'react-icons/cg';
 import {
+  CiAlignBottom,
+  CiAlignCenterH,
+  CiAlignCenterV,
+  CiAlignLeft,
+  CiAlignRight,
+  CiAlignTop,
+  CiTextAlignCenter,
+  CiTextAlignLeft,
+  CiTextAlignRight
+} from 'react-icons/ci';
+import {
+  FaAngleDown,
+  FaArrowLeft,
+  FaBold,
+  FaCog,
+  FaDesktop,
+  FaEye,
+  FaInfoCircle,
+  FaItalic,
+  FaPlus,
+  FaRedo,
+  FaRegEdit,
+  FaRegSquare,
+  FaSave,
+  FaTabletAlt,
+  FaTrash,
+  FaUnderline,
+  FaUndo,
+} from 'react-icons/fa';
+import { GoDuplicate } from 'react-icons/go';
+import { GrPowerReset } from 'react-icons/gr';
+import { IoIosWarning } from "react-icons/io";
+import {
+  MdColorize,
+  MdGrid4X4,
   MdOutlineDragIndicator,
   MdOutlinePhoneIphone,
   MdPublish,
-  MdColorize,
-  MdGrid4X4,
 } from 'react-icons/md';
-import { TbTransform } from 'react-icons/tb';
-import { GoDuplicate } from 'react-icons/go';
-import { CgDisplayFlex, CgSpaceBetween } from 'react-icons/cg';
-import {
-  CiTextAlignLeft,
-  CiTextAlignCenter,
-  CiTextAlignRight,
-  CiAlignLeft,
-  CiAlignCenterH,
-  CiAlignRight,
-  CiAlignTop,
-  CiAlignCenterV,
-  CiAlignBottom,
-} from 'react-icons/ci';
-import {
-  FaTrash,
-  FaRegEdit,
-  FaArrowLeft,
-  FaPlus,
-  FaUndo,
-  FaRedo,
-  FaInfoCircle,
-  FaBold,
-  FaItalic,
-  FaUnderline,
-  FaRegSquare,
-  FaAngleDown,
-  FaSave,
-  FaDesktop,
-  FaTabletAlt,
-  FaCog,
-  FaEye
-} from 'react-icons/fa';
-import { GrPowerReset } from 'react-icons/gr';
+import { RxBorderWidth } from 'react-icons/rx';
+import { TbRadiusTopLeft, TbTransform } from 'react-icons/tb';
+
+export const ICON_STYLES = 'mr-2';
 
 export const Plus = FaPlus;
 export const Cog = FaCog;
 export const Trash = FaTrash;
 export const Edit = FaRegEdit;
 export const ArrowLeft = FaArrowLeft;
-export const ColorPicker = MdColorize;
+export const ColorPickerPipette = MdColorize;
 export const Publish = MdPublish;
 export const Undo = FaUndo;
 export const Redo = FaRedo;
@@ -64,6 +68,7 @@ export const Mobile = MdOutlinePhoneIphone;
 export const Reset = GrPowerReset;
 export const Grid = MdGrid4X4;
 export const Eye = FaEye;
+export const Warning = IoIosWarning;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;
@@ -84,3 +89,7 @@ export const ItemsAlignBottom = CiAlignBottom;
 // Layout types
 export const LayoutBlock = FaRegSquare;
 export const LayoutFlex = CgDisplayFlex;
+
+// Border
+export const BorderRadiusTopLeft = TbRadiusTopLeft;
+export const BorderWidth = RxBorderWidth;

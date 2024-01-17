@@ -1,12 +1,18 @@
 'use client';
 import useStyles from '@admin/hooks/useStyles';
 import ColorControls from '.';
+import { initialBackgroundState } from './ColorControls';
 
 const BackgroundColorControls = () => {
   const { applyStyles } = useStyles();
 
   const handleChange = (value: string) => {
-    applyStyles({ background: value });
+    applyStyles({
+      background: {
+        ...initialBackgroundState,
+        color: value,
+      },
+    });
   };
 
   return (

@@ -5,7 +5,7 @@ interface InputElementsProps {
   label: string;
   type?: string;
   className?: string;
-  value: string;
+  value?: string | number | undefined;
   min?: number;
   max?: number;
   step?: number;

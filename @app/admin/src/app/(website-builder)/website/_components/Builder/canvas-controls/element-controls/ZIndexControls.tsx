@@ -5,6 +5,8 @@ import InputElement from '../InputElement';
 const ZIndexControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
+  const activeStyles = getActiveStyles<{ 'z-index': string }>('z-index');
+
   const handleOnChange = (value: string) => {
     applyStyles({ 'z-index': value });
   };
@@ -13,7 +15,7 @@ const ZIndexControls = () => {
     <InputElement
       type="number"
       label="Z-index"
-      value={getActiveStyles('z-index')}
+      value={activeStyles?.['z-index']}
       onChange={handleOnChange}
     />
   );

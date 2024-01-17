@@ -11,30 +11,36 @@ import ButtonElement from '../ButtonElement';
 const VerticalAlignmentControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
-  const handleOnChange = (value: string) => {
-    applyStyles({ 'align-items': value });
-  };
+  const activeStyles = getActiveStyles<{ 'align-items': string }>(
+    'align-items'
+  );
 
-  const activeStyle = getActiveStyles('align-items');
+  const handleOnChange = (value: string) => {
+    const _value = value === activeStyles?.['align-items'] ? null : value;
+    applyStyles({ 'align-items': _value });
+  };
 
   return (
     <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border">
       <ButtonElement
-        variant={getActiveButtonVariant('start', activeStyle)}
+        variant={getActiveButtonVariant('start', activeStyles?.['align-items'])}
         icon={<ItemsAlignTop />}
         onClick={() => handleOnChange('start')}
       >
         Top
       </ButtonElement>
       <ButtonElement
-        variant={getActiveButtonVariant('center', activeStyle)}
+        variant={getActiveButtonVariant(
+          'center',
+          activeStyles?.['align-items']
+        )}
         icon={<ItemsAlignCenterVertical />}
         onClick={() => handleOnChange('center')}
       >
         Center
       </ButtonElement>
       <ButtonElement
-        variant={getActiveButtonVariant('end', activeStyle)}
+        variant={getActiveButtonVariant('end', activeStyles?.['align-items'])}
         icon={<ItemsAlignBottom />}
         onClick={() => handleOnChange('end')}
       >

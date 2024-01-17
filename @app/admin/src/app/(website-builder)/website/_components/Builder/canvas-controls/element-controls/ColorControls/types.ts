@@ -3,3 +3,12 @@ export interface ColorControlsProps {
   label?: string;
   onChange: (value: string) => void;
 }
+
+export interface BackgroundControlsProps {
+  attachment: string | null;
+  color: string | null;
+  image: string | null;
+  position: string | null;
+  repeat: string | null;
+  size: string | null;
+}

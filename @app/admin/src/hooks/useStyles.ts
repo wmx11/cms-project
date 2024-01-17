@@ -1,4 +1,7 @@
-import { StylesObjectWithBreakpoints } from '@admin/store/slices/createStylesSlice';
+import {
+  StylesObjectWithBreakpoints,
+  initialStyles,
+} from '@admin/store/slices/createStylesSlice';
 import { BREAKPOINTS_MAP } from '@cms/packages/template-engine/constants';
 import { JssStyle } from 'jss';
 import useBuilderProviderState from './useBuilderProviderState';
@@ -17,15 +20,18 @@ const useStyles = () => {
     renderTemplate,
   } = useBuilderProviderState();
 
-  const getActiveStyles = (styleProp: string, unit?: string): string => {
+  const getActiveStyles = <T extends JssStyle>(
+    styleProp: keyof T
+  ): T | null => {
     if (!selectedComonentPath) {
-      return '';
+      return null;
     }
 
-    const activeBreakpont = BREAKPOINTS_MAP[breakpoint];
-    const entry = styles[activeBreakpont];
+    const activeStyles = {} as T;
 
-    let activeStyles = '';
+    const activeBreakpont = BREAKPOINTS_MAP[breakpoint];
+
+    const entry = styles[activeBreakpont];
 
     const componentStyles = entry[
       selectedComonentPath as keyof typeof entry
@@ -33,18 +39,18 @@ const useStyles = () => {
 
     if (!componentStyles && selectedElement) {
       const computedStyle = window.getComputedStyle(selectedElement);
-      activeStyles = computedStyle[
-        styleProp as keyof typeof computedStyle
-      ] as string;
+
+      Object.assign(activeStyles, {
+        [styleProp]: computedStyle[
+          styleProp as keyof typeof computedStyle
+        ] as string,
+      });
     }
 
     if (componentStyles) {
-      activeStyles =
-        componentStyles[styleProp as keyof JssStyle]?.toString() ?? '';
-    }
-
-    if (unit) {
-      activeStyles = activeStyles?.replace(unit, '');
+      Object.assign(activeStyles, {
+        [styleProp]: componentStyles[styleProp as keyof JssStyle] || null,
+      });
     }
 
     return activeStyles;
@@ -106,7 +112,7 @@ const useStyles = () => {
 
     setStyles(stylesCopy);
 
-    applyStyleSheetToDocument();
+    // applyStyleSheetToDocument();
 
     const shouldRender = applyClassNameToComponent();
 
@@ -117,9 +123,16 @@ const useStyles = () => {
     renderTemplate(schema);
   };
 
+  const removeStyles = () => {};
+
+  const purgeStyles = () => {
+    setStyles(initialStyles);
+  };
+
   return {
     applyStyles,
     getActiveStyles,
+    purgeStyles,
   };
 };
 

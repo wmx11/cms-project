@@ -38,7 +38,17 @@ const MarginAndPaddingControls = () => {
               <span className="mr-2">{unit}</span>
             ),
           styleProp: item.toLowerCase(),
-          value: getActiveStyles(item.toLowerCase(), unit),
+          value: (() => {
+            const activeStyles = getActiveStyles<{ [k: string]: string }>(
+              item.toLowerCase()
+            );
+
+            if (!activeStyles) {
+              return '';
+            }
+
+            return activeStyles[item.toLowerCase()]?.replace(unit, '');
+          })(),
           onChange: (value: string) =>
             handleOnChange({ [item.toLowerCase()]: `${value}${unit}` }),
         }))

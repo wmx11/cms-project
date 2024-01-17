@@ -1,10 +1,12 @@
 import useStyles from '@admin/hooks/useStyles';
 import { renderInputControlComponents } from '@admin/utils/renderControlComponents';
-import { Eye } from '@cms/ui/components/Icons';
+import { Eye, ICON_STYLES } from '@cms/ui/components/Icons';
 import React from 'react';
 
 const OpacityControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
+
+  const activeStyles = getActiveStyles('opacity');
 
   const handleOnChange = (value: string) => {
     applyStyles({ opacity: value });
@@ -16,8 +18,8 @@ const OpacityControls = () => {
         {
           label: 'Opacity',
           styleProp: 'opacity',
-          value: getActiveStyles('opacity') || '1',
-          icon: <Eye className="mr-2" />,
+          value: activeStyles?.opacity || '1',
+          icon: <Eye className={ICON_STYLES} />,
           min: 0,
           max: 1,
           step: 0.1,

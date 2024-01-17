@@ -14,6 +14,8 @@ import { Label } from '@cms/ui/components/Label';
 const ElementsGapsControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
+  const activeStyles = getActiveStyles<{ [GAP]: string }>(GAP);
+
   const handleOnChange = (value: string) => {
     applyStyles({
       [GAP]: `${value}${DEFAULT_UNIT}`,
@@ -25,7 +27,7 @@ const ElementsGapsControls = () => {
     <div>
       <Label htmlFor="gapSize">Gap size</Label>
       <Select
-        value={getActiveStyles(GAP, DEFAULT_UNIT)}
+        value={activeStyles ? activeStyles[GAP] : ''}
         onValueChange={handleOnChange}
       >
         <SelectTrigger id="gapSize">

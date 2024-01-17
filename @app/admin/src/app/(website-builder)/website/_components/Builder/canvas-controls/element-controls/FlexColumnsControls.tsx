@@ -19,6 +19,10 @@ import { Label } from '@cms/ui/components/Label';
 const FlexColumnsControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
+  const activeStyles = getActiveStyles<{ [FLEX_COLUMNS]: string }>(
+    FLEX_COLUMNS
+  );
+
   const handleOnChange = (value: string) => {
     const columns = parseInt(value, 10);
     applyStyles({
@@ -38,7 +42,7 @@ const FlexColumnsControls = () => {
     <div>
       <Label htmlFor="columns">Columns</Label>
       <Select
-        value={getActiveStyles(FLEX_COLUMNS)}
+        value={activeStyles ? activeStyles[FLEX_COLUMNS] : ''}
         onValueChange={handleOnChange}
       >
         <SelectTrigger id="columns">

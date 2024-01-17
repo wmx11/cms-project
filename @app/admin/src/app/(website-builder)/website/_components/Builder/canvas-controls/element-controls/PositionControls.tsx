@@ -14,6 +14,8 @@ import { Label } from '@cms/ui/components/Label';
 const PositionControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
+  const activeStyles = getActiveStyles('position');
+
   const handleOnChange = (value: string) => {
     applyStyles({ position: value });
   };
@@ -23,7 +25,7 @@ const PositionControls = () => {
       <Label htmlFor="elementPosition">Element Position</Label>
       <Select
         defaultValue="static"
-        value={getActiveStyles('position') || 'static'}
+        value={activeStyles?.position || 'static'}
         onValueChange={handleOnChange}
       >
         <SelectTrigger id="elementPosition">

@@ -14,6 +14,8 @@ import {
 const OverflowControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
+  const activeStyles = getActiveStyles('overflow');
+
   const handleOnChange = (value: string) => {
     applyStyles({ overflow: value });
   };
@@ -21,10 +23,7 @@ const OverflowControls = () => {
   return (
     <div>
       <Label htmlFor="overflowControls">Overflow</Label>
-      <Select
-        value={getActiveStyles('overflow')}
-        onValueChange={handleOnChange}
-      >
+      <Select value={activeStyles?.overflow} onValueChange={handleOnChange}>
         <SelectTrigger id="overflowControls">
           <SelectValue placeholder="Overflow type" />
         </SelectTrigger>

@@ -11,30 +11,31 @@ import ButtonElement from '../ButtonElement';
 const TextAlignmentControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
-  const handleOnChange = (value: string) => {
-    applyStyles({ 'text-align': value });
-  };
+  const activeStyles = getActiveStyles<{ 'text-align': string }>('text-align');
 
-  const activeStyle = getActiveStyles('text-align');
+  const handleOnChange = (value: string) => {
+    const _value = value === activeStyles?.['text-align'] ? null : value;
+    applyStyles({ 'text-align': _value });
+  };
 
   return (
     <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border">
       <ButtonElement
-        variant={getActiveButtonVariant('left', activeStyle)}
+        variant={getActiveButtonVariant('left', activeStyles?.['text-align'])}
         icon={<TextAlignLeft />}
         onClick={() => handleOnChange('left')}
       >
         Left
       </ButtonElement>
       <ButtonElement
-        variant={getActiveButtonVariant('center', activeStyle)}
+        variant={getActiveButtonVariant('center', activeStyles?.['text-align'])}
         icon={<TextAlignCenter />}
         onClick={() => handleOnChange('center')}
       >
         Center
       </ButtonElement>
       <ButtonElement
-        variant={getActiveButtonVariant('right', activeStyle)}
+        variant={getActiveButtonVariant('right', activeStyles?.['text-align'])}
         icon={<TextAlignRight />}
         onClick={() => handleOnChange('right')}
       >

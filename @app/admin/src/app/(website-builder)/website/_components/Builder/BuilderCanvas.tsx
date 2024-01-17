@@ -50,7 +50,7 @@ const BuilderCanvas = () => {
     const styleElement = document.querySelector('[data-meta="builder-styles"]');
     if (styleElement) {
       setStyleElement(styleElement);
-      styleElement.innerHTML = styleSheet.toString();
+      // styleElement.innerHTML = styleSheet.toString();
     }
     renderTemplate();
   }, []);

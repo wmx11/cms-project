@@ -15,6 +15,8 @@ import InputElement from '../InputElement';
 const FontSizeControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
+  const activeStyles = getActiveStyles<{ 'font-size': string }>('font-size');
+
   const handleOnChange = (value: string) => {
     applyStyles({
       'font-size': `${value}${DEFAULT_UNIT}`,
@@ -22,34 +24,36 @@ const FontSizeControls = () => {
   };
 
   return (
-    <div className="">
-      <InputElement
-        className="w-full"
-        type="number"
-        label="Font size"
-        value={getActiveStyles('font-size', DEFAULT_UNIT)}
-        min={1}
-        onChange={handleOnChange}
-        endContent={
-          <Select
-            onValueChange={handleOnChange}
-            value={getActiveStyles('font-size', DEFAULT_UNIT)}
-          >
-            <SelectTrigger className="border-none p-0 max-w-[38px]">
-              <ButtonElement>
-                <ChevronDown />
-              </ButtonElement>
-            </SelectTrigger>
-            <SelectContent>
-              {fontSize.map((item) => (
-                <SelectItem value={item.toString()} key={item}>
-                  {item.toString()}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        }
-      />
+    <div className="flex gap-2 items-end">
+      <div>
+        <Select
+          onValueChange={handleOnChange}
+          value={activeStyles ? activeStyles['font-size'] : ''}
+        >
+          <SelectTrigger className="border-none p-0 max-w-[38px]">
+            <ButtonElement>
+              <ChevronDown />
+            </ButtonElement>
+          </SelectTrigger>
+          <SelectContent>
+            {fontSize.map((item) => (
+              <SelectItem value={item.toString()} key={item}>
+                {item.toString()}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <div className="flex-1">
+        <InputElement
+          className="w-full"
+          type="number"
+          label="Font size"
+          value={activeStyles ? parseFloat(activeStyles['font-size']) : ''}
+          min={1}
+          onChange={handleOnChange}
+        />
+      </div>
     </div>
   );
 };

@@ -40,6 +40,8 @@ const layoutTypes = {
 const LayoutTypeControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
+  const activeStyles = getActiveStyles<{ [LAYOUT_TYPE]: string }>(LAYOUT_TYPE);
+
   const handleOnChange = (value: string) => {
     applyStyles(layoutTypes[value as keyof typeof layoutTypes]);
   };
@@ -49,7 +51,7 @@ const LayoutTypeControls = () => {
       <Label htmlFor="elementLayoutType">Element Layout Type</Label>
       <Select
         defaultValue="block"
-        value={getActiveStyles(LAYOUT_TYPE) || 'block'}
+        value={activeStyles?.[LAYOUT_TYPE] || 'block'}
         onValueChange={handleOnChange}
       >
         <SelectTrigger id="elementLayoutType">
@@ -86,13 +88,13 @@ const LayoutTypeControls = () => {
               description="The selected element will have its children displayed in a column"
             />
           </SelectItem>
-          <SelectItem value="flex-row-reverse">
+          <SelectItem value="row-reverse">
             <SelectItemWithDescription
               label="Flex Row Reverse"
               description="The selected element will have its children displayed in a reversed row"
             />
           </SelectItem>
-          <SelectItem value="flex-column-reverse">
+          <SelectItem value="column-reverse">
             <SelectItemWithDescription
               label="Flex Column Reverse"
               description="The selected element will have its children displayed in a reversed column"

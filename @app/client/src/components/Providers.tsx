@@ -12,14 +12,14 @@ export const StylesProvider: FC<StylesProviderProps> = ({
   styles,
   children,
 }) => {
-  const isInitialized = useRef(false);
+  let isInitialized = false;
 
   useServerInsertedHTML(() => {
-    if (isInitialized.current) {
+    if (isInitialized) {
       return;
     }
 
-    isInitialized.current = true;
+    isInitialized = true;
 
     const styleSheets = builderJss.createStyleSheet(styles);
 
@@ -31,7 +31,6 @@ export const StylesProvider: FC<StylesProviderProps> = ({
       <>
         <style
           data-meta="builder-styles"
-          type="text/css"
           dangerouslySetInnerHTML={{
             __html: stylesString,
           }}

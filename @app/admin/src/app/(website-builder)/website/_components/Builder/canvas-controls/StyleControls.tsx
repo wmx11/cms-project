@@ -21,12 +21,13 @@ import MarginAndPaddingControls from './element-controls/MarginAndPaddingControl
 import OverflowControls from './element-controls/OverflowControls';
 import PositionControls from './element-controls/PositionControls';
 import PositionedElementControls from './element-controls/PositionedElementControls';
-// import ShadowControls from './element-controls/ShadowControls';
+import ShadowControls from './element-controls/ShadowControls';
 import TextAlignmentControls from './element-controls/TextAlignmentControls';
 import VerticalAlignmentControls from './element-controls/VerticalAlignmentControls';
 import ZIndexControls from './element-controls/ZIndexControls';
 import dynamic from 'next/dynamic';
 import OpacityControls from './element-controls/OpacityControls';
+import BorderControls from './element-controls/BorderControls';
 
 const DynamicShadowControls = dynamic(
   () => import('./element-controls/ShadowControls'),
@@ -59,7 +60,7 @@ const controls = [
         <TextAlignmentControls />
         <FontSizeControls />
         <DynamicTextColorControls />
-        <DynamicShadowControls label="Text shadow" type="text-shadow" />
+        <ShadowControls label="Text shadow" type="text-shadow" />
       </div>
     ),
   },
@@ -70,6 +71,7 @@ const controls = [
     component: (
       <div className="space-y-2">
         <OpacityControls />
+        <BorderControls />
         <DynamicBackgroundColorControls />
         <DynamicShadowControls label="Box shadow" type="box-shadow" />
       </div>
@@ -186,24 +188,26 @@ const StyleControls = () => {
           )}
         </div>
       </div>
-      <Accordion
-        type="multiple"
-        defaultValue={controls.map((item) => item.key)}
-      >
-        {controls.map((data) => (
-          <AccordionItem value={data.key} key={data.key}>
-            <AccordionTrigger className="bg-zinc-100/80 p-2">
-              <div className="text-left">
-                <div className="font-bold text-sm">{data.title}</div>
-                <span className="text-xs">{data?.description}</span>
-              </div>
-            </AccordionTrigger>
-            <AccordionContent className="p-2">
-              {data.component}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
+      <div className="mb-2">
+        <Accordion
+          type="multiple"
+          defaultValue={controls.map((item) => item.key)}
+        >
+          {controls.map((data) => (
+            <AccordionItem value={data.key} key={data.key}>
+              <AccordionTrigger className="bg-zinc-100/80 p-2">
+                <div className="text-left">
+                  <div className="font-bold text-sm">{data.title}</div>
+                  <span className="text-xs">{data?.description}</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className="p-2">
+                {data.component}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
     </div>
   );
 };

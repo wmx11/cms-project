@@ -9,6 +9,7 @@ import ControlsWrapper from '../ControlsWrapper';
 
 const HeightAndWidthControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
+
   const [unit, setUnit] = useState(DEFAULT_UNIT);
 
   const handleOnChange = (value: JssStyle) => {
@@ -34,7 +35,17 @@ const HeightAndWidthControls = () => {
               <span className="mr-2">{unit}</span>
             ),
           styleProp: item.toLowerCase(),
-          value: getActiveStyles(item.toLowerCase(), unit),
+          value: (() => {
+            const activeStyles = getActiveStyles<{ [k: string]: string }>(
+              item.toLowerCase()
+            );
+
+            if (!activeStyles) {
+              return '';
+            }
+
+            return activeStyles[item.toLowerCase()]?.replace(unit, '');
+          })(),
           onChange: (value) =>
             handleOnChange({ [item.toLowerCase()]: `${value}${unit}` }),
         }))

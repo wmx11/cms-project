@@ -2,6 +2,7 @@
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import { Card, CardContent, CardHeader } from '@cms/ui/components/Card';
 import StyleControls from './canvas-controls/StyleControls';
+import PurgeStylesButton from './canvas-controls/PurgeStylesButton';
 
 const BuilderSidebar = () => {
   const { selectedComponent, styles } = useBuilderProviderState();
@@ -16,7 +17,7 @@ const BuilderSidebar = () => {
         {selectedComponent ? (
           <StyleControls />
         ) : (
-          <Card className="text-center">
+          <Card className="text-center mb-4">
             <CardHeader className="p-4">
               <p className="font-bold">No Selection</p>
             </CardHeader>
@@ -25,6 +26,10 @@ const BuilderSidebar = () => {
             </CardContent>
           </Card>
         )}
+
+        <div className="flex [&>*]:flex-1">
+          <PurgeStylesButton />
+        </div>
       </div>
     </>
   );

@@ -10,93 +10,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@cms/ui/components/Select';
-import { ChangeEvent, useEffect, useState } from 'react';
-
-interface BackgroundImageString {
-  backgroundImage?: string;
-  backgroundAttachment?: string;
-  backgroundRepeat?: string;
-  backgroundSize?: string;
-  backgroundPosition?: string;
-}
-
-const BACKGROUND_IMAGE_INDEX = 0;
-const BACKGROUND_ATTACHMENT_INDEX = 1;
-const BACKGROUND_POSITION_INDEX = 2;
-const BACKGROUND_SIZE_INDEX = 5;
-const BACKGROUND_REPEAT_INDEX = 6;
+import { ChangeEvent, useState } from 'react';
+import { initialBackgroundState } from './ColorControls';
+import { BackgroundControlsProps } from './types';
 
 const BackgroundImageController = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
-  const currentBackgroundString = getActiveStyles('background');
+  const activeStyles = getActiveStyles('background');
 
-  const isRgb = currentBackgroundString.startsWith('rgb');
-
-  const currentBackgroundImage = isRgb
-    ? currentBackgroundString
-    : currentBackgroundString.split(' ');
-
-  const backgroundImage = isRgb
-    ? ''
-    : currentBackgroundImage.at(BACKGROUND_IMAGE_INDEX);
-
-  const backgroundAttachment = isRgb
-    ? 'scroll'
-    : currentBackgroundImage?.at(BACKGROUND_ATTACHMENT_INDEX);
-
-  const backgroundRepeat = isRgb
-    ? 'no-repeat'
-    : currentBackgroundImage?.at(BACKGROUND_REPEAT_INDEX);
-
-  const backgroundSize = isRgb
-    ? 'auto'
-    : currentBackgroundImage?.at(BACKGROUND_SIZE_INDEX);
-
-  const backgroundPosition = isRgb
-    ? 'center center'
-    : currentBackgroundImage
-        ?.at(BACKGROUND_POSITION_INDEX)
-        ?.concat(
-          ' ',
-          currentBackgroundImage?.at(BACKGROUND_POSITION_INDEX + 1) || ''
-        );
-
-  const backgroundImageString = currentBackgroundString;
-
-  const [state, setState] = useState({
-    backgroundImage: backgroundImage,
-    backgroundAttachment: backgroundAttachment,
-    backgroundRepeat: backgroundRepeat,
-    backgroundSize: backgroundSize,
-    backgroundPosition: backgroundPosition,
-    backgroundImageString: backgroundImageString,
-  });
-
-  useEffect(() => {
-    applyStyles({ background: state.backgroundImageString });
-  }, [state]);
-
-  const constructBackgroundImageString = ({
-    backgroundImage,
-    backgroundAttachment,
-    backgroundRepeat,
-    backgroundSize,
-    backgroundPosition,
-  }: BackgroundImageString) => {
-    if (!backgroundImage) {
-      return '';
-    }
-
-    const backgroundString = `${backgroundImage} ${backgroundAttachment} ${backgroundPosition?.concat(
-      ' ',
-      '/'
-    )} ${backgroundSize} ${backgroundRepeat}`;
-
-    backgroundString?.trim();
-
-    return backgroundString;
-  };
+  const [state, setState] = useState<BackgroundControlsProps>(
+    activeStyles ? activeStyles['background'] : initialBackgroundState
+  );
 
   const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target?.files;
@@ -106,39 +31,30 @@ const BackgroundImageController = () => {
     }
 
     const url = URL.createObjectURL(files[0]);
+    const urlString = `url(${url})`;
 
     setState((prevState) => {
-      const backgroundImage = `url(${url})`;
-
-      const backgroundImageString = constructBackgroundImageString({
-        ...prevState,
-        backgroundImage,
-      });
-
       return {
         ...prevState,
-        backgroundImage,
-        backgroundImageString,
+        image: urlString,
       };
     });
+
+    applyStyles({ background: { ...state, image: urlString } });
   };
 
   const handleSelectionChange = (
-    backgroundProperty: keyof BackgroundImageString,
+    prop: keyof typeof initialBackgroundState,
     value: string
   ) => {
     setState((prevState) => {
-      const backgroundImageString = constructBackgroundImageString({
-        ...prevState,
-        [backgroundProperty]: value,
-      });
-
       return {
         ...prevState,
-        [backgroundProperty]: value,
-        backgroundImageString,
+        [prop]: value,
       };
     });
+
+    applyStyles({ background: { ...state, [prop]: value } });
   };
 
   return (
@@ -146,24 +62,20 @@ const BackgroundImageController = () => {
       <div>
         <Input type="file" onChange={handleUpload} />
       </div>
-      <div className="w-[294px] h-[294px] bg-zinc-200 rounded-md">
-        <div
-          className="w-full h-full"
-          style={{
-            background: state.backgroundImageString
-              ? state.backgroundImageString
-              : state.backgroundImage,
-          }}
-        ></div>
+      <div
+        className="w-[294px] h-[294px] bg-zinc-200 rounded-md"
+        style={{ background: state?.image ? state?.image : state?.color ?? '' }}
+      >
+        <div className="w-full h-full"></div>
       </div>
       <div className="space-y-2 flex gap-4 flex-wrap [&>*]:flex-1 items-end">
         <div>
           <Label htmlFor="backgroundAttachment">Background attachment</Label>
           <Select
-            value={state.backgroundAttachment}
+            value={state?.attachment || ''}
             defaultValue="scroll"
             onValueChange={(value) =>
-              handleSelectionChange('backgroundAttachment', value)
+              handleSelectionChange('attachment', value)
             }
           >
             <SelectTrigger id="backgroundAttachment">
@@ -200,11 +112,9 @@ const BackgroundImageController = () => {
         <div>
           <Label htmlFor="backgroundRepeat">Background repeat</Label>
           <Select
-            value={state.backgroundRepeat}
+            value={state?.repeat || ''}
             defaultValue="no-repeat"
-            onValueChange={(value) =>
-              handleSelectionChange('backgroundRepeat', value)
-            }
+            onValueChange={(value) => handleSelectionChange('repeat', value)}
           >
             <SelectTrigger id="backgroundRepeat">
               <SelectValue placeholder="Background repeat" />
@@ -258,11 +168,9 @@ const BackgroundImageController = () => {
         <div>
           <Label htmlFor="backgroundSize">Background size</Label>
           <Select
-            value={state.backgroundSize}
+            value={state?.size || ''}
             defaultValue="auto"
-            onValueChange={(value) =>
-              handleSelectionChange('backgroundSize', value)
-            }
+            onValueChange={(value) => handleSelectionChange('size', value)}
           >
             <SelectTrigger id="backgroundSize">
               <SelectValue placeholder="Background size" />
@@ -298,11 +206,9 @@ const BackgroundImageController = () => {
         <div>
           <Label htmlFor="backgroundPosition">Background position</Label>
           <Select
-            value={state.backgroundPosition}
+            value={state?.position || ''}
             defaultValue="center center"
-            onValueChange={(value) =>
-              handleSelectionChange('backgroundPosition', value)
-            }
+            onValueChange={(value) => handleSelectionChange('position', value)}
           >
             <SelectTrigger id="backgroundPosition">
               <SelectValue placeholder="Background position" />
