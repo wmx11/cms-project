@@ -8,7 +8,6 @@ interface UnitSelectProps
 const UnitSelect: FC<UnitSelectProps> = (props) => {
   return (
     <select {...props} onChange={(e) => props.onChange(e.target.value)}>
-      <option value=""></option>
       <option value="px">px</option>
       <option value="%">%</option>
       <option value="em">em</option>

@@ -1,3 +1,4 @@
+'use client';
 import useStyles from '@admin/hooks/useStyles';
 import { renderInputControlComponents } from '@admin/utils/renderControlComponents';
 import { Eye, ICON_STYLES } from '@cms/ui/components/Icons';

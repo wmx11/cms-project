@@ -13,7 +13,7 @@ import { useColorPicker } from 'react-best-gradient-color-picker';
 import ControlsPopover from '../../ControlsPopover';
 import BackgroundImageController from './BackgroundImageController';
 import ColorPicker from './ColorPicker';
-import { ColorControlsProps } from './types';
+import { ColorControlsProps } from '../types';
 
 export const initialBackgroundState = {
   attachment: null,
@@ -40,7 +40,11 @@ const ColorControls: FC<ColorControlsProps> = (props) => {
       return '';
     }
 
-    if (props.type === 'box-shadow' || props.type === 'text-shadow') {
+    if (
+      props.type === 'box-shadow' ||
+      props.type === 'text-shadow' ||
+      props.type === 'border'
+    ) {
       return entry?.color ?? '';
     }
 

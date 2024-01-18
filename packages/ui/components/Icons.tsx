@@ -8,7 +8,7 @@ import {
   CiAlignTop,
   CiTextAlignCenter,
   CiTextAlignLeft,
-  CiTextAlignRight
+  CiTextAlignRight,
 } from 'react-icons/ci';
 import {
   FaAngleDown,
@@ -31,7 +31,7 @@ import {
 } from 'react-icons/fa';
 import { GoDuplicate } from 'react-icons/go';
 import { GrPowerReset } from 'react-icons/gr';
-import { IoIosWarning } from "react-icons/io";
+import { IoIosWarning } from 'react-icons/io';
 import {
   MdColorize,
   MdGrid4X4,
@@ -40,7 +40,17 @@ import {
   MdPublish,
 } from 'react-icons/md';
 import { RxBorderWidth } from 'react-icons/rx';
-import { TbRadiusTopLeft, TbTransform } from 'react-icons/tb';
+import {
+  TbRadiusTopLeft,
+  TbTransform,
+  TbBorderSides,
+  TbBorderOuter,
+  TbBorderBottom,
+  TbBorderLeft,
+  TbBorderRight,
+  TbBorderTop,
+} from 'react-icons/tb';
+import { BsBorderStyle } from 'react-icons/bs';
 
 export const ICON_STYLES = 'mr-2';
 
@@ -93,3 +103,10 @@ export const LayoutFlex = CgDisplayFlex;
 // Border
 export const BorderRadiusTopLeft = TbRadiusTopLeft;
 export const BorderWidth = RxBorderWidth;
+export const BorderStyle = BsBorderStyle;
+export const BorderSides = TbBorderSides;
+export const BorderOuter = TbBorderOuter;
+export const BorderTop = TbBorderTop;
+export const BorderRight = TbBorderRight;
+export const BorderBottom = TbBorderBottom;
+export const BorderLeft = TbBorderLeft;

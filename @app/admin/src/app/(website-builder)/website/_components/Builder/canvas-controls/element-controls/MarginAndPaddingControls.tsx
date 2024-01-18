@@ -9,6 +9,7 @@ import ControlsWrapper from '../ControlsWrapper';
 
 const MarginAndPaddingControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
+  
   const [unit, setUnit] = useState(DEFAULT_UNIT);
 
   const handleOnChange = (value: JssStyle) => {
@@ -31,12 +32,7 @@ const MarginAndPaddingControls = () => {
           'Padding-left',
         ].map((item) => ({
           label: item,
-          icon:
-            item === 'Margin' || item === 'Padding' ? (
-              <UnitSelect className="mr-2" onChange={setUnit} />
-            ) : (
-              <span className="mr-2">{unit}</span>
-            ),
+          icon: <UnitSelect className="mr-2" onChange={setUnit} value={unit} />,
           styleProp: item.toLowerCase(),
           value: (() => {
             const activeStyles = getActiveStyles<{ [k: string]: string }>(

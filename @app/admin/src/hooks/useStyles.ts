@@ -45,12 +45,16 @@ const useStyles = () => {
           styleProp as keyof typeof computedStyle
         ] as string,
       });
+
+      return activeStyles;
     }
 
     if (componentStyles) {
       Object.assign(activeStyles, {
         [styleProp]: componentStyles[styleProp as keyof JssStyle] || null,
       });
+
+      return activeStyles;
     }
 
     return activeStyles;

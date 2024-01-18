@@ -1,7 +1,7 @@
 'use client';
 import { FC, useState } from 'react';
 import ReactColorPicker from 'react-best-gradient-color-picker';
-import { ColorControlsProps } from './types';
+import { ColorControlsProps } from '../types';
 
 interface ColorPickerProps extends ColorControlsProps {
   color: string;

@@ -12,7 +12,7 @@ import {
 } from '@cms/ui/components/Select';
 import { ChangeEvent, useState } from 'react';
 import { initialBackgroundState } from './ColorControls';
-import { BackgroundControlsProps } from './types';
+import { BackgroundControlsProps } from '../types';
 
 const BackgroundImageController = () => {
   const { applyStyles, getActiveStyles } = useStyles();

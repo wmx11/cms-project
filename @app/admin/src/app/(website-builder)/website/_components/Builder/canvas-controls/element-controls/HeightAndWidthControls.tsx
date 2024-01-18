@@ -17,40 +17,39 @@ const HeightAndWidthControls = () => {
   };
 
   return (
-    <ControlsWrapper>
-      {renderInputControlComponents(
-        [
-          'Width',
-          'Height',
-          'Max-width',
-          'Max-height',
-          'Min-width',
-          'Min-height',
-        ].map((item) => ({
-          label: item,
-          icon:
-            item === 'Width' ? (
-              <UnitSelect className="mr-2" onChange={setUnit} />
-            ) : (
-              <span className="mr-2">{unit}</span>
+    <>
+      <ControlsWrapper>
+        {renderInputControlComponents(
+          [
+            'Width',
+            'Height',
+            'Max-width',
+            'Max-height',
+            'Min-width',
+            'Min-height',
+          ].map((item) => ({
+            label: item,
+            icon: (
+              <UnitSelect className="mr-2" onChange={setUnit} value={unit} />
             ),
-          styleProp: item.toLowerCase(),
-          value: (() => {
-            const activeStyles = getActiveStyles<{ [k: string]: string }>(
-              item.toLowerCase()
-            );
+            styleProp: item.toLowerCase(),
+            value: (() => {
+              const activeStyles = getActiveStyles<{ [k: string]: string }>(
+                item.toLowerCase()
+              );
 
-            if (!activeStyles) {
-              return '';
-            }
+              if (!activeStyles) {
+                return '';
+              }
 
-            return activeStyles[item.toLowerCase()]?.replace(unit, '');
-          })(),
-          onChange: (value) =>
-            handleOnChange({ [item.toLowerCase()]: `${value}${unit}` }),
-        }))
-      )}
-    </ControlsWrapper>
+              return activeStyles[item.toLowerCase()]?.replace(unit, '');
+            })(),
+            onChange: (value) =>
+              handleOnChange({ [item.toLowerCase()]: `${value}${unit}` }),
+          }))
+        )}
+      </ControlsWrapper>
+    </>
   );
 };
 
