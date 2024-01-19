@@ -1,10 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: [
-    '@cms/packages/ui',
-    '@cms/packages/templates',
-    '@cms/packages/template-engine',
-  ],
+  transpilePackages: ['@cms/config', '@cms/packages/ui'],
 };
 
 module.exports = nextConfig;

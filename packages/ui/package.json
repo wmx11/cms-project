@@ -1,5 +1,31 @@
 {
   "name": "@cms/ui",
   "version": "0.1.0",
-  "private": true
+  "private": true,
+  "exports": {
+    "accordion": "./components/Accordion.ts",
+    "alert-dialog": "./components/AlertDialog.ts",
+    "avatar": "./components/Avatar.ts",
+    "badge": "./components/Badge.ts",
+    "button": "./components/Button.ts",
+    "card": "./components/Card.ts",
+    "command": "./components/Command.ts",
+    "container": "./components/Container.ts",
+    "dialog": "./components/Dialog.ts",
+    "icons": "./components/Icons.ts",
+    "input": "./components/Input.ts",
+    "kbd": "./components/Kbd.ts",
+    "label": "./components/Label.ts",
+    "popover": "./components/Popover.ts",
+    "scroll-area": "./components/ScrollArea.ts",
+    "section": "./components/Section.ts",
+    "select": "./components/Select.ts",
+    "skeleton": "./components/Skeleton.ts",
+    "subheading": "./components/Subheading.ts",
+    "tabs": "./components/Tabs.ts",
+    "title": "./components/Title.ts",
+    "toaster": "./components/Toaster.ts",
+    "toggle": "./components/Toggle.ts",
+    "tooltip": "./components/Tooltip.ts"
+  }
 }
