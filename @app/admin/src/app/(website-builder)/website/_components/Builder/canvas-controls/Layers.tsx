@@ -11,12 +11,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@cms/ui/components/Collapsible';
-import {
-  ChevronDown,
-  Eye,
-  EyeSlash,
-  Trash
-} from '@cms/ui/components/Icons';
+import { ChevronDown, Eye, EyeSlash, Trash } from '@cms/ui/components/Icons';
 import React, {
   FC,
   MouseEvent,
@@ -109,7 +104,12 @@ const LayerItem: FC<LayerItemProps> = ({
       <div data-layer-item className="flex gap-2 items-center z-10">
         <div>{startContent}</div>
         <div data-layer-item className="flex-1 w-full h-full">
-          {label}
+          <div
+            data-layer-item
+            className="truncate overflow-hidden max-w-[140px]"
+          >
+            {label}
+          </div>
         </div>
       </div>
       <div
@@ -221,12 +221,18 @@ const Layers = () => {
 
           layers.push(layerGroup);
         } else {
+          const label =
+            (item.props
+              .find(
+                (item) => item.name === 'children' && item.type === 'string'
+              )
+              ?.value?.toString()
+              .substring(0, 50) as string) ||
+            item.displayName ||
+            item.component;
+
           const layerItem = (
-            <LayerItem
-              label={item.component}
-              id={_path}
-              className="pl-8"
-            ></LayerItem>
+            <LayerItem label={label} id={_path} className="pl-8"></LayerItem>
           );
 
           layers.push(layerItem);

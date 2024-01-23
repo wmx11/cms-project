@@ -39,7 +39,7 @@ const serializeComponentForBuilder = (
 
   const className: string = `${
     componentNodeCopy?.props?.className
-  } ${STLYES_ELEMENT_INSIDE_BUILDER} ${
+  } ${'STLYES_ELEMENT_INSIDE_BUILDER'} ${
     item.editable ? `${'STYLES_CONTENT_EDITABLE'} outline-none cursor-text` : ''
   }`;
 

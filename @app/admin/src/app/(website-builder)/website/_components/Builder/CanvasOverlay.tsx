@@ -89,7 +89,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
             selectedElement ? 'block' : 'hidden'
           }`}
         >
-          {selectedComponent?.component}
+          {selectedComponent?.displayName || selectedComponent?.component}
         </div>
       </div>
     </div>
