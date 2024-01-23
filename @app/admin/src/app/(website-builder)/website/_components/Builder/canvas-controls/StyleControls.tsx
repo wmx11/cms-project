@@ -7,10 +7,8 @@ import {
   AccordionTrigger,
 } from '@cms/packages/ui/components/Accordion';
 import { Badge } from '@cms/packages/ui/components/Badge';
-import { BREAKPOINT_XS, DATA_LABEL } from '@cms/template-engine/constants';
+import { BREAKPOINT_DEFAULT, DATA_LABEL } from '@cms/template-engine/constants';
 import ControlsWrapper from './ControlsWrapper';
-// import BackgroundColorControls from './element-controls/ColorControls/BackgroundColorControls';
-// import TextColoControls from './element-controls/ColorControls/TextColorControls';
 import ElementsGapsControls from './element-controls/ElementsGapsControls';
 import FlexColumnsControls from './element-controls/FlexColumnsControls';
 import FontSizeControls from './element-controls/FontSizeControls';
@@ -28,6 +26,7 @@ import ZIndexControls from './element-controls/ZIndexControls';
 import dynamic from 'next/dynamic';
 import OpacityControls from './element-controls/OpacityControls';
 import BorderControls from './element-controls/BorderControls';
+import { Card, CardContent, CardHeader } from '@cms/ui/components/Card';
 
 const DynamicShadowControls = dynamic(
   () => import('./element-controls/ShadowControls'),
@@ -173,13 +172,28 @@ const controls = [
 ];
 
 const StyleControls = () => {
-  const { selectedElement, breakpoint } = useBuilderProviderState();
+  const { selectedComponent, selectedElement, breakpoint } =
+    useBuilderProviderState();
+
+  if (!selectedComponent) {
+    return (
+      <Card className="text-center mb-4">
+        <CardHeader className="p-4">
+          <p className="font-bold">No Selection</p>
+        </CardHeader>
+        <CardContent className="p-4">
+          <p>Select an element on the canvas to activate this panel</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <div>
       <div className="bg-zinc-100/80 p-2 rounded-md border mb-2">
         <div className="space-x-2">
           <Badge>{selectedElement?.getAttribute(DATA_LABEL)}</Badge>
-          {breakpoint !== BREAKPOINT_XS ? (
+          {breakpoint !== BREAKPOINT_DEFAULT ? (
             <>
               <Badge>@{breakpoint}px</Badge>
             </>

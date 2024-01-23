@@ -17,10 +17,11 @@ export default Subtitle;
 
 export const schema: Schema = {
   component: 'Subtitle',
-  category: 'typography',
+  category: 'heading',
   editable: true,
   description:
     'Use Container components to keep your content within a specific width',
+  displayName: 'Subtitle',
   props: [
     {
       name: 'className',

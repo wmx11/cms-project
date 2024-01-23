@@ -14,16 +14,19 @@ const useStyles = () => {
     breakpoint,
     selectedComonentPath,
     selectedComponent,
-    styleElement,
     selectedElement,
     setStyles,
+    setSelectedComponentPath,
     renderTemplate,
   } = useBuilderProviderState();
 
   const getActiveStyles = <T extends JssStyle>(
-    styleProp: keyof T
+    styleProp: keyof T,
+    _selectedComonentPath?: string
   ): T | null => {
-    if (!selectedComonentPath) {
+    const componentPath = _selectedComonentPath || selectedComonentPath;
+
+    if (!componentPath) {
       return null;
     }
 
@@ -34,7 +37,7 @@ const useStyles = () => {
     const entry = styles[activeBreakpont];
 
     const componentStyles = entry[
-      selectedComonentPath as keyof typeof entry
+      componentPath as keyof typeof entry
     ] as JssStyle;
 
     if (!componentStyles && selectedElement) {
@@ -60,7 +63,7 @@ const useStyles = () => {
     return activeStyles;
   };
 
-  const applyClassNameToComponent = () => {
+  const applyClassNameToComponent = (_selectedComonentPath?: string) => {
     const componentClassName = selectedComponent?.props.find(
       (item) => item.name === 'className'
     );
@@ -85,24 +88,19 @@ const useStyles = () => {
     return false;
   };
 
-  const applyStyleSheetToDocument = () => {
-    if (!styleElement) {
-      return;
-    }
-
-    styleElement.innerHTML = styleSheet?.toString() || '';
-  };
-
   const applyStylesForBreakpoint = (
     stylesObject: JssStyle,
-    _stylesCopy: StylesObjectWithBreakpoints
+    _stylesCopy: StylesObjectWithBreakpoints,
+    _selectedComonentPath?: string
   ) => {
     const stylesCopy = _stylesCopy;
 
     const entry = stylesCopy[BREAKPOINTS_MAP[breakpoint]];
 
-    (entry[selectedComonentPath as keyof typeof entry] as JssStyle) = {
-      ...(entry[selectedComonentPath as keyof typeof entry] as JssStyle),
+    const componentPath = _selectedComonentPath || selectedComonentPath;
+
+    (entry[componentPath as keyof typeof entry] as JssStyle) = {
+      ...(entry[componentPath as keyof typeof entry] as JssStyle),
       ...stylesObject,
     };
 
@@ -111,12 +109,14 @@ const useStyles = () => {
     return stylesCopy;
   };
 
-  const applyStyles = (props: JssStyle) => {
-    const stylesCopy = applyStylesForBreakpoint(props, styles);
+  const applyStyles = (props: JssStyle, _selectedComonentPath?: string) => {
+    const stylesCopy = applyStylesForBreakpoint(
+      props,
+      styles,
+      _selectedComonentPath
+    );
 
     setStyles(stylesCopy);
-
-    // applyStyleSheetToDocument();
 
     const shouldRender = applyClassNameToComponent();
 

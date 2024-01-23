@@ -1,35 +1,39 @@
 'use client';
-import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
-import { Card, CardContent, CardHeader } from '@cms/ui/components/Card';
-import StyleControls from './canvas-controls/StyleControls';
+import { DesignIcon, ICON_STYLES, LayersIcon } from '@cms/ui/components/Icons';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@cms/ui/components/Tabs';
+import Layers from './canvas-controls/Layers';
 import PurgeStylesButton from './canvas-controls/PurgeStylesButton';
+import StyleControls from './canvas-controls/StyleControls';
 
 const BuilderSidebar = () => {
-  const { selectedComponent, styles } = useBuilderProviderState();
-
   return (
     <>
       <div className="bg-white p-4 w-full">
-        {/* <code>
-          <pre>{JSON.stringify(styles, null, 2)}</pre>
-        </code> */}
-
-        {selectedComponent ? (
-          <StyleControls />
-        ) : (
-          <Card className="text-center mb-4">
-            <CardHeader className="p-4">
-              <p className="font-bold">No Selection</p>
-            </CardHeader>
-            <CardContent className="p-4">
-              <p>Select an element on the canvas to activate this panel</p>
-            </CardContent>
-          </Card>
-        )}
-
-        <div className="flex [&>*]:flex-1">
-          <PurgeStylesButton />
-        </div>
+        <Tabs defaultValue="styles">
+          <TabsList className="[&>*]:flex-1 w-full">
+            <TabsTrigger value="styles">
+              <DesignIcon className={ICON_STYLES} />
+              Styles
+            </TabsTrigger>
+            <TabsTrigger value="layers">
+              <LayersIcon className={ICON_STYLES} /> Layers
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="styles">
+            <StyleControls />
+            <div className="flex [&>*]:flex-1">
+              <PurgeStylesButton />
+            </div>
+          </TabsContent>
+          <TabsContent value="layers">
+            <Layers />
+          </TabsContent>
+        </Tabs>
       </div>
     </>
   );

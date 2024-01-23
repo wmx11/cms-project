@@ -14,6 +14,7 @@ export const schema: Schema = {
   component: 'Block',
   category: 'layout',
   description: 'Use Block element to vertically stack your content',
+  displayName: 'Block',
   props: [
     {
       name: 'children',

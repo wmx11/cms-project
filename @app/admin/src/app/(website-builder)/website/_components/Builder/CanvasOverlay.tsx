@@ -68,7 +68,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
           <div
             data-canvas-overlay-controls
             ref={canvasOverlayControlsRef}
-            className="flex  border-zinc-200 bg-white shadow-xl absolute top-0 translate-y-[-29px] translate-x-[-2px] pointer-events-auto z-10"
+            className="flex bg-white shadow-xl absolute top-0 translate-y-[-32px] translate-x-[-2px] pointer-events-auto z-10"
           >
             <ElementInfoButton />
             <DuplicateElementButton />

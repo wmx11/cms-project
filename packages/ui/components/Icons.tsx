@@ -28,6 +28,9 @@ import {
   FaTrash,
   FaUnderline,
   FaUndo,
+  FaLayerGroup,
+  FaEyeSlash,
+  FaHeading,
 } from 'react-icons/fa';
 import { GoDuplicate } from 'react-icons/go';
 import { GrPowerReset } from 'react-icons/gr';
@@ -38,6 +41,7 @@ import {
   MdOutlineDragIndicator,
   MdOutlinePhoneIphone,
   MdPublish,
+  MdDesignServices,
 } from 'react-icons/md';
 import { RxBorderWidth } from 'react-icons/rx';
 import {
@@ -52,7 +56,7 @@ import {
 } from 'react-icons/tb';
 import { BsBorderStyle } from 'react-icons/bs';
 
-export const ICON_STYLES = 'mr-2';
+export const ICON_STYLES = 'h-3 w-3 mr-2';
 
 export const Plus = FaPlus;
 export const Cog = FaCog;
@@ -78,7 +82,11 @@ export const Mobile = MdOutlinePhoneIphone;
 export const Reset = GrPowerReset;
 export const Grid = MdGrid4X4;
 export const Eye = FaEye;
+export const EyeSlash = FaEyeSlash;
 export const Warning = IoIosWarning;
+export const LayersIcon = FaLayerGroup;
+export const DesignIcon = MdDesignServices;
+export const Heading = FaHeading;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;

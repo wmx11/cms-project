@@ -22,6 +22,7 @@ export const schema: Schema = {
   category: 'layout',
   description:
     'Use Container components to keep your content within a specific width',
+  displayName: 'Container',
   props: [
     {
       name: 'children',

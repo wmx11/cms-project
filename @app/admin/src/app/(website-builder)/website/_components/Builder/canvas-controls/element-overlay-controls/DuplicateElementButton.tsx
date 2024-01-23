@@ -23,13 +23,13 @@ const DuplicateElementButton = () => {
 
   return (
     <Button
-      variant="default"
+      variant="outline"
       size="xs"
       onClick={handleOnClick}
       className="rounded-none"
     >
       <Duplicate className="h-3 w-3 mr-2" />
-      <span className='mr-2'>Duplicate</span>
+      <span className="mr-2">Duplicate</span>
       <Kbd>⌘D</Kbd>
     </Button>
   );

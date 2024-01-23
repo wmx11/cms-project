@@ -12,6 +12,7 @@ export const DATA_SCHEMA = 'data-schema';
 export const DATA_EDITABLE = 'data-editable';
 export const DATA_COMPONENT = 'data-component';
 export const DATA_TARGET_ID = 'data-target-id';
+export const DATA_LAYER_ITEM = 'data-layer-item';
 export const DATA_DESCRIPTION = 'data-description';
 export const DATA_CANVAS_OVERLAY = 'data-canvas-overlay';
 export const DATA_DND_INITIALIZED = 'data-dnd-initialized';
@@ -33,13 +34,15 @@ export const STYLES_CONTENT_EDITABLE =
 export const STLYES_ELEMENT_INSIDE_BUILDER =
   'relative border border-dashed border-violet-200 hover:border-violet-300 cursor-pointer transition-colors m-[-1px]';
 
-export const BREAKPOINT_XS = 10;
+export const BREAKPOINT_DEFAULT = 10;
+export const BREAKPOINT_XS = 320;
 export const BREAKPOINT_SM = 640;
 export const BREAKPOINT_MD = 768;
 export const BREAKPOINT_LG = 1024;
 export const BREAKPOINT_XL = 1280;
 export const BREAKPOINT_2XL = 1536;
 
+export const BREAKPOINT_DEFAULT_KEY = `@container (min-width: ${BREAKPOINT_DEFAULT}px)`;
 export const BREAKPOINT_XS_KEY = `@container (min-width: ${BREAKPOINT_XS}px)`;
 export const BREAKPOINT_SM_KEY = `@container (min-width: ${BREAKPOINT_SM}px)`;
 export const BREAKPOINT_MD_KEY = `@container (min-width: ${BREAKPOINT_MD}px)`;
@@ -48,6 +51,7 @@ export const BREAKPOINT_XL_KEY = `@container (min-width: ${BREAKPOINT_XL}px)`;
 export const BREAKPOINT_2XL_KEY = `@container (min-width: ${BREAKPOINT_2XL}px)`;
 
 export interface BreakpointsMap {
+  [BREAKPOINT_DEFAULT]: typeof BREAKPOINT_DEFAULT_KEY;
   [BREAKPOINT_XS]: typeof BREAKPOINT_XS_KEY;
   [BREAKPOINT_SM]: typeof BREAKPOINT_SM_KEY;
   [BREAKPOINT_MD]: typeof BREAKPOINT_MD_KEY;
@@ -57,6 +61,7 @@ export interface BreakpointsMap {
 }
 
 export const BREAKPOINTS_MAP: BreakpointsMap = {
+  [BREAKPOINT_DEFAULT]: BREAKPOINT_DEFAULT_KEY,
   [BREAKPOINT_XS]: BREAKPOINT_XS_KEY,
   [BREAKPOINT_SM]: BREAKPOINT_SM_KEY,
   [BREAKPOINT_MD]: BREAKPOINT_MD_KEY,

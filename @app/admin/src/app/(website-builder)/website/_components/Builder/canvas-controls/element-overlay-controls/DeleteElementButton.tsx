@@ -25,7 +25,7 @@ const DeleteElementButton = () => {
 
   return (
     <Button
-      variant="destructive"
+      variant="outline"
       size="xs"
       onClick={handleOnClick}
       className="rounded-none"

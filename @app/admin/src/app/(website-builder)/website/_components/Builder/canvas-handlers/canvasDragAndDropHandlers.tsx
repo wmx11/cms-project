@@ -1,6 +1,7 @@
 import {
   DATA_ACCEPTS_CHILDREN,
   DATA_DND_INITIALIZED,
+  DATA_TARGET_ID,
   DRAGGABLE,
 } from '@cms/packages/template-engine/constants';
 import dragAndDropComponent from '@cms/packages/template-engine/modules/dragAndDropComponent';
@@ -39,7 +40,10 @@ export const handleDragStart = (e: DragEvent) => {
   const target = e.target as HTMLBaseElement;
   draggableElement = target;
   e.dataTransfer?.clearData();
-  e.dataTransfer?.setData('text/plain', target.id as string);
+  e.dataTransfer?.setData(
+    'text/plain',
+    target.getAttribute(DATA_TARGET_ID) || (target.id as string)
+  );
 };
 
 export const handleDragEnd = (e: DragEvent) => {
@@ -151,10 +155,13 @@ export const handleDrop = (e: DragEvent) => {
     return null;
   }
 
+  const elementId = element?.getAttribute(DATA_TARGET_ID) || element?.id;
+  const targetId = target?.getAttribute(DATA_TARGET_ID) || target?.id;
+
   const newSchema = dragAndDropComponent({
     schema: builderState?.schema,
-    selectedComponentPath: element?.id as string,
-    targetComponentPath: target?.id as string,
+    selectedComponentPath: elementId as string,
+    targetComponentPath: targetId as string,
     insertPosition: elementInsertPosition,
   });
 

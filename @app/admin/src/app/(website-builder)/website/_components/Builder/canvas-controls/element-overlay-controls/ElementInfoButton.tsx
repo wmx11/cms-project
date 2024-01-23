@@ -11,7 +11,7 @@ const ElementInfoButton = () => {
   const { selectedElement } = useBuilderProviderState();
 
   return (
-    <div className="flex text-xs px-2 bg-violet-500 text-white">
+    <div className="flex text-xs px-2 text-violet-500 border">
       <DefaultTooltip
         content={selectedElement?.getAttribute(DATA_DESCRIPTION) || ''}
       >

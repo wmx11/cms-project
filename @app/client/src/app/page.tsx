@@ -7,7 +7,7 @@ import { IconURL } from 'next/dist/lib/metadata/types/metadata-types';
 const getPageData = async () => {
   const pageData = await db.website.findFirst({
     where: {
-      id: 'clnpzzk540001uqpsl6m1d5la',
+      id: 'clnsmf6oi0001uqax5x2z3vp5',
     },
     include: {
       template: {

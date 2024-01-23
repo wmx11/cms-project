@@ -12,10 +12,11 @@ export default Paragraph;
 
 export const schema: Schema = {
   component: 'Paragraph',
-  category: 'typography',
+  category: 'text',
   richText: true,
   description:
     'Use Container components to keep your content within a specific width',
+  displayName: 'Paragraph',
   props: [
     {
       name: 'children',

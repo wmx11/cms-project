@@ -8,6 +8,7 @@ import {
   BREAKPOINT_SM,
   BREAKPOINT_XL,
   BREAKPOINT_XS,
+  BREAKPOINT_DEFAULT,
 } from '@cms/packages/template-engine/constants';
 import { Button } from '@cms/packages/ui/components/Button';
 import { Desktop, Mobile, Reset, Tablet } from '@cms/ui/components/Icons';
@@ -19,10 +20,10 @@ const BreakpointControls = () => {
     <div className="flex items-center gap-2">
       <div
         className={`text-xs ${
-          breakpoint === BREAKPOINT_XS ? '' : 'text-red-500'
+          breakpoint === BREAKPOINT_DEFAULT ? '' : 'text-red-500'
         }`}
       >
-        {breakpoint === BREAKPOINT_XS ? '100%' : `${breakpoint}px`}
+        {breakpoint === BREAKPOINT_DEFAULT ? '100%' : `${breakpoint}px`}
       </div>
       <div className="space-x-2">
         <Button
@@ -72,6 +73,15 @@ const BreakpointControls = () => {
         </Button>
         <Button
           onClick={() => setBreakpoint(BREAKPOINT_XS)}
+          color="secondary"
+          size="xs"
+          variant={getActiveButtonVariant(BREAKPOINT_XS, breakpoint)}
+        >
+          <Mobile className="h-3 w-3 mr-2" />
+          xs
+        </Button>
+        <Button
+          onClick={() => setBreakpoint(BREAKPOINT_DEFAULT)}
           variant="destructive"
           size="xs"
         >

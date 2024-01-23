@@ -1,9 +1,9 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
-import { BREAKPOINT_XS } from '@cms/packages/template-engine/constants';
+import { BREAKPOINT_DEFAULT } from '@cms/packages/template-engine/constants';
 import builderJss from '@cms/packages/template-engine/styles/builderJss';
 import Kbd from '@cms/packages/ui/components/Kbd';
-import { SheetsManager } from 'jss';
+import { SheetsManager, Styles } from 'jss';
 import { useEffect, useRef } from 'react';
 import ComponentsListDialog from '../ComponentsListDialog';
 import CanvasOverlay from './CanvasOverlay';
@@ -22,7 +22,6 @@ const BuilderCanvas = () => {
     styles,
     breakpoint,
     renderedTemplate,
-    setStyleElement,
     renderTemplate,
     setStyleSheet,
   } = state;
@@ -37,9 +36,9 @@ const BuilderCanvas = () => {
   useEditableContentControls();
 
   // Initialize styles handler
-  useEffect(() => { 
+  useEffect(() => {
     const manager = new SheetsManager();
-    const styleSheet = builderJss.createStyleSheet(styles, {
+    const styleSheet = builderJss.createStyleSheet(styles as Partial<Styles>, {
       meta: 'builder-styles',
       link: true,
     });
@@ -47,11 +46,6 @@ const BuilderCanvas = () => {
     manager.add(key, styleSheet);
     manager.manage(key);
     setStyleSheet(styleSheet);
-    const styleElement = document.querySelector('[data-meta="builder-styles"]');
-    if (styleElement) {
-      setStyleElement(styleElement);
-      // styleElement.innerHTML = styleSheet.toString();
-    }
     renderTemplate();
   }, []);
 
@@ -69,7 +63,7 @@ const BuilderCanvas = () => {
         data-canvas
         className="bg-white canvas min-h-screen shadow-md relative transition"
         style={{
-          width: breakpoint !== BREAKPOINT_XS ? `${breakpoint}px` : '100%',
+          width: breakpoint !== BREAKPOINT_DEFAULT ? `${breakpoint}px` : '100%',
           containerType: 'inline-size',
         }}
         onMouseOver={handleCanvasMouseOver({

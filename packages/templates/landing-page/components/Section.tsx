@@ -17,6 +17,7 @@ export const schema: Schema = {
   category: 'layout',
   description:
     'Use Section components to split your website into different sections',
+  displayName: 'Section',
   props: [
     {
       name: 'children',

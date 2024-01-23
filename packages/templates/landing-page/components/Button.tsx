@@ -16,6 +16,7 @@ export const schema: Schema = {
   editable: true,
   description:
     'Use Button components to link to other pages or add a call to action',
+  displayName: 'Button',
   props: [
     {
       name: 'children',

@@ -18,9 +18,10 @@ export default Title;
 
 export const schema: Schema = {
   component: 'Title',
-  category: 'typography',
+  category: 'heading',
   editable: true,
   description: 'Use this to give titles to something',
+  displayName: 'Title',
   props: [
     {
       name: 'children',
