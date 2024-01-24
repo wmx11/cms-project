@@ -112,7 +112,7 @@ const LayerItem: FC<LayerItemProps> = ({
       className={twMerge(
         'flex text-xs items-center justify-between border border-transparent group hover:border-violet-900 px-2 h-[38px] relative',
         className,
-        selectedComonentPath === id && 'border-violet-900 bg-violet-100'
+        selectedComonentPath === id && 'border-violet-900 bg-violet-200/50'
       )}
     >
       <div data-layer-item className="flex gap-2 items-center z-10">
@@ -160,7 +160,7 @@ const LayerGroup: FC<LayerGroupProps> = ({
           <LayerItem
             id={id}
             label={label}
-            className="font-bold bg-slate-100"
+            className="font-bold bg-secondary"
             startContent={
               <CollapsibleTrigger>
                 <ChevronDown
@@ -175,7 +175,7 @@ const LayerGroup: FC<LayerGroupProps> = ({
       </div>
       <CollapsibleContent
         data-accepts-children="true"
-        className="relative pl-2 bg-slate-100/50"
+        className="relative pl-2 bg-secondary/50"
       >
         {children}
       </CollapsibleContent>

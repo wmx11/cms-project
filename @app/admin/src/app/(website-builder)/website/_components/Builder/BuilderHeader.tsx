@@ -6,7 +6,7 @@ import BreakpointControls from './canvas-controls/BreakpointControls';
 const BuilderHeader = () => {
   return (
     <>
-      <div className="p-2 bg-white border-b border-zinc-200 flex justify-between z-50">
+      <div className="p-2 bg-background border-b border-zinc-200 flex justify-between z-50">
         <div>
           <ToggleGridButton />
         </div>

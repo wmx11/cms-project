@@ -12,7 +12,7 @@ import StyleControls from './canvas-controls/StyleControls';
 const BuilderSidebar = () => {
   return (
     <>
-      <div className="bg-white p-4 w-full">
+      <div className="bg-background p-4 w-full">
         <Tabs defaultValue="styles">
           <TabsList className="[&>*]:flex-1 w-full sticky z-50 shadow-md top-[0px]">
             <TabsTrigger value="styles">
