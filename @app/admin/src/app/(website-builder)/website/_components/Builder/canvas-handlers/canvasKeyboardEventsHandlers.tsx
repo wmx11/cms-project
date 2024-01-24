@@ -1,3 +1,4 @@
+'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import duplicateComponent from '@cms/template-engine/modules/duplicateComponent';
 import removeComponent from '@cms/template-engine/modules/removeComponent';
@@ -6,13 +7,15 @@ import { useEffect } from 'react';
 export const useKeyboardEvents = () => {
   const {
     schema,
+    showGrid,
     selectedElement,
     selectedComonentPath,
+    setShowGrid,
+    renderTemplate,
     setIsCommandOpen,
     setSelectedElement,
-    setSelectedComponentPath,
     setSelectedComponent,
-    renderTemplate,
+    setSelectedComponentPath,
   } = useBuilderProviderState();
 
   const resetSelection = () => {
@@ -70,6 +73,10 @@ export const useKeyboardEvents = () => {
           renderTemplate(newSchema);
           break;
 
+        case ';':
+          setShowGrid(showGrid ? false : true);
+          break;
+
         default:
           break;
       }
@@ -79,5 +86,5 @@ export const useKeyboardEvents = () => {
     return () => {
       document.removeEventListener('keydown', handleKeyboardEvents);
     };
-  }, [selectedComonentPath]);
+  }, [selectedComonentPath, showGrid]);
 };
