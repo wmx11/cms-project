@@ -66,11 +66,6 @@ const BuilderCanvas = () => {
           width: breakpoint !== BREAKPOINT_DEFAULT ? `${breakpoint}px` : '100%',
           containerType: 'inline-size',
         }}
-        onMouseOver={handleCanvasMouseOver({
-          canvasRef,
-          canvasOverlayLabelRef,
-          canvasOverlayHighlightHoverRef,
-        })}
         onClick={handleCanvasClick({
           setSelectedComponent: state.setSelectedComponent,
           setSelectedComponentPath: state.setSelectedComponentPath,

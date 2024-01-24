@@ -25,6 +25,7 @@ const FlexColumnsControls = () => {
 
   const handleOnChange = (value: string) => {
     const columns = parseInt(value, 10);
+
     applyStyles({
       [FLEX_COLUMNS]: `${columns}`,
       [BASIS]: `calc(100% / var(${FLEX_COLUMNS}, 1))`,
@@ -42,7 +43,7 @@ const FlexColumnsControls = () => {
     <div>
       <Label htmlFor="columns">Columns</Label>
       <Select
-        value={activeStyles ? activeStyles[FLEX_COLUMNS] : ''}
+        value={activeStyles ? activeStyles[FLEX_COLUMNS]?.toString() : ''}
         onValueChange={handleOnChange}
       >
         <SelectTrigger id="columns">

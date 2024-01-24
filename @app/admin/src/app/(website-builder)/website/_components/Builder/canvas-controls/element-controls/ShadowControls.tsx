@@ -73,6 +73,7 @@ const ShadowControls: FC<ShadowControlsProps> = (props) => {
             type="number"
             label="Blur"
             value={state?.blur || ''}
+            min={0}
             onChange={(value) => handleChange('blur', value)}
           />
           {props.type === 'box-shadow' ? (
@@ -80,6 +81,7 @@ const ShadowControls: FC<ShadowControlsProps> = (props) => {
               type="number"
               label="Spread"
               value={state?.spread || ''}
+              min={0}
               onChange={(value) => handleChange('spread', value)}
             />
           ) : (

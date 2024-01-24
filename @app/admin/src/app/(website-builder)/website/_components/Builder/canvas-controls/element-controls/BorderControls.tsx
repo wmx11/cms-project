@@ -65,6 +65,7 @@ const BorderControls = () => {
             type="number"
             label="Border radius"
             value={state?.radius || ''}
+            min={0}
             endContent={
               <>
                 <BorderRadiusTopLeft className={ICON_STYLES} />
@@ -76,6 +77,7 @@ const BorderControls = () => {
             type="number"
             label="Border thickness"
             value={state?.width || ''}
+            min={0}
             endContent={
               <>
                 <BorderWidth className={ICON_STYLES} />

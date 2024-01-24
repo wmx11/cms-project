@@ -190,7 +190,7 @@ const StyleControls = () => {
 
   return (
     <div>
-      <div className="bg-zinc-100/80 p-2 rounded-md border mb-2">
+      <div className="bg-slate-100 p-2 rounded-md border mb-2">
         <div className="space-x-2">
           <Badge>{selectedElement?.getAttribute(DATA_LABEL)}</Badge>
           {breakpoint !== BREAKPOINT_DEFAULT ? (
@@ -209,13 +209,15 @@ const StyleControls = () => {
         >
           {controls.map((data) => (
             <AccordionItem value={data.key} key={data.key}>
-              <AccordionTrigger className="bg-zinc-100/80 p-2">
+              <AccordionTrigger className="bg-slate-100 px-2">
                 <div className="text-left">
-                  <div className="font-bold text-sm">{data.title}</div>
-                  <span className="text-xs">{data?.description}</span>
+                  <div className="font-bold text-xs">{data.title}</div>
+                  <span className="text-xs text-slate-500">
+                    {data?.description}
+                  </span>
                 </div>
               </AccordionTrigger>
-              <AccordionContent className="p-2">
+              <AccordionContent className="px-2 pt-2 bg-slate-100/50">
                 {data.component}
               </AccordionContent>
             </AccordionItem>

@@ -3,6 +3,7 @@ import {
   DATA_CANVAS_OVERLAY_HIGHLIGHT_LABEL,
   DATA_COMPONENT,
   DATA_LABEL,
+  DATA_TARGET_ID,
 } from '@cms/packages/template-engine/constants';
 import { MouseEvent, RefObject } from 'react';
 
@@ -13,12 +14,22 @@ export type CanvasHandlerProps = {
 
 export const handleCanvasClick =
   (state: {
-    setSelectedElement: (target: HTMLBaseElement | null) => void;
+    setSelectedElement: (target: HTMLElement | null) => void;
     setSelectedComponentPath: (value: string) => void;
     setSelectedComponent: (value: string) => void;
   }) =>
   (event: MouseEvent<HTMLDivElement>) => {
-    const target = event.target as HTMLBaseElement;
+    const _target = event.target as HTMLElement;
+
+    let target;
+
+    if (_target.hasAttribute(DATA_TARGET_ID)) {
+      target = document.getElementById(
+        _target?.getAttribute(DATA_TARGET_ID) as string
+      );
+    } else {
+      target = _target;
+    }
 
     if (!target) {
       return null;
@@ -39,6 +50,9 @@ export const handleCanvasClick =
     state.setSelectedComponent(target.id || '');
   };
 
+/**
+ * @deprecated
+ */
 export const handleCanvasMouseOver =
   (props: {
     canvasRef: RefObject<HTMLDivElement>;

@@ -1,4 +1,3 @@
-'use client';
 import { DesignIcon, ICON_STYLES, LayersIcon } from '@cms/ui/components/Icons';
 import {
   Tabs,
@@ -15,7 +14,7 @@ const BuilderSidebar = () => {
     <>
       <div className="bg-white p-4 w-full">
         <Tabs defaultValue="styles">
-          <TabsList className="[&>*]:flex-1 w-full">
+          <TabsList className="[&>*]:flex-1 w-full sticky z-50 shadow-md top-[0px]">
             <TabsTrigger value="styles">
               <DesignIcon className={ICON_STYLES} />
               Styles

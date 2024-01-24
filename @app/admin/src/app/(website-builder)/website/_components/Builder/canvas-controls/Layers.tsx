@@ -89,16 +89,30 @@ const LayerItem: FC<LayerItemProps> = ({
     );
   };
 
+  const handleHover = (type: 'add' | 'remove') => (e: MouseEvent) => {
+    const target = e.currentTarget;
+
+    const grid = document.querySelector(
+      `[data-canvas-overlay-highlight="hover"][data-target-id="${target.getAttribute(
+        'data-target-id'
+      )}"]`
+    );
+
+    grid?.classList[type]('border-2', 'border-violet-900');
+  };
+
   return (
     <div
       draggable
       data-target-id={id}
       data-layer-item={id}
       onMouseDown={handleOnClick}
+      onMouseOver={handleHover('add')}
+      onMouseLeave={handleHover('remove')}
       className={twMerge(
-        'flex text-xs items-center justify-between border mb-[-1px] border-transparent group hover:border-violet-900 py-2 h-[48px] relative',
+        'flex text-xs items-center justify-between border border-transparent group hover:border-violet-900 px-2 h-[38px] relative',
         className,
-        selectedComonentPath === id && 'border-violet-900'
+        selectedComonentPath === id && 'border-violet-900 bg-violet-100'
       )}
     >
       <div data-layer-item className="flex gap-2 items-center z-10">
@@ -141,21 +155,19 @@ const LayerGroup: FC<LayerGroupProps> = ({
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <div className={twMerge('flex items-center w-full ', className)}>
+      <div className={twMerge('flex items-center w-full', className)}>
         <div className="flex-grow">
           <LayerItem
             id={id}
             label={label}
-            className="font-bold"
+            className="font-bold bg-slate-100"
             startContent={
-              <CollapsibleTrigger asChild>
-                <Button variant="outline" size="xs">
-                  <ChevronDown
-                    className={`transition-transform ${
-                      isOpen ? 'rotate-180' : ''
-                    }`}
-                  />
-                </Button>
+              <CollapsibleTrigger>
+                <ChevronDown
+                  className={`transition-transform ${
+                    isOpen ? 'rotate-180' : ''
+                  }`}
+                />
               </CollapsibleTrigger>
             }
           />
@@ -163,7 +175,7 @@ const LayerGroup: FC<LayerGroupProps> = ({
       </div>
       <CollapsibleContent
         data-accepts-children="true"
-        className=" relative pl-2"
+        className="relative pl-2 bg-slate-100/50"
       >
         {children}
       </CollapsibleContent>
@@ -213,7 +225,7 @@ const Layers = () => {
             <LayerGroup
               label={item.component}
               id={_path}
-              className={isChild ? 'pl-2' : 'bg-zinc-100/80 border-b mb-[-1px]'}
+              className={isChild ? 'pl-2' : 'border-b'}
             >
               {childrenArray}
             </LayerGroup>
