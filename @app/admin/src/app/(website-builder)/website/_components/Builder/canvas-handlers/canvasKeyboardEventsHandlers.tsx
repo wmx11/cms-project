@@ -27,6 +27,9 @@ export const useKeyboardEvents = () => {
   useEffect(() => {
     const handleKeyboardEvents = (e: KeyboardEvent) => {
       switch (e.key) {
+        /**
+         * Delete a selection
+         */
         case 'Delete':
           const newSchema = removeComponent({
             schema,
@@ -41,6 +44,9 @@ export const useKeyboardEvents = () => {
           resetSelection();
           break;
 
+        /**
+         * Remove all selections
+         */
         case 'Escape':
           selectedElement?.blur();
           resetSelection();
@@ -55,10 +61,16 @@ export const useKeyboardEvents = () => {
       }
 
       switch (e.key) {
+        /**
+         * Add new element
+         */
         case '/':
           setIsCommandOpen(true);
           break;
 
+        /**
+         * Duplicate element
+         */
         case 'd':
           e.preventDefault();
           const newSchema = duplicateComponent({
@@ -73,6 +85,9 @@ export const useKeyboardEvents = () => {
           renderTemplate(newSchema);
           break;
 
+        /**
+         * Toggle grid view on and off
+         */
         case ';':
           setShowGrid(showGrid ? false : true);
           break;
