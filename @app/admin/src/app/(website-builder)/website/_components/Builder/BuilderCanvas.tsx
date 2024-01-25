@@ -59,8 +59,8 @@ const BuilderCanvas = () => {
   return (
     <div className="bg-zinc-100 min-h-screen px-3 pb-2 pt-12 mt-[53px] relative flex items-center justify-center">
       <div
-        ref={canvasRef}
         data-canvas
+        ref={canvasRef}
         className="bg-white canvas min-h-screen shadow-md relative transition"
         style={{
           width: breakpoint !== BREAKPOINT_DEFAULT ? `${breakpoint}px` : '100%',

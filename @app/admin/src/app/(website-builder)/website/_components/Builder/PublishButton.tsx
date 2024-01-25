@@ -18,7 +18,7 @@ const PublishButton = () => {
 
   return (
     <Button onClick={handleOnClick} color="primary" size="sm">
-      <Publish className="h-3 w-3 mr-2" /> Publish
+      <Publish className="h-3 w-3 mr-2" /> Save draft
     </Button>
   );
 };

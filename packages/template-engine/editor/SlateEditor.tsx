@@ -8,7 +8,7 @@ import renderLeaf from './renderLeaf';
 const initialValue: Descendant[] = [
   {
     type: 'paragraph',
-    children: [{ text: 'A line of text in a paragraph.' }],
+    children: [{ text: '<b>A line of text</b> in a paragraph.' }],
   },
 ];
 

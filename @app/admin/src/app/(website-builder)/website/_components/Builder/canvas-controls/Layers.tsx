@@ -1,9 +1,15 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
-import { DATA_LAYER_ITEM, LAYOUT_TYPE } from '@cms/template-engine/constants';
+import {
+  DATA_CANVAS_OVERLAY_HIGHLIGHT,
+  DATA_LAYER_ITEM,
+  DATA_TARGET_ID,
+  LAYOUT_TYPE,
+} from '@cms/template-engine/constants';
 import generatePath from '@cms/template-engine/modules/generatePath';
 import removeComponent from '@cms/template-engine/modules/removeComponent';
+import traverseComponentsTree from '@cms/template-engine/modules/traverseComponentsTree';
 import { Schema } from '@cms/template-engine/types';
 import { Button } from '@cms/ui/components/Button';
 import {
@@ -14,6 +20,7 @@ import {
 import { ChevronDown, Eye, EyeSlash, Trash } from '@cms/ui/components/Icons';
 import React, {
   FC,
+  KeyboardEvent,
   MouseEvent,
   PropsWithChildren,
   useEffect,
@@ -37,6 +44,7 @@ const LayerItem: FC<LayerItemProps> = ({
   const {
     schema,
     selectedComonentPath,
+    selectedComponent,
     setSelectedComponentPath,
     setSelectedComponent,
     setSelectedElement,
@@ -60,6 +68,50 @@ const LayerItem: FC<LayerItemProps> = ({
     setSelectedElement(target);
     target?.focus();
     target?.scrollIntoView({ block: 'center' });
+  };
+
+  const handleDoubleClick = (e: MouseEvent<HTMLDivElement>) => {
+    const target = e.currentTarget as HTMLElement;
+    if (!target) {
+      return;
+    }
+    target.setAttribute('contenteditable', 'true');
+    target.focus();
+    const selection = window.getSelection();
+    selection?.removeAllRanges();
+    const range = document.createRange();
+    range.selectNodeContents(target);
+    selection?.addRange(range);
+  };
+
+  const handleOnKeyUp = (e: KeyboardEvent<HTMLDivElement>) => {
+    const target = e.currentTarget;
+
+    const isExitKey = e.key === 'Enter' || e.key === 'Escape';
+
+    if (!target || !isExitKey) {
+      return;
+    }
+
+    let component = selectedComponent;
+
+    if (!component) {
+      component = traverseComponentsTree({ path: id, schema });
+    }
+
+    if (!component) {
+      return;
+    }
+
+    if (!component?.displayName) {
+      Object.assign(component, { displayName: '' });
+    }
+
+    component.displayName = target.innerText;
+
+    target.removeAttribute('contenteditable');
+
+    renderTemplate();
   };
 
   const handleDelete = () => {
@@ -93,8 +145,8 @@ const LayerItem: FC<LayerItemProps> = ({
     const target = e.currentTarget;
 
     const grid = document.querySelector(
-      `[data-canvas-overlay-highlight="hover"][data-target-id="${target.getAttribute(
-        'data-target-id'
+      `[${DATA_CANVAS_OVERLAY_HIGHLIGHT}="hover"][${DATA_TARGET_ID}="${target.getAttribute(
+        DATA_TARGET_ID
       )}"]`
     );
 
@@ -104,9 +156,9 @@ const LayerItem: FC<LayerItemProps> = ({
   return (
     <div
       draggable
+      data-layer-item
       data-target-id={id}
-      data-layer-item={id}
-      onMouseDown={handleOnClick}
+      onClick={handleOnClick}
       onMouseOver={handleHover('add')}
       onMouseLeave={handleHover('remove')}
       className={twMerge(
@@ -120,7 +172,9 @@ const LayerItem: FC<LayerItemProps> = ({
         <div data-layer-item className="flex-1 w-full h-full">
           <div
             data-layer-item
-            className="truncate overflow-hidden max-w-[140px]"
+            className="truncate overflow-hidden empty:bg-red-100 min-h-[10px] min-w-[20px] max-w-[140px]"
+            onDoubleClick={handleDoubleClick}
+            onKeyUp={handleOnKeyUp}
           >
             {label}
           </div>
@@ -188,8 +242,9 @@ const Layers = () => {
 
   useEffect(() => {
     const layerItem = document.querySelector(
-      `[${DATA_LAYER_ITEM}="${selectedComonentPath}"]`
+      `[${DATA_LAYER_ITEM}][${DATA_TARGET_ID}="${selectedComonentPath}"]`
     );
+
     if (layerItem) {
       layerItem.scrollIntoView({ block: 'nearest' });
     }
@@ -214,6 +269,14 @@ const Layers = () => {
 
         const _path = generatePath(path || '', index, item);
 
+        const label =
+          item.displayName ||
+          (item.props
+            .find((item) => item.name === 'children' && item.type === 'string')
+            ?.value?.toString()
+            .substring(0, 50) as string) ||
+          item.component;
+
         if (children) {
           const childrenArray = render({
             schema: children.value as Schema[],
@@ -223,7 +286,7 @@ const Layers = () => {
 
           const layerGroup = (
             <LayerGroup
-              label={item.component}
+              label={label}
               id={_path}
               className={isChild ? 'pl-2' : 'border-b'}
             >
@@ -233,16 +296,6 @@ const Layers = () => {
 
           layers.push(layerGroup);
         } else {
-          const label =
-            (item.props
-              .find(
-                (item) => item.name === 'children' && item.type === 'string'
-              )
-              ?.value?.toString()
-              .substring(0, 50) as string) ||
-            item.displayName ||
-            item.component;
-
           const layerItem = (
             <LayerItem label={label} id={_path} className="pl-8"></LayerItem>
           );

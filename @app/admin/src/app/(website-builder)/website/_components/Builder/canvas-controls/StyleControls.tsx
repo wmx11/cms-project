@@ -8,7 +8,10 @@ import {
 } from '@cms/packages/ui/components/Accordion';
 import { Badge } from '@cms/packages/ui/components/Badge';
 import { BREAKPOINT_DEFAULT, DATA_LABEL } from '@cms/template-engine/constants';
+import { Card, CardContent, CardHeader } from '@cms/ui/components/Card';
+import dynamic from 'next/dynamic';
 import ControlsWrapper from './ControlsWrapper';
+import BorderControls from './element-controls/BorderControls';
 import ElementsGapsControls from './element-controls/ElementsGapsControls';
 import FlexColumnsControls from './element-controls/FlexColumnsControls';
 import FontSizeControls from './element-controls/FontSizeControls';
@@ -16,6 +19,7 @@ import HeightAndWidthControls from './element-controls/HeightAndWidthControls';
 import HorizontalAlignmentControls from './element-controls/HorizontalAlignmentControls';
 import LayoutTypeControls from './element-controls/LayoutTypeControls';
 import MarginAndPaddingControls from './element-controls/MarginAndPaddingControls';
+import OpacityControls from './element-controls/OpacityControls';
 import OverflowControls from './element-controls/OverflowControls';
 import PositionControls from './element-controls/PositionControls';
 import PositionedElementControls from './element-controls/PositionedElementControls';
@@ -23,10 +27,6 @@ import ShadowControls from './element-controls/ShadowControls';
 import TextAlignmentControls from './element-controls/TextAlignmentControls';
 import VerticalAlignmentControls from './element-controls/VerticalAlignmentControls';
 import ZIndexControls from './element-controls/ZIndexControls';
-import dynamic from 'next/dynamic';
-import OpacityControls from './element-controls/OpacityControls';
-import BorderControls from './element-controls/BorderControls';
-import { Card, CardContent, CardHeader } from '@cms/ui/components/Card';
 
 const DynamicShadowControls = dynamic(
   () => import('./element-controls/ShadowControls'),

@@ -14,6 +14,7 @@ export const DATA_COMPONENT = 'data-component';
 export const DATA_TARGET_ID = 'data-target-id';
 export const DATA_LAYER_ITEM = 'data-layer-item';
 export const DATA_DESCRIPTION = 'data-description';
+export const DATA_DISPLAY_NAME = 'data-display-name';
 export const DATA_CANVAS_OVERLAY = 'data-canvas-overlay';
 export const DATA_DND_INITIALIZED = 'data-dnd-initialized';
 export const DATA_ACCEPTS_CHILDREN = 'data-accepts-children';

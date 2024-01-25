@@ -1,6 +1,10 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
-import { DATA_COMPONENT, DATA_LABEL } from '@cms/template-engine/constants';
+import {
+  DATA_COMPONENT,
+  DATA_DISPLAY_NAME,
+  DATA_LABEL,
+} from '@cms/template-engine/constants';
 import { FC, RefObject, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import DeleteElementButton from './canvas-controls/element-overlay-controls/DeleteElementButton';
@@ -72,6 +76,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
 
     const gridElements = [...components]?.map((item) => {
       const { height, width, top, left } = item?.getBoundingClientRect();
+
       return (
         <div
           data-target-id={item.id}
@@ -92,9 +97,11 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
           <div
             data-canvas-overlay-highlight-label
             ref={props.canvasOverlayLabelRef}
-            className={`px-3 py-0.5 rounded-full bg-violet-900 text-[8px] absolute text-white translate-y-[-9px] hidden group-hover:block`}
+            className={`px-3 py-0.5 rounded-full bg-violet-900 text-xs absolute text-white translate-y-[-10px] hidden group-hover:block`}
           >
-            {item.getAttribute(DATA_LABEL) || ''}
+            {item.getAttribute(DATA_DISPLAY_NAME) ||
+              item.getAttribute(DATA_LABEL) ||
+              ''}
           </div>
         </div>
       );

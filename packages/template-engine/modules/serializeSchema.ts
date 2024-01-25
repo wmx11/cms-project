@@ -3,6 +3,7 @@ import {
   DATA_ACCEPTS_CHILDREN,
   DATA_COMPONENT,
   DATA_DESCRIPTION,
+  DATA_DISPLAY_NAME,
   DATA_DND_INITIALIZED,
   DATA_EDITABLE,
   DATA_LABEL,
@@ -53,6 +54,7 @@ const serializeComponentForBuilder = (
       [DATA_EDITABLE]: item.editable,
       [DATA_COMPONENT]: true,
       [DATA_DESCRIPTION]: item.description,
+      [DATA_DISPLAY_NAME]: item.displayName,
       [DATA_DND_INITIALIZED]: false,
       [DATA_ACCEPTS_CHILDREN]: acceptsChildren,
       ...(item.editable ? { contentEditable: true } : {}),
@@ -98,9 +100,7 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
 
     // if (item.richText) {
     //   const editor = await import('../editor/SlateWrapper');
-
-    //   const componentWithEditor = editor.default();
-
+    //   const componentWithEditor = editor.default({ id: path as string });
     //   componentNode = componentWithEditor;
     // }
 
