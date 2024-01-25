@@ -5,7 +5,7 @@ import { Input } from '@cms/ui/components/Input';
 import { FC } from 'react';
 import ControlsPopover from '../ControlsPopover';
 import InputElement from '../InputElement';
-import ColorControls from './ColorControls';
+import ColorControls from './color-controls';
 import { ShadowControlsProps } from './types';
 
 const initialShadowState = {

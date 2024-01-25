@@ -1,5 +1,4 @@
-'use client';
-import { useCallback, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { Descendant, Editor, Transforms, createEditor } from 'slate';
 import { Editable, Slate, withReact } from 'slate-react';
 import EditorToolbar from './EditorToolbar';
@@ -13,7 +12,11 @@ const initialValue: Descendant[] = [
   },
 ];
 
-const SlateEditor = () => {
+interface SlateEditorProps {
+  initialValue: Descendant[];
+}
+
+const SlateEditor: FC = () => {
   const [editor] = useState(() => withReact(createEditor()));
   const renderElementController = useCallback(renderElement, []);
   const renderLeafController = useCallback(renderLeaf, []);

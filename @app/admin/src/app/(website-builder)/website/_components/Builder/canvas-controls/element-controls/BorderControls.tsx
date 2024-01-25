@@ -25,7 +25,7 @@ import {
 import { useState } from 'react';
 import ControlsPopover from '../ControlsPopover';
 import InputElement from '../InputElement';
-import ColorControls from './ColorControls';
+import ColorControls from './color-controls';
 import { BorderTypes } from './types';
 
 const initialBorderState = {

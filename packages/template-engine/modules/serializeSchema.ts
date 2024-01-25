@@ -82,7 +82,7 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
         Object.assign(componentProps, { [prop.name]: prop.value });
       }
 
-      if (prop.type === 'component') {        
+      if (prop.type === 'component') {
         const childComponent = await serializeSchema({
           ...props,
           schema: prop.value as Schema[],
@@ -94,7 +94,15 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
       }
     }
 
-    const componentNode = component.default(componentProps);
+    let componentNode = component.default(componentProps);
+
+    // if (item.richText) {
+    //   const editor = await import('../editor/SlateWrapper');
+
+    //   const componentWithEditor = editor.default();
+
+    //   componentNode = componentWithEditor;
+    // }
 
     const componentNodeCopy: React.ReactElement = {
       ...componentNode,

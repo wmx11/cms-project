@@ -36,14 +36,14 @@ const DynamicShadowControls = dynamic(
 );
 
 const DynamicBackgroundColorControls = dynamic(
-  () => import('./element-controls/ColorControls/BackgroundColorControls'),
+  () => import('./element-controls/color-controls/BackgroundColorControls'),
   {
     loading: () => <p>It's loading</p>,
   }
 );
 
 const DynamicTextColorControls = dynamic(
-  () => import('./element-controls/ColorControls/TextColorControls'),
+  () => import('./element-controls/color-controls/TextColorControls'),
   {
     loading: () => <p>It's loading</p>,
   }
