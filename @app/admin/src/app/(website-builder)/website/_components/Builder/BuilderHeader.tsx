@@ -14,8 +14,8 @@ const BuilderHeader = () => {
           <BreakpointControls />
         </div>
         <div className="space-x-4">
-          <SaveDraftButton />
-          {/* <PublishButton /> */}
+          {/* <SaveDraftButton /> */}
+          <PublishButton />
         </div>
       </div>
     </>

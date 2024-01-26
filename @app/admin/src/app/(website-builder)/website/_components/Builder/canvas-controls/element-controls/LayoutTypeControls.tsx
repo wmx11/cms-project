@@ -25,12 +25,12 @@ const layoutTypes = {
     display: 'flex',
     'flex-direction': 'column',
   },
-  'flex-row-reverse': {
+  'row-reverse': {
     [LAYOUT_TYPE]: 'row-reverse',
     display: 'flex',
     'flex-direction': 'row-reverse',
   },
-  'flex-column-reverse': {
+  'column-reverse': {
     [LAYOUT_TYPE]: 'column-reverse',
     display: 'flex',
     'flex-direction': 'column-reverse',

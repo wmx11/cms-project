@@ -1,6 +1,7 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
+import { selectTextContent } from '@admin/utils/selections';
 import {
   DATA_CANVAS_OVERLAY_HIGHLIGHT,
   DATA_LAYER_ITEM,
@@ -20,6 +21,7 @@ import {
 import { ChevronDown, Eye, EyeSlash, Trash } from '@cms/ui/components/Icons';
 import React, {
   FC,
+  FocusEvent,
   KeyboardEvent,
   MouseEvent,
   PropsWithChildren,
@@ -77,22 +79,10 @@ const LayerItem: FC<LayerItemProps> = ({
     }
     target.setAttribute('contenteditable', 'true');
     target.focus();
-    const selection = window.getSelection();
-    selection?.removeAllRanges();
-    const range = document.createRange();
-    range.selectNodeContents(target);
-    selection?.addRange(range);
+    selectTextContent(target);
   };
 
-  const handleOnKeyUp = (e: KeyboardEvent<HTMLDivElement>) => {
-    const target = e.currentTarget;
-
-    const isExitKey = e.key === 'Enter' || e.key === 'Escape';
-
-    if (!target || !isExitKey) {
-      return;
-    }
-
+  const setDisplayName = (target: HTMLElement) => {
     let component = selectedComponent;
 
     if (!component) {
@@ -112,6 +102,28 @@ const LayerItem: FC<LayerItemProps> = ({
     target.removeAttribute('contenteditable');
 
     renderTemplate();
+  };
+
+  const handleOnKeyUp = (e: KeyboardEvent<HTMLDivElement>) => {
+    const target = e.currentTarget;
+
+    const isExitKey = e.key === 'Enter' || e.key === 'Escape';
+
+    if (!target || !isExitKey) {
+      return;
+    }
+
+    setDisplayName(target);
+  };
+
+  const handleOnBlur = (e: FocusEvent<HTMLDivElement>) => {
+    const target = e.currentTarget;
+
+    if (!target) {
+      return;
+    }
+
+    setDisplayName(target);
   };
 
   const handleDelete = () => {
@@ -175,6 +187,7 @@ const LayerItem: FC<LayerItemProps> = ({
             className="truncate overflow-hidden empty:bg-red-100 min-h-[10px] min-w-[20px] max-w-[140px]"
             onDoubleClick={handleDoubleClick}
             onKeyUp={handleOnKeyUp}
+            onBlur={handleOnBlur}
           >
             {label}
           </div>
@@ -270,7 +283,7 @@ const Layers = () => {
         const _path = generatePath(path || '', index, item);
 
         const label =
-          item.displayName ||
+          item?.displayName ||
           (item.props
             .find((item) => item.name === 'children' && item.type === 'string')
             ?.value?.toString()
@@ -310,9 +323,7 @@ const Layers = () => {
     return render({ schema: schema, isChild: false, path: null });
   };
 
-  const layers = renderLayers();
-
-  return <div>{layers}</div>;
+  return <div>{renderLayers()}</div>;
 };
 
 export default Layers;

@@ -27,6 +27,7 @@ import ShadowControls from './element-controls/ShadowControls';
 import TextAlignmentControls from './element-controls/TextAlignmentControls';
 import VerticalAlignmentControls from './element-controls/VerticalAlignmentControls';
 import ZIndexControls from './element-controls/ZIndexControls';
+import { Input } from '@cms/ui/components/Input';
 
 const DynamicShadowControls = dynamic(
   () => import('./element-controls/ShadowControls'),
@@ -201,6 +202,33 @@ const StyleControls = () => {
             ''
           )}
         </div>
+      </div>
+      <div>
+        {selectedComponent.props.map((item) => {
+          if (item.type === 'component') {
+            return null;
+          }
+
+          const handleChange = (e) => {
+            const target = e.target;
+            
+            if (!target) {
+              return;
+            }
+
+            item.value = target.value;
+          };
+
+          return (
+            <div>
+              <Input
+                label={item.displayName}
+                defaultValue={(item.value as string) || ''}
+                onChange={handleChange}
+              />
+            </div>
+          );
+        })}
       </div>
       <div className="mb-2">
         <Accordion
