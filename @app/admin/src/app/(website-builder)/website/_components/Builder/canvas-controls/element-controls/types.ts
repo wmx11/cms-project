@@ -1,18 +1,14 @@
-export interface BorderTypes {
-  type:
-    | 'border'
-    | 'border-top'
-    | 'border-right'
-    | 'border-bottom'
-    | 'border-left';
-}
+export type BorderTypes =
+  | 'border'
+  | 'border-top'
+  | 'border-right'
+  | 'border-bottom'
+  | 'border-left';
 
-export interface ShadowTypes {
-  type: 'box-shadow' | 'text-shadow';
-}
+export type ShadowTypes = 'box-shadow' | 'text-shadow';
 
 export interface ColorControlsProps {
-  type: 'color' | 'background' | BorderTypes['type'] | ShadowTypes['type'];
+  type: 'color' | 'background' | BorderTypes | ShadowTypes;
   label?: string;
   onChange: (value: string) => void;
 }
@@ -26,6 +22,6 @@ export interface BackgroundControlsProps {
   size: string | null;
 }
 
-export interface ShadowControlsProps extends ShadowTypes {
+export type ShadowControlsProps = {
   label?: string;
-}
+} & ShadowTypes;
