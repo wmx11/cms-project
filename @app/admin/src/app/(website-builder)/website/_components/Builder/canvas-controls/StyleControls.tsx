@@ -173,8 +173,13 @@ const controls = [
 ];
 
 const StyleControls = () => {
-  const { selectedComponent, selectedElement, breakpoint } =
-    useBuilderProviderState();
+  const selectedComponent = useBuilderProviderState(
+    (state) => state.selectedComponent
+  );
+  const selectedElement = useBuilderProviderState(
+    (state) => state.selectedElement
+  );
+  const breakpoint = useBuilderProviderState((state) => state.breakpoint);
 
   if (!selectedComponent) {
     return (
@@ -211,7 +216,7 @@ const StyleControls = () => {
 
           const handleChange = (e) => {
             const target = e.target;
-            
+
             if (!target) {
               return;
             }

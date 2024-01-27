@@ -1,3 +1,4 @@
+'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import duplicateComponent from '@cms/packages/template-engine/modules/duplicateComponent';
 import { Button } from '@cms/packages/ui/components/Button';
@@ -5,8 +6,13 @@ import { Duplicate } from '@cms/packages/ui/components/Icons';
 import Kbd from '@cms/ui/components/Kbd';
 
 const DuplicateElementButton = () => {
-  const { schema, selectedComonentPath, renderTemplate } =
-    useBuilderProviderState();
+  const schema = useBuilderProviderState((state) => state.schema);
+  const selectedComonentPath = useBuilderProviderState(
+    (state) => state.selectedComonentPath
+  );
+  const renderTemplate = useBuilderProviderState(
+    (state) => state.renderTemplate
+  );
 
   const handleOnClick = () => {
     const newSchema = duplicateComponent({

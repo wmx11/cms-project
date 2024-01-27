@@ -43,15 +43,25 @@ const LayerItem: FC<LayerItemProps> = ({
   label,
   className,
 }) => {
-  const {
-    schema,
-    selectedComonentPath,
-    selectedComponent,
-    setSelectedComponentPath,
-    setSelectedComponent,
-    setSelectedElement,
-    renderTemplate,
-  } = useBuilderProviderState();
+  const schema = useBuilderProviderState((state) => state.schema);
+  const selectedComonentPath = useBuilderProviderState(
+    (state) => state.selectedComonentPath
+  );
+  const selectedComponent = useBuilderProviderState(
+    (state) => state.selectedComponent
+  );
+  const setSelectedComponentPath = useBuilderProviderState(
+    (state) => state.setSelectedComponentPath
+  );
+  const setSelectedComponent = useBuilderProviderState(
+    (state) => state.setSelectedComponent
+  );
+  const setSelectedElement = useBuilderProviderState(
+    (state) => state.setSelectedElement
+  );
+  const renderTemplate = useBuilderProviderState(
+    (state) => state.renderTemplate
+  );
 
   const { applyStyles, getActiveStyles } = useStyles();
 
@@ -251,7 +261,11 @@ const LayerGroup: FC<LayerGroupProps> = ({
 };
 
 const Layers = () => {
-  const { selectedComonentPath, schema } = useBuilderProviderState();
+  const selectedComonentPath = useBuilderProviderState(
+    (state) => state.selectedComonentPath
+  );
+
+  const schema = useBuilderProviderState((state) => state.schema);
 
   useEffect(() => {
     const layerItem = document.querySelector(
@@ -323,7 +337,9 @@ const Layers = () => {
     return render({ schema: schema, isChild: false, path: null });
   };
 
-  return <div>{renderLayers()}</div>;
+  const layers = renderLayers();
+
+  return <div>{layers}</div>;
 };
 
 export default Layers;

@@ -9,7 +9,9 @@ import {
 import { Info } from '@cms/packages/ui/components/Icons';
 
 const ElementInfoButton = () => {
-  const { selectedElement } = useBuilderProviderState();
+  const selectedElement = useBuilderProviderState(
+    (state) => state.selectedElement
+  );
 
   return (
     <div className="flex text-xs px-2 text-violet-500 border">

@@ -35,6 +35,7 @@ export const STYLES_CONTENT_EDITABLE =
 export const STLYES_ELEMENT_INSIDE_BUILDER =
   'relative border border-dashed border-violet-200 hover:border-violet-300 cursor-pointer transition-colors m-[-1px]';
 
+export const BREAKPOINT_DEFAULT_WIDTH = 1920;
 export const BREAKPOINT_DEFAULT = 10;
 export const BREAKPOINT_XS = 320;
 export const BREAKPOINT_SM = 640;

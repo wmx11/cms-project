@@ -1,6 +1,9 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
-import { BREAKPOINT_DEFAULT } from '@cms/packages/template-engine/constants';
+import {
+  BREAKPOINT_DEFAULT,
+  BREAKPOINT_DEFAULT_WIDTH,
+} from '@cms/packages/template-engine/constants';
 import builderJss from '@cms/packages/template-engine/styles/builderJss';
 import Kbd from '@cms/packages/ui/components/Kbd';
 import { SheetsManager, Styles } from 'jss';
@@ -9,22 +12,20 @@ import ComponentsListDialog from '../ComponentsListDialog';
 import CanvasOverlay from './CanvasOverlay';
 import { useEditableContentControls } from './canvas-handlers/canvasComponentsEventsHandlers';
 import { initHandleDragAndDrop } from './canvas-handlers/canvasDragAndDropHandlers';
-import {
-  handleCanvasClick,
-  handleCanvasMouseOver,
-} from './canvas-handlers/canvasEventsHandlers';
+import { handleCanvasClick } from './canvas-handlers/canvasEventsHandlers';
 import { useKeyboardEvents } from './canvas-handlers/canvasKeyboardEventsHandlers';
 
 const BuilderCanvas = () => {
-  const state = useBuilderProviderState();
-
-  const {
-    styles,
-    breakpoint,
-    renderedTemplate,
-    renderTemplate,
-    setStyleSheet,
-  } = state;
+  const styles = useBuilderProviderState((state) => state.styles);
+  const breakpoint = useBuilderProviderState((state) => state.breakpoint);
+  const renderedTemplate = useBuilderProviderState(
+    (state) => state.renderedTemplate
+  );
+  const canvasScale = useBuilderProviderState((state) => state.canvasScale);
+  const renderTemplate = useBuilderProviderState(
+    (state) => state.renderTemplate
+  );
+  const setStyleSheet = useBuilderProviderState((state) => state.setStyleSheet);
 
   const canvasRef = useRef<HTMLDivElement>(null);
   const canvasOverlayRef = useRef<HTMLDivElement>(null);
@@ -50,11 +51,11 @@ const BuilderCanvas = () => {
   }, []);
 
   // Initialize drag and drop handler
-  useEffect(() => {
-    if (typeof window !== undefined) {
-      initHandleDragAndDrop({ canvasRef, canvasOverlayRef, state });
-    }
-  }, [renderedTemplate]);
+  // useEffect(() => {
+  //   if (typeof window !== undefined) {
+  //     initHandleDragAndDrop({ canvasRef, canvasOverlayRef, state });
+  //   }
+  // }, [renderedTemplate]);
 
   return (
     <div className="bg-zinc-100 min-h-screen px-3 pb-2 pt-12 mt-[53px] relative flex items-center justify-center">
@@ -63,13 +64,24 @@ const BuilderCanvas = () => {
         ref={canvasRef}
         className="bg-white canvas min-h-screen shadow-md relative transition"
         style={{
-          width: breakpoint !== BREAKPOINT_DEFAULT ? `${breakpoint}px` : '100%',
+          width:
+            breakpoint !== BREAKPOINT_DEFAULT
+              ? `${breakpoint}px`
+              : `${BREAKPOINT_DEFAULT_WIDTH}px`,
           containerType: 'inline-size',
+          transformOrigin: 'top center',
+          scale: canvasScale,
         }}
         onClick={handleCanvasClick({
-          setSelectedComponent: state.setSelectedComponent,
-          setSelectedComponentPath: state.setSelectedComponentPath,
-          setSelectedElement: state.setSelectedElement,
+          setSelectedComponent: useBuilderProviderState(
+            (state) => state.setSelectedComponent
+          ),
+          setSelectedComponentPath: useBuilderProviderState(
+            (state) => state.setSelectedComponentPath
+          ),
+          setSelectedElement: useBuilderProviderState(
+            (state) => state.setSelectedElement
+          ),
         })}
       >
         <p className="text-sm text-muted-foreground p-4 absolute top-[-45px]">

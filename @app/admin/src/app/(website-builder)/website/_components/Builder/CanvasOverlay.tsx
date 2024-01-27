@@ -22,41 +22,54 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
     canvasRef: { current: canvas },
   } = props;
 
-  const {
-    selectedComonentPath,
-    renderedTemplate,
-    selectedElement,
-    breakpoint,
-    showGrid,
-    styles,
-  } = useBuilderProviderState();
+  const selectedComonentPath = useBuilderProviderState(
+    (state) => state.selectedComonentPath
+  );
+  const renderedTemplate = useBuilderProviderState(
+    (state) => state.renderedTemplate
+  );
+  const selectedElement = useBuilderProviderState(
+    (state) => state.selectedElement
+  );
+  const canvasScale = useBuilderProviderState((state) => state.canvasScale);
+  const breakpoint = useBuilderProviderState((state) => state.breakpoint);
+  const showGrid = useBuilderProviderState((state) => state.showGrid);
+  const styles = useBuilderProviderState((state) => state.styles);
 
-  const [highlightStyles, setHighlightStyles] = useState({});
-  const canvasOverlayRef = useRef<HTMLDivElement>(null);
-  const canvasOverlayHighlightActiveRef = useRef<HTMLDivElement>(null);
   const canvasOverlayControlsRef = useRef<HTMLDivElement>(null);
-
+  const canvasOverlayHighlightRef = useRef<HTMLDivElement>(null);
   const [grid, setGrid] = useState<JSX.Element[] | null>(null);
 
+  const scale = 1 / canvasScale || 1;
+
   useEffect(() => {
+    if (!canvasOverlayHighlightRef.current) {
+      return;
+    }
+
     if (!canvas) {
-      return setHighlightStyles({});
+      return;
     }
 
     const { x: canvasX, y: canvasY } = canvas.getBoundingClientRect();
 
     if (!selectedElement) {
-      return setHighlightStyles({});
+      return;
     }
 
     const { height, width, top, left } =
       selectedElement?.getBoundingClientRect();
 
-    setHighlightStyles({
-      height: `${height}px`,
-      width: `${width}px`,
-      top: `${top - canvasY}px`,
-      left: `${left - canvasX}px`,
+    const _height = height * scale;
+    const _width = width * scale;
+    const _top = (top - canvasY) * scale;
+    const _left = (left - canvasX) * scale;
+
+    Object.assign(canvasOverlayHighlightRef.current.style, {
+      height: `${_height}px`,
+      width: `${_width}px`,
+      top: `${_top}px`,
+      left: `${_left}px`,
     });
   }, [breakpoint, renderedTemplate, selectedElement]);
 
@@ -86,10 +99,10 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
             selectedComonentPath ? 'pointer-events-none' : ''
           )}
           style={{
-            height: `${height}px`,
-            maxWidth: `${width}px`,
-            top: `${top - canvasY}px`,
-            left: `${left - canvasX}px`,
+            height: `${height * scale}px`,
+            maxWidth: `${width * scale}px`,
+            top: `${(top - canvasY) * scale}px`,
+            left: `${(left - canvasX) * scale}px`,
             width: '100%',
             position: 'absolute',
           }}
@@ -113,15 +126,13 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
   return (
     <div
       data-canvas-overlay
-      ref={canvasOverlayRef}
       className="absolute inset-0 pointer-events-none z-10"
     >
       <div
         data-canvas-overlay-highlight="active"
-        ref={canvasOverlayHighlightActiveRef}
-        style={highlightStyles}
-        data-target-id={selectedComonentPath}
         className="border-2 border-violet-500 absolute empty:hidden z-10"
+        ref={canvasOverlayHighlightRef}
+        data-target-id={selectedComonentPath}
       >
         {selectedElement && (
           <div

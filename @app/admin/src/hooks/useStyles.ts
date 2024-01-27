@@ -7,18 +7,31 @@ import { JssStyle } from 'jss';
 import useBuilderProviderState from './useBuilderProviderState';
 
 const useStyles = () => {
-  const {
-    schema,
-    styles,
-    styleSheet,
-    breakpoint,
-    selectedComonentPath,
-    selectedComponent,
-    selectedElement,
-    setStyles,
-    setSelectedComponentPath,
-    renderTemplate,
-  } = useBuilderProviderState();
+  const schema = useBuilderProviderState((state) => state.schema);
+
+  const styles = useBuilderProviderState((state) => state.styles);
+
+  const styleSheet = useBuilderProviderState((state) => state.styleSheet);
+
+  const breakpoint = useBuilderProviderState((state) => state.breakpoint);
+
+  const selectedComonentPath = useBuilderProviderState(
+    (state) => state.selectedComonentPath
+  );
+
+  const selectedComponent = useBuilderProviderState(
+    (state) => state.selectedComponent
+  );
+
+  const selectedElement = useBuilderProviderState(
+    (state) => state.selectedElement
+  );
+
+  const setStyles = useBuilderProviderState((state) => state.setStyles);
+
+  const renderTemplate = useBuilderProviderState(
+    (state) => state.renderTemplate
+  );
 
   const getActiveStyles = <T extends JssStyle>(
     styleProp: keyof T,

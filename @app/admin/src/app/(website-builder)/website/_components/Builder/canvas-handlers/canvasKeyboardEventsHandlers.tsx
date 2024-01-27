@@ -5,18 +5,33 @@ import removeComponent from '@cms/template-engine/modules/removeComponent';
 import { useEffect } from 'react';
 
 export const useKeyboardEvents = () => {
-  const {
-    schema,
-    showGrid,
-    selectedElement,
-    selectedComonentPath,
-    setShowGrid,
-    renderTemplate,
-    setIsCommandOpen,
-    setSelectedElement,
-    setSelectedComponent,
-    setSelectedComponentPath,
-  } = useBuilderProviderState();
+  const schema = useBuilderProviderState((state) => state.schema);
+  const showGrid = useBuilderProviderState((state) => state.showGrid);
+  const selectedElement = useBuilderProviderState(
+    (state) => state.selectedElement
+  );
+  const selectedComonentPath = useBuilderProviderState(
+    (state) => state.selectedComonentPath
+  );
+  const setShowGrid = useBuilderProviderState((state) => state.setShowGrid);
+  const setCanvasScale = useBuilderProviderState(
+    (state) => state.setCanvasScale
+  );
+  const renderTemplate = useBuilderProviderState(
+    (state) => state.renderTemplate
+  );
+  const setIsCommandOpen = useBuilderProviderState(
+    (state) => state.setIsCommandOpen
+  );
+  const setSelectedElement = useBuilderProviderState(
+    (state) => state.setSelectedElement
+  );
+  const setSelectedComponent = useBuilderProviderState(
+    (state) => state.setSelectedComponent
+  );
+  const setSelectedComponentPath = useBuilderProviderState(
+    (state) => state.setSelectedComponentPath
+  );
 
   const resetSelection = () => {
     setSelectedElement(null);
@@ -24,7 +39,29 @@ export const useKeyboardEvents = () => {
     setSelectedComponent('');
   };
 
+  let isCtrl = false;
+
   useEffect(() => {
+    const handleMouseWheelEvents = (e: WheelEvent) => {
+      if (!isCtrl) {
+        return;
+      }
+
+      const INTENSITY = 0.01;
+
+      if (e.deltaY > 0) {
+        setCanvasScale(INTENSITY);
+      } else {
+        setCanvasScale(-INTENSITY);
+      }
+    };
+
+    const handleKeyUpEvents = (e: KeyboardEvent) => {
+      if (e.key === 'Control') {
+        isCtrl = false;
+      }
+    };
+
     const handleKeyboardEvents = (e: KeyboardEvent) => {
       switch (e.key) {
         /**
@@ -58,6 +95,10 @@ export const useKeyboardEvents = () => {
 
       if (!e.ctrlKey) {
         return;
+      }
+
+      if (!isCtrl) {
+        isCtrl = true;
       }
 
       switch (e.key) {
@@ -98,8 +139,12 @@ export const useKeyboardEvents = () => {
     };
 
     document.addEventListener('keydown', handleKeyboardEvents);
+    document.addEventListener('keyup', handleKeyUpEvents);
+    window.addEventListener('wheel', handleMouseWheelEvents, { passive: true });
     return () => {
       document.removeEventListener('keydown', handleKeyboardEvents);
+      document.removeEventListener('keyup', handleKeyUpEvents);
+      window.removeEventListener('wheel', handleMouseWheelEvents);
     };
   }, [selectedComonentPath, showGrid]);
 };

@@ -8,8 +8,8 @@ import { toast } from 'sonner';
 
 const PublishButton = () => {
   const params = useParams<{ id: string }>();
-
-  const { schema, styles } = useBuilderProviderState();
+  const schema = useBuilderProviderState((state) => state.schema);
+  const styles = useBuilderProviderState((state) => state.styles);
 
   const handleOnClick = async () => {
     await updateWebsiteAction({ id: params.id, schema, styles });

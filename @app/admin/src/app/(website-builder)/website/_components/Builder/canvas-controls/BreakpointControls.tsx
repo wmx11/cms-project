@@ -3,18 +3,20 @@ import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import getActiveButtonVariant from '@admin/utils/getActiveButtonVariant';
 import {
   BREAKPOINT_2XL,
+  BREAKPOINT_DEFAULT,
+  BREAKPOINT_DEFAULT_WIDTH,
   BREAKPOINT_LG,
   BREAKPOINT_MD,
   BREAKPOINT_SM,
   BREAKPOINT_XL,
   BREAKPOINT_XS,
-  BREAKPOINT_DEFAULT,
 } from '@cms/packages/template-engine/constants';
 import { Button } from '@cms/packages/ui/components/Button';
 import { Desktop, Mobile, Reset, Tablet } from '@cms/ui/components/Icons';
 
 const BreakpointControls = () => {
-  const { breakpoint, setBreakpoint } = useBuilderProviderState();
+  const breakpoint = useBuilderProviderState((state) => state.breakpoint);
+  const setBreakpoint = useBuilderProviderState((state) => state.setBreakpoint);
 
   return (
     <div className="flex items-center gap-2">
@@ -23,7 +25,9 @@ const BreakpointControls = () => {
           breakpoint === BREAKPOINT_DEFAULT ? '' : 'text-red-500'
         }`}
       >
-        {breakpoint === BREAKPOINT_DEFAULT ? '100%' : `${breakpoint}px`}
+        {breakpoint === BREAKPOINT_DEFAULT
+          ? `${BREAKPOINT_DEFAULT_WIDTH}px`
+          : `${breakpoint}px`}
       </div>
       <div className="space-x-2">
         <Button

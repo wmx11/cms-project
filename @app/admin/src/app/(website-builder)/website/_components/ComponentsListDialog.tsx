@@ -12,19 +12,32 @@ import {
 import React from 'react';
 
 const ComponentsListDialog = () => {
-  const {
-    isCommandOpen,
-    templateComponents,
-    selectedComonentPath,
-    selectedComponent,
-    schema,
-    renderTemplate,
-    setIsCommandOpen,
-  } = useBuilderProviderState();
+  const isCommandOpen = useBuilderProviderState((state) => state.isCommandOpen);
+
+  const templateComponents = useBuilderProviderState(
+    (state) => state.templateComponents
+  );
+
+  const selectedComonentPath = useBuilderProviderState(
+    (state) => state.selectedComonentPath
+  );
+
+  const selectedComponent = useBuilderProviderState(
+    (state) => state.selectedComponent
+  );
+
+  const schema = useBuilderProviderState((state) => state.schema);
+
+  const renderTemplate = useBuilderProviderState(
+    (state) => state.renderTemplate
+  );
+  const setIsCommandOpen = useBuilderProviderState(
+    (state) => state.setIsCommandOpen
+  );
 
   const handleSelect = (componentId: string, path: string) => {
-    const selectedComponent = templateComponents.find(
-      (item) => item.id === componentId
+    const selectedComponent = templateComponents?.find(
+      (item) => item?.id === componentId
     );
 
     if (!selectedComponent || !selectedComponent?.schema) {
@@ -48,10 +61,10 @@ const ComponentsListDialog = () => {
 
   const componentsToRender = () => {
     if (!selectedComponent) {
-      return templateComponents.filter((item) => item.category === 'layout');
+      return templateComponents?.filter((item) => item?.category === 'layout');
     }
 
-    if (!selectedComponent.props.find((item) => item.type === 'component')) {
+    if (!selectedComponent?.props?.find((item) => item?.type === 'component')) {
       return [];
     }
 
@@ -64,7 +77,7 @@ const ComponentsListDialog = () => {
       <CommandList>
         <CommandEmpty>No components found.</CommandEmpty>
         <CommandGroup heading="Components">
-          {componentsToRender().map((item) => (
+          {componentsToRender()?.map((item) => (
             <CommandItem
               key={item.id}
               onSelect={() => {

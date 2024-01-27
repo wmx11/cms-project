@@ -24,4 +24,5 @@ export interface BackgroundControlsProps {
 
 export type ShadowControlsProps = {
   label?: string;
-} & ShadowTypes;
+  type: ShadowTypes;
+};

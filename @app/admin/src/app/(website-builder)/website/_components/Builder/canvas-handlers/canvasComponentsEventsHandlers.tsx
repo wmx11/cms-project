@@ -1,14 +1,18 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
-import {
-  DATA_EDITABLE,
-  STYLES_CONTENT_EDITABLE,
-} from '@cms/packages/template-engine/constants';
+import { DATA_EDITABLE } from '@cms/packages/template-engine/constants';
 import { useEffect } from 'react';
 
 export const useEditableContentControls = () => {
-  const { selectedElement, selectedComponent, renderedTemplate } =
-    useBuilderProviderState();
+  const selectedElement = useBuilderProviderState(
+    (state) => state.selectedElement
+  );
+  const selectedComponent = useBuilderProviderState(
+    (state) => state.selectedComponent
+  );
+  const renderedTemplate = useBuilderProviderState(
+    (state) => state.renderedTemplate
+  );
 
   useEffect(() => {
     if (!selectedElement) {
