@@ -2,7 +2,7 @@ import { BuilderStoreProps } from '@admin/store/useBuilderStore';
 import { ScrollArea, ScrollBar } from '@cms/packages/ui/components/ScrollArea';
 import { FC } from 'react';
 import BuilderCanvas from './BuilderCanvas';
-import BuilderHeader from './BuilderHeader';
+import BuilderHeader from './builder-header/BuilderHeader';
 import BuilderProvider from './BuilderProvider';
 import BuilderSidebar from './BuilderSidebar';
 
@@ -16,11 +16,14 @@ const BuilderPage: FC<BuilderPageProps> = (props) => {
           <BuilderHeader />
         </div>
         <div className="grid grid-cols-[1fr,320px]">
-          <ScrollArea className="h-full max-h-screen w-full">
+          <ScrollArea
+            className="h-full max-h-screen w-full"
+            data-builder-canvas-wrapper
+          >
             <BuilderCanvas />
             <ScrollBar orientation="horizontal" />
           </ScrollArea>
-          <div className="fixed top-[57px] bottom-0 right-0 max-w-[320px] w-full border-l border-zinc-200 z-10">
+          <div className="fixed top-[47px] bottom-0 right-0 max-w-[320px] w-full border-l border-zinc-200 z-10">
             <ScrollArea className="h-full w-full">
               <BuilderSidebar />
             </ScrollArea>

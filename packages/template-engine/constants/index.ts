@@ -5,6 +5,17 @@ export const ACTIVE = 'active';
 export const HOVER = 'hover';
 export const DRAGGABLE = 'draggable';
 
+// KEYBINDINGS
+export const KEY_CONTROL = '⌘';
+export const KEY_DELETE_ELEMENT = 'Delete';
+export const KEY_RESET_SELECTION = 'Escape';
+
+export const KEY_ADD_NEW_ELEMENT = '/';
+export const KEY_DUPLICATE = 'd';
+export const KEY_TOGGLE_GRID = ';';
+export const KEY_ZOOM_IN = '+';
+export const KEY_ZOOM_OUT = '-';
+
 //DATA ATTRIBUTES
 export const DATA_LABEL = 'data-label';
 export const DATA_CANVAS = 'data-canvas';
@@ -18,6 +29,7 @@ export const DATA_DISPLAY_NAME = 'data-display-name';
 export const DATA_CANVAS_OVERLAY = 'data-canvas-overlay';
 export const DATA_DND_INITIALIZED = 'data-dnd-initialized';
 export const DATA_ACCEPTS_CHILDREN = 'data-accepts-children';
+export const DATA_BUILDER_CANVAS_WRAPPER = 'data-builder-canvas-wrapper';
 export const DATA_CANVAS_OVERLAY_HIGHLIGHT = 'data-canvas-overlay-highlight';
 export const DRATA_CANVAS_OVERLAY_DRAG_AND_DROP_HIGHLIGHT =
   'data-canvas-drag-and-drop-highlight';
@@ -28,6 +40,11 @@ export const DATA_CANVAS_OVERLAY_ADD_ELEMENT_BUTTON =
   'data-canvas-overlay-add-element-button';
 export const DATA_CANVAS_OVERLAY_CONTEXT_MENU_TARGET =
   'data-canvas-overlay-context-menu-target';
+
+// CANVAS SCALING
+export const SCALE_INTENSITY = 0.055;
+export const SCALE_MAX = 2;
+export const SCALE_MIN = SCALE_INTENSITY;
 
 // STYLES
 export const STYLES_CONTENT_EDITABLE =

@@ -3,7 +3,7 @@ import { Button } from '@cms/packages/ui/components/Button';
 
 const SaveDraftButton = () => {
   return (
-    <Button variant="outline" size="sm">
+    <Button variant="outline" size="xs">
       <Save className="h-3 w-3 mr-2" /> Save Draft
     </Button>
   );

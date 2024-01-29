@@ -3,7 +3,7 @@ import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import { Button } from '@cms/packages/ui/components/Button';
 import { Publish } from '@cms/packages/ui/components/Icons';
 import { useParams } from 'next/navigation';
-import updateWebsiteAction from '../../_actions/updateWebsiteAction';
+import updateWebsiteAction from '../../../../_actions/updateWebsiteAction';
 import { toast } from 'sonner';
 
 const PublishButton = () => {
@@ -17,7 +17,7 @@ const PublishButton = () => {
   };
 
   return (
-    <Button onClick={handleOnClick} color="primary" size="sm">
+    <Button onClick={handleOnClick} color="primary" size="xs">
       <Publish className="h-3 w-3 mr-2" /> Save draft
     </Button>
   );

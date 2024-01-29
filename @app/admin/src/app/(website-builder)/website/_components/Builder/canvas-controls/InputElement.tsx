@@ -1,25 +1,17 @@
 import { Input } from '@cms/packages/ui/components/Input';
-import React, { FC } from 'react';
+import React, { ComponentPropsWithRef, FC, forwardRef } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-interface InputElementsProps {
-  label: string;
-  type?: string;
-  className?: string;
-  value?: string | number | undefined;
-  min?: number;
-  max?: number;
-  step?: number;
+interface InputElementProps
+  extends Omit<ComponentPropsWithRef<'input'>, 'onChange'> {
+  label?: string;
   endContent?: React.ReactElement | string;
   onChange?: (value: string) => void;
 }
 
-const InputElement: FC<InputElementsProps> = (props) => {
+const InputElement: FC<InputElementProps> = forwardRef((props, ref) => {
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!props.onChange) {
-      return;
-    }
-
-    if (!e) {
+    if (!props.onChange || !e) {
       return;
     }
 
@@ -28,19 +20,13 @@ const InputElement: FC<InputElementsProps> = (props) => {
 
   return (
     <Input
-      label={props.label}
-      name={props.label}
+      {...props}
+      ref={ref}
       placeholder="-"
-      type={props.type || 'text'}
-      value={props.value}
-      min={props.min}
-      max={props.max}
-      step={props.step}
-      className={props.className}
-      endContent={props.endContent}
+      className={twMerge(props.className, 'h-8')}
       onChange={handleOnChange}
     />
   );
-};
+});
 
 export default InputElement;

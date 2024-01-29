@@ -13,7 +13,7 @@ const ButtonElement: FC<ButtonElementProps> = (props) => {
   return (
     <Button
       {...props}
-      size="sm"
+      size="xs"
       variant={props.variant || 'default'}
       color="secondary"
       onClick={props.onClick}

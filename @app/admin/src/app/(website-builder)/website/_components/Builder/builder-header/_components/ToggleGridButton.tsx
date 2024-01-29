@@ -5,10 +5,10 @@ import { Toggle } from '@cms/ui/components/Toggle';
 
 export const ToggleGridButton = () => {
   const showGrid = useBuilderProviderState((state) => state.showGrid);
-  const setShowGrid = useBuilderProviderState((state) => state.setShowGrid);
+  const toggleGrid = useBuilderProviderState((state) => state.toggleGrid);
 
   return (
-    <Toggle variant="outline" pressed={showGrid} onPressedChange={setShowGrid}>
+    <Toggle variant="outline" pressed={showGrid} onPressedChange={toggleGrid}>
       <Grid />
     </Toggle>
   );

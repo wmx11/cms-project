@@ -58,7 +58,9 @@ const BuilderCanvas = () => {
   // }, [renderedTemplate]);
 
   return (
-    <div className="bg-zinc-100 min-h-screen px-3 pb-2 pt-12 mt-[53px] relative flex items-center justify-center">
+    <div
+      className={`bg-zinc-100 min-h-screen px-3 pb-2 pt-12 mt-[47px] relative flex items-center justify-center`}
+    >
       <div
         data-canvas
         ref={canvasRef}
@@ -84,7 +86,7 @@ const BuilderCanvas = () => {
           ),
         })}
       >
-        <p className="text-sm text-muted-foreground p-4 absolute top-[-45px]">
+        <p className="text-sm text-muted-foreground p-4 absolute top-[-47px]">
           Press <Kbd>⌘</Kbd> + <Kbd>/</Kbd> to add a component...
         </p>
 

@@ -1,5 +1,15 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import {
+  KEY_ADD_NEW_ELEMENT,
+  KEY_DELETE_ELEMENT,
+  KEY_DUPLICATE,
+  KEY_RESET_SELECTION,
+  KEY_TOGGLE_GRID,
+  KEY_ZOOM_IN,
+  KEY_ZOOM_OUT,
+  SCALE_INTENSITY,
+} from '@cms/template-engine/constants';
 import duplicateComponent from '@cms/template-engine/modules/duplicateComponent';
 import removeComponent from '@cms/template-engine/modules/removeComponent';
 import { useEffect } from 'react';
@@ -13,7 +23,7 @@ export const useKeyboardEvents = () => {
   const selectedComonentPath = useBuilderProviderState(
     (state) => state.selectedComonentPath
   );
-  const setShowGrid = useBuilderProviderState((state) => state.setShowGrid);
+  const toggleGrid = useBuilderProviderState((state) => state.toggleGrid);
   const setCanvasScale = useBuilderProviderState(
     (state) => state.setCanvasScale
   );
@@ -47,12 +57,10 @@ export const useKeyboardEvents = () => {
         return;
       }
 
-      const INTENSITY = 0.01;
-
       if (e.deltaY > 0) {
-        setCanvasScale(INTENSITY);
+        setCanvasScale(SCALE_INTENSITY);
       } else {
-        setCanvasScale(-INTENSITY);
+        setCanvasScale(-SCALE_INTENSITY);
       }
     };
 
@@ -67,7 +75,7 @@ export const useKeyboardEvents = () => {
         /**
          * Delete a selection
          */
-        case 'Delete':
+        case KEY_DELETE_ELEMENT:
           const newSchema = removeComponent({
             schema,
             path: selectedComonentPath,
@@ -84,7 +92,7 @@ export const useKeyboardEvents = () => {
         /**
          * Remove all selections
          */
-        case 'Escape':
+        case KEY_RESET_SELECTION:
           selectedElement?.blur();
           resetSelection();
           break;
@@ -105,14 +113,14 @@ export const useKeyboardEvents = () => {
         /**
          * Add new element
          */
-        case '/':
+        case KEY_ADD_NEW_ELEMENT:
           setIsCommandOpen(true);
           break;
 
         /**
          * Duplicate element
          */
-        case 'd':
+        case KEY_DUPLICATE:
           e.preventDefault();
           const newSchema = duplicateComponent({
             schema,
@@ -129,8 +137,18 @@ export const useKeyboardEvents = () => {
         /**
          * Toggle grid view on and off
          */
-        case ';':
-          setShowGrid(showGrid ? false : true);
+        case KEY_TOGGLE_GRID:
+          toggleGrid();
+          break;
+
+        case KEY_ZOOM_IN:
+          e.preventDefault();
+          setCanvasScale(SCALE_INTENSITY);
+          break;
+
+        case KEY_ZOOM_OUT:
+          e.preventDefault();
+          setCanvasScale(-SCALE_INTENSITY);
           break;
 
         default:

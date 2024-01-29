@@ -1,3 +1,4 @@
+import { SCALE_MAX, SCALE_MIN } from '@cms/template-engine/constants';
 import { StateCreator } from 'zustand';
 
 export interface ActionSlice {
@@ -8,9 +9,9 @@ export interface ActionSlice {
   isScaling: boolean;
   setIsCommandOpen: (isCommandOpen: boolean) => void;
   setIsContextMenuOpen: (isContextMenuOpen: boolean) => void;
-  setShowGrid: (showGrid: boolean) => void;
+  toggleGrid: () => void;
   setIsScaling: (isScaling: boolean) => void;
-  setCanvasScale: (scale: number) => void;
+  setCanvasScale: (scaleBy: number, scale?: number) => void;
   resetCanvasScale: () => void;
 }
 
@@ -23,22 +24,13 @@ const createActionSlice: StateCreator<ActionSlice> = (set, get) => ({
   setIsCommandOpen: (isCommandOpen: boolean) => set(() => ({ isCommandOpen })),
   setIsContextMenuOpen: (isContextMenuOpen: boolean) =>
     set(() => ({ isContextMenuOpen })),
-  setShowGrid: (showGrid: boolean) => set(() => ({ showGrid })),
+  toggleGrid: () => set(() => ({ showGrid: !get().showGrid })),
   setIsScaling: (isScaling: boolean) => set(() => ({ isScaling })),
-  setCanvasScale: (scale: number) =>
+  setCanvasScale: (scaleBy: number, scale?: number) =>
     set(() => {
-      let newScale = get().canvasScale + scale;
-
-      if (newScale < 0) {
-        newScale = 0.1;
-      }
-
-      if (newScale > 2) {
-        newScale = 2;
-      }
-
+      const newScale = scale ? scale : get().canvasScale + scaleBy;
       return {
-        canvasScale: newScale,
+        canvasScale: Math.min(Math.max(newScale, SCALE_MIN), SCALE_MAX),
       };
     }),
   resetCanvasScale: () => set(() => ({ canvasScale: 1 })),
