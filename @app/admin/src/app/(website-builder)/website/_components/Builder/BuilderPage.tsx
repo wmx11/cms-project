@@ -2,9 +2,9 @@ import { BuilderStoreProps } from '@admin/store/useBuilderStore';
 import { ScrollArea, ScrollBar } from '@cms/packages/ui/components/ScrollArea';
 import { FC } from 'react';
 import BuilderCanvas from './BuilderCanvas';
-import BuilderHeader from './builder-header/BuilderHeader';
 import BuilderProvider from './BuilderProvider';
 import BuilderSidebar from './BuilderSidebar';
+import BuilderHeader from './builder-header';
 
 interface BuilderPageProps extends BuilderStoreProps {}
 
