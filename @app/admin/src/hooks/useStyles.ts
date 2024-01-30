@@ -2,9 +2,13 @@ import {
   StylesObjectWithBreakpoints,
   initialStyles,
 } from '@admin/store/slices/createStylesSlice';
-import { BREAKPOINTS_MAP } from '@cms/packages/template-engine/constants';
+import {
+  BREAKPOINTS_MAP,
+  BUILDER_STYLES_META_TAG_SELECTOR,
+} from '@cms/packages/template-engine/constants';
 import { JssStyle } from 'jss';
 import useBuilderProviderState from './useBuilderProviderState';
+import { BuilderThemes } from '@cms/template-engine/themes';
 
 const useStyles = () => {
   const schema = useBuilderProviderState((state) => state.schema);
@@ -117,9 +121,34 @@ const useStyles = () => {
       ...stylesObject,
     };
 
-    styleSheet?.replaceRule(BREAKPOINTS_MAP[breakpoint], entry);
+    styleSheet?.replaceRule(BREAKPOINTS_MAP[breakpoint], entry as JssStyle);
 
     return stylesCopy;
+  };
+
+  const applyTheme = (theme: BuilderThemes['']['light']) => {
+    const stylesCopy = { ...styles };
+
+    if (!stylesCopy.hasOwnProperty('@global')) {
+      Object.assign(stylesCopy, { '@global': { ':root': {} } });
+    }
+
+    stylesCopy['@global'][':root'] = {
+      ...stylesCopy['@global'][':root'],
+      ...theme,
+    };
+
+    styleSheet?.replaceRule('@global', { ':root': { ...theme } });
+
+    const stylesElement = document.querySelector(
+      `[${BUILDER_STYLES_META_TAG_SELECTOR}]`
+    );
+
+    if (stylesElement && styleSheet) {
+      stylesElement.innerHTML = styleSheet.toString();
+    }
+
+    setStyles(stylesCopy);
   };
 
   const applyStyles = (props: JssStyle, _selectedComonentPath?: string) => {
@@ -150,6 +179,7 @@ const useStyles = () => {
     applyStyles,
     getActiveStyles,
     purgeStyles,
+    applyTheme,
   };
 };
 

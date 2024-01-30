@@ -3,6 +3,7 @@ import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import {
   BREAKPOINT_DEFAULT,
   BREAKPOINT_DEFAULT_WIDTH,
+  BUILDER_STYLES_META_TAG,
 } from '@cms/packages/template-engine/constants';
 import builderJss from '@cms/packages/template-engine/styles/builderJss';
 import Kbd from '@cms/packages/ui/components/Kbd';
@@ -27,6 +28,7 @@ const BuilderCanvas = () => {
   );
   const setStyleSheet = useBuilderProviderState((state) => state.setStyleSheet);
 
+  const isStyleSheetSet = useRef(false);
   const canvasRef = useRef<HTMLDivElement>(null);
   const canvasOverlayRef = useRef<HTMLDivElement>(null);
   const canvasOverlayHighlightHoverRef = useRef<HTMLDivElement>(null);
@@ -38,9 +40,13 @@ const BuilderCanvas = () => {
 
   // Initialize styles handler
   useEffect(() => {
+    if (isStyleSheetSet.current) {
+      return;
+    }
+
     const manager = new SheetsManager();
     const styleSheet = builderJss.createStyleSheet(styles as Partial<Styles>, {
-      meta: 'builder-styles',
+      meta: BUILDER_STYLES_META_TAG,
       link: true,
     });
     const key = {};
@@ -48,6 +54,8 @@ const BuilderCanvas = () => {
     manager.manage(key);
     setStyleSheet(styleSheet);
     renderTemplate();
+
+    isStyleSheetSet.current = true;
   }, []);
 
   // Initialize drag and drop handler
@@ -64,7 +72,7 @@ const BuilderCanvas = () => {
       <div
         data-canvas
         ref={canvasRef}
-        className="bg-white canvas min-h-screen shadow-md relative transition"
+        className="canvas min-h-screen shadow-md relative transition bg-tg-background tg-wrapper"
         style={{
           width:
             breakpoint !== BREAKPOINT_DEFAULT

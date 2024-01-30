@@ -13,7 +13,9 @@ import { JssStyle, StyleSheet } from 'jss';
 import { StateCreator } from 'zustand';
 
 export const initialStyles = {
-  '@global': {},
+  '@global': {
+    ':root': {},
+  },
   [BREAKPOINT_DEFAULT_KEY]: {},
   [BREAKPOINT_XS_KEY]: {},
   [BREAKPOINT_SM_KEY]: {},

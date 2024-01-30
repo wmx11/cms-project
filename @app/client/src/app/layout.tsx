@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`tg-wrapper ${inter.className}`}>
         <main>
           <Providers>{children}</Providers>
         </main>
