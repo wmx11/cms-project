@@ -1,4 +1,4 @@
-import { DRATA_CANVAS_OVERLAY_DRAG_AND_DROP_HIGHLIGHT } from '@cms/packages/template-engine/constants';
+import { DRATA_CANVAS_OVERLAY_DND_HIGHLIGHT } from '@cms/packages/template-engine/constants';
 
 export const canvasDragAndDropHighlight = ({
   canvasOverlay,
@@ -10,7 +10,7 @@ export const canvasDragAndDropHighlight = ({
   }
 
   const existingDnDHighlight = document.querySelector(
-    `[${DRATA_CANVAS_OVERLAY_DRAG_AND_DROP_HIGHLIGHT}]`
+    `[${DRATA_CANVAS_OVERLAY_DND_HIGHLIGHT}]`
   );
 
   if (existingDnDHighlight) {
@@ -19,7 +19,7 @@ export const canvasDragAndDropHighlight = ({
 
   const dNdHighlight = document.createElement('div');
 
-  dNdHighlight.setAttribute(DRATA_CANVAS_OVERLAY_DRAG_AND_DROP_HIGHLIGHT, '');
+  dNdHighlight.setAttribute(DRATA_CANVAS_OVERLAY_DND_HIGHLIGHT, '');
 
   dNdHighlight.classList.add('bg-violet-500', 'shadow-lg', 'shadow-violet-500');
 

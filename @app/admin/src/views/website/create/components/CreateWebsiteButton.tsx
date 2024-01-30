@@ -1,5 +1,5 @@
 'use client';
-import { PROJECT_DEFAULT_URL } from '@cms/packages/config/constants';
+import { PROJECT_URL } from '@cms/template-engine/constants';
 import {
   Button,
   Input,
@@ -66,7 +66,7 @@ const CreateWebsiteButton = ({ templateId }: Props) => {
               </ModalHeader>
               <ModalBody>
                 <div>
-                  https://{slugify(alias) || '...'}.{PROJECT_DEFAULT_URL}
+                  https://{slugify(alias) || '...'}.{PROJECT_URL}
                 </div>
                 <Input
                   autoFocus
