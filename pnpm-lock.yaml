@@ -129,8 +129,8 @@ importers:
         specifier: 18.2.0
         version: 18.2.0
       react-best-gradient-color-picker:
-        specifier: ^2.3.5
-        version: 2.3.5(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^3.0.2
+        version: 3.0.2(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0)
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
@@ -6156,14 +6156,20 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: false
 
-  /react-best-gradient-color-picker@2.3.5(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-uvy17VCwFamXPEGnj087Xp04htuzWWtDZTSfZTIGlGa/A4LcgEuhhFVP6twrc+K08SEaR3E1QckVvI/D1n9ThA==}
+  /react-best-gradient-color-picker@3.0.2(@types/react@18.2.21)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-jXVbk3fiiG3kFg6kgEWoB8gmPjATrqVRBKd7CXQvURW5MFuCg6N0uOQG3hvF3EwTQxqqaxFI+2HrMuKp+/s/Vg==}
     peerDependencies:
-      react: ^16.3.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.3.0 || ^17.0.0 || ^18.0.0
+      '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
     dependencies:
+      '@types/react': 18.2.21
       html2canvas: 1.4.1
       lodash.throttle: 4.1.1
+      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       tinycolor2: 1.4.2
