@@ -12,7 +12,7 @@ import {
 } from '@cms/template-engine/constants';
 import duplicateComponent from '@cms/template-engine/modules/duplicateComponent';
 import removeComponent from '@cms/template-engine/modules/removeComponent';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 export const useKeyboardEvents = () => {
   const schema = useBuilderProviderState((state) => state.schema);
@@ -49,24 +49,26 @@ export const useKeyboardEvents = () => {
     setSelectedComponent('');
   };
 
-  let isCtrl = false;
+  const isCtrl = useRef(false);
 
   useEffect(() => {
     const handleMouseWheelEvents = (e: WheelEvent) => {
-      if (!isCtrl) {
+      if (!isCtrl.current) {
         return;
       }
 
+      e.preventDefault();
+
       if (e.deltaY > 0) {
-        setCanvasScale(SCALE_INTENSITY);
-      } else {
         setCanvasScale(-SCALE_INTENSITY);
+      } else {
+        setCanvasScale(SCALE_INTENSITY);
       }
     };
 
     const handleKeyUpEvents = (e: KeyboardEvent) => {
       if (e.key === 'Control') {
-        isCtrl = false;
+        isCtrl.current = false;
       }
     };
 
@@ -105,8 +107,8 @@ export const useKeyboardEvents = () => {
         return;
       }
 
-      if (!isCtrl) {
-        isCtrl = true;
+      if (!isCtrl.current) {
+        isCtrl.current = true;
       }
 
       switch (e.key) {
@@ -158,7 +160,9 @@ export const useKeyboardEvents = () => {
 
     document.addEventListener('keydown', handleKeyboardEvents);
     document.addEventListener('keyup', handleKeyUpEvents);
-    window.addEventListener('wheel', handleMouseWheelEvents, { passive: true });
+    window.addEventListener('wheel', handleMouseWheelEvents, {
+      passive: false,
+    });
     return () => {
       document.removeEventListener('keydown', handleKeyboardEvents);
       document.removeEventListener('keyup', handleKeyUpEvents);
