@@ -1,20 +1,25 @@
 import {
   BREAKPOINTS_MAP,
   BREAKPOINT_2XL_KEY,
+  BREAKPOINT_DEFAULT,
+  BREAKPOINT_DEFAULT_KEY,
   BREAKPOINT_LG_KEY,
   BREAKPOINT_MD_KEY,
   BREAKPOINT_SM_KEY,
   BREAKPOINT_XL_KEY,
-  BREAKPOINT_DEFAULT,
-  BREAKPOINT_DEFAULT_KEY,
   BREAKPOINT_XS_KEY,
+  BUILDER_DATA_THEME_TYPE,
+  THEME_NAME_VAR,
 } from '@cms/packages/template-engine/constants';
 import { JssStyle, StyleSheet } from 'jss';
 import { StateCreator } from 'zustand';
 
 export const initialStyles = {
   '@global': {
-    ':root': {},
+    ':root': {
+      [THEME_NAME_VAR]: '',
+    },
+    [`[${BUILDER_DATA_THEME_TYPE}="dark"]`]: {},
   },
   [BREAKPOINT_DEFAULT_KEY]: {},
   [BREAKPOINT_XS_KEY]: {},

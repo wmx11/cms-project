@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge';
 const Paragraph: FC<PropsWithChildren & HTMLProps<HTMLParagraphElement>> = (
   props
 ) => {
-  return <p className={twMerge('mb-2', props.className)}>{props.children}</p>;
+  return <p className={twMerge('mb-2 text-tg-foreground', props.className)}>{props.children}</p>;
 };
 
 export default Paragraph;

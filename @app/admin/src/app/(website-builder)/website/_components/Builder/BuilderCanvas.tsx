@@ -71,8 +71,10 @@ const BuilderCanvas = () => {
     >
       <div
         data-canvas
+        data-tg-theme-type="light"
+        data-tg-theme-name
         ref={canvasRef}
-        className="canvas min-h-screen shadow-md relative transition bg-tg-background tg-wrapper"
+        className="canvas min-h-screen shadow-md relative transition tg-wrapper"
         style={{
           width:
             breakpoint !== BREAKPOINT_DEFAULT

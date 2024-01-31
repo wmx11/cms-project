@@ -5,6 +5,12 @@ export const BUILDER_PREFIX = 'tg';
 export const BUILDER_STYLES_META_TAG = `${BUILDER_PREFIX}-builder-styles`;
 export const BUILDER_STYLES_META_TAG_SELECTOR = `data-meta="${BUILDER_PREFIX}-builder-styles"`;
 
+// ="light" or ="dark"
+export const BUILDER_DATA_THEME_TYPE = 'data-tg-theme-type';
+
+// One of the names from packages/template-engine/themes/index.ts
+export const BUILDER_DATA_THEME_NAME = 'data-tg-theme-name';
+
 export const GAP = `--${BUILDER_PREFIX}-gap`;
 export const BASIS = `--${BUILDER_PREFIX}-basis`;
 export const LAYOUT_TYPE = `--${BUILDER_PREFIX}-layout-type`;
@@ -12,6 +18,8 @@ export const FLEX_COLUMNS = `--${BUILDER_PREFIX}-flex-columns`;
 
 // This can be assigned to <main>, <body>, or primary wrapper component
 export const PARENT_CLASS = `${BUILDER_PREFIX}-wrapper`;
+
+export const THEME_NAME_VAR = `--${BUILDER_PREFIX}-theme-name`;
 
 // Theme variables
 export const BORDER = `${BUILDER_PREFIX}-border`;

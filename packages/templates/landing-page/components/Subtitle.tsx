@@ -7,7 +7,7 @@ const Subtitle: FC<PropsWithChildren & HTMLAttributes<HTMLTitleElement>> = (
 ) => {
   return (
     <h2
-      className={twMerge('mb-2', props.className)}
+      className={twMerge('mb-2 text-tg-foreground', props.className)}
       dangerouslySetInnerHTML={{ __html: props.children || '' }}
     ></h2>
   );

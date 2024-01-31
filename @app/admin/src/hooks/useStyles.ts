@@ -4,11 +4,18 @@ import {
 } from '@admin/store/slices/createStylesSlice';
 import {
   BREAKPOINTS_MAP,
+  BUILDER_DATA_THEME_NAME,
+  BUILDER_DATA_THEME_TYPE,
   BUILDER_STYLES_META_TAG_SELECTOR,
+  THEME_NAME_VAR,
 } from '@cms/packages/template-engine/constants';
 import { JssStyle } from 'jss';
 import useBuilderProviderState from './useBuilderProviderState';
-import { BuilderThemes } from '@cms/template-engine/themes';
+import {
+  BuilderThemes,
+  ThemeNames,
+  ThemeTypes,
+} from '@cms/template-engine/themes';
 
 const useStyles = () => {
   const schema = useBuilderProviderState((state) => state.schema);
@@ -126,19 +133,87 @@ const useStyles = () => {
     return stylesCopy;
   };
 
-  const applyTheme = (theme: BuilderThemes['']['light']) => {
+  type GetDocumentThemeReturnTypes = {
+    name: ThemeNames | null;
+    type: ThemeTypes;
+  };
+
+  const getDocumentTheme = (): GetDocumentThemeReturnTypes => {
+    if (typeof document === 'undefined') {
+      return {
+        name: null,
+        type: 'light',
+      };
+    }
+
+    const themeName = document.querySelector(`[${BUILDER_DATA_THEME_NAME}]`);
+    const themeType = document.querySelector(`[${BUILDER_DATA_THEME_TYPE}]`);
+
+    return {
+      name: themeName?.getAttribute(
+        BUILDER_DATA_THEME_NAME
+      ) as ThemeNames | null,
+      type:
+        (themeType?.getAttribute(
+          BUILDER_DATA_THEME_TYPE
+        ) as GetDocumentThemeReturnTypes['type']) || 'light',
+    };
+  };
+
+  const getActiveTheme = (): ThemeNames | null => {
+    if (!styles.hasOwnProperty('@global')) {
+      return null;
+    }
+
+    if (!styles['@global']?.hasOwnProperty(':root')) {
+      return null;
+    }
+
+    if (!styles['@global'][':root']?.hasOwnProperty(THEME_NAME_VAR)) {
+      return null;
+    }
+
+    return styles['@global'][':root'][THEME_NAME_VAR] as ThemeNames;
+  };
+
+  const setDocumentTheme = (name: string, type: string) => {
+    const themeName = document.querySelector(`[${BUILDER_DATA_THEME_NAME}]`);
+    const themeType = document.querySelector(`[${BUILDER_DATA_THEME_TYPE}]`);
+    themeName?.setAttribute(BUILDER_DATA_THEME_NAME, name);
+    themeType?.setAttribute(BUILDER_DATA_THEME_TYPE, type);
+  };
+
+  const applyTheme = (
+    theme: BuilderThemes[keyof BuilderThemes],
+    name: ThemeNames
+  ) => {
     const stylesCopy = { ...styles };
 
     if (!stylesCopy.hasOwnProperty('@global')) {
-      Object.assign(stylesCopy, { '@global': { ':root': {} } });
+      Object.assign(stylesCopy, {
+        '@global': {
+          ':root': { [THEME_NAME_VAR]: name },
+          [`[${BUILDER_DATA_THEME_TYPE}="dark"]`]: {},
+        },
+      });
     }
 
     stylesCopy['@global'][':root'] = {
       ...stylesCopy['@global'][':root'],
-      ...theme,
+      [THEME_NAME_VAR]: name,
+      ...theme.light,
     };
 
-    styleSheet?.replaceRule('@global', { ':root': { ...theme } });
+    stylesCopy['@global'][`[${BUILDER_DATA_THEME_TYPE}="dark"]`] = {
+      ...theme.dark,
+    };
+
+    styleSheet?.replaceRule('@global', {
+      ':root': { ...stylesCopy['@global'][':root'] },
+      [`[${BUILDER_DATA_THEME_TYPE}="dark"]`]: {
+        ...stylesCopy['@global'][`[${BUILDER_DATA_THEME_TYPE}="dark"]`],
+      },
+    });
 
     const stylesElement = document.querySelector(
       `[${BUILDER_STYLES_META_TAG_SELECTOR}]`
@@ -180,6 +255,9 @@ const useStyles = () => {
     getActiveStyles,
     purgeStyles,
     applyTheme,
+    getActiveTheme,
+    getDocumentTheme,
+    setDocumentTheme,
   };
 };
 

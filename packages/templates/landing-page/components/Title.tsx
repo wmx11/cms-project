@@ -6,7 +6,7 @@ const Title: FC<PropsWithChildren & HTMLProps<HTMLTitleElement>> = (props) => {
   return (
     <h1
       className={twMerge(
-        'text-7xl text-zinc-800 font-black mb-8 uppercase leading-tight',
+        'text-7xl text-tg-foreground font-black mb-8 uppercase leading-tight',
         props.className
       )}
       dangerouslySetInnerHTML={{ __html: props.children || '' }}
