@@ -1,6 +1,6 @@
 'use client';
 import useStyles from '@admin/hooks/useStyles';
-import InputElement from '../InputElement';
+import Input from '../../ui/Input';
 
 const ZIndexControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
@@ -12,7 +12,7 @@ const ZIndexControls = () => {
   };
 
   return (
-    <InputElement
+    <Input
       type="number"
       label="Z-index"
       value={activeStyles?.['z-index']}

@@ -1,6 +1,5 @@
 'use client';
 import useStyles from '@admin/hooks/useStyles';
-import { Input } from '@cms/ui/components/Input';
 import { Label } from '@cms/ui/components/Label';
 import {
   Select,
@@ -13,6 +12,7 @@ import {
 import { ChangeEvent, useState } from 'react';
 import { initialBackgroundState } from './ColorControls';
 import { BackgroundControlsProps } from '../types';
+import Input from '../../../ui/Input';
 
 const BackgroundImageController = () => {
   const { applyStyles, getActiveStyles } = useStyles();
@@ -60,7 +60,7 @@ const BackgroundImageController = () => {
   return (
     <div className="space-y-2">
       <div>
-        <Input type="file" onChange={handleUpload} />
+        <Input type="file" onChange={(value, e) => handleUpload(e)} />
       </div>
       <div
         className="w-[294px] h-[294px] bg-zinc-200 rounded-md"

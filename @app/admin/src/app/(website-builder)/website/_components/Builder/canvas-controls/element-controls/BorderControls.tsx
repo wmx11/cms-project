@@ -13,7 +13,6 @@ import {
   Cog,
   ICON_STYLES,
 } from '@cms/ui/components/Icons';
-import { Input } from '@cms/ui/components/Input';
 import { Label } from '@cms/ui/components/Label';
 import {
   Select,
@@ -24,7 +23,7 @@ import {
 } from '@cms/ui/components/Select';
 import { useState } from 'react';
 import ControlsPopover from '../ControlsPopover';
-import InputElement from '../InputElement';
+import Input from '../../ui/Input';
 import ColorControls from './color-controls';
 import { BorderTypes } from './types';
 
@@ -38,7 +37,7 @@ const initialBorderState = {
 const BorderControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
 
-  const [borderType, setBorderType] = useState<BorderTypes['type']>('border');
+  const [borderType, setBorderType] = useState<BorderTypes>('border');
 
   const activeStyles = getActiveStyles(borderType);
 
@@ -61,7 +60,7 @@ const BorderControls = () => {
       <div className="border-b text-sm mb-2">Border controls</div>
       <div className="flex flex-wrap items-end gap-4">
         <div className="flex-grow flex gap-4 justify-between">
-          <InputElement
+          <Input
             type="number"
             label="Border radius"
             value={state?.radius || ''}
@@ -73,7 +72,7 @@ const BorderControls = () => {
             }
             onChange={(value) => handleChange('radius', value)}
           />
-          <InputElement
+          <Input
             type="number"
             label="Border thickness"
             value={state?.width || ''}
@@ -115,9 +114,7 @@ const BorderControls = () => {
           </div>
           <div className="flex-1">
             <Select
-              onValueChange={(value: BorderTypes['type']) =>
-                setBorderType(value)
-              }
+              onValueChange={(value: BorderTypes) => setBorderType(value)}
               value={borderType || ''}
             >
               <Label>Border sides</Label>
@@ -172,7 +169,12 @@ const BorderControls = () => {
     <div className="flex gap-2 items-end">
       <div>{controls}</div>
       <div className="flex-1">
-        <Input readOnly label="Border" value={Object.values(state).join('')} />
+        <Input
+          readOnly
+          type="text"
+          label="Border"
+          value={Object.values(state).join('')}
+        />
       </div>
     </div>
   );

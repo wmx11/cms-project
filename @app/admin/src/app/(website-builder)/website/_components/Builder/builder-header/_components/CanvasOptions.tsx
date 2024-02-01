@@ -25,7 +25,7 @@ import { Button } from '@cms/ui/components/Button';
 import { ChevronDown, Grid, ICON_STYLES } from '@cms/ui/components/Icons';
 import Kbd from '@cms/ui/components/Kbd';
 import { KeyboardEvent, useRef } from 'react';
-import InputElement from '../../canvas-controls/InputElement';
+import Input from '../../ui/Input';
 
 const CanvasOptions = () => {
   const canvasScale = useBuilderProviderState((state) => state.canvasScale);
@@ -88,7 +88,7 @@ const CanvasOptions = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-            <InputElement
+            <Input
               type="number"
               label="Canvas scale"
               ref={inputRef}

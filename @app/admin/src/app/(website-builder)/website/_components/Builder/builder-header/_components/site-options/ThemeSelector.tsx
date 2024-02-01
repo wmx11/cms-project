@@ -15,17 +15,7 @@ import themes, {
   ThemeTypes,
   ThemeVariables,
 } from '@cms/template-engine/themes';
-import { Button } from '@cms/ui/components/Button';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@cms/ui/components/DropdownMenu';
-import { ChevronDown } from '@cms/ui/components/Icons';
+import { DropdownMenuCheckboxItem } from '@cms/ui/components/DropdownMenu';
 import { FC } from 'react';
 
 interface ThemePreviewProps {
@@ -66,10 +56,10 @@ const ThemePreview: FC<ThemePreviewProps> = ({ theme, type }) => {
   ];
 
   return (
-    <div className="flex justify-between items-center gap-4">
-      <div className="flex-1 w-[50px]">{theme}</div>
+    <div className="flex justify-between items-center gap-4 w-full">
+      <div className="flex-grow">{theme}</div>
       <div
-        className="flex items-center gap-2 p-1.5"
+        className="flex items-center gap-1 p-1.5"
         style={{
           background: `hsl(${item[BACKGROUND_VAR]})`,
           ...defaultStyles,
@@ -96,33 +86,17 @@ const ThemeSelector = () => {
     setDocumentTheme(name, type);
   };
 
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="xs" className="group">
-          Site theme{' '}
-          <ChevronDown className="ml-2 group-hover:translate-y-1 transition-transform" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuGroup>
-          <DropdownMenuLabel>Themes</DropdownMenuLabel>
-          {themesKeys.map((key) => {
-            return (
-              <DropdownMenuCheckboxItem
-                key={key}
-                checked={key === activeTheme}
-                onSelect={() => handleSelect(key, type)}
-              >
-                <ThemePreview theme={key} type={type} />
-              </DropdownMenuCheckboxItem>
-            );
-          })}
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+  return themesKeys.map((key) => {
+    return (
+      <DropdownMenuCheckboxItem
+        key={key}
+        checked={key === activeTheme}
+        onSelect={() => handleSelect(key, type)}
+      >
+        <ThemePreview theme={key} type={type} />
+      </DropdownMenuCheckboxItem>
+    );
+  });
 };
 
 export default ThemeSelector;

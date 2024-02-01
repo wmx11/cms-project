@@ -16,6 +16,7 @@ import {
   ThemeNames,
   ThemeTypes,
 } from '@cms/template-engine/themes';
+import { produce } from 'immer';
 
 const useStyles = () => {
   const schema = useBuilderProviderState((state) => state.schema);
@@ -113,24 +114,26 @@ const useStyles = () => {
   };
 
   const applyStylesForBreakpoint = (
-    stylesObject: JssStyle,
+    stylesProps: JssStyle,
     _stylesCopy: StylesObjectWithBreakpoints,
     _selectedComonentPath?: string
   ) => {
-    const stylesCopy = _stylesCopy;
-
-    const entry = stylesCopy[BREAKPOINTS_MAP[breakpoint]];
-
     const componentPath = _selectedComonentPath || selectedComonentPath;
 
-    (entry[componentPath as keyof typeof entry] as JssStyle) = {
-      ...(entry[componentPath as keyof typeof entry] as JssStyle),
-      ...stylesObject,
-    };
+    const newStyles = produce(_stylesCopy, (draft) => {
+      const entry = draft[BREAKPOINTS_MAP[breakpoint]];
+      (entry[componentPath as keyof typeof entry] as JssStyle) = {
+        ...entry[componentPath as keyof typeof entry],
+        ...stylesProps,
+      };
+    });
 
-    styleSheet?.replaceRule(BREAKPOINTS_MAP[breakpoint], entry as JssStyle);
+    styleSheet?.replaceRule(
+      BREAKPOINTS_MAP[breakpoint],
+      newStyles[BREAKPOINTS_MAP[breakpoint]] as JssStyle
+    );
 
-    return stylesCopy;
+    return newStyles;
   };
 
   type GetDocumentThemeReturnTypes = {
@@ -176,6 +179,18 @@ const useStyles = () => {
     return styles['@global'][':root'][THEME_NAME_VAR] as ThemeNames;
   };
 
+  const setDocumentCSS = () => {
+    const stylesElement = document.querySelector(
+      `[${BUILDER_STYLES_META_TAG_SELECTOR}]`
+    );
+
+    if (!stylesElement || !styleSheet) {
+      return;
+    }
+
+    stylesElement.innerHTML = styleSheet.toString();
+  };
+
   const setDocumentTheme = (name: string, type: string) => {
     const themeName = document.querySelector(`[${BUILDER_DATA_THEME_NAME}]`);
     const themeType = document.querySelector(`[${BUILDER_DATA_THEME_TYPE}]`);
@@ -187,53 +202,39 @@ const useStyles = () => {
     theme: BuilderThemes[keyof BuilderThemes],
     name: ThemeNames
   ) => {
-    const stylesCopy = { ...styles };
-
-    if (!stylesCopy.hasOwnProperty('@global')) {
-      Object.assign(stylesCopy, {
-        '@global': {
-          ':root': { [THEME_NAME_VAR]: name },
-          [`[${BUILDER_DATA_THEME_TYPE}="dark"]`]: {},
-        },
-      });
-    }
-
-    stylesCopy['@global'][':root'] = {
-      ...stylesCopy['@global'][':root'],
-      [THEME_NAME_VAR]: name,
-      ...theme.light,
-    };
-
-    stylesCopy['@global'][`[${BUILDER_DATA_THEME_TYPE}="dark"]`] = {
-      ...theme.dark,
-    };
+    const newStyles = produce(styles, (draft) => {
+      draft['@global'][':root'] = {
+        ...draft['@global'][':root'],
+        [THEME_NAME_VAR]: name,
+        ...theme.light,
+      };
+      draft['@global'][`[${BUILDER_DATA_THEME_TYPE}="dark"]`] = {
+        ...theme.dark,
+      };
+    });
 
     styleSheet?.replaceRule('@global', {
-      ':root': { ...stylesCopy['@global'][':root'] },
+      ':root': { ...newStyles['@global'][':root'] },
       [`[${BUILDER_DATA_THEME_TYPE}="dark"]`]: {
-        ...stylesCopy['@global'][`[${BUILDER_DATA_THEME_TYPE}="dark"]`],
+        ...newStyles['@global'][`[${BUILDER_DATA_THEME_TYPE}="dark"]`],
       },
     });
 
-    const stylesElement = document.querySelector(
-      `[${BUILDER_STYLES_META_TAG_SELECTOR}]`
-    );
+    setDocumentCSS();
 
-    if (stylesElement && styleSheet) {
-      stylesElement.innerHTML = styleSheet.toString();
-    }
-
-    setStyles(stylesCopy);
+    setStyles(newStyles);
   };
 
   const applyStyles = (props: JssStyle, _selectedComonentPath?: string) => {
-    const stylesCopy = applyStylesForBreakpoint(
+    const newStyles = applyStylesForBreakpoint(
       props,
       styles,
       _selectedComonentPath
     );
 
-    setStyles(stylesCopy);
+    setStyles(newStyles);
+
+    setDocumentCSS();
 
     const shouldRender = applyClassNameToComponent();
 

@@ -34,7 +34,7 @@ import {
 } from 'react-icons/fa';
 import { GoDuplicate } from 'react-icons/go';
 import { GrPowerReset } from 'react-icons/gr';
-import { IoIosWarning } from 'react-icons/io';
+import { IoIosWarning , IoMdColorPalette} from 'react-icons/io';
 import {
   MdColorize,
   MdGrid4X4,
@@ -42,6 +42,7 @@ import {
   MdOutlinePhoneIphone,
   MdPublish,
   MdDesignServices,
+  MdBlurOn
 } from 'react-icons/md';
 import { RxBorderWidth } from 'react-icons/rx';
 import {
@@ -87,6 +88,8 @@ export const Warning = IoIosWarning;
 export const LayersIcon = FaLayerGroup;
 export const DesignIcon = MdDesignServices;
 export const Heading = FaHeading;
+export const Blur = MdBlurOn;
+export const ColorPalette = IoMdColorPalette;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;

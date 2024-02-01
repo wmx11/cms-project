@@ -1,10 +1,9 @@
 'use client';
 import useStyles from '@admin/hooks/useStyles';
 import { Cog } from '@cms/ui/components/Icons';
-import { Input } from '@cms/ui/components/Input';
 import { FC } from 'react';
 import ControlsPopover from '../ControlsPopover';
-import InputElement from '../InputElement';
+import Input from '../../ui/Input';
 import ColorControls from './color-controls';
 import { ShadowControlsProps } from './types';
 
@@ -55,13 +54,13 @@ const ShadowControls: FC<ShadowControlsProps> = (props) => {
       <div className="border-b text-sm mb-2">{props.label}</div>
       <div className="flex flex-wrap gap-4">
         <div className="flex-1 w-full">
-          <InputElement
+          <Input
             type="number"
             label="X axis"
             value={state?.x || ''}
             onChange={(value) => handleChange('x', value)}
           />
-          <InputElement
+          <Input
             type="number"
             label="Y axis"
             value={state?.y || ''}
@@ -69,7 +68,7 @@ const ShadowControls: FC<ShadowControlsProps> = (props) => {
           />
         </div>
         <div className="flex-1 w-full">
-          <InputElement
+          <Input
             type="number"
             label="Blur"
             value={state?.blur || ''}
@@ -77,7 +76,7 @@ const ShadowControls: FC<ShadowControlsProps> = (props) => {
             onChange={(value) => handleChange('blur', value)}
           />
           {props.type === 'box-shadow' ? (
-            <InputElement
+            <Input
               type="number"
               label="Spread"
               value={state?.spread || ''}

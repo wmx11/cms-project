@@ -1,6 +1,5 @@
 'use client';
 import useStyles from '@admin/hooks/useStyles';
-import { Button } from '@cms/ui/components/Button';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,7 +11,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@cms/ui/components/AlertDialog';
-import { Warning } from '@cms/ui/components/Icons';
+import { Button } from '@cms/ui/components/Button';
+import { ICON_STYLES, Warning } from '@cms/ui/components/Icons';
 
 const PurgeStylesButton = () => {
   const { purgeStyles } = useStyles();
@@ -20,9 +20,9 @@ const PurgeStylesButton = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">
-          <Warning className="h-3 w-3 mr-2" />
-          Purge styles
+        <Button size="xs" variant="destructive" className="w-full">
+          <Warning className={ICON_STYLES} />
+          <span>Purge styles</span>
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

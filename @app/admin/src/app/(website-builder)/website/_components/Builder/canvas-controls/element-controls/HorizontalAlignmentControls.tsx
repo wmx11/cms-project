@@ -7,7 +7,7 @@ import {
   ItemsAlignLeft,
   ItemsAlignRight,
 } from '@cms/packages/ui/components/Icons';
-import ButtonElement from '../ButtonElement';
+import Button from '../../ui/Button';
 
 const HorizontalAlignmentControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
@@ -22,8 +22,8 @@ const HorizontalAlignmentControls = () => {
   };
 
   return (
-    <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border">
-      <ButtonElement
+    <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border gap-1">
+      <Button
         variant={getActiveButtonVariant(
           'start',
           activeStyles?.['justify-content']
@@ -32,8 +32,8 @@ const HorizontalAlignmentControls = () => {
         onClick={() => handleOnChange('start')}
       >
         Left
-      </ButtonElement>
-      <ButtonElement
+      </Button>
+      <Button
         variant={getActiveButtonVariant(
           'center',
           activeStyles?.['justify-content']
@@ -42,8 +42,8 @@ const HorizontalAlignmentControls = () => {
         onClick={() => handleOnChange('center')}
       >
         Center
-      </ButtonElement>
-      <ButtonElement
+      </Button>
+      <Button
         variant={getActiveButtonVariant(
           'end',
           activeStyles?.['justify-content']
@@ -52,8 +52,8 @@ const HorizontalAlignmentControls = () => {
         onClick={() => handleOnChange('end')}
       >
         Right
-      </ButtonElement>
-      <ButtonElement
+      </Button>
+      <Button
         variant={getActiveButtonVariant(
           'space-between',
           activeStyles?.['justify-content']
@@ -62,7 +62,7 @@ const HorizontalAlignmentControls = () => {
         onClick={() => handleOnChange('space-between')}
       >
         Between
-      </ButtonElement>
+      </Button>
     </div>
   );
 };

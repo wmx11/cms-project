@@ -2,15 +2,13 @@
 import useStyles from '@admin/hooks/useStyles';
 import { DEFAULT_UNIT } from '@cms/packages/template-engine/constants';
 import { fontSize } from '@cms/packages/template-engine/variants/variants';
-import { ChevronDown } from '@cms/packages/ui/components/Icons';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
 } from '@cms/packages/ui/components/Select';
-import ButtonElement from '../ButtonElement';
-import InputElement from '../InputElement';
+import Input from '../../ui/Input';
 
 const FontSizeControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
@@ -30,11 +28,7 @@ const FontSizeControls = () => {
           onValueChange={handleOnChange}
           value={activeStyles ? activeStyles['font-size'] : ''}
         >
-          <SelectTrigger className="border-none p-0 max-w-[38px]">
-            <ButtonElement>
-              <ChevronDown />
-            </ButtonElement>
-          </SelectTrigger>
+          <SelectTrigger className="bg-secondary h-8 text-xs rounded-md px-1.5 py-2 m-0"></SelectTrigger>
           <SelectContent>
             {fontSize.map((item) => (
               <SelectItem value={item.toString()} key={item}>
@@ -45,7 +39,7 @@ const FontSizeControls = () => {
         </Select>
       </div>
       <div className="flex-1">
-        <InputElement
+        <Input
           className="w-full"
           type="number"
           label="Font size"

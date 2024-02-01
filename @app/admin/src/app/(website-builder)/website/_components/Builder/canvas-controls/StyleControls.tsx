@@ -9,8 +9,10 @@ import {
 import { Badge } from '@cms/packages/ui/components/Badge';
 import { BREAKPOINT_DEFAULT, DATA_LABEL } from '@cms/template-engine/constants';
 import { Card, CardContent, CardHeader } from '@cms/ui/components/Card';
+import { Input } from '@cms/ui/components/Input';
 import dynamic from 'next/dynamic';
 import ControlsWrapper from './ControlsWrapper';
+import BlurControls from './element-controls/BlurControls';
 import BorderControls from './element-controls/BorderControls';
 import ElementsGapsControls from './element-controls/ElementsGapsControls';
 import FlexColumnsControls from './element-controls/FlexColumnsControls';
@@ -27,7 +29,6 @@ import ShadowControls from './element-controls/ShadowControls';
 import TextAlignmentControls from './element-controls/TextAlignmentControls';
 import VerticalAlignmentControls from './element-controls/VerticalAlignmentControls';
 import ZIndexControls from './element-controls/ZIndexControls';
-import { Input } from '@cms/ui/components/Input';
 
 const DynamicShadowControls = dynamic(
   () => import('./element-controls/ShadowControls'),
@@ -70,7 +71,10 @@ const controls = [
     description: 'Text & background colors, shadows, borders, etc.',
     component: (
       <div className="space-y-2">
-        <OpacityControls />
+        <ControlsWrapper>
+          <BlurControls />
+          <OpacityControls />
+        </ControlsWrapper>
         <BorderControls />
         <DynamicBackgroundColorControls />
         <DynamicShadowControls label="Box shadow" type="box-shadow" />

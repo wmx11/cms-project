@@ -71,7 +71,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
       top: `${_top}px`,
       left: `${_left}px`,
     });
-  }, [breakpoint, renderedTemplate, selectedElement]);
+  }, [breakpoint, renderedTemplate, selectedElement, showGrid, styles]);
 
   useEffect(() => {
     if (!canvas) {

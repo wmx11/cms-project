@@ -10,7 +10,9 @@ const jss = create().setup({
   ...preset(),
   id: { minify: true },
   createGenerateId: () => {
-    return (rule, sheet) => `wb-${rule.key}`;
+    return (rule, sheet) => {
+      return `wb-${rule.key}`;
+    };
   },
 });
 

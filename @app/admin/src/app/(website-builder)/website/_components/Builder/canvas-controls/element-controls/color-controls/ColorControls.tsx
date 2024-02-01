@@ -1,7 +1,6 @@
 'use client';
 import useStyles from '@admin/hooks/useStyles';
 import { ColorPickerPipette } from '@cms/ui/components/Icons';
-import { Input } from '@cms/ui/components/Input';
 import {
   Tabs,
   TabsContent,
@@ -14,6 +13,7 @@ import ControlsPopover from '../../ControlsPopover';
 import BackgroundImageController from './BackgroundImageController';
 import ColorPicker from './ColorPicker';
 import { ColorControlsProps } from '../types';
+import Input from '../../../ui/Input';
 
 export const initialBackgroundState = {
   attachment: null,
@@ -57,7 +57,7 @@ const ColorControls: FC<ColorControlsProps> = (props) => {
 
   const currentColor = getCurrentColor();
 
-  const { valueToHex } = useColorPicker(currentColor);
+  const { valueToHex } = useColorPicker(currentColor, props.onChange);
 
   const hexValue = valueToHex();
 

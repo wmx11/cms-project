@@ -6,7 +6,7 @@ import {
   TextAlignLeft,
   TextAlignRight,
 } from '@cms/packages/ui/components/Icons';
-import ButtonElement from '../ButtonElement';
+import Button from '../../ui/Button';
 
 const TextAlignmentControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
@@ -19,28 +19,28 @@ const TextAlignmentControls = () => {
   };
 
   return (
-    <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border">
-      <ButtonElement
+    <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border gap-1">
+      <Button
         variant={getActiveButtonVariant('left', activeStyles?.['text-align'])}
         icon={<TextAlignLeft />}
         onClick={() => handleOnChange('left')}
       >
         Left
-      </ButtonElement>
-      <ButtonElement
+      </Button>
+      <Button
         variant={getActiveButtonVariant('center', activeStyles?.['text-align'])}
         icon={<TextAlignCenter />}
         onClick={() => handleOnChange('center')}
       >
         Center
-      </ButtonElement>
-      <ButtonElement
+      </Button>
+      <Button
         variant={getActiveButtonVariant('right', activeStyles?.['text-align'])}
         icon={<TextAlignRight />}
         onClick={() => handleOnChange('right')}
       >
         Right
-      </ButtonElement>
+      </Button>
     </div>
   );
 };

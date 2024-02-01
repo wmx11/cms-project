@@ -19,7 +19,7 @@ const ControlsPopover: FC<ControlsPopoverProps> = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button size="icon" className="border" style={style}>
+        <Button size="xs" className="border" style={style}>
           {icon}
         </Button>
       </PopoverTrigger>

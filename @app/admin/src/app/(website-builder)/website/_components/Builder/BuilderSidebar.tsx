@@ -6,7 +6,6 @@ import {
   TabsTrigger,
 } from '@cms/ui/components/Tabs';
 import Layers from './canvas-controls/Layers';
-import PurgeStylesButton from './canvas-controls/PurgeStylesButton';
 import StyleControls from './canvas-controls/StyleControls';
 
 const BuilderSidebar = () => {
@@ -25,9 +24,6 @@ const BuilderSidebar = () => {
           </TabsList>
           <TabsContent value="styles">
             <StyleControls />
-            <div className="flex [&>*]:flex-1">
-              <PurgeStylesButton />
-            </div>
           </TabsContent>
           <TabsContent value="layers">
             <Layers />

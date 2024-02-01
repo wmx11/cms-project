@@ -6,7 +6,7 @@ import {
   ItemsAlignCenterVertical,
   ItemsAlignTop,
 } from '@cms/packages/ui/components/Icons';
-import ButtonElement from '../ButtonElement';
+import Button from '../../ui/Button';
 
 const VerticalAlignmentControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();
@@ -21,15 +21,15 @@ const VerticalAlignmentControls = () => {
   };
 
   return (
-    <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border">
-      <ButtonElement
+    <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border gap-1">
+      <Button
         variant={getActiveButtonVariant('start', activeStyles?.['align-items'])}
         icon={<ItemsAlignTop />}
         onClick={() => handleOnChange('start')}
       >
         Top
-      </ButtonElement>
-      <ButtonElement
+      </Button>
+      <Button
         variant={getActiveButtonVariant(
           'center',
           activeStyles?.['align-items']
@@ -38,14 +38,14 @@ const VerticalAlignmentControls = () => {
         onClick={() => handleOnChange('center')}
       >
         Center
-      </ButtonElement>
-      <ButtonElement
+      </Button>
+      <Button
         variant={getActiveButtonVariant('end', activeStyles?.['align-items'])}
         icon={<ItemsAlignBottom />}
         onClick={() => handleOnChange('end')}
       >
         Bottom
-      </ButtonElement>
+      </Button>
     </div>
   );
 };
