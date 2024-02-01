@@ -70,45 +70,48 @@ const BuilderCanvas = () => {
       className={`bg-zinc-100 min-h-screen px-3 pb-2 pt-12 mt-[47px] relative flex items-center justify-center`}
     >
       <div
-        data-canvas
-        data-tg-theme-type="light"
-        data-tg-theme-name
-        ref={canvasRef}
-        className="canvas min-h-screen shadow-md relative transition tg-wrapper"
-        style={{
-          width:
-            breakpoint !== BREAKPOINT_DEFAULT
-              ? `${breakpoint}px`
-              : `${BREAKPOINT_DEFAULT_WIDTH}px`,
-          containerType: 'inline-size',
-          transformOrigin: 'top center',
-          scale: canvasScale,
-        }}
-        onClick={handleCanvasClick({
-          setSelectedComponent: useBuilderProviderState(
-            (state) => state.setSelectedComponent
-          ),
-          setSelectedComponentPath: useBuilderProviderState(
-            (state) => state.setSelectedComponentPath
-          ),
-          setSelectedElement: useBuilderProviderState(
-            (state) => state.setSelectedElement
-          ),
-        })}
+        className="flex"
+        style={{ transformOrigin: '50% top', scale: canvasScale }}
       >
-        <p className="text-sm text-muted-foreground p-4 absolute top-[-47px]">
-          Press <Kbd>⌘</Kbd> + <Kbd>/</Kbd> to add a component...
-        </p>
+        <div
+          data-tg-theme-type="light"
+          data-tg-theme-name
+          data-canvas
+          ref={canvasRef}
+          className="canvas min-h-screen shadow-md relative transition tg-wrapper"
+          style={{
+            width:
+              breakpoint !== BREAKPOINT_DEFAULT
+                ? `${breakpoint}px`
+                : `${BREAKPOINT_DEFAULT_WIDTH}px`,
+            containerType: 'inline-size',
+          }}
+          onClick={handleCanvasClick({
+            setSelectedComponent: useBuilderProviderState(
+              (state) => state.setSelectedComponent
+            ),
+            setSelectedComponentPath: useBuilderProviderState(
+              (state) => state.setSelectedComponentPath
+            ),
+            setSelectedElement: useBuilderProviderState(
+              (state) => state.setSelectedElement
+            ),
+          })}
+        >
+          <p className="text-sm text-muted-foreground p-4 absolute top-[-47px]">
+            Press <Kbd>⌘</Kbd> + <Kbd>/</Kbd> to add a component...
+          </p>
 
-        <CanvasOverlay
-          canvasRef={canvasRef}
-          canvasOverlayLabelRef={canvasOverlayLabelRef}
-          canvasOverlayHighlightHoverRef={canvasOverlayHighlightHoverRef}
-        />
+          <CanvasOverlay
+            canvasRef={canvasRef}
+            canvasOverlayLabelRef={canvasOverlayLabelRef}
+            canvasOverlayHighlightHoverRef={canvasOverlayHighlightHoverRef}
+          />
 
-        <>{renderedTemplate}</>
+          <>{renderedTemplate}</>
 
-        <ComponentsListDialog />
+          <ComponentsListDialog />
+        </div>
       </div>
     </div>
   );
