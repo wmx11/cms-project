@@ -43,6 +43,7 @@ type SchemaWithRichText = { editable?: never; richText?: boolean };
 export type Schema = {
   component: string;
   props: Props[];
+  id?: string;
   displayName?: string;
   description?: string | undefined;
   category?: SchemaCategory;

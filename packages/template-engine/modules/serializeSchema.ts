@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import React from 'react';
 import {
   DATA_ACCEPTS_CHILDREN,
@@ -6,9 +7,8 @@ import {
   DATA_DISPLAY_NAME,
   DATA_DND_INITIALIZED,
   DATA_EDITABLE,
+  DATA_ID,
   DATA_LABEL,
-  STLYES_ELEMENT_INSIDE_BUILDER,
-  STYLES_CONTENT_EDITABLE,
 } from '../constants';
 import { Props, Schema } from '../types';
 import generatePath from './generatePath';
@@ -38,10 +38,8 @@ const serializeComponentForBuilder = (
 
   const acceptsChildren = Array.isArray(componentNodeCopy?.props?.children);
 
-  const className: string = `${
-    componentNodeCopy?.props?.className
-  } ${'STLYES_ELEMENT_INSIDE_BUILDER'} ${
-    item.editable ? `${'STYLES_CONTENT_EDITABLE'} outline-none cursor-text` : ''
+  const className: string = `${componentNodeCopy?.props?.className} ${
+    item.editable ? `outline-none cursor-text` : ''
   }`;
 
   Object.assign(componentNodeCopy, {
@@ -79,6 +77,10 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
     const component = await importComponent(templateId, item.component);
     const componentProps: Record<Props['name'], string> = {};
 
+    if (!item.id) {
+      item.id = nanoid();
+    }
+
     for (const prop of item.props) {
       if (prop.type !== 'component') {
         Object.assign(componentProps, { [prop.name]: prop.value });
@@ -107,6 +109,10 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
     const componentNodeCopy: React.ReactElement = {
       ...componentNode,
       key: `${item.component}_${index}` || '',
+      props: {
+        ...componentNode.props,
+        [DATA_ID]: item.id,
+      },
     };
 
     if (serializeForBuilder) {

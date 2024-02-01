@@ -3,6 +3,7 @@
  * Can be used as a reference point when writing plain HTML
  * Use these variables when selecting a component to avoid typos
  */
+export const DATA_ID = 'data-id';
 export const DATA_LABEL = 'data-label';
 export const DATA_CANVAS = 'data-canvas';
 export const DATA_EDITABLE = 'data-editable';

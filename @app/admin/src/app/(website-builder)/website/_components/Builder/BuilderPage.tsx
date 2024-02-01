@@ -17,8 +17,8 @@ const BuilderPage: FC<BuilderPageProps> = (props) => {
         </div>
         <div className="grid grid-cols-[1fr,320px]">
           <ScrollArea
-            className="h-full max-h-screen w-full"
             data-builder-canvas-wrapper
+            className="h-full max-h-screen w-full"
           >
             <BuilderCanvas />
             <ScrollBar orientation="horizontal" />
