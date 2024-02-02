@@ -1,7 +1,7 @@
 import {
   DATA_CANVAS_OVERLAY,
   DATA_COMPONENT,
-  DATA_TARGET_ID
+  DATA_TARGET_ID,
 } from '@cms/packages/template-engine/constants';
 import { MouseEvent, RefObject } from 'react';
 
@@ -15,6 +15,7 @@ export const handleCanvasClick =
     setSelectedElement: (target: HTMLElement | null) => void;
     setSelectedComponentPath: (value: string) => void;
     setSelectedComponent: (value: string) => void;
+    resetSelection: () => void;
   }) =>
   (event: MouseEvent<HTMLDivElement>) => {
     const _target = event.target as HTMLElement;
@@ -34,9 +35,7 @@ export const handleCanvasClick =
     }
 
     if (target.hasAttribute(DATA_CANVAS_OVERLAY)) {
-      state.setSelectedElement(null);
-      state.setSelectedComponentPath('');
-      state.setSelectedComponent('');
+      state.resetSelection();
     }
 
     if (!target.hasAttribute(DATA_COMPONENT)) {

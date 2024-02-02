@@ -16,7 +16,6 @@ import { useEffect, useRef } from 'react';
 
 export const useKeyboardEvents = () => {
   const schema = useBuilderProviderState((state) => state.schema);
-  const showGrid = useBuilderProviderState((state) => state.showGrid);
   const selectedElement = useBuilderProviderState(
     (state) => state.selectedElement
   );
@@ -33,21 +32,9 @@ export const useKeyboardEvents = () => {
   const setIsCommandOpen = useBuilderProviderState(
     (state) => state.setIsCommandOpen
   );
-  const setSelectedElement = useBuilderProviderState(
-    (state) => state.setSelectedElement
+  const resetSelection = useBuilderProviderState(
+    (state) => state.resetSelection
   );
-  const setSelectedComponent = useBuilderProviderState(
-    (state) => state.setSelectedComponent
-  );
-  const setSelectedComponentPath = useBuilderProviderState(
-    (state) => state.setSelectedComponentPath
-  );
-
-  const resetSelection = () => {
-    setSelectedElement(null);
-    setSelectedComponentPath('');
-    setSelectedComponent('');
-  };
 
   const isCtrl = useRef(false);
 
@@ -74,9 +61,6 @@ export const useKeyboardEvents = () => {
 
     const handleKeyboardEvents = (e: KeyboardEvent) => {
       switch (e.key) {
-        /**
-         * Delete a selection
-         */
         case KEY_DELETE_ELEMENT:
           const newSchema = removeComponent({
             schema,
@@ -91,9 +75,6 @@ export const useKeyboardEvents = () => {
           resetSelection();
           break;
 
-        /**
-         * Remove all selections
-         */
         case KEY_RESET_SELECTION:
           selectedElement?.blur();
           resetSelection();
@@ -112,16 +93,10 @@ export const useKeyboardEvents = () => {
       }
 
       switch (e.key) {
-        /**
-         * Add new element
-         */
         case KEY_ADD_NEW_ELEMENT:
           setIsCommandOpen(true);
           break;
 
-        /**
-         * Duplicate element
-         */
         case KEY_DUPLICATE:
           e.preventDefault();
           const newSchema = duplicateComponent({
@@ -136,9 +111,6 @@ export const useKeyboardEvents = () => {
           renderTemplate(newSchema);
           break;
 
-        /**
-         * Toggle grid view on and off
-         */
         case KEY_TOGGLE_GRID:
           toggleGrid();
           break;
@@ -168,5 +140,5 @@ export const useKeyboardEvents = () => {
       document.removeEventListener('keyup', handleKeyUpEvents);
       window.removeEventListener('wheel', handleMouseWheelEvents);
     };
-  }, [selectedComonentPath, showGrid]);
+  }, [selectedComonentPath]);
 };

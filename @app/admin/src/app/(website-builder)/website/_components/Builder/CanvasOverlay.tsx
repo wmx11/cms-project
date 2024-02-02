@@ -121,7 +121,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
     });
 
     setGrid(gridElements);
-  }, [breakpoint, renderedTemplate, selectedElement, showGrid, styles]);
+  }, [breakpoint, renderedTemplate, showGrid, styles]);
 
   return (
     <div

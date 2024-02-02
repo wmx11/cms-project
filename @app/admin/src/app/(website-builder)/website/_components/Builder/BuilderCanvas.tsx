@@ -43,7 +43,6 @@ const BuilderCanvas = () => {
     if (isStyleSheetSet.current) {
       return;
     }
-
     const manager = new SheetsManager();
     const styleSheet = builderJss.createStyleSheet(styles as Partial<Styles>, {
       meta: BUILDER_STYLES_META_TAG,
@@ -54,7 +53,6 @@ const BuilderCanvas = () => {
     manager.manage(key);
     setStyleSheet(styleSheet);
     renderTemplate();
-
     isStyleSheetSet.current = true;
   }, []);
 
@@ -96,6 +94,9 @@ const BuilderCanvas = () => {
             setSelectedElement: useBuilderProviderState(
               (state) => state.setSelectedElement
             ),
+            resetSelection: useBuilderProviderState(
+              (state) => state.resetSelection
+            ),
           })}
         >
           <p className="text-sm text-muted-foreground p-4 absolute top-[-47px]">
@@ -109,8 +110,6 @@ const BuilderCanvas = () => {
           />
 
           <>{renderedTemplate}</>
-
-          <ComponentsListDialog />
         </div>
       </div>
     </div>

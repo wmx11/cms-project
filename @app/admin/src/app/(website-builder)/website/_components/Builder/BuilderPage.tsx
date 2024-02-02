@@ -1,6 +1,7 @@
 import { BuilderStoreProps } from '@admin/store/useBuilderStore';
 import { ScrollArea, ScrollBar } from '@cms/packages/ui/components/ScrollArea';
 import { FC } from 'react';
+import ComponentsListDialog from '../ComponentsListDialog';
 import BuilderCanvas from './BuilderCanvas';
 import BuilderProvider from './BuilderProvider';
 import BuilderSidebar from './BuilderSidebar';
@@ -29,6 +30,7 @@ const BuilderPage: FC<BuilderPageProps> = (props) => {
             </ScrollArea>
           </div>
         </div>
+        <ComponentsListDialog />
       </div>
     </BuilderProvider>
   );
