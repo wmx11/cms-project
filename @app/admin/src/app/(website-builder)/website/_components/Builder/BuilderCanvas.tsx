@@ -9,7 +9,6 @@ import builderJss from '@cms/packages/template-engine/styles/builderJss';
 import Kbd from '@cms/packages/ui/components/Kbd';
 import { SheetsManager, Styles } from 'jss';
 import { useEffect, useRef } from 'react';
-import ComponentsListDialog from '../ComponentsListDialog';
 import CanvasOverlay from './CanvasOverlay';
 import { useEditableContentControls } from './canvas-handlers/canvasComponentsEventsHandlers';
 import { initHandleDragAndDrop } from './canvas-handlers/canvasDragAndDropHandlers';

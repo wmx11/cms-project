@@ -212,7 +212,7 @@ const StyleControls = () => {
           )}
         </div>
       </div>
-      <div>
+      {/* <div>
         {selectedComponent.props.map((item) => {
           if (item.type === 'component') {
             return null;
@@ -238,7 +238,7 @@ const StyleControls = () => {
             </div>
           );
         })}
-      </div>
+      </div> */}
       <div className="mb-2">
         <Accordion
           type="multiple"

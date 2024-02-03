@@ -18,9 +18,10 @@ const BlurControls = () => {
       <Input
         type="number"
         label="Blur"
+        min={0}
         endContent={<Blur className={ICON_STYLES} />}
         value={activeStyles?.filter?.replace(/\D/g, '') || ''}
-        onChange={(value) => handleChange(value)}
+        onChange={handleChange}
       />
     </div>
   );

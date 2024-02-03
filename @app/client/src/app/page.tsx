@@ -21,17 +21,17 @@ const getPageData = async () => {
   return pageData;
 };
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  const pageData = await getPageData();
+// export const generateMetadata = async (): Promise<Metadata> => {
+//   const pageData = await getPageData();
 
-  return {
-    title: pageData?.title,
-    description: pageData?.description,
-    icons: {
-      icon: pageData?.icon as IconURL,
-    },
-  };
-};
+//   return {
+//     title: pageData?.title,
+//     description: pageData?.description,
+//     icons: {
+//       icon: pageData?.icon as IconURL,
+//     },
+//   };
+// };
 
 export default async function Home() {
   const pageData = await getPageData();

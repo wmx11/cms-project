@@ -1,6 +1,8 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
+import handleOnBlur from '@admin/utils/handleOnBlur';
+import handleOnEscapeOrEnter from '@admin/utils/handleOnEscapeOrEnter';
 import { selectTextContent } from '@admin/utils/selections';
 import {
   DATA_CANVAS_OVERLAY_HIGHLIGHT,
@@ -21,11 +23,10 @@ import {
 import { ChevronDown, Eye, EyeSlash, Trash } from '@cms/ui/components/Icons';
 import React, {
   FC,
-  FocusEvent,
-  KeyboardEvent,
   MouseEvent,
   PropsWithChildren,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -114,28 +115,6 @@ const LayerItem: FC<LayerItemProps> = ({
     renderTemplate();
   };
 
-  const handleOnKeyUp = (e: KeyboardEvent<HTMLDivElement>) => {
-    const target = e.currentTarget;
-
-    const isExitKey = e.key === 'Enter' || e.key === 'Escape';
-
-    if (!target || !isExitKey) {
-      return;
-    }
-
-    setDisplayName(target);
-  };
-
-  const handleOnBlur = (e: FocusEvent<HTMLDivElement>) => {
-    const target = e.currentTarget;
-
-    if (!target) {
-      return;
-    }
-
-    setDisplayName(target);
-  };
-
   const handleDelete = () => {
     const newSchema = removeComponent({ schema, path: id });
 
@@ -172,7 +151,7 @@ const LayerItem: FC<LayerItemProps> = ({
       )}"]`
     );
 
-    grid?.classList[type]('border-2', 'border-violet-900');
+    grid?.classList[type]('border-4', 'border-violet-900');
   };
 
   return (
@@ -196,8 +175,8 @@ const LayerItem: FC<LayerItemProps> = ({
             data-layer-item
             className="truncate overflow-hidden empty:bg-red-100 min-h-[10px] min-w-[20px] max-w-[140px]"
             onDoubleClick={handleDoubleClick}
-            onKeyUp={handleOnKeyUp}
-            onBlur={handleOnBlur}
+            onKeyUp={handleOnEscapeOrEnter((target) => setDisplayName(target))}
+            onBlur={handleOnBlur(setDisplayName)}
           >
             {label}
           </div>
