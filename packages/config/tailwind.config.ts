@@ -45,6 +45,7 @@ const tailwindConfig: Config = {
     '../../packages/template-engine/**/*.{js,ts,jsx,tsx,mdx,json}',
     '../../packages/templates/**/*.{js,ts,jsx,tsx,mdx,json}',
     '../../packages/ui/**/*.{js,ts,jsx,tsx,mdx,json}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/views/**/*.{js,ts,jsx,tsx,mdx}',
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/utils/**/*.{js,ts,jsx,tsx,mdx}',

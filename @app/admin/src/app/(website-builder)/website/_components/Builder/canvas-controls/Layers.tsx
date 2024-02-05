@@ -3,7 +3,7 @@ import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import handleOnBlur from '@admin/utils/handleOnBlur';
 import handleOnEscapeOrEnter from '@admin/utils/handleOnEscapeOrEnter';
-import { selectTextContent } from '@admin/utils/selections';
+import { selectTextContent } from '@admin/utils/textSelections';
 import {
   DATA_CANVAS_OVERLAY_HIGHLIGHT,
   DATA_LAYER_ITEM,

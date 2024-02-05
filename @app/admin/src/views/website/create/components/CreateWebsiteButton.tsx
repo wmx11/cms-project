@@ -1,7 +1,6 @@
 'use client';
 import { PROJECT_URL } from '@cms/template-engine/constants';
 import {
-  Button,
   Input,
   Modal,
   ModalBody,
@@ -16,6 +15,7 @@ import slugify from 'slugify';
 import createWebsiteAction from '../../../../app/(website-builder)/website/_actions/createWebsiteAction';
 import useErrorMessage from '../../../../hooks/useErrorMessage';
 import routes from '../../../../utils/routes';
+import { Button } from '@cms/ui/components/Button';
 
 type Props = {
   templateId: string;
@@ -54,7 +54,7 @@ const CreateWebsiteButton = ({ templateId }: Props) => {
 
   return (
     <>
-      <Button color="primary" onPress={onOpen} fullWidth>
+      <Button color="primary" onClick={onOpen} className="w-full">
         Use Template
       </Button>
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} backdrop="blur">

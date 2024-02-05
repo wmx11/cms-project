@@ -1,7 +1,7 @@
-import { Card, CardBody, CardFooter } from '@nextui-org/card';
 import { Template } from '@prisma/client';
 import CreateWebsiteButton from './components/CreateWebsiteButton';
 import PageWithHeader from '../../../components/Layout/PageWithHeader';
+import { Card, CardContent, CardFooter } from '@cms/ui/components/Card';
 
 type Props = {
   templates: Template[];
@@ -18,11 +18,11 @@ const Create = ({ templates }: Props) => {
         {templates.map((template, index) => {
           return (
             <Card key={`template_${index}`}>
-              <CardBody>
+              <CardContent>
                 <p>{template.name}</p>
                 <p>{template.description}</p>
                 <p>{template.category}</p>
-              </CardBody>
+              </CardContent>
               <CardFooter>
                 <CreateWebsiteButton templateId={template.id} />
               </CardFooter>

@@ -11,6 +11,9 @@ type SchemaCategory =
   | 'custom'
   | 'media';
 
+/**
+ * Possible categories of templates
+ */
 type TemplateCategory =
   | 'profile'
   | 'landing'
@@ -24,11 +27,13 @@ type NumberProps = { type: 'number'; value: string };
 
 type ComponentProps = { type: 'component'; value: Schema[] };
 
+type BooleanProps = { type: 'boolean'; value: boolean };
+
 export type Props = {
   name: 'children' | 'className' | string;
   displayName?: string | undefined;
   description?: string | undefined;
-} & (StringProps | NumberProps | ComponentProps);
+} & (StringProps | NumberProps | ComponentProps | BooleanProps);
 
 /**
  * Indicates whether the element is editable and will be contenteditable=true in the builder

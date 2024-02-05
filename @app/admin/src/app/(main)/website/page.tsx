@@ -28,8 +28,8 @@ const page = async () => {
   });
 
   return (
-    <PageWithHeader title="My websites">
-      <div className="grid grid-cols-4 gap-4">
+    <PageWithHeader>
+      <div className="grid grid-cols-5 gap-8">
         {websites.map((item, index) => {
           return (
             <Card key={`website_${index}`}>
