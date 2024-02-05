@@ -67,7 +67,7 @@ const BuilderCanvas = () => {
       className={`bg-zinc-100 min-h-screen px-3 pb-2 pt-12 mt-[47px] relative flex items-center justify-center`}
     >
       <div
-        className="flex"
+        className="flex transition-[scale] duration-100 ease-out"
         style={{ transformOrigin: '50% top', scale: canvasScale }}
       >
         <div
@@ -75,7 +75,7 @@ const BuilderCanvas = () => {
           data-tg-theme-name
           data-canvas
           ref={canvasRef}
-          className="canvas min-h-screen shadow-md relative transition tg-wrapper"
+          className="canvas min-h-screen shadow-md relative transition-[width,color,background-color,background] duration-100 ease-out tg-wrapper"
           style={{
             width:
               breakpoint !== BREAKPOINT_DEFAULT

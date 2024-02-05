@@ -18,7 +18,7 @@ export interface ActionSlice {
 const createActionSlice: StateCreator<ActionSlice> = (set, get) => ({
   isCommandOpen: false,
   isContextMenuOpen: false,
-  showGrid: true,
+  showGrid: false,
   canvasScale: 1,
   isScaling: false,
   setIsCommandOpen: (isCommandOpen: boolean) => set(() => ({ isCommandOpen })),
