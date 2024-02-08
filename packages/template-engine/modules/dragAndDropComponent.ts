@@ -4,12 +4,12 @@ import { getComponentChildrenArray } from './getComponentChildrenArray';
 import getPathArray, { getIndexFromPathArray } from './getPathArray';
 import traverseComponentsTree from './traverseComponentsTree';
 
-type DragAndDropComponentProps = {
+interface DragAndDropComponentProps {
   schema: Schema[];
   selectedComponentPath: string;
   targetComponentPath: string;
   insertPosition: 'beforeend' | 'afterbegin' | 'afterend' | 'beforebegin';
-};
+}
 
 const dragAndDropComponent = (props: DragAndDropComponentProps) => {
   if (!props.schema) {

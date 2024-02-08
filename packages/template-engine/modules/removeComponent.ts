@@ -2,10 +2,10 @@ import { Schema } from '../types';
 import getPathArray, { checkTopLevel } from './getPathArray';
 import traverseComponentsTree from './traverseComponentsTree';
 
-type RemoveComponentProps = {
+interface RemoveComponentProps {
   schema: Schema[];
   path: string;
-};
+}
 
 const removeComponent = (props: RemoveComponentProps) => {
   if (!props.schema) {

@@ -1,11 +1,11 @@
 import { Schema } from '../types';
 import traverseComponentsTree from './traverseComponentsTree';
 
-type AddComponentProps = {
+interface AddComponentProps {
   schema: Schema[];
   componentSchema: Schema;
   path?: string;
-};
+}
 
 const addComponent = (props: AddComponentProps) => {
   if (!props.componentSchema) {

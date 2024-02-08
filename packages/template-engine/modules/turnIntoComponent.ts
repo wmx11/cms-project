@@ -7,12 +7,6 @@ import getPathArray, {
 } from './getPathArray';
 import traverseComponentsTree from './traverseComponentsTree';
 
-type TurnIntoComponentProps = {
-  schema: Schema[];
-  newComponent: Component;
-  path: string;
-};
-
 const mapSelectedComponentPropsToComponentSchema = (
   selectedComponent: Schema,
   newComponent: Schema
@@ -32,6 +26,12 @@ const mapSelectedComponentPropsToComponentSchema = (
 
   return mappedComponent;
 };
+
+interface TurnIntoComponentProps {
+  schema: Schema[];
+  newComponent: Component;
+  path: string;
+}
 
 const turnIntoComponent = (props: TurnIntoComponentProps) => {
   if (!props.schema) {

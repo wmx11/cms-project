@@ -7,10 +7,10 @@ import getPathArray, {
 } from './getPathArray';
 import traverseComponentsTree from './traverseComponentsTree';
 
-type DuplicateComponentProps = {
+interface DuplicateComponentProps {
   schema: Schema[];
   path: string;
-};
+}
 
 const duplicateComponent = (props: DuplicateComponentProps) => {
   if (!props.schema) {

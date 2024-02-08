@@ -13,7 +13,7 @@ const inter = Roboto({
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html>
-      <body className={`${inter.className}`}>
+      <body className={`overflow-hidden ${inter.className}`}>
         <main>
           <Providers>{children}</Providers>
           <Toaster />

@@ -14,14 +14,6 @@ import { Props, Schema } from '../types';
 import generatePath from './generatePath';
 import importComponent from './importComponent';
 
-interface SerializeSchemaProps {
-  schema: Schema[];
-  templateId: string;
-  componentsArray?: React.ReactElement[];
-  serializeForBuilder?: boolean;
-  path?: string;
-}
-
 interface SerializeComponentForBuilderProps {
   componentNode: React.ReactElement;
   path: string;
@@ -61,6 +53,14 @@ const serializeComponentForBuilder = (
 
   return componentNodeCopy;
 };
+
+interface SerializeSchemaProps {
+  schema: Schema[];
+  templateId: string;
+  componentsArray?: React.ReactElement[];
+  serializeForBuilder?: boolean;
+  path?: string;
+}
 
 const serializeSchema = async (props: SerializeSchemaProps) => {
   const {

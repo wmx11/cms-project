@@ -1,7 +1,7 @@
 import {
   StylesObjectWithBreakpoints,
   initialStyles,
-} from '@admin/store/slices/createStylesSlice';
+} from '@cms/packages/template-engine/styles/jssStyles';
 import {
   BREAKPOINTS_MAP,
   BUILDER_DATA_THEME_NAME,
@@ -16,6 +16,7 @@ import {
   ThemeNames,
   ThemeTypes,
 } from '@cms/template-engine/themes';
+import removeStylesModule from '@cms/template-engine/modules/removeStyles';
 import { produce } from 'immer';
 
 const useStyles = () => {
@@ -245,7 +246,38 @@ const useStyles = () => {
     renderTemplate(schema);
   };
 
-  const removeStyles = () => {};
+  const removeStyles = (rule?: string) => {
+    const newStyles = removeStylesModule({
+      path: selectedComonentPath,
+      stylesObject: styles,
+      breakpoints: BREAKPOINTS_MAP,
+      rule,
+    });
+
+    if (!newStyles) {
+      return;
+    }
+
+    setStyles(newStyles.updatedStyles);
+
+    for (const breakpoint of newStyles.updatedBreakpoints) {
+      if (!breakpoint) {
+        continue;
+      }
+
+      const entry = newStyles.updatedStyles[
+        breakpoint
+      ] as StylesObjectWithBreakpoints;
+
+      if (!entry) {
+        continue;
+      }
+
+      styleSheet?.replaceRule(breakpoint, entry);
+    }
+
+    setDocumentCSS();
+  };
 
   const purgeStyles = () => {
     setStyles(initialStyles);
@@ -255,6 +287,7 @@ const useStyles = () => {
     applyStyles,
     getActiveStyles,
     purgeStyles,
+    removeStyles,
     applyTheme,
     getActiveTheme,
     getDocumentTheme,

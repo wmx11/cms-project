@@ -1,12 +1,6 @@
 import { Schema } from '../types';
 import getPathArray, { checkTopLevel } from './getPathArray';
 
-type TraverseComponentsTreeProps = {
-  schema: Schema[];
-  path: string;
-  returnParent?: boolean;
-};
-
 const getIndexType = (index: string) => {
   const parsedIndex = parseInt(index, 10);
   const isIndexNumber = !isNaN(parsedIndex);
@@ -25,6 +19,12 @@ const getParentPath = (path: string) => {
   const parentPath = isTopLevel ? pathArray : pathArray.slice(0, -2);
   return parentPath;
 };
+
+interface TraverseComponentsTreeProps {
+  schema: Schema[];
+  path: string;
+  returnParent?: boolean;
+}
 
 const traverseComponentsTree = (
   props: TraverseComponentsTreeProps

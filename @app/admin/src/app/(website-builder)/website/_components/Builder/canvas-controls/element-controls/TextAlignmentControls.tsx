@@ -9,7 +9,7 @@ import {
 import Button from '../../ui/Button';
 
 const TextAlignmentControls = () => {
-  const { applyStyles, getActiveStyles } = useStyles();
+  const { applyStyles, removeStyles, getActiveStyles } = useStyles();
 
   const activeStyles = getActiveStyles<{ 'text-align': string }>('text-align');
 
@@ -20,6 +20,13 @@ const TextAlignmentControls = () => {
 
   return (
     <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border gap-1">
+      <Button
+        onClick={() => {
+          removeStyles();
+        }}
+      >
+        Reset
+      </Button>
       <Button
         variant={getActiveButtonVariant('left', activeStyles?.['text-align'])}
         icon={<TextAlignLeft />}

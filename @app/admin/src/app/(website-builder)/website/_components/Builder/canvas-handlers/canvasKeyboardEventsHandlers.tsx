@@ -12,9 +12,19 @@ import {
 } from '@cms/template-engine/constants';
 import duplicateComponent from '@cms/template-engine/modules/duplicateComponent';
 import removeComponent from '@cms/template-engine/modules/removeComponent';
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 
-export const useKeyboardEvents = () => {
+interface UseKeyboardEventsProps {
+  canvasWrapperRef: RefObject<HTMLDivElement>;
+  canvasRef: RefObject<HTMLDivElement>;
+  canvasBackgroundRef: RefObject<HTMLDivElement>;
+}
+
+export const useKeyboardEvents = ({
+  canvasRef,
+  canvasWrapperRef,
+  canvasBackgroundRef,
+}: UseKeyboardEventsProps) => {
   const schema = useBuilderProviderState((state) => state.schema);
   const selectedElement = useBuilderProviderState(
     (state) => state.selectedElement
@@ -36,12 +46,18 @@ export const useKeyboardEvents = () => {
     (state) => state.resetSelection
   );
 
-  const isCtrl = useRef(false);
+  const isCtrlDown = useRef(false);
+  const isMouseDown = useRef(false);
+  const isSpaceDown = useRef(false);
 
   useEffect(() => {
     const handleMouseWheelEvents = (e: WheelEvent) => {
-      if (!isCtrl.current) {
+      if (!isCtrlDown.current) {
         return;
+      }
+
+      if (canvasRef.current) {
+        canvasRef.current.style.translate = `${e.x / 2}px ${e.y / 2}px`;
       }
 
       e.preventDefault();
@@ -54,12 +70,20 @@ export const useKeyboardEvents = () => {
     };
 
     const handleKeyUpEvents = (e: KeyboardEvent) => {
-      if (e.key === 'Control') {
-        isCtrl.current = false;
+      switch (e.key) {
+        case 'Control':
+          isCtrlDown.current = false;
+          break;
+        case ' ':
+          isSpaceDown.current = false;
+          isMouseDown.current = false;
+          break;
+        default:
+          break;
       }
     };
 
-    const handleKeyboardEvents = (e: KeyboardEvent) => {
+    const handleKeyDownEvents = (e: KeyboardEvent) => {
       switch (e.key) {
         case KEY_DELETE_ELEMENT:
           const newSchema = removeComponent({
@@ -80,6 +104,18 @@ export const useKeyboardEvents = () => {
           resetSelection();
           break;
 
+        case ' ':
+          if (isSpaceDown.current && isMouseDown.current) {
+            e.preventDefault();
+            if (!canvasRef.current) {
+              return;
+            }
+            canvasRef.current.style.pointerEvents = 'none';
+            canvasRef.current.style.userSelect = 'none';
+          }
+
+          isSpaceDown.current = true;
+          break;
         default:
           break;
       }
@@ -88,8 +124,8 @@ export const useKeyboardEvents = () => {
         return;
       }
 
-      if (!isCtrl.current) {
-        isCtrl.current = true;
+      if (!isCtrlDown.current) {
+        isCtrlDown.current = true;
       }
 
       switch (e.key) {
@@ -130,13 +166,65 @@ export const useKeyboardEvents = () => {
       }
     };
 
-    document.addEventListener('keydown', handleKeyboardEvents);
+    const handleMouseDown = (e: MouseEvent) => {
+      if (!isMouseDown.current) {
+        isMouseDown.current = true;
+        return;
+      }
+
+      if (!canvasWrapperRef.current || !canvasRef.current) {
+        return;
+      }
+      
+      canvasWrapperRef.current.style.cursor = 'grabbing';
+    };
+
+    const handleMouseUp = (e: MouseEvent) => {
+      if (isMouseDown.current) {
+        isMouseDown.current = false;
+
+        if (!canvasWrapperRef.current || !canvasRef.current) {
+          return;
+        }
+        canvasRef.current.style.pointerEvents = 'auto';
+        canvasRef.current.style.userSelect = 'auto';
+        canvasWrapperRef.current.style.cursor = 'auto';
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isMouseDown.current && isSpaceDown.current) {
+        e.preventDefault();
+
+        if (!canvasWrapperRef.current) {
+          return;
+        }
+        canvasWrapperRef.current.style.transformOrigin = `${e.x}px ${e.y}px`;
+      }
+    };
+
+    canvasBackgroundRef.current?.addEventListener('mousedown', handleMouseDown);
+    canvasBackgroundRef.current?.addEventListener('mouseup', handleMouseUp);
+    canvasBackgroundRef.current?.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('keydown', handleKeyDownEvents);
     document.addEventListener('keyup', handleKeyUpEvents);
     window.addEventListener('wheel', handleMouseWheelEvents, {
       passive: false,
     });
     return () => {
-      document.removeEventListener('keydown', handleKeyboardEvents);
+      canvasBackgroundRef.current?.removeEventListener(
+        'mousedown',
+        handleMouseDown
+      );
+      canvasBackgroundRef.current?.removeEventListener(
+        'mouseup',
+        handleMouseUp
+      );
+      canvasBackgroundRef.current?.removeEventListener(
+        'mousemove',
+        handleMouseMove
+      );
+      document.removeEventListener('keydown', handleKeyDownEvents);
       document.removeEventListener('keyup', handleKeyUpEvents);
       window.removeEventListener('wheel', handleMouseWheelEvents);
     };

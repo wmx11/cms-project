@@ -89,6 +89,9 @@ importers:
       framer-motion:
         specifier: ^10.16.4
         version: 10.16.4(react-dom@18.2.0)(react@18.2.0)
+      immer:
+        specifier: ^10.0.3
+        version: 10.0.3
       jss:
         specifier: ^10.10.0
         version: 10.10.0
@@ -175,7 +178,7 @@ importers:
         version: 3.22.2
       zustand:
         specifier: ^4.4.3
-        version: 4.4.3(@types/react@18.2.21)(react@18.2.0)
+        version: 4.4.3(@types/react@18.2.21)(immer@10.0.3)(react@18.2.0)
     devDependencies:
       '@prisma/client':
         specifier: ^5.3.1
@@ -189,9 +192,6 @@ importers:
 
   '@app/admin':
     dependencies:
-      immer:
-        specifier: ^10.0.3
-        version: 10.0.3
       sass:
         specifier: ^1.69.5
         version: 1.69.5
@@ -7105,7 +7105,7 @@ packages:
     resolution: {integrity: sha512-wvWkphh5WQsJbVk1tbx1l1Ly4yg+XecD+Mq280uBGt9wa5BKSWf4Mhp6GmrkPixhMxmabYY7RbzlwVP32pbGCg==}
     dev: false
 
-  /zustand@4.4.3(@types/react@18.2.21)(react@18.2.0):
+  /zustand@4.4.3(@types/react@18.2.21)(immer@10.0.3)(react@18.2.0):
     resolution: {integrity: sha512-oRy+X3ZazZvLfmv6viIaQmtLOMeij1noakIsK/Y47PWYhT8glfXzQ4j0YcP5i0P0qI1A4rIB//SGROGyZhx91A==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -7121,6 +7121,7 @@ packages:
         optional: true
     dependencies:
       '@types/react': 18.2.21
+      immer: 10.0.3
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false

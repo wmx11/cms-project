@@ -29,12 +29,14 @@ const BuilderCanvas = () => {
 
   const isStyleSheetSet = useRef(false);
   const canvasRef = useRef<HTMLDivElement>(null);
-  const canvasOverlayRef = useRef<HTMLDivElement>(null);
+  const canvasWrapperRef = useRef<HTMLDivElement>(null);
+  const canvasBackgroundRef = useRef<HTMLDivElement>(null);
+  // const canvasOverlayRef = useRef<HTMLDivElement>(null);
   const canvasOverlayHighlightHoverRef = useRef<HTMLDivElement>(null);
   const canvasOverlayLabelRef = useRef<HTMLDivElement>(null);
 
   // Initialize keyboard event handler
-  useKeyboardEvents();
+  useKeyboardEvents({ canvasWrapperRef, canvasRef, canvasBackgroundRef });
   useEditableContentControls();
 
   // Initialize styles handler
@@ -65,10 +67,12 @@ const BuilderCanvas = () => {
   return (
     <div
       className={`bg-zinc-100 min-h-screen px-3 pb-2 pt-12 mt-[47px] relative flex items-center justify-center`}
+      ref={canvasBackgroundRef}
     >
       <div
         className="flex transition-[scale] duration-100 ease-out"
-        style={{ transformOrigin: '50% top', scale: canvasScale }}
+        style={{ transformOrigin: '50% 0', scale: canvasScale }}
+        ref={canvasWrapperRef}
       >
         <div
           data-tg-theme-type="light"
