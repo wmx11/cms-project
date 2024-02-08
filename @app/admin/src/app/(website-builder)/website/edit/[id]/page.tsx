@@ -1,7 +1,7 @@
 import { getComponentsByWebsiteId } from '@cms/packages/data/component/getters';
 import { getWebsiteDraftSchemaByWebsiteId } from '@cms/packages/data/website/getters';
 import BuilderPage from '../../_components/Builder/BuilderPage';
-import { initialStyles } from '@admin/store/slices/createStylesSlice';
+import { initialStyles } from '@cms/template-engine/styles/jssStyles';
 
 interface Props {
   params: {
