@@ -5,8 +5,8 @@ import {
   TabsList,
   TabsTrigger,
 } from '@cms/ui/components/Tabs';
-import Layers from './canvas-controls/Layers';
-import StyleControls from './canvas-controls/StyleControls';
+import Layers from './canvas-controls/layers/Layers';
+import StyleControls from './canvas-controls/style-controls/StyleControls';
 
 const BuilderSidebar = () => {
   return (

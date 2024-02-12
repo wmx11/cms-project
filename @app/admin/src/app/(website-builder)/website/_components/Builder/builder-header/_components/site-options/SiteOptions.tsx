@@ -5,6 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuSub,
@@ -36,7 +37,6 @@ const SiteOptions = () => {
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
           <DropdownMenuItem onSelect={() => router.back()}>
-            <ArrowLeft className={ICON_STYLES} />
             <span>Back to files</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -56,7 +56,8 @@ const SiteOptions = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem asChild>
+          <DropdownMenuLabel>Danger zone</DropdownMenuLabel>
+          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
             <PurgeStylesButton />
           </DropdownMenuItem>
           <DropdownMenuItem>

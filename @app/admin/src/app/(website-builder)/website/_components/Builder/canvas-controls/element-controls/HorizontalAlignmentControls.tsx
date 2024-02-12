@@ -7,7 +7,7 @@ import {
   ItemsAlignLeft,
   ItemsAlignRight,
 } from '@cms/packages/ui/components/Icons';
-import Button from '../../ui/Button';
+import Button from '../../ui/buttons/Button';
 
 const HorizontalAlignmentControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();

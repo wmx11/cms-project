@@ -127,27 +127,32 @@ const BorderControls = () => {
               <SelectContent>
                 <SelectItem value="border">
                   <div className="flex gap-2 items-center">
-                    <BorderOuter className={ICON_STYLES} /> All
+                    <span>All</span>
+                    <BorderOuter className={ICON_STYLES} />
                   </div>
                 </SelectItem>
                 <SelectItem value="border-top">
                   <div className="flex gap-2 items-center">
-                    <BorderTop className={ICON_STYLES} /> Top
+                    <span>Top</span>
+                    <BorderTop className={ICON_STYLES} />
                   </div>
                 </SelectItem>
                 <SelectItem value="border-right">
                   <div className="flex gap-2 items-center">
-                    <BorderRight className={ICON_STYLES} /> Right
+                    <span>Right</span>
+                    <BorderRight className={ICON_STYLES} />
                   </div>
                 </SelectItem>
                 <SelectItem value="border-bottom">
                   <div className="flex gap-2 items-center">
-                    <BorderBottom className={ICON_STYLES} /> Bottom
+                    <span>Bottom</span>
+                    <BorderBottom className={ICON_STYLES} />
                   </div>
                 </SelectItem>
                 <SelectItem value="border-left">
                   <div className="flex gap-2 items-center">
-                    <BorderLeft className={ICON_STYLES} /> Left
+                    <span>Left</span>
+                    <BorderLeft className={ICON_STYLES} />
                   </div>
                 </SelectItem>
               </SelectContent>
@@ -169,6 +174,7 @@ const BorderControls = () => {
     <div className="flex gap-2 items-end">
       <div>{controls}</div>
       <div className="flex-1">
+        <div></div>
         <Input
           readOnly
           type="text"

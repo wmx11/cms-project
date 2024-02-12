@@ -10,28 +10,15 @@ import {
   DATA_TARGET_ID,
   LAYOUT_TYPE,
 } from '@cms/template-engine/constants';
-import generatePath from '@cms/template-engine/modules/generatePath';
 import removeComponent from '@cms/template-engine/modules/removeComponent';
 import traverseComponentsTree from '@cms/template-engine/modules/traverseComponentsTree';
-import { Schema } from '@cms/template-engine/types';
-import { Button } from '@cms/ui/components/Button';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@cms/ui/components/Collapsible';
-import { ChevronDown, Eye, EyeSlash, Trash } from '@cms/ui/components/Icons';
-import React, {
-  FC,
-  MouseEvent,
-  PropsWithChildren,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { twMerge } from 'tailwind-merge';
+import Button from '../../ui/buttons/Button';
+import { Eye, EyeSlash, Trash } from '@cms/ui/components/Icons';
+import RemoveStylesButton from '../../ui/buttons/RemoveStylesButton';
 
-interface LayerItemProps {
+export interface LayerItemProps {
   label: string;
   id: string;
   className?: string;
@@ -127,16 +114,27 @@ const LayerItem: FC<LayerItemProps> = ({
 
   const handleVisibility = () => {
     const activeStyles = getActiveStyles('display', id);
+
     const activeLayoutType = getActiveStyles<{ [LAYOUT_TYPE]: string }>(
       LAYOUT_TYPE,
       id
     );
+
+    const getDisplay = () => {
+      if (activeStyles?.display !== 'none') {
+        return 'none';
+      }
+
+      if (activeLayoutType?.[LAYOUT_TYPE]) {
+        return activeLayoutType?.[LAYOUT_TYPE];
+      }
+
+      return 'block';
+    };
+
     applyStyles(
       {
-        display:
-          activeStyles?.display !== 'none'
-            ? 'none'
-            : activeLayoutType?.[LAYOUT_TYPE] || 'block',
+        display: getDisplay(),
       },
       id
     );
@@ -173,7 +171,7 @@ const LayerItem: FC<LayerItemProps> = ({
         <div data-layer-item className="flex-1 w-full h-full">
           <div
             data-layer-item
-            className="truncate overflow-hidden empty:bg-red-100 min-h-[10px] min-w-[20px] max-w-[140px]"
+            className="truncate overflow-hidden empty:bg-red-100 min-h-[10px] min-w-[20px] max-w-[120px]"
             onDoubleClick={handleDoubleClick}
             onKeyUp={handleOnEscapeOrEnter((target) => setDisplayName(target))}
             onBlur={handleOnBlur(setDisplayName)}
@@ -184,10 +182,11 @@ const LayerItem: FC<LayerItemProps> = ({
       </div>
       <div
         className={twMerge(
-          'space-x-2 hidden group-hover:block',
+          'space-x-1 hidden group-hover:block',
           selectedComonentPath === id && 'block'
         )}
       >
+        <RemoveStylesButton />
         <Button variant="outline" size="xs" onClick={handleDelete}>
           <Trash />
         </Button>
@@ -199,126 +198,4 @@ const LayerItem: FC<LayerItemProps> = ({
   );
 };
 
-interface LayerGroupProps extends PropsWithChildren, LayerItemProps {}
-
-const LayerGroup: FC<LayerGroupProps> = ({
-  id,
-  label,
-  children,
-  className,
-}) => {
-  const [isOpen, setIsOpen] = useState(true);
-
-  return (
-    <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <div className={twMerge('flex items-center w-full', className)}>
-        <div className="flex-grow">
-          <LayerItem
-            id={id}
-            label={label}
-            className="font-bold bg-secondary"
-            startContent={
-              <CollapsibleTrigger>
-                <ChevronDown
-                  className={`transition-transform ${
-                    isOpen ? 'rotate-180' : ''
-                  }`}
-                />
-              </CollapsibleTrigger>
-            }
-          />
-        </div>
-      </div>
-      <CollapsibleContent
-        data-accepts-children="true"
-        className="relative pl-2 bg-secondary/50"
-      >
-        {children}
-      </CollapsibleContent>
-    </Collapsible>
-  );
-};
-
-const Layers = () => {
-  const selectedComonentPath = useBuilderProviderState(
-    (state) => state.selectedComonentPath
-  );
-
-  const schema = useBuilderProviderState((state) => state.schema);
-
-  useEffect(() => {
-    const layerItem = document.querySelector(
-      `[${DATA_LAYER_ITEM}][${DATA_TARGET_ID}="${selectedComonentPath}"]`
-    );
-
-    if (layerItem) {
-      layerItem.scrollIntoView({ block: 'nearest' });
-    }
-  }, [selectedComonentPath]);
-
-  if (!schema) {
-    return null;
-  }
-
-  interface RenderLayersProps {
-    schema: Schema[];
-    isChild: boolean;
-    path: string | null;
-  }
-
-  const renderLayers = () => {
-    const render = ({ isChild, path, schema }: RenderLayersProps) => {
-      const layers = [];
-
-      for (const [index, item] of schema?.entries()) {
-        const children = item.props.find((item) => item.type === 'component');
-
-        const _path = generatePath(path || '', index, item);
-
-        const label =
-          item?.displayName ||
-          (item.props
-            .find((item) => item.name === 'children' && item.type === 'string')
-            ?.value?.toString()
-            .substring(0, 50) as string) ||
-          item.component;
-
-        if (children) {
-          const childrenArray = render({
-            schema: children.value as Schema[],
-            isChild: true,
-            path: _path,
-          });
-
-          const layerGroup = (
-            <LayerGroup
-              label={label}
-              id={_path}
-              className={isChild ? 'pl-2' : 'border-b'}
-            >
-              {childrenArray}
-            </LayerGroup>
-          );
-
-          layers.push(layerGroup);
-        } else {
-          const layerItem = (
-            <LayerItem label={label} id={_path} className="pl-8"></LayerItem>
-          );
-
-          layers.push(layerItem);
-        }
-      }
-
-      return layers;
-    };
-
-    return render({ schema: schema, isChild: false, path: null });
-  };
-
-  const layers = renderLayers();
-
-  return <div>{layers}</div>;
-};
-
-export default Layers;
+export default LayerItem;

@@ -6,7 +6,7 @@ import {
   ItemsAlignCenterVertical,
   ItemsAlignTop,
 } from '@cms/packages/ui/components/Icons';
-import Button from '../../ui/Button';
+import Button from '../../ui/buttons/Button';
 
 const VerticalAlignmentControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();

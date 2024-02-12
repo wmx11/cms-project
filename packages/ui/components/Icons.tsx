@@ -54,6 +54,7 @@ import {
   TbBorderLeft,
   TbBorderRight,
   TbBorderTop,
+  TbPaintOff
 } from 'react-icons/tb';
 import { BsBorderStyle } from 'react-icons/bs';
 
@@ -90,6 +91,7 @@ export const DesignIcon = MdDesignServices;
 export const Heading = FaHeading;
 export const Blur = MdBlurOn;
 export const ColorPalette = IoMdColorPalette;
+export const RemoveStylesIcon = TbPaintOff;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;
