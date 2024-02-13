@@ -17,6 +17,7 @@ import { twMerge } from 'tailwind-merge';
 import Button from '../../ui/buttons/Button';
 import { Eye, EyeSlash, Trash } from '@cms/ui/components/Icons';
 import RemoveStylesButton from '../../ui/buttons/RemoveStylesButton';
+import DefaultTooltip from '@admin/components/DefaultTooltip';
 
 export interface LayerItemProps {
   label: string;
@@ -187,12 +188,16 @@ const LayerItem: FC<LayerItemProps> = ({
         )}
       >
         <RemoveStylesButton />
-        <Button variant="outline" size="xs" onClick={handleDelete}>
-          <Trash />
-        </Button>
-        <Button variant="outline" size="xs" onClick={handleVisibility}>
-          {visibilityStyles?.display === 'none' ? <EyeSlash /> : <Eye />}
-        </Button>
+        <DefaultTooltip content="Remove component">
+          <Button variant="outline" size="xs" onClick={handleDelete}>
+            <Trash />
+          </Button>
+        </DefaultTooltip>
+        <DefaultTooltip content="Hide component for the current breakpoint (display: none;)">
+          <Button variant="outline" size="xs" onClick={handleVisibility}>
+            {visibilityStyles?.display === 'none' ? <EyeSlash /> : <Eye />}
+          </Button>
+        </DefaultTooltip>
       </div>
     </div>
   );

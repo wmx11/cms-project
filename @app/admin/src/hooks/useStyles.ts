@@ -180,7 +180,7 @@ const useStyles = () => {
     return styles['@global'][':root'][THEME_NAME_VAR] as ThemeNames;
   };
 
-  const setDocumentCSS = () => {
+  const setDocumentCSS = (styles?: string) => {
     const stylesElement = document.querySelector(
       `[${BUILDER_STYLES_META_TAG_SELECTOR}]`
     );
@@ -189,7 +189,7 @@ const useStyles = () => {
       return;
     }
 
-    stylesElement.innerHTML = styleSheet.toString();
+    stylesElement.innerHTML = styles ?? styleSheet.toString();
   };
 
   const setDocumentTheme = (name: string, type: string) => {
@@ -281,6 +281,7 @@ const useStyles = () => {
 
   const purgeStyles = () => {
     setStyles(initialStyles);
+    setDocumentCSS('');
   };
 
   return {

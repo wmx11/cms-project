@@ -19,7 +19,7 @@ const TextAlignmentControls = () => {
   };
 
   return (
-    <div className="flex flex-wrap [&>*]:flex-1 [&>*]:border gap-1">
+    <div className="flex flex-wrap [&>*]:flex-1 gap-1">
       <Button
         variant={getActiveButtonVariant('left', activeStyles?.['text-align'])}
         icon={<TextAlignLeft />}

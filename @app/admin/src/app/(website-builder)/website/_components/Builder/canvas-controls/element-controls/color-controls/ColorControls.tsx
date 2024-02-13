@@ -14,6 +14,7 @@ import BackgroundImageController from './BackgroundImageController';
 import ColorPicker from './ColorPicker';
 import { ColorControlsProps } from '../types';
 import Input from '../../../ui/Input';
+import RemoveStylesButton from '../../../ui/buttons/RemoveStylesButton';
 
 export const initialBackgroundState = {
   attachment: null,
@@ -92,12 +93,16 @@ const ColorControls: FC<ColorControlsProps> = (props) => {
           )}
         </Tabs>
       </ControlsPopover>
-      <div className="flex-1">
+      <div className="flex items-end gap-2 flex-1">
         <Input
           id={`colorPicker${props.type}`}
           label={props.label || 'Color'}
           value={hexValue}
           readOnly
+        />
+        <RemoveStylesButton
+          styleProp={props.type}
+          tooltip={`Remove ${props.label}`}
         />
       </div>
     </div>

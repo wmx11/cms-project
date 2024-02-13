@@ -6,13 +6,13 @@ import useStyles from '@admin/hooks/useStyles';
 import DefaultTooltip from '@admin/components/DefaultTooltip';
 
 interface RemoveStylesButtonProps extends PropsWithChildren {
-  style?: string;
+  styleProp?: string;
   tooltip?: string;
 }
 
 const RemoveStylesButton: FC<RemoveStylesButtonProps> = ({
   children,
-  style,
+  styleProp,
   tooltip,
 }) => {
   const { removeStyles } = useStyles();
@@ -32,7 +32,7 @@ const RemoveStylesButton: FC<RemoveStylesButtonProps> = ({
       <Button
         size="xs"
         variant="outline"
-        onClick={() => handleClick(style)}
+        onClick={() => handleClick(styleProp)}
         {...buttonDisplay}
       />
     </DefaultTooltip>

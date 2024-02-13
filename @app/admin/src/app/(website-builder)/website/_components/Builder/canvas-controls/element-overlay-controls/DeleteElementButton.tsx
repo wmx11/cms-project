@@ -1,4 +1,5 @@
 'use client';
+import DefaultTooltip from '@admin/components/DefaultTooltip';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import removeComponent from '@cms/packages/template-engine/modules/removeComponent';
 import { Button } from '@cms/packages/ui/components/Button';
@@ -7,8 +8,8 @@ import Kbd from '@cms/ui/components/Kbd';
 
 const DeleteElementButton = () => {
   const schema = useBuilderProviderState((state) => state.schema);
-  const selectedElement = useBuilderProviderState(
-    (state) => state.selectedElement
+  const selectedComponent = useBuilderProviderState(
+    (state) => state.selectedComponent
   );
   const selectedComonentPath = useBuilderProviderState(
     (state) => state.selectedComonentPath
@@ -31,16 +32,22 @@ const DeleteElementButton = () => {
   };
 
   return (
-    <Button
-      variant="outline"
-      size="xs"
-      onClick={handleOnClick}
-      className="rounded-none"
+    <DefaultTooltip
+      content={`Remove ${
+        selectedComponent?.displayName ?? selectedComponent?.component
+      }`}
     >
-      <Trash className="h-3 w-3 mr-2" />
-      <span className="mr-2">Delete</span>
-      <Kbd>Del</Kbd>
-    </Button>
+      <Button
+        variant="outline"
+        size="xs"
+        onClick={handleOnClick}
+        className="rounded-none"
+      >
+        <Trash className="h-3 w-3 mr-2" />
+        <span className="mr-2">Delete</span>
+        <Kbd>Del</Kbd>
+      </Button>
+    </DefaultTooltip>
   );
 };
 
