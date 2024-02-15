@@ -18,30 +18,6 @@ const handler = NextAuth({
   events: {
     createUser: async ({ user }) => {
       try {
-        const existingProfile = await prisma.profile.findFirst({
-          where: {
-            user: {
-              email: user.email,
-            },
-          },
-        });
-
-        const existingUser = await prisma.user.findUnique({
-          where: {
-            email: user.email || '',
-          },
-          select: {
-            id: true,
-          },
-        });
-
-        if (!existingProfile && existingUser) {
-          await prisma.profile.create({
-            data: {
-              user_id: existingUser.id,
-            },
-          });
-        }
       } catch (error) {
         console.error('next_auth_createUser', error);
       }
@@ -61,28 +37,9 @@ const handler = NextAuth({
       return baseUrl;
     },
     jwt: async ({ token, account, profile }) => {
-      const user = await prisma.user.findUnique({
-        where: {
-          email: token.email || '',
-        },
-        select: {
-          profile: {
-            select: {
-              id: true,
-            },
-          },
-        },
-      });
-
-      Object.assign(token, { profileId: user?.profile?.id });
-
       return token;
     },
     session: ({ session, token, user }) => {
-      if (token && session.user) {
-        Object.assign(session.user, { profileId: token.profileId });
-      }
-
       return session;
     },
   },

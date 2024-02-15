@@ -10,150 +10,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Primary user data on the application level
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime? @map("email_verified")
-  image         String?
-  profile       Profile?
-  accounts      Account[]
-  sessions      Session[]
-  is_admin      Boolean   @default(false)
-  date_created  DateTime  @default(now())
-  date_updated  DateTime  @updatedAt
-
-  @@index([email])
-}
-
-// Profile data for the user-facing app
-model Profile {
-  id               String             @id @default(cuid())
-  article          Article[]
-  website          Website[]
-  profile_template Profile_Template[]
-  testimonial      Testimonial[]
-  user_id          String             @unique
-  user             User               @relation(fields: [user_id], references: [id])
-  date_created     DateTime           @default(now())
-  date_updated     DateTime           @updatedAt
-}
-
-// General articles / blog posts
-model Article {
-  id           String   @id @default(cuid())
-  title        String
-  slug         String   @unique
-  description  String?
-  image        String?
-  is_published Boolean  @default(false)
-  content      String?
-  profile_id   String
-  profile      Profile  @relation(fields: [profile_id], references: [id])
-  date_created DateTime @default(now())
-  date_updated DateTime @updatedAt
-}
-
-// Article shall become the Content table instead
-// model Content {}
-
-model Testimonial {
-  id           String   @id @default(cuid())
-  image        String?
-  name         String
-  email        String
-  title        String
-  rating       Int?     @default(0)
-  review       String?
-  profile_id   String?
-  profile      Profile? @relation(fields: [profile_id], references: [id])
-  date_created DateTime @default(now())
-  date_updated DateTime @updatedAt
-}
-
-// This is where components will be registered
-// And used in the page builder
-// "Component" refers to the name of the component "Paragraph", "Card", "Block"
-model Component {
-  id           String   @id @default(cuid())
-  component    String?
-  category     String?
-  description  String?
-  schema       Json?
-  template_id  String
-  template     Template @relation(fields: [template_id], references: [id])
-  date_created DateTime @default(now())
-  date_updated DateTime @updatedAt
-}
-
-// This is where templates will be registered
-// With the components registered on the platform
-// Slug refers to name of the template in the file system
-model Template {
-  id           String      @id @default(cuid())
-  name         String?
-  slug         String?     @unique
-  category     String?
-  is_published Boolean     @default(false)
-  description  String?
-  image        String?
-  component    Component[]
-  website      Website[]
-  schema       Json?
-  date_created DateTime    @default(now())
-  date_updated DateTime    @updatedAt
-}
-
-// Holds data about personalized templates users can create
-// User relations are on the Profile table
-model Profile_Template {
-  id           String   @id @default(cuid())
-  profile_id   String
-  schema       Json?
-  profile      Profile  @relation(fields: [profile_id], references: [id])
-  date_created DateTime @default(now())
-  date_updated DateTime @updatedAt
-}
-
-// Repository to store pages built by users
-// The page structure (schema) and meta data will be taken from here
-model Website {
-  id            String   @id @default(cuid())
-  alias         String   @unique
-  profile_id    String
-  template_id   String
-  is_published  Boolean  @default(false)
-  title         String?
-  description   String?
-  image         String?
-  icon          String?
-  schema        Json?
-  styles_schema Json?
-  draft_schema  Json?
-  template      Template @relation(fields: [template_id], references: [id])
-  profile       Profile  @relation(fields: [profile_id], references: [id])
-  date_created  DateTime @default(now())
-  date_updated  DateTime @updatedAt
-
-  @@index([alias])
-}
-
-// Template shall be the JSON schema of a Site
-// model Template { id            String   @id @default(cuid()) }
-
-// Site shall be the whole Website that is being built
-// model Site { id            String   @id @default(cuid()) }
-
-// Page shall be the individual page on the Site
-// model Page { id            String   @id @default(cuid()) }
-
-// Add Form support
-// model Form {}
-
 model Account {
   id                String  @id @default(cuid())
   userId            String  @map("user_id")
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   type              String
   provider          String
   providerAccountId String  @map("provider_account_id")
@@ -164,7 +24,6 @@ model Account {
   scope             String?
   id_token          String? @db.Text
   session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -183,4 +42,135 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model User {
+  id            String      @id @default(cuid())
+  email         String?     @unique
+  emailVerified DateTime?   @map("email_verified")
+  name          String?
+  image         String?
+  isAdmin       Boolean     @default(false)
+  paymentPlanId String
+  paymentPlan   PaymentPlan @relation(fields: [paymentPlanId], references: [id], onUpdate: Cascade)
+  accounts      Account[]
+  sessions      Session[]
+  site          Site[]
+  date_created  DateTime    @default(now())
+  date_updated  DateTime    @updatedAt
+}
+
+model Site {
+  id             String       @id @default(cuid())
+  alias          String       @unique
+  domain         String?
+  published      Boolean      @default(false)
+  userId         String
+  componentId    String
+  sitePageDataId String
+  siteAssetId    String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  component      Component    @relation(fields: [componentId], references: [id])
+  sitePageData   SitePageData @relation(fields: [sitePageDataId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  asset          SiteAsset    @relation(fields: [siteAssetId], references: [id], onDelete: Cascade)
+  page           Page[]
+  date_created   DateTime     @default(now())
+  date_updated   DateTime     @updatedAt
+
+  @@index([alias])
+}
+
+model Page {
+  id             String       @id @default(cuid())
+  alias          String
+  published      Boolean      @default(false)
+  siteId         String
+  sitePageDataId String
+  site           Site         @relation(fields: [siteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  sitePageData   SitePageData @relation(fields: [sitePageDataId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  date_created   DateTime     @default(now())
+  date_updated   DateTime     @updatedAt
+}
+
+model SitePageData {
+  id               String         @id @default(cuid())
+  title            String?
+  description      String?
+  image            String?
+  icon             String?
+  sitePageSchemaId String
+  sitePageSchema   SitePageSchema @relation(fields: [sitePageSchemaId], references: [id], onUpdate: Cascade)
+  site             Site[]
+  page             Page[]
+  date_created     DateTime       @default(now())
+  date_updated     DateTime       @updatedAt
+}
+
+model SitePageSchema {
+  id            String         @id @default(cuid())
+  schema        Json
+  styles_schema Json
+  sitePageData  SitePageData[]
+  date_created  DateTime       @default(now())
+  date_updated  DateTime       @updatedAt
+}
+
+model Component {
+  id           String   @id @default(cuid())
+  name         String
+  alias        String   @unique
+  description  String
+  schema       Json
+  site         Site[]
+  date_created DateTime @default(now())
+  date_updated DateTime @updatedAt
+}
+
+model Template {
+  id            String   @id @default(cuid())
+  schema        Json
+  styles_schema Json
+  date_created  DateTime @default(now())
+  date_updated  DateTime @updatedAt
+}
+
+enum SiteAssetType {
+  image
+  video
+}
+
+model SiteAsset {
+  id           String        @id @default(cuid())
+  name         String
+  url          String
+  type         SiteAssetType
+  size         Int
+  site         Site[]
+  date_created DateTime      @default(now())
+  date_updated DateTime      @updatedAt
+}
+
+enum PaymentPlanName {
+  early
+  free
+  basic
+  pro
+}
+
+// Payment plan of the user (subscription or one-time payment)
+model PaymentPlan {
+  id                     String          @id @default(cuid())
+  name                   PaymentPlanName @unique
+  price                  Int?
+  hasCustomDomain        Boolean         @default(false)
+  hasAnalytics           Boolean         @default(false)
+  hasCookies             Boolean         @default(false)
+  showBuiltWith          Boolean         @default(true)
+  numberOfSites          Int?
+  numberOfPages          Int?
+  maxUploadSize          Int?
+  versionHistoryDuration Int?
+  user                   User[]
+  date_created           DateTime        @default(now())
+  date_updated           DateTime        @updatedAt
 }
