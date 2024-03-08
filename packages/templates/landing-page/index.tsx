@@ -1,4 +1,3 @@
-import TemplateRenderer from '@cms/packages/template-engine/TemplateRenderer';
 import {
   TemplateMetadata,
   TemplateSchema,
@@ -9,7 +8,6 @@ type Props = {
 };
 
 const LandingPage = ({ context }: Props) => {
-  // return <TemplateRenderer context={context} />;
 };
 
 export default LandingPage;
