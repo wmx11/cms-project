@@ -1,5 +1,5 @@
 'use client';
-import { PROJECT_URL } from '@cms/template-engine/constants';
+import { PROJECT_URL } from '@cms/packages/tiglee-engine/constants';
 import {
   Input,
   Modal,
@@ -12,7 +12,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import slugify from 'slugify';
-import createWebsiteAction from '../../../../app/(website-builder)/website/_actions/createWebsiteAction';
+import createWebsiteAction from '../../../../app/(website-builder)/site/_actions/createWebsiteAction';
 import useErrorMessage from '../../../../hooks/useErrorMessage';
 import routes from '../../../../utils/routes';
 import { Button } from '@cms/ui/components/Button';
@@ -42,7 +42,7 @@ const CreateWebsiteButton = ({ templateId }: Props) => {
       // We cannot use redirect() in this server action because redirect() does not work between different route groups and layouts
       // Hence why we use useRouter on the client side instead
       if (!website.error) {
-        return router.push(routes.website.edit.replace('$id', website.id));
+        return router.push(routes.site.edit.replace('$id', website.id));
       }
 
       setIsLoading(false);

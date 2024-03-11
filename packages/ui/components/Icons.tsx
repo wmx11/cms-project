@@ -34,7 +34,7 @@ import {
 } from 'react-icons/fa';
 import { GoDuplicate } from 'react-icons/go';
 import { GrPowerReset } from 'react-icons/gr';
-import { IoIosWarning , IoMdColorPalette} from 'react-icons/io';
+import { IoIosWarning, IoMdColorPalette } from 'react-icons/io';
 import {
   MdColorize,
   MdGrid4X4,
@@ -42,7 +42,7 @@ import {
   MdOutlinePhoneIphone,
   MdPublish,
   MdDesignServices,
-  MdBlurOn
+  MdBlurOn,
 } from 'react-icons/md';
 import { RxBorderWidth } from 'react-icons/rx';
 import {
@@ -54,17 +54,18 @@ import {
   TbBorderLeft,
   TbBorderRight,
   TbBorderTop,
-  TbPaintOff
+  TbPaintOff,
 } from 'react-icons/tb';
 import { BsBorderStyle } from 'react-icons/bs';
+import { ChevronDownIcon, LogOutIcon, MoveLeft, PlusIcon } from 'lucide-react';
 
 export const ICON_STYLES = 'h-3 w-3 mr-2';
 
-export const Plus = FaPlus;
+export const Plus = PlusIcon;
 export const Cog = FaCog;
 export const Trash = FaTrash;
 export const Edit = FaRegEdit;
-export const ArrowLeft = FaArrowLeft;
+export const ArrowLeft = MoveLeft;
 export const ColorPickerPipette = MdColorize;
 export const Publish = MdPublish;
 export const Undo = FaUndo;
@@ -76,7 +77,7 @@ export const Bold = FaBold;
 export const Italic = FaItalic;
 export const Underline = FaUnderline;
 export const Duplicate = GoDuplicate;
-export const ChevronDown = FaAngleDown;
+export const ChevronDown = ChevronDownIcon;
 export const Save = FaSave;
 export const Desktop = FaDesktop;
 export const Tablet = FaTabletAlt;
@@ -92,6 +93,7 @@ export const Heading = FaHeading;
 export const Blur = MdBlurOn;
 export const ColorPalette = IoMdColorPalette;
 export const RemoveStylesIcon = TbPaintOff;
+export const LogOut = LogOutIcon;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;

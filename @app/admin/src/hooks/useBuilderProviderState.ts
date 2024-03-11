@@ -1,3 +1,4 @@
+'use client';
 import { useContext } from 'react';
 import { useStore } from 'zustand';
 import { BuilderContext, BuilderStoreState } from '../store/useBuilderStore';

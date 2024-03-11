@@ -32,8 +32,8 @@ model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
-  expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
 }
 
 model VerificationToken {
@@ -45,88 +45,89 @@ model VerificationToken {
 }
 
 model User {
-  id            String       @id @default(cuid())
-  email         String?      @unique
-  emailVerified DateTime?    @map("email_verified")
-  name          String?
-  image         String?
-  isAdmin       Boolean      @default(false)
-  paymentPlanId String?
-  accounts      Account[]
-  sessions      Session[]
-  site          Site[]
-  asset         Asset[]
-  paymentPlan   PaymentPlan? @relation(fields: [paymentPlanId], references: [id])
-  date_created  DateTime     @default(now())
-  date_updated  DateTime     @updatedAt
+  id              String       @id @default(cuid())
+  email           String?      @unique
+  emailVerified   DateTime?    @map("email_verified")
+  name            String?
+  image           String?
+  is_admin        Boolean      @default(false)
+  accounts        Account[]
+  sessions        Session[]
+  site            Site[]
+  asset           Asset[]
+  payment_plan_id String?
+  payment_plan    PaymentPlan? @relation(fields: [payment_plan_id], references: [id])
+  date_created    DateTime     @default(now())
+  date_updated    DateTime     @updatedAt
 }
 
 // Site holds all data about the Site (Website that is created and displayed on the internet)
 model Site {
-  id             String       @id @default(cuid())
-  alias          String       @unique
-  domain         String?      @unique
-  published      Boolean      @default(false)
-  userId         String
-  componentId    String
-  sitePageDataId String
-  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  component      Component    @relation(fields: [componentId], references: [id])
-  sitePageData   SitePageData @relation(fields: [sitePageDataId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  page           Page[]
-  asset          Asset[]
-  date_created   DateTime     @default(now())
-  date_updated   DateTime     @updatedAt
+  id                String       @id @default(cuid())
+  alias             String       @unique
+  domain            String?      @unique
+  image             String?
+  is_published      Boolean      @default(false)
+  page              Page[]
+  asset             Asset[]
+  user_id           String
+  user              User         @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  component_id      String
+  component         Component    @relation(fields: [component_id], references: [id])
+  site_page_data_id String
+  site_page_data    SitePageData @relation(fields: [site_page_data_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  date_created      DateTime     @default(now())
+  date_updated      DateTime     @updatedAt
 
   @@index([alias])
 }
 
 // Page holds data about the Page that is related to the Site
 model Page {
-  id             String       @id @default(cuid())
-  alias          String
-  published      Boolean      @default(false)
-  siteId         String
-  sitePageDataId String
-  site           Site         @relation(fields: [siteId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  sitePageData   SitePageData @relation(fields: [sitePageDataId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  asset          Asset[]
-  date_created   DateTime     @default(now())
-  date_updated   DateTime     @updatedAt
+  id                String       @id @default(cuid())
+  alias             String
+  is_published      Boolean      @default(false)
+  asset             Asset[]
+  site_id           String
+  site              Site         @relation(fields: [site_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  site_page_data_id String
+  site_page_data    SitePageData @relation(fields: [site_page_data_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  date_created      DateTime     @default(now())
+  date_updated      DateTime     @updatedAt
 }
 
 // SitePageData holds all the metadata about the Site or Page (title, description, OG tags, image, icon)
 model SitePageData {
-  id               String         @id @default(cuid())
-  title            String?
-  description      String?
-  image            String?
-  icon             String?
-  sitePageSchemaId String
-  site             Site[]
-  page             Page[]
-  sitePageSchema   SitePageSchema @relation(fields: [sitePageSchemaId], references: [id], onUpdate: Cascade)
-  date_created     DateTime       @default(now())
-  date_updated     DateTime       @updatedAt
+  id                  String         @id @default(cuid())
+  title               String?
+  description         String?
+  image               String?
+  icon                String?
+  site                Site[]
+  page                Page[]
+  site_page_schema_id String
+  site_page_schema    SitePageSchema @relation(fields: [site_page_schema_id], references: [id], onUpdate: Cascade)
+  date_created        DateTime       @default(now())
+  date_updated        DateTime       @updatedAt
 }
 
 // SitePageSchema holds all data about the Site or Page schemas
 model SitePageSchema {
-  id            String         @id @default(cuid())
-  schema        Json
-  styles_schema Json
-  sitePageData  SitePageData[]
-  date_created  DateTime       @default(now())
-  date_updated  DateTime       @updatedAt
+  id             String         @id @default(cuid())
+  schema         Json           @default("[]")
+  styles_schema  Json           @default("[]")
+  site_page_data SitePageData[]
+  date_created   DateTime       @default(now())
+  date_updated   DateTime       @updatedAt
 }
 
 // Component is a set of components made to create sites
 model Component {
   id           String     @id @default(cuid())
-  name         String
+  name         String?
   alias        String     @unique
-  description  String
-  schema       Json
+  description  String?
+  schema       Json       @default("[]")
   site         Site[]
   template     Template[]
   date_created DateTime   @default(now())
@@ -138,10 +139,14 @@ model Component {
 // Template is a premade template for easy reusability
 model Template {
   id            String    @id @default(cuid())
-  componentId   String
-  schema        Json
-  styles_schema Json
-  component     Component @relation(fields: [componentId], references: [id])
+  name          String
+  description   String?
+  image         String?
+  is_published  Boolean   @default(false)
+  schema        Json      @default("[]")
+  styles_schema Json      @default("[]")
+  component_id  String
+  component     Component @relation(fields: [component_id], references: [id])
   date_created  DateTime  @default(now())
   date_updated  DateTime  @updatedAt
 }
@@ -158,12 +163,12 @@ model Asset {
   url          String
   type         AssetType
   size         Int
-  userId       String?
-  siteId       String?
-  pageId       String?
-  user         User?     @relation(fields: [userId], references: [id])
-  site         Site?     @relation(fields: [siteId], references: [id])
-  page         Page?     @relation(fields: [pageId], references: [id])
+  user_id      String?
+  user         User?     @relation(fields: [user_id], references: [id])
+  site_id      String?
+  site         Site?     @relation(fields: [site_id], references: [id])
+  page_id      String?
+  page         Page?     @relation(fields: [page_id], references: [id])
   date_created DateTime  @default(now())
   date_updated DateTime  @updatedAt
 }
@@ -177,18 +182,14 @@ enum PaymentPlanName {
 
 // Payment plan of the user (subscription or one-time payment)
 model PaymentPlan {
-  id                     String          @id @default(cuid())
-  name                   PaymentPlanName @unique
-  price                  Int?
-  hasCustomDomain        Boolean         @default(false)
-  hasAnalytics           Boolean         @default(false)
-  hasCookies             Boolean         @default(false)
-  showBuiltWith          Boolean         @default(true)
-  numberOfSites          Int?
-  numberOfPages          Int?
-  maxUploadSize          Int?
-  versionHistoryDuration Int?
-  user                   User[]
-  date_created           DateTime        @default(now())
-  date_updated           DateTime        @updatedAt
+  id                String          @id @default(cuid())
+  name              PaymentPlanName @unique
+  price             Int?
+  has_custom_domain Boolean         @default(false)
+  number_of_sites   Int?
+  number_of_pages   Int?
+  max_upload_size   Int?
+  user              User[]
+  date_created      DateTime        @default(now())
+  date_updated      DateTime        @updatedAt
 }

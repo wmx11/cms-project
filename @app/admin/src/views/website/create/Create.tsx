@@ -9,7 +9,11 @@ type Props = {
 
 const Create = ({ templates }: Props) => {
   if (!templates || !templates.length) {
-    return <>There are no available templates</>;
+    return (
+      <PageWithHeader title="There are no available templates">
+        <></>
+      </PageWithHeader>
+    );
   }
 
   return (

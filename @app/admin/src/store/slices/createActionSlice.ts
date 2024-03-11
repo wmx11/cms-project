@@ -1,4 +1,4 @@
-import { SCALE_MAX, SCALE_MIN } from '@cms/template-engine/constants';
+import { SCALE_MAX, SCALE_MIN } from '@cms/packages/tiglee-engine/constants';
 import { StateCreator } from 'zustand';
 
 export interface ActionSlice {

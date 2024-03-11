@@ -1,26 +1,17 @@
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@cms/packages/ui/components/Avatar';
+import { Separator } from '@cms/ui/components/Separator';
 import { getServerSession } from 'next-auth';
-import Link from 'next/link';
+import AppMenuLinks from './AppMenuLinks';
+import AppAvatar from './AppAvatar';
 
 const AppMenu = async () => {
   const session = await getServerSession();
 
   return (
-    <div className="[&>*]:p-4">
-      <div className="">
-        <Avatar>
-          <AvatarImage src={session?.user?.image || ''} />
-          <AvatarFallback>{session?.user?.name || ''}</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="space-y-8">
-        <div className="flex flex-col space-y-4">
-          <Link href="/">Dashboard</Link>
-        </div>
+    <div className="relative h-full">
+      <div>
+        <AppAvatar session={session} />
+        <Separator />
+        <AppMenuLinks />
       </div>
     </div>
   );

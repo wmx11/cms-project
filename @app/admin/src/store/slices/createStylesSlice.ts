@@ -3,7 +3,7 @@ import type {
   Breakpoints,
   StylesObjectWithBreakpoints,
 } from '@cms/packages/template-engine/styles/jssStyles';
-import { BREAKPOINT_DEFAULT } from '@cms/template-engine/constants';
+import { BREAKPOINT_DEFAULT } from '@cms/packages/tiglee-engine/constants';
 import { StyleSheet } from 'jss';
 import { StateCreator } from 'zustand';
 

@@ -1,3 +1,4 @@
+'use client';
 import {
   StylesObjectWithBreakpoints,
   initialStyles,
@@ -15,8 +16,8 @@ import {
   BuilderThemes,
   ThemeNames,
   ThemeTypes,
-} from '@cms/template-engine/themes';
-import removeStylesModule from '@cms/template-engine/modules/removeStyles';
+} from '@cms/packages/tiglee-engine/themes';
+import removeStylesModule from '@cms/packages/tiglee-engine/modules/removeStyles';
 import { produce } from 'immer';
 
 const useStyles = () => {

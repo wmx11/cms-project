@@ -8,11 +8,8 @@ const generateRoutes = (baseRouteName: string) => {
 };
 
 const routes = {
-  website: generateRoutes('website'),
-  blog: generateRoutes('blog'),
-  testimonials: generateRoutes('testimonial'),
-  templates: generateRoutes('templates'),
-  accounts: '/accounts'
+  site: generateRoutes('site'),
+  accounts: '/accounts',
 };
 
 export default routes;

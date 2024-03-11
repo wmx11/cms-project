@@ -1,3 +1,4 @@
+import db from '@cms/db';
 import prisma from '../prisma';
 
 export const getComponentsByTemplateId = async (templateId: string) => {
@@ -5,7 +6,7 @@ export const getComponentsByTemplateId = async (templateId: string) => {
     return [];
   }
 
-  return await prisma.component.findMany({
+  return await db.component.findMany({
     where: {
       template_id: templateId,
       template: {
@@ -15,21 +16,21 @@ export const getComponentsByTemplateId = async (templateId: string) => {
   });
 };
 
-export const getComponentsByWebsiteId = async (websiteId: string) => {
-  if (!websiteId) {
+export const getComponentsBySiteId = async (siteId: string) => {
+  if (!siteId) {
     return [];
   }
 
-  const website = await prisma.website.findUnique({
+  const site = await db.site.findUnique({
     where: {
-      id: websiteId,
+      id: siteId,
     },
     select: {
-      template_id: true,
+      componentId: true,
     },
   });
 
-  if (!website) {
+  if (!site) {
     return [];
   }
 

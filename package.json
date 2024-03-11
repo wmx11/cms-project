@@ -26,6 +26,7 @@
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-select": "^2.0.0",
+    "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slider": "^1.1.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tabs": "^1.0.4",
@@ -37,10 +38,10 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
-    "immer": "^10.0.3",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "framer-motion": "^10.16.4",
+    "immer": "^10.0.3",
     "jss": "^10.10.0",
     "jss-plugin-camel-case": "^10.10.0",
     "jss-plugin-expand": "^10.10.0",
@@ -74,6 +75,8 @@
   "devDependencies": {
     "@prisma/client": "^5.3.1",
     "@types/node": "20.5.7",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.12",
     "prisma": "^5.3.1"
   }
 }
