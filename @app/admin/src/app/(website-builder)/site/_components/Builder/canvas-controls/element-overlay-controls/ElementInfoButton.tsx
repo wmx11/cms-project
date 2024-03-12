@@ -5,7 +5,7 @@ import {
   DATA_DESCRIPTION,
   DATA_DISPLAY_NAME,
   DATA_LABEL,
-} from '@cms/packages/template-engine/constants';
+} from '@cms/packages/tiglee-engine/constants';
 import { Info } from '@cms/packages/ui/components/Icons';
 
 const ElementInfoButton = () => {
@@ -14,13 +14,13 @@ const ElementInfoButton = () => {
   );
 
   return (
-    <div className="flex text-xs px-2 text-violet-500 border">
+    <div className="flex border px-2 text-xs text-violet-500">
       <DefaultTooltip
         content={selectedElement?.getAttribute(DATA_DESCRIPTION) || ''}
       >
         <div className="flex items-center">
-          <Info className="h-3 w-3 mr-2" />
-          <span className="truncate max-w-[140px]">
+          <Info className="mr-2 h-3 w-3" />
+          <span className="max-w-[140px] truncate">
             {selectedElement?.getAttribute(DATA_DISPLAY_NAME) ||
               selectedElement?.getAttribute(DATA_LABEL)}
           </span>

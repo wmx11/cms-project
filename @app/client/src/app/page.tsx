@@ -1,6 +1,6 @@
 import { StylesProvider } from '@/components/Providers';
 import db from '@cms/packages/db';
-import serializeSchema from '@cms/packages/template-engine/modules/serializeSchema';
+import serializeSchema from '@cms/packages/tiglee-engine/modules/serializeSchema';
 import { Metadata } from 'next';
 import { IconURL } from 'next/dist/lib/metadata/types/metadata-types';
 

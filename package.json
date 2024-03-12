@@ -7,7 +7,7 @@
     "admin": "pnpm --filter @cms/admin",
     "client": "pnpm --filter @cms/client",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "components:register": "npx ts-node ./packages/template-engine/registerComponents.ts"
+    "components:register": "npx ts-node ./packages/tiglee-engine/registerComponents.ts"
   },
   "keywords": [],
   "author": "",

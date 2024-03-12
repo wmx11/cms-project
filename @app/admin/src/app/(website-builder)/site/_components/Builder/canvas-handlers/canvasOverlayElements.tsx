@@ -1,4 +1,4 @@
-import { DRATA_CANVAS_OVERLAY_DND_HIGHLIGHT } from '@cms/packages/template-engine/constants';
+import { DRATA_CANVAS_OVERLAY_DND_HIGHLIGHT } from '@cms/packages/tiglee-engine/constants';
 
 export const canvasDragAndDropHighlight = ({
   canvasOverlay,

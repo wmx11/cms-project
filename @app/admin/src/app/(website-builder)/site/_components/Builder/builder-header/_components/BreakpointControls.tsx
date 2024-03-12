@@ -10,7 +10,7 @@ import {
   BREAKPOINT_SM,
   BREAKPOINT_XL,
   BREAKPOINT_XS,
-} from '@cms/packages/template-engine/constants';
+} from '@cms/packages/tiglee-engine/constants';
 import { Button } from '@cms/packages/ui/components/Button';
 import { Desktop, Mobile, Reset, Tablet } from '@cms/ui/components/Icons';
 
@@ -36,7 +36,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_2XL, breakpoint)}
         >
-          <Desktop className="h-3 w-3 mr-2" />
+          <Desktop className="mr-2 h-3 w-3" />
           2xl
         </Button>
         <Button
@@ -45,7 +45,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_XL, breakpoint)}
         >
-          <Desktop className="h-3 w-3 mr-2" />
+          <Desktop className="mr-2 h-3 w-3" />
           xl
         </Button>
         <Button
@@ -54,7 +54,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_LG, breakpoint)}
         >
-          <Desktop className="h-3 w-3 mr-2" />
+          <Desktop className="mr-2 h-3 w-3" />
           lg
         </Button>
         <Button
@@ -63,7 +63,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_MD, breakpoint)}
         >
-          <Tablet className="h-3 w-3 mr-2" />
+          <Tablet className="mr-2 h-3 w-3" />
           md
         </Button>
         <Button
@@ -72,7 +72,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_SM, breakpoint)}
         >
-          <Mobile className="h-3 w-3 mr-2" />
+          <Mobile className="mr-2 h-3 w-3" />
           sm
         </Button>
         <Button
@@ -81,7 +81,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_XS, breakpoint)}
         >
-          <Mobile className="h-3 w-3 mr-2" />
+          <Mobile className="mr-2 h-3 w-3" />
           xs
         </Button>
         <Button
@@ -89,7 +89,7 @@ const BreakpointControls = () => {
           variant="destructive"
           size="xs"
         >
-          <Reset className="h-3 w-3 mr-2" />
+          <Reset className="mr-2 h-3 w-3" />
           Reset
         </Button>
       </div>

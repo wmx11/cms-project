@@ -1,4 +1,4 @@
-import { Schema } from '@cms/packages/template-engine/types';
+import { Schema } from '@cms/packages/tiglee-engine/types';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 

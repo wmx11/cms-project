@@ -1,4 +1,4 @@
-import { Schema } from '@cms/packages/template-engine/types';
+import { Schema } from '@cms/packages/tiglee-engine/types';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -7,7 +7,7 @@ const Subtitle: FC<PropsWithChildren & HTMLAttributes<HTMLTitleElement>> = (
 ) => {
   return (
     <h2
-      className={twMerge('mb-2 text-tg-foreground', props.className)}
+      className={twMerge('text-tg-foreground mb-2', props.className)}
       dangerouslySetInnerHTML={{ __html: props.children || '' }}
     ></h2>
   );

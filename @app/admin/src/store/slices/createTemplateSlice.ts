@@ -1,5 +1,5 @@
-import serializeSchema from '@cms/packages/template-engine/modules/serializeSchema';
-import { Schema } from '@cms/packages/template-engine/types';
+import serializeSchema from '@cms/packages/tiglee-engine/modules/serializeSchema';
+import { Schema } from '@cms/packages/tiglee-engine/types';
 import { Component } from '@prisma/client';
 import { StateCreator } from 'zustand';
 import { SchemaSlice } from './createSchemaSlice';

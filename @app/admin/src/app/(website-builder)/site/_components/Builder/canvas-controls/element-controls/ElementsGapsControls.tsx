@@ -1,7 +1,7 @@
 'use client';
 import useStyles from '@admin/hooks/useStyles';
-import { DEFAULT_UNIT, GAP } from '@cms/packages/template-engine/constants';
-import { elementGaps } from '@cms/packages/template-engine/variants/variants';
+import { DEFAULT_UNIT, GAP } from '@cms/packages/tiglee-engine/constants';
+import { elementGaps } from '@cms/packages/tiglee-engine/variants/variants';
 import {
   Select,
   SelectContent,

@@ -1,7 +1,7 @@
 'use client';
 import useStyles from '@admin/hooks/useStyles';
-import { DEFAULT_UNIT } from '@cms/packages/template-engine/constants';
-import { fontSize } from '@cms/packages/template-engine/variants/variants';
+import { DEFAULT_UNIT } from '@cms/packages/tiglee-engine/constants';
+import { fontSize } from '@cms/packages/tiglee-engine/variants/variants';
 import {
   Select,
   SelectContent,
@@ -22,13 +22,13 @@ const FontSizeControls = () => {
   };
 
   return (
-    <div className="flex gap-2 items-end">
+    <div className="flex items-end gap-2">
       <div>
         <Select
           onValueChange={handleOnChange}
           value={activeStyles ? activeStyles['font-size'] : ''}
         >
-          <SelectTrigger className="bg-secondary h-8 text-xs rounded-md px-1.5 py-2 m-0"></SelectTrigger>
+          <SelectTrigger className="bg-secondary m-0 h-8 rounded-md px-1.5 py-2 text-xs"></SelectTrigger>
           <SelectContent>
             {fontSize.map((item) => (
               <SelectItem value={item.toString()} key={item}>

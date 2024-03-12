@@ -3,8 +3,8 @@ import {
   DATA_DND_INITIALIZED,
   DATA_TARGET_ID,
   DRAGGABLE,
-} from '@cms/packages/template-engine/constants';
-import dragAndDropComponent from '@cms/packages/template-engine/modules/dragAndDropComponent';
+} from '@cms/packages/tiglee-engine/constants';
+import dragAndDropComponent from '@cms/packages/tiglee-engine/modules/dragAndDropComponent';
 import { BuilderStoreState } from '@admin/store/useBuilderStore';
 import { BuilderState } from '@admin/types';
 import { CanvasHandlerProps } from './canvasEventsHandlers';

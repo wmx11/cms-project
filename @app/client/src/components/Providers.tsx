@@ -1,7 +1,7 @@
 'use client';
 import { useServerInsertedHTML } from 'next/navigation';
 import { FC, PropsWithChildren, useRef } from 'react';
-import builderJss from '@cms/packages/template-engine/styles/builderJss';
+import builderJss from '@cms/packages/tiglee-engine/styles/builderJss';
 import { Styles } from 'jss';
 
 interface StylesProviderProps extends PropsWithChildren {

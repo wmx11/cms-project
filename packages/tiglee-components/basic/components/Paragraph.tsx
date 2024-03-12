@@ -1,11 +1,15 @@
-import { Schema } from '@cms/packages/template-engine/types';
+import { Schema } from '@cms/packages/tiglee-engine/types';
 import { FC, HTMLProps, PropsWithChildren } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 const Paragraph: FC<PropsWithChildren & HTMLProps<HTMLParagraphElement>> = (
   props
 ) => {
-  return <p className={twMerge('mb-2 text-tg-foreground', props.className)}>{props.children}</p>;
+  return (
+    <p className={twMerge('text-tg-foreground mb-2', props.className)}>
+      {props.children}
+    </p>
+  );
 };
 
 export default Paragraph;

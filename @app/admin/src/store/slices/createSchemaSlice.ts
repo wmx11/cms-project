@@ -1,5 +1,5 @@
-import traverseComponentsTree from '@cms/packages/template-engine/modules/traverseComponentsTree';
-import { Schema } from '@cms/packages/template-engine/types';
+import traverseComponentsTree from '@cms/packages/tiglee-engine/modules/traverseComponentsTree';
+import { Schema } from '@cms/packages/tiglee-engine/types';
 import { StateCreator } from 'zustand';
 
 export type SchemaSlice = {

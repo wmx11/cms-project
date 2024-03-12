@@ -4,8 +4,8 @@ import {
   BREAKPOINT_DEFAULT,
   BREAKPOINT_DEFAULT_WIDTH,
   BUILDER_STYLES_META_TAG,
-} from '@cms/packages/template-engine/constants';
-import builderJss from '@cms/packages/template-engine/styles/builderJss';
+} from '@cms/packages/tiglee-engine/constants';
+import builderJss from '@cms/packages/tiglee-engine/styles/builderJss';
 import Kbd from '@cms/packages/ui/components/Kbd';
 import { SheetsManager, Styles } from 'jss';
 import { useEffect, useRef } from 'react';
@@ -66,7 +66,7 @@ const BuilderCanvas = () => {
 
   return (
     <div
-      className={`bg-zinc-100 min-h-screen px-3 pb-2 pt-12 mt-[47px] relative flex items-center justify-center`}
+      className={`relative mt-[47px] flex min-h-screen items-center justify-center bg-zinc-100 px-3 pb-2 pt-12`}
       ref={canvasBackgroundRef}
     >
       <div
@@ -79,7 +79,7 @@ const BuilderCanvas = () => {
           data-tg-theme-name
           data-canvas
           ref={canvasRef}
-          className="canvas min-h-screen shadow-md relative transition-[width,color,background-color,background] duration-100 ease-out tg-wrapper"
+          className="canvas tg-wrapper relative min-h-screen shadow-md transition-[width,color,background-color,background] duration-100 ease-out"
           style={{
             width:
               breakpoint !== BREAKPOINT_DEFAULT
@@ -102,7 +102,7 @@ const BuilderCanvas = () => {
             ),
           })}
         >
-          <p className="text-sm text-muted-foreground p-4 absolute top-[-47px]">
+          <p className="text-muted-foreground absolute top-[-47px] p-4 text-sm">
             Press <Kbd>⌘</Kbd> + <Kbd>/</Kbd> to add a component...
           </p>
 

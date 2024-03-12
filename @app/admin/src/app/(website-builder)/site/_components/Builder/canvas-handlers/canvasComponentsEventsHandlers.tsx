@@ -1,6 +1,6 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
-import { DATA_EDITABLE } from '@cms/packages/template-engine/constants';
+import { DATA_EDITABLE } from '@cms/packages/tiglee-engine/constants';
 import { useEffect } from 'react';
 
 export const useEditableContentControls = () => {

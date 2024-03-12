@@ -5,8 +5,8 @@ import {
   FLEX_COLUMNS,
   GAP,
   BASIS,
-} from '@cms/packages/template-engine/constants';
-import { flexColumns } from '@cms/packages/template-engine/variants/variants';
+} from '@cms/packages/tiglee-engine/constants';
+import { flexColumns } from '@cms/packages/tiglee-engine/variants/variants';
 import {
   Select,
   SelectContent,

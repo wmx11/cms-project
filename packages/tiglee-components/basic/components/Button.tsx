@@ -1,4 +1,4 @@
-import { Schema } from '@cms/packages/template-engine/types';
+import { Schema } from '@cms/packages/tiglee-engine/types';
 import { Button as ButtonComponent } from '@cms/packages/ui/components/Button';
 import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 

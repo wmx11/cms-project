@@ -1,6 +1,6 @@
 'use client';
-import { DATA_LABEL } from '@cms/packages/template-engine/constants';
-import turnIntoComponent from '@cms/packages/template-engine/modules/turnIntoComponent';
+import { DATA_LABEL } from '@cms/packages/tiglee-engine/constants';
+import turnIntoComponent from '@cms/packages/tiglee-engine/modules/turnIntoComponent';
 import { Transform } from '@cms/packages/ui/components/Icons';
 import ComponentsDropdown from '@admin/components/ComponentsDropdown';
 import DefaultTooltip from '@admin/components/DefaultTooltip';

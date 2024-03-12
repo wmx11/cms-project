@@ -1,6 +1,6 @@
 'use client';
 import useStyles from '@admin/hooks/useStyles';
-import { positionType } from '@cms/packages/template-engine/variants/variants';
+import { positionType } from '@cms/packages/tiglee-engine/variants/variants';
 import {
   Select,
   SelectContent,

@@ -2,14 +2,14 @@
 import {
   StylesObjectWithBreakpoints,
   initialStyles,
-} from '@cms/packages/template-engine/styles/jssStyles';
+} from '@cms/packages/tiglee-engine/styles/jssStyles';
 import {
   BREAKPOINTS_MAP,
   BUILDER_DATA_THEME_NAME,
   BUILDER_DATA_THEME_TYPE,
   BUILDER_STYLES_META_TAG_SELECTOR,
   THEME_NAME_VAR,
-} from '@cms/packages/template-engine/constants';
+} from '@cms/packages/tiglee-engine/constants';
 import { JssStyle } from 'jss';
 import useBuilderProviderState from './useBuilderProviderState';
 import {

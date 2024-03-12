@@ -2,7 +2,7 @@ import {
   DATA_CANVAS_OVERLAY,
   DATA_COMPONENT,
   DATA_TARGET_ID,
-} from '@cms/packages/template-engine/constants';
+} from '@cms/packages/tiglee-engine/constants';
 import { MouseEvent, RefObject } from 'react';
 
 export type CanvasHandlerProps = {

@@ -1,7 +1,7 @@
 'use client';
 import useStyles from '@admin/hooks/useStyles';
 import { renderInputControlComponents } from '@admin/utils/renderControlComponents';
-import { DEFAULT_UNIT } from '@cms/packages/template-engine/constants';
+import { DEFAULT_UNIT } from '@cms/packages/tiglee-engine/constants';
 import { JssStyle } from 'jss';
 import { useState } from 'react';
 import UnitSelect from '../../../UnitSelect';
