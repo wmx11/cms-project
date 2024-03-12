@@ -1,6 +1,20 @@
 import db from '@cms/db';
 import prisma from '../prisma';
 
+export const getComponents = async () => {
+  const components = await db.component.findMany({
+    select: {
+      name: true,
+      alias: true,
+      description: true,
+      id: true,
+      image: true,
+    },
+  });
+
+  return components;
+};
+
 export const getComponentsByTemplateId = async (templateId: string) => {
   if (!templateId) {
     return [];

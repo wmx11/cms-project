@@ -127,6 +127,7 @@ model Component {
   name         String?
   alias        String     @unique
   description  String?
+  image        String?
   schema       Json       @default("[]")
   site         Site[]
   template     Template[]

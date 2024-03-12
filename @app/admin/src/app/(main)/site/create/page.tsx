@@ -1,10 +1,14 @@
+import {
+  getComponents
+} from '@cms/data/component/getters';
 import { getTemplates } from '@cms/packages/data/template/getters';
-import { Template } from '@prisma/client';
+import { Component, Template } from '@prisma/client';
 import Create from '../../../../views/website/create/Create';
 
 const page = async () => {
   const templates = (await getTemplates()) as Template[];
-  return <Create templates={templates} />;
+  const components = (await getComponents()) as Component[];
+  return <Create templates={templates} components={components} />;
 };
 
 export default page;
