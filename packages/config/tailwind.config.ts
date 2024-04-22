@@ -43,7 +43,7 @@ const hsl = (value: string) =>
 const tailwindConfig: Config = {
   content: [
     '../../packages/tiglee-engine/**/*.{js,ts,jsx,tsx,mdx,json}',
-    '../../packages/templates/**/*.{js,ts,jsx,tsx,mdx,json}',
+    '../../packages/tiglee-components/**/*.{js,ts,jsx,tsx,mdx,json}',
     '../../packages/ui/**/*.{js,ts,jsx,tsx,mdx,json}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/views/**/*.{js,ts,jsx,tsx,mdx}',
