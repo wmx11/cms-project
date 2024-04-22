@@ -1,3 +1,9 @@
+declare global {
+  namespace PrismaJson {
+    type _Schema = Schema;
+  }
+}
+
 /**
  * Possible categories of the component
  */
@@ -53,8 +59,6 @@ export type Schema = {
   description?: string | undefined;
   category?: SchemaCategory;
 } & (SchemaWithEditable | SchemaWithRichText);
-
-export type TemplateID = string;
 
 export type TemplateMetadata = {
   id?: string;

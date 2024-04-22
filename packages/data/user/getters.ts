@@ -7,19 +7,23 @@ export const getUserBySession = async () => {
   if (!session) {
     return null;
   }
-
-  const profile = await db.user.findUnique({
+  const user = await db.user.findUnique({
     where: {
       email: session?.user?.email || '',
     },
   });
 
-  return profile;
+  return user;
 };
 
 export const withUser = async <T>(
-  func: (profile: Awaited<ReturnType<typeof getUserBySession>>) => T
+  func: (user: Awaited<ReturnType<typeof getUserBySession>>) => T
 ) => {
-  const profile = await getUserBySession();
-  return func(profile);
+  const user = await getUserBySession();
+
+  if (!user) {
+    throw new Error('You are not authorized to access this resource.');
+  }
+
+  return func(user);
 };

@@ -5,21 +5,22 @@ import { StateCreator } from 'zustand';
 import { SchemaSlice } from './createSchemaSlice';
 
 export type TemplateSlice = {
-  templateId: string;
-  templateComponents: Component[];
+  componentAlias: string;
+  components: Schema[];
   renderedTemplate: Schema[];
   renderTemplate: (schema?: Schema[]) => void;
-  setTemplateId: (templateId: string) => void;
+  setComponentAlias: (componentAlias: string) => void;
 };
 
 const createTemplateSlice: StateCreator<TemplateSlice> = (set, get) => ({
-  templateId: '',
-  templateComponents: [],
+  componentAlias: '',
+  components: [],
   renderedTemplate: [],
-  setTemplateId: (templateId: string) => set(() => ({ templateId })),
+  setComponentAlias: (componentAlias: string) =>
+    set(() => ({ componentAlias })),
   renderTemplate: async (schema?: Schema[]) => {
     const _schema = (get() as unknown as SchemaSlice).schema;
-    const templateId = (get() as unknown as TemplateSlice).templateId;
+    const componentAlias = (get() as unknown as TemplateSlice).componentAlias;
 
     if (schema) {
       (get() as unknown as SchemaSlice).setSchema(schema);
@@ -27,11 +28,12 @@ const createTemplateSlice: StateCreator<TemplateSlice> = (set, get) => ({
 
     const serializedSchema = await serializeSchema({
       schema: schema ? schema : _schema,
-      templateId,
+      componentAlias,
       serializeForBuilder: true,
     });
 
     const newRenderedTemplate = [...serializedSchema];
+
     set(() => ({
       renderedTemplate: newRenderedTemplate,
     }));

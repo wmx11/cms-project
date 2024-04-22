@@ -1,13 +1,12 @@
-import { TemplateID } from '../types';
-
-const importComponent = async (id: TemplateID, component: string) => {
-  if (!component || !id) {
+const importComponent = async (alias: string, component: string) => {
+  if (!component || !alias) {
     return null;
   }
 
   try {
     const importedComponent = await import(
-      `../../templates/${id}/components/${component}`
+      /* webpackExclude: /\README\.md$/ */
+      `../../tiglee-components/${alias}/components/${component}`
     );
 
     return importedComponent;

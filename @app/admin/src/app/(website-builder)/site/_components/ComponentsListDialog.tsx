@@ -9,14 +9,11 @@ import {
   CommandItem,
   CommandList,
 } from '@cms/ui/components/Command';
-import React from 'react';
 
 const ComponentsListDialog = () => {
   const isCommandOpen = useBuilderProviderState((state) => state.isCommandOpen);
 
-  const templateComponents = useBuilderProviderState(
-    (state) => state.templateComponents
-  );
+  const components = useBuilderProviderState((state) => state.components);
 
   const selectedComonentPath = useBuilderProviderState(
     (state) => state.selectedComonentPath
@@ -31,44 +28,51 @@ const ComponentsListDialog = () => {
   const renderTemplate = useBuilderProviderState(
     (state) => state.renderTemplate
   );
+
   const setIsCommandOpen = useBuilderProviderState(
     (state) => state.setIsCommandOpen
   );
 
-  const handleSelect = (componentId: string, path: string) => {
-    const selectedComponent = templateComponents?.find(
-      (item) => item?.id === componentId
+  const handleSelect = (component: string, path: string) => {
+    const selectedComponent = components?.find(
+      (item) => item?.component === component
     );
 
-    if (!selectedComponent || !selectedComponent?.schema) {
+    if (!selectedComponent) {
       return;
     }
 
-    const componentSchema = JSON.parse(selectedComponent?.schema as string);
+    try {
+      const newSchema = addComponent({
+        componentSchema: selectedComponent,
+        schema,
+        path,
+      });
 
-    const newSchema = addComponent({
-      componentSchema,
-      schema,
-      path,
-    });
+      if (!newSchema) {
+        return null;
+      }
 
-    if (!newSchema) {
-      return null;
+      renderTemplate(newSchema);
+    } catch (error) {
+      console.error(error);
     }
-
-    renderTemplate(newSchema);
   };
 
   const componentsToRender = () => {
     if (!selectedComponent) {
-      return templateComponents?.filter((item) => item?.category === 'layout');
+      return components?.filter((item) => item?.category === 'layout');
     }
 
-    if (!selectedComponent?.props?.find((item) => item?.type === 'component')) {
+    if (
+      !components?.find((item) =>
+        item?.props.find((prop) => prop.type === 'component')
+      )
+    ) {
       return [];
     }
 
-    return templateComponents;
+    return components;
   };
 
   return (
@@ -77,11 +81,11 @@ const ComponentsListDialog = () => {
       <CommandList>
         <CommandEmpty>No components found.</CommandEmpty>
         <CommandGroup heading="Components">
-          {componentsToRender()?.map((item) => (
+          {componentsToRender().map((item) => (
             <CommandItem
               key={item.id}
               onSelect={() => {
-                handleSelect(item.id, selectedComonentPath);
+                handleSelect(item.component, selectedComonentPath);
                 setIsCommandOpen(false);
               }}
             >

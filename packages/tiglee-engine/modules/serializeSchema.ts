@@ -56,7 +56,7 @@ const serializeComponentForBuilder = (
 
 interface SerializeSchemaProps {
   schema: Schema[];
-  templateId: string;
+  componentAlias: string;
   componentsArray?: React.ReactElement[];
   serializeForBuilder?: boolean;
   path?: string;
@@ -65,7 +65,7 @@ interface SerializeSchemaProps {
 const serializeSchema = async (props: SerializeSchemaProps) => {
   const {
     schema,
-    templateId,
+    componentAlias,
     componentsArray = [],
     path,
     serializeForBuilder,
@@ -74,7 +74,7 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
   const _components = [...componentsArray];
 
   for (const [index, item] of schema?.entries()) {
-    const component = await importComponent(templateId, item.component);
+    const component = await importComponent(componentAlias, item.component);
     const componentProps: Record<Props['name'], string> = {};
 
     // If it's the first time serializing this schema, we will add a new data-id to it
@@ -92,7 +92,7 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
         const childComponent = await serializeSchema({
           ...props,
           schema: prop.value as Schema[],
-          templateId,
+          componentAlias,
           path: generatePath(path, index, item),
         });
 

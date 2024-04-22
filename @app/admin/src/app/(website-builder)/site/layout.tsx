@@ -2,7 +2,6 @@ import '@cms/packages/config/global.css';
 import { Toaster } from '@cms/ui/components/Toaster';
 import Providers from '@admin/components/Providers';
 import React from 'react';
-
 import { Roboto } from 'next/font/google';
 
 const inter = Roboto({
@@ -16,7 +15,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
       <body className={`overflow-hidden ${inter.className}`}>
         <main>
           <Providers>{children}</Providers>
-          <Toaster />
+          <Toaster position="top-center" />
         </main>
       </body>
     </html>

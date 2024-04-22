@@ -15,7 +15,7 @@ const BuilderPage: FC<BuilderPageProps> = (props) => {
     <BuilderProvider {...props}>
       <TooltipProvider>
         <div className="overflow-hidden">
-          <div className="fixed top-0 w-full z-10">
+          <div className="fixed top-0 z-10 w-full">
             <BuilderHeader />
           </div>
           <div className="grid grid-cols-[1fr,320px]">
@@ -26,7 +26,7 @@ const BuilderPage: FC<BuilderPageProps> = (props) => {
               <BuilderCanvas />
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
-            <div className="fixed top-[47px] bottom-0 right-0 max-w-[320px] w-full border-l border-zinc-200 z-10">
+            <div className="fixed bottom-0 right-0 top-[47px] z-10 w-full max-w-[320px] border-l border-zinc-200">
               <ScrollArea className="h-full w-full">
                 <BuilderSidebar />
               </ScrollArea>

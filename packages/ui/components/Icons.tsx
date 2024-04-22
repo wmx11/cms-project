@@ -31,6 +31,7 @@ import {
   FaLayerGroup,
   FaEyeSlash,
   FaHeading,
+  FaGoogle,
 } from 'react-icons/fa';
 import { GoDuplicate } from 'react-icons/go';
 import { GrPowerReset } from 'react-icons/gr';
@@ -94,6 +95,7 @@ export const Blur = MdBlurOn;
 export const ColorPalette = IoMdColorPalette;
 export const RemoveStylesIcon = TbPaintOff;
 export const LogOut = LogOutIcon;
+export const GoogleIcon = FaGoogle;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;

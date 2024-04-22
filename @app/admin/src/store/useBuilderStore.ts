@@ -1,13 +1,11 @@
 import { Schema } from '@cms/packages/tiglee-engine/types';
+import { StylesObjectWithBreakpoints } from '@cms/tiglee-engine/styles/jssStyles';
 import { Component } from '@prisma/client';
 import { createContext } from 'react';
 import { createStore } from 'zustand';
 import createActionSlice, { ActionSlice } from './slices/createActionSlice';
 import createSchemaSlice, { SchemaSlice } from './slices/createSchemaSlice';
-import createStylesSlice, {
-  StylesObjectWithBreakpoints,
-  StylesSlice,
-} from './slices/createStylesSlice';
+import createStylesSlice, { StylesSlice } from './slices/createStylesSlice';
 import createTemplateSlice, {
   TemplateSlice,
 } from './slices/createTemplateSlice';
@@ -17,8 +15,8 @@ export type BuilderStore = ReturnType<typeof createBuilderStore>;
 export interface BuilderStoreProps {
   styles: StylesObjectWithBreakpoints;
   schema: Schema[];
-  templateId: string;
-  templateComponents: Component[];
+  componentAlias: string;
+  components: Schema[];
 }
 
 export type BuilderStoreState = SchemaSlice &

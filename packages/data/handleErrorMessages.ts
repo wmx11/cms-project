@@ -1,16 +1,19 @@
 import { ZodError } from 'zod';
-import { MaybeWithError } from './types';
 
-const handleErrorMessages = <T>(error: unknown): MaybeWithError<T> => {
+export interface ErrorMessageType {
+  [x: string]: string[] | undefined;
+}
+
+const handleErrorMessages = (error: unknown) => {
   if (error && error.hasOwnProperty('issues')) {
-    const zodError = error as ZodError;
-    const errorMessage = zodError.issues.map((item) => item.message).join(', ');
-    return { error: errorMessage } as MaybeWithError<T>;
+    const zodError = (error as ZodError)?.formErrors?.fieldErrors;
+    console.error(zodError);
+    return { error: zodError };
   }
-
-  console.log(error as Error);
-
-  return { error: error?.toString() } as MaybeWithError<T>;
+  console.error(error as Error);
+  return {
+    error: { general: error?.toString() } as ErrorMessageType,
+  };
 };
 
 export default handleErrorMessages;

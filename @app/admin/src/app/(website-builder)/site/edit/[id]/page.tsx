@@ -1,7 +1,5 @@
-import { getComponentsBySiteId } from '@cms/packages/data/component/getters';
-import { getWebsiteDraftSchemaByWebsiteId } from '@cms/packages/data/website/getters';
+import { getSiteForBuilderController } from '@cms/controllers/site';
 import BuilderPage from '../../_components/Builder/BuilderPage';
-import { initialStyles } from '@cms/packages/tiglee-engine/styles/jssStyles';
 
 interface Props {
   params: {
@@ -10,16 +8,13 @@ interface Props {
 }
 
 const page = async ({ params }: Props) => {
-  const templateComponents = await getComponentsBySiteId(params.id);
-  const websiteDraftSchema = await getWebsiteDraftSchemaByWebsiteId(params.id);
-  return (
-    <BuilderPage
-      styles={websiteDraftSchema?.styles_schema || initialStyles}
-      schema={websiteDraftSchema?.draft_schema}
-      templateId={websiteDraftSchema?.template?.slug || ''}
-      templateComponents={templateComponents}
-    />
-  );
+  const site = await getSiteForBuilderController(params.id);
+
+  if (!site) {
+    return <div>No site</div>;
+  }
+
+  return <BuilderPage {...site} />;
 };
 
 export default page;

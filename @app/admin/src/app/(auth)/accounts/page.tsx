@@ -1,5 +1,5 @@
 import React from 'react';
-import Authenticate from '../../../views/accounts/Authenticate';
+import Authenticate from '@admin/views/accounts/Authenticate';
 
 const AccountsPage = () => {
   return <Authenticate />;

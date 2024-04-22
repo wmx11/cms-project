@@ -71,6 +71,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
       top: `${_top}px`,
       left: `${_left}px`,
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [breakpoint, renderedTemplate, selectedElement, showGrid, styles]);
 
   useEffect(() => {
@@ -87,11 +88,12 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
 
     const { x: canvasX, y: canvasY } = canvas.getBoundingClientRect();
 
-    const gridElements = [...components]?.map((item) => {
+    const gridElements = [...components]?.map((item, index) => {
       const { height, width, top, left } = item?.getBoundingClientRect();
 
       return (
         <div
+          key={`canvas_overlay_grid_${index}`}
           data-target-id={item.id}
           data-canvas-overlay-highlight="hover"
           className={twMerge(
@@ -121,6 +123,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
     });
 
     setGrid(gridElements);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [breakpoint, renderedTemplate, showGrid, styles]);
 
   return (

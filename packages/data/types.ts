@@ -1,5 +1,5 @@
 export interface WithError {
-  error?: string | undefined;
+  errors: string | string[] | undefined;
 }
 
 export type Maybe<T> = T | undefined;
