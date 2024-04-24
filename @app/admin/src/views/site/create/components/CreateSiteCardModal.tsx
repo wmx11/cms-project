@@ -30,8 +30,7 @@ import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 import slugify from 'slugify';
 import createSiteAction from '../actions/createSiteAction';
-
-const MAX_DESCRIPTION_LENGTH = 160;
+import { MAX_META_DESCRIPTION_LENGTH } from '@cms/tiglee-engine/constants';
 
 interface Props {
   components?: Component[];
@@ -157,14 +156,14 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
               <p className="text-xs text-zinc-500">
                 <span
                   className={
-                    description?.length > MAX_DESCRIPTION_LENGTH
+                    description?.length > MAX_META_DESCRIPTION_LENGTH
                       ? 'text-red-500'
                       : ''
                   }
                 >
                   {description?.length}
                 </span>
-                /{MAX_DESCRIPTION_LENGTH}
+                /{MAX_META_DESCRIPTION_LENGTH}
               </p>
             </div>
 

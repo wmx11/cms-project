@@ -19,7 +19,7 @@ const PurgeStylesButton = () => {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="flex items-center w-full">
+      <AlertDialogTrigger className="flex items-center w-full text-destructive">
         <Warning className={ICON_STYLES} />
         <span>Purge styles</span>
       </AlertDialogTrigger>

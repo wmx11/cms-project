@@ -1,14 +1,22 @@
-import { DesignIcon, ICON_STYLES, LayersIcon } from '@cms/ui/components/Icons';
+import {
+  Cog,
+  DesignIcon,
+  ICON_STYLES,
+  LayersIcon,
+} from '@cms/ui/components/Icons';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from '@cms/ui/components/Tabs';
+import { FC } from 'react';
+import { BuilderSidebarProps } from './BuilderPage';
 import Layers from './canvas-controls/layers/Layers';
 import StyleControls from './canvas-controls/style-controls/StyleControls';
+import Settings from './settings/Settings';
 
-const BuilderSidebar = () => {
+const BuilderSidebar: FC<BuilderSidebarProps> = (props) => {
   return (
     <>
       <div className="bg-background w-full p-4">
@@ -22,7 +30,7 @@ const BuilderSidebar = () => {
               <LayersIcon className={ICON_STYLES} /> Layers
             </TabsTrigger>
             <TabsTrigger value="settings">
-              <LayersIcon className={ICON_STYLES} /> Settings
+              <Cog className={ICON_STYLES} /> Settings
             </TabsTrigger>
           </TabsList>
           <TabsContent value="styles">
@@ -31,7 +39,9 @@ const BuilderSidebar = () => {
           <TabsContent value="layers">
             <Layers />
           </TabsContent>
-          <TabsContent value="settings">Here will be settings</TabsContent>
+          <TabsContent value="settings">
+            <Settings {...props} />
+          </TabsContent>
         </Tabs>
       </div>
     </>

@@ -1,4 +1,4 @@
-import { UpdateSiteData } from '@cms/controllers/site';
+import { UpdateSiteData, UpdateSiteMetadataData } from '@cms/controllers/site';
 import db from '@cms/db';
 import { StylesObjectWithBreakpoints } from '@cms/tiglee-engine/styles/jssStyles';
 import { Schema } from '@cms/tiglee-engine/types';
@@ -89,6 +89,8 @@ export const getSiteForBuilder = async (data: {
         },
         site_page_data: {
           select: {
+            title: true,
+            description: true,
             site_page_schema: {
               select: {
                 schema: true,
@@ -166,6 +168,45 @@ export const updateSite = async (data: UpdateSiteProps) => {
             },
           },
         },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+interface UpdateSiteMetadataProps {
+  siteId: string;
+  userId: string;
+  data: UpdateSiteMetadataData;
+}
+
+export const updateSiteMetadata = async (data: UpdateSiteMetadataProps) => {
+  try {
+    const site = await db.site.findUnique({
+      where: {
+        id: data.siteId,
+        user_id: data.userId,
+      },
+      select: {
+        site_page_data_id: true,
+      },
+    });
+
+    if (!site?.site_page_data_id) {
+      return null;
+    }
+
+    return await db.sitePageData.update({
+      where: {
+        id: site?.site_page_data_id,
+      },
+      data: {
+        ...data.data,
+      },
+      select: {
+        id: true,
       },
     });
   } catch (error) {

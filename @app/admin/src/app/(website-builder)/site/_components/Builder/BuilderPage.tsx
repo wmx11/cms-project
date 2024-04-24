@@ -1,14 +1,19 @@
 import { BuilderStoreProps } from '@admin/store/useBuilderStore';
 import { ScrollArea, ScrollBar } from '@cms/packages/ui/components/ScrollArea';
+import { TooltipProvider } from '@cms/ui/components/Tooltip';
 import { FC } from 'react';
 import ComponentsListDialog from '../ComponentsListDialog';
 import BuilderCanvas from './BuilderCanvas';
 import BuilderProvider from './BuilderProvider';
 import BuilderSidebar from './BuilderSidebar';
 import BuilderHeader from './builder-header';
-import { TooltipProvider } from '@cms/ui/components/Tooltip';
 
-interface BuilderPageProps extends BuilderStoreProps {}
+export interface BuilderSidebarProps {
+  title: string | null;
+  description: string | null;
+}
+
+interface BuilderPageProps extends BuilderStoreProps, BuilderSidebarProps {}
 
 const BuilderPage: FC<BuilderPageProps> = (props) => {
   return (
@@ -28,7 +33,10 @@ const BuilderPage: FC<BuilderPageProps> = (props) => {
             </ScrollArea>
             <div className="fixed bottom-0 right-0 top-[47px] z-10 w-full max-w-[320px] border-l border-zinc-200">
               <ScrollArea className="h-full w-full">
-                <BuilderSidebar />
+                <BuilderSidebar
+                  title={props.title}
+                  description={props.description}
+                />
               </ScrollArea>
             </div>
           </div>

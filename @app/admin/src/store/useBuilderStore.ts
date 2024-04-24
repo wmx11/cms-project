@@ -6,9 +6,7 @@ import { createStore } from 'zustand';
 import createActionSlice, { ActionSlice } from './slices/createActionSlice';
 import createSchemaSlice, { SchemaSlice } from './slices/createSchemaSlice';
 import createStylesSlice, { StylesSlice } from './slices/createStylesSlice';
-import createTemplateSlice, {
-  TemplateSlice,
-} from './slices/createTemplateSlice';
+import createSiteSlice, { SiteSlice } from './slices/createSiteSlice';
 
 export type BuilderStore = ReturnType<typeof createBuilderStore>;
 
@@ -20,14 +18,14 @@ export interface BuilderStoreProps {
 }
 
 export type BuilderStoreState = SchemaSlice &
-  TemplateSlice &
+  SiteSlice &
   ActionSlice &
   StylesSlice;
 
 export const createBuilderStore = (initProps?: BuilderStoreProps) => {
   return createStore<BuilderStoreState>()((...a) => ({
     ...createSchemaSlice(...a),
-    ...createTemplateSlice(...a),
+    ...createSiteSlice(...a),
     ...createActionSlice(...a),
     ...createStylesSlice(...a),
     ...initProps,

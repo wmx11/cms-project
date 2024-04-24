@@ -1,10 +1,9 @@
 import serializeSchema from '@cms/packages/tiglee-engine/modules/serializeSchema';
 import { Schema } from '@cms/packages/tiglee-engine/types';
-import { Component } from '@prisma/client';
 import { StateCreator } from 'zustand';
 import { SchemaSlice } from './createSchemaSlice';
 
-export type TemplateSlice = {
+export type SiteSlice = {
   componentAlias: string;
   components: Schema[];
   renderedTemplate: Schema[];
@@ -12,7 +11,7 @@ export type TemplateSlice = {
   setComponentAlias: (componentAlias: string) => void;
 };
 
-const createTemplateSlice: StateCreator<TemplateSlice> = (set, get) => ({
+const createSiteSlice: StateCreator<SiteSlice> = (set, get) => ({
   componentAlias: '',
   components: [],
   renderedTemplate: [],
@@ -20,7 +19,7 @@ const createTemplateSlice: StateCreator<TemplateSlice> = (set, get) => ({
     set(() => ({ componentAlias })),
   renderTemplate: async (schema?: Schema[]) => {
     const _schema = (get() as unknown as SchemaSlice).schema;
-    const componentAlias = (get() as unknown as TemplateSlice).componentAlias;
+    const componentAlias = (get() as unknown as SiteSlice).componentAlias;
 
     if (schema) {
       (get() as unknown as SchemaSlice).setSchema(schema);
@@ -40,4 +39,4 @@ const createTemplateSlice: StateCreator<TemplateSlice> = (set, get) => ({
   },
 });
 
-export default createTemplateSlice;
+export default createSiteSlice;

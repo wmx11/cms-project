@@ -52,7 +52,7 @@ const SiteOptions = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="xs" className="group">
-          <ChevronDown className="ml-2 transition-transform group-hover:translate-y-1" />
+          <ChevronDown className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-1" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
@@ -81,7 +81,9 @@ const SiteOptions = () => {
           <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
             <PurgeStylesButton />
           </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuItem
+            className="text-destructive"
             onSelect={(e) => {
               e.preventDefault();
               handleDelete();

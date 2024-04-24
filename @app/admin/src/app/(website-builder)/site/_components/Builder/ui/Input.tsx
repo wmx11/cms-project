@@ -1,3 +1,4 @@
+'use client';
 import { Input as InputElement } from '@cms/packages/ui/components/Input';
 import React, {
   ChangeEvent,
@@ -28,8 +29,11 @@ const Input: FC<InputProps> = forwardRef((props, ref) => {
       placeholder="-"
       className={twMerge(props.className, 'h-8')}
       onChange={handleOnChange}
+      errorMessage={''}
     />
   );
 });
+
+Input.displayName = 'Input';
 
 export default Input;

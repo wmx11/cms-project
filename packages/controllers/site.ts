@@ -6,6 +6,7 @@ import {
   getSiteByAlias,
   getSiteForBuilder,
   updateSite,
+  updateSiteMetadata,
 } from '@cms/models/site';
 import {
   initialStyles,
@@ -27,6 +28,12 @@ class SitePageDataCreationFailed extends Error {
   }
 }
 
+class SiteMissingID extends Error {
+  constructor() {
+    super('Missing site ID.');
+  }
+}
+
 export interface CreateSiteProps {
   alias: string;
   title: string;
@@ -35,23 +42,21 @@ export interface CreateSiteProps {
   templateId?: string;
 }
 
-export const createSiteController = async (data: CreateSiteProps) => {
-  const validationSchema = z.object({
-    alias: z.string().min(3, {
-      message: 'Site alias must be at least 3 characters long.',
-    }),
-    title: z.string().min(3, {
-      message: 'Site title must be at least 3 characters long.',
-    }),
-    description: z.string().min(3, {
-      message: 'Site description must be at least 3 characters long.',
-    }),
-    componentId: z
-      .string()
-      .min(1, { message: 'Please select a component set.' }),
-    templateId: z.string().optional(),
-  });
+const validationSchema = z.object({
+  alias: z.string().min(3, {
+    message: 'Site alias must be at least 3 characters long.',
+  }),
+  title: z.string().min(3, {
+    message: 'Site title must be at least 3 characters long.',
+  }),
+  description: z.string().min(3, {
+    message: 'Site description must be at least 3 characters long.',
+  }),
+  componentId: z.string().min(1, { message: 'Please select a component set.' }),
+  templateId: z.string().optional(),
+});
 
+export const createSiteController = async (data: CreateSiteProps) => {
   validationSchema.parse(data);
 
   const site = await withUser(async (user) => {
@@ -91,8 +96,7 @@ export const createSiteController = async (data: CreateSiteProps) => {
 
 export const deleteSiteController = async (id: string) => {
   if (!id) {
-    console.error('Missing site ID.');
-    return null;
+    throw new SiteMissingID();
   }
 
   const site = await withUser(async (user) => {
@@ -119,8 +123,7 @@ export const updateSiteController = async (
   data: UpdateSiteData
 ) => {
   if (!id) {
-    console.error('Missing site ID.');
-    return null;
+    throw new SiteMissingID();
   }
 
   const site = await withUser(async (user) => {
@@ -137,6 +140,40 @@ export const updateSiteController = async (
       },
     });
   });
+
+  return site;
+};
+
+export interface UpdateSiteMetadataData {
+  title?: string;
+  description?: string;
+}
+
+export const updateSiteMetadataController = async (
+  id: string,
+  data: UpdateSiteMetadataData
+) => {
+  if (!id) {
+    throw new SiteMissingID();
+  }
+
+  validationSchema.pick({ title: true, description: true }).parse(data);
+
+  const site = await withUser(async (user) => {
+    if (!user) {
+      return null;
+    }
+
+    return await updateSiteMetadata({
+      siteId: id,
+      userId: user.id,
+      data,
+    });
+  });
+
+  if (!site) {
+    return null;
+  }
 
   return site;
 };
@@ -158,8 +195,7 @@ export const getSiteByAliasController = async (alias: string) => {
 
 export const getSiteForBuilderController = async (id: string) => {
   if (!id) {
-    console.error('Missing site ID.');
-    return null;
+    throw new SiteMissingID();
   }
 
   const site = await withUser(async (user) => {
@@ -177,6 +213,8 @@ export const getSiteForBuilderController = async (id: string) => {
   const {
     component: { alias, schema: componentsSchema },
     site_page_data: {
+      title,
+      description,
       site_page_schema: { schema: siteSchema, styles_schema },
     },
   } = site;
@@ -184,7 +222,7 @@ export const getSiteForBuilderController = async (id: string) => {
   const schema = (siteSchema as Schema[]) || [];
 
   const styles = (() => {
-    if (!styles_schema) {
+    if (Array.isArray(styles_schema) && !styles_schema.length) {
       return initialStyles;
     }
     return styles_schema;
@@ -199,5 +237,12 @@ export const getSiteForBuilderController = async (id: string) => {
     }
   })();
 
-  return { schema, styles, components, componentAlias: alias };
+  return {
+    schema,
+    styles,
+    components,
+    componentAlias: alias,
+    title,
+    description,
+  };
 };
