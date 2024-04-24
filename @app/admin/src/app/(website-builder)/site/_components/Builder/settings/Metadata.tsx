@@ -66,9 +66,9 @@ const Metadata: FC<BuilderSidebarProps> = (props) => {
           showLength
         />
       </div>
-      <Button onClick={handleOnClick} loading={loading} size="sm">
+      <Button onClick={handleOnClick} loading={loading} size="xs">
         <Save className={ICON_STYLES} />
-        Save
+        Save Metadata
       </Button>
     </div>
   );

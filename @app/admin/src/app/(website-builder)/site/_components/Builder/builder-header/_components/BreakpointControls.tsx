@@ -12,7 +12,13 @@ import {
   BREAKPOINT_XS,
 } from '@cms/packages/tiglee-engine/constants';
 import { Button } from '@cms/packages/ui/components/Button';
-import { Desktop, Mobile, Reset, Tablet } from '@cms/ui/components/Icons';
+import {
+  Desktop,
+  ICON_STYLES,
+  Mobile,
+  Reset,
+  Tablet,
+} from '@cms/ui/components/Icons';
 
 const BreakpointControls = () => {
   const breakpoint = useBuilderProviderState((state) => state.breakpoint);
@@ -36,7 +42,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_2XL, breakpoint)}
         >
-          <Desktop className="mr-2 h-3 w-3" />
+          <Desktop className={ICON_STYLES} />
           2xl
         </Button>
         <Button
@@ -45,7 +51,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_XL, breakpoint)}
         >
-          <Desktop className="mr-2 h-3 w-3" />
+          <Desktop className={ICON_STYLES} />
           xl
         </Button>
         <Button
@@ -54,7 +60,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_LG, breakpoint)}
         >
-          <Desktop className="mr-2 h-3 w-3" />
+          <Desktop className={ICON_STYLES} />
           lg
         </Button>
         <Button
@@ -63,7 +69,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_MD, breakpoint)}
         >
-          <Tablet className="mr-2 h-3 w-3" />
+          <Tablet className={ICON_STYLES} />
           md
         </Button>
         <Button
@@ -72,7 +78,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_SM, breakpoint)}
         >
-          <Mobile className="mr-2 h-3 w-3" />
+          <Mobile className={ICON_STYLES} />
           sm
         </Button>
         <Button
@@ -81,7 +87,7 @@ const BreakpointControls = () => {
           size="xs"
           variant={getActiveButtonVariant(BREAKPOINT_XS, breakpoint)}
         >
-          <Mobile className="mr-2 h-3 w-3" />
+          <Mobile className={ICON_STYLES} />
           xs
         </Button>
         <Button
@@ -89,7 +95,7 @@ const BreakpointControls = () => {
           variant="destructive"
           size="xs"
         >
-          <Reset className="mr-2 h-3 w-3" />
+          <Reset className={ICON_STYLES} />
           Reset
         </Button>
       </div>

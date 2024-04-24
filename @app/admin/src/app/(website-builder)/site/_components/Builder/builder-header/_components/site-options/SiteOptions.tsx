@@ -37,8 +37,8 @@ const SiteOptions = () => {
 
     const site = await deleteSiteAction(params.id);
 
-    if (site?.data?.site) {
-      toast.success('Site deleted successfully');
+    if (!site.error) {
+      toast.success('Site deleted successfully.');
 
       setTimeout(() => {
         router.push(routes.site.default);

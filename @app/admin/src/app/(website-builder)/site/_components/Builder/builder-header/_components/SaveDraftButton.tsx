@@ -2,7 +2,11 @@
 import updateSiteAction from '@admin/app/(website-builder)/site/_actions/updateSiteAction';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import { Button } from '@cms/packages/ui/components/Button';
-import { Save } from '@cms/packages/ui/components/Icons';
+import {
+  ICON_STYLES,
+  Save,
+  TemplateIcon,
+} from '@cms/packages/ui/components/Icons';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -21,24 +25,30 @@ const SaveDraftButton = () => {
       stylesSchema: styles,
     });
 
-    if (site.data.site) {
-      toast.success('Draft saved successfuly.');
-    } else {
+    if (site.error) {
       toast.error(`There's been a problem saving draft`);
+    } else {
+      toast.success('Draft saved successfuly.');
     }
 
     setLoading(false);
   };
 
   return (
-    <Button
-      onClick={handleOnClick}
-      variant="outline"
-      size="xs"
-      loading={loading}
-    >
-      <Save className="mr-2 h-3 w-3" /> Save Draft
-    </Button>
+    <>
+      <Button variant="outline" size="xs">
+        <TemplateIcon className={ICON_STYLES} />
+        Save Template
+      </Button>
+      <Button
+        onClick={handleOnClick}
+        variant="outline"
+        size="xs"
+        loading={loading}
+      >
+        <Save className={ICON_STYLES} /> Save Draft
+      </Button>
+    </>
   );
 };
 

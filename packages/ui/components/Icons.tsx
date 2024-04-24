@@ -58,7 +58,13 @@ import {
   TbPaintOff,
 } from 'react-icons/tb';
 import { BsBorderStyle } from 'react-icons/bs';
-import { ChevronDownIcon, LogOutIcon, MoveLeft, PlusIcon } from 'lucide-react';
+import {
+  ChevronDownIcon,
+  LayoutTemplateIcon,
+  LogOutIcon,
+  MoveLeft,
+  PlusIcon,
+} from 'lucide-react';
 
 export const ICON_STYLES = 'h-3 w-3 mr-2';
 
@@ -96,6 +102,7 @@ export const ColorPalette = IoMdColorPalette;
 export const RemoveStylesIcon = TbPaintOff;
 export const LogOut = LogOutIcon;
 export const GoogleIcon = FaGoogle;
+export const TemplateIcon = LayoutTemplateIcon;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;

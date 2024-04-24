@@ -1,6 +1,6 @@
 'use client';
 import { Button } from '@cms/packages/ui/components/Button';
-import { Publish } from '@cms/packages/ui/components/Icons';
+import { ICON_STYLES, Publish } from '@cms/packages/ui/components/Icons';
 import { toast } from 'sonner';
 
 const PublishButton = () => {
@@ -10,7 +10,7 @@ const PublishButton = () => {
 
   return (
     <Button onClick={handleOnClick} color="primary" size="xs">
-      <Publish className="mr-2 h-3 w-3" /> Publish
+      <Publish className={ICON_STYLES} /> Publish
     </Button>
   );
 };
