@@ -23,7 +23,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {props.label}
           </Label>
         )}
-        <div className="border-input relative flex items-center rounded-md border">
+        <div
+          className={cn(
+            'border-input relative flex items-center overflow-clip rounded-md border',
+            errorMessage && 'border-destructive'
+          )}
+        >
           {startContent && (
             <div className="mr-2 text-xs text-zinc-500">{startContent}</div>
           )}

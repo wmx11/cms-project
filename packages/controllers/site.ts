@@ -34,7 +34,7 @@ class SiteMissingID extends Error {
   }
 }
 
-export interface CreateSiteProps {
+export interface CreateSiteData {
   alias: string;
   title: string;
   description: string;
@@ -56,7 +56,7 @@ const validationSchema = z.object({
   templateId: z.string().optional(),
 });
 
-export const createSiteController = async (data: CreateSiteProps) => {
+export const createSiteController = async (data: CreateSiteData) => {
   validationSchema.parse(data);
 
   const site = await withUser(async (user) => {

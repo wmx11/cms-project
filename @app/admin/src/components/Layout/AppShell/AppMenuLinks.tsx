@@ -2,19 +2,18 @@
 import routes from '@admin/utils/routes';
 import {
   Command,
-  CommandList,
   CommandGroup,
   CommandItem,
-  CommandInput,
+  CommandList,
   CommandSeparator,
 } from '@cms/ui/components/Command';
 import { ICON_STYLES, Plus } from '@cms/ui/components/Icons';
 import { Home, PanelsTopLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import React from 'react';
 
 const AppMenuLinks = () => {
   const router = useRouter();
+
   return (
     <Command className="p-2">
       <CommandList className="overflow-visible">

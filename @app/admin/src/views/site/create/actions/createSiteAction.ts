@@ -1,4 +1,8 @@
 'use server';
+import {
+  ActionReturnTypeWithError,
+  ActionReturnTypeWithoutError,
+} from '@admin/types';
 import { createSiteController } from '@cms/controllers/site';
 import handleErrorMessages from '@cms/data/handleErrorMessages';
 
@@ -13,18 +17,11 @@ interface Props {
 const createSiteAction = async (data: Props) => {
   try {
     const site = await createSiteController(data);
-
-    return {
-      data: {
-        siteId: site?.id,
-      },
-    };
+    return { data: { ...site } } as ActionReturnTypeWithoutError<typeof site>;
   } catch (error) {
     return {
-      data: {
-        ...handleErrorMessages(error),
-      },
-    };
+      ...handleErrorMessages(error),
+    } as ActionReturnTypeWithError<Props>;
   }
 };
 

@@ -31,6 +31,8 @@ import { FC, useState } from 'react';
 import slugify from 'slugify';
 import createSiteAction from '../actions/createSiteAction';
 import { MAX_META_DESCRIPTION_LENGTH } from '@cms/tiglee-engine/constants';
+import useErrorMessage from '@admin/hooks/useErrorMessage';
+import { CreateSiteData } from '@cms/controllers/site';
 
 interface Props {
   components?: Component[];
@@ -42,16 +44,15 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
   const [title, setTitle] = useState<string>('');
   const [componentId, setComponentId] = useState<string>('');
   const [description, setDescription] = useState<string>('');
-  const [errorMessage, setErrorMessage] = useState<{
-    [x: string]: string[] | undefined;
-  }>({
-    general: [''],
-    alias: [''],
-    title: [''],
-    description: [''],
-    componentId: [''],
-    templateId: [''],
+  const { error, clearErrors, setError } = useErrorMessage<CreateSiteData>({
+    general: '',
+    alias: '',
+    componentId: '',
+    description: '',
+    title: '',
+    templateId: '',
   });
+
   const router = useRouter();
 
   const handleCreateSite = async () => {
@@ -65,22 +66,22 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
     });
 
     if (!result) {
-      setErrorMessage((prev) => ({
+      setError((prev) => ({
         ...prev,
-        general: ['Could not create a site. Please try again.'],
+        general: 'Could not create a site. Please try again.',
       }));
       setLoading(false);
       return;
     }
 
-    if (result.data.error) {
-      setErrorMessage({ ...result.data.error });
+    if (result.error) {
+      setError({ ...result.error });
       setLoading(false);
       return;
     }
 
-    if (result.data.siteId) {
-      router.push(routes.site.edit.replace('$id', result.data.siteId));
+    if (result?.data?.id) {
+      router.push(routes.site.edit.replace('$id', result.data.id));
     }
   };
 
@@ -107,7 +108,7 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
           <DialogDescription>
             Fill in the information to create your new site
           </DialogDescription>
-          <ErrorMessage errorMessage={errorMessage.general} />
+          <ErrorMessage errorMessage={error.general} />
           <div className="space-y-4">
             <div>
               <Label htmlFor="alias">Site alias</Label>
@@ -115,7 +116,7 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
                 Site alias is used to identify your site.
               </p>
               <Input
-                errorMessage={errorMessage.alias}
+                errorMessage={error.alias}
                 onChange={(e) => setAlias(e.target.value)}
                 value={alias}
                 id="alias"
@@ -133,7 +134,7 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
                 cards.
               </p>
               <Input
-                errorMessage={errorMessage.title}
+                errorMessage={error.title}
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
                 id="title"
@@ -148,7 +149,7 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
                 displayed on preview cards.
               </p>
               <Textarea
-                errorMessage={errorMessage.description}
+                errorMessage={error.description}
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
                 id="name"
@@ -175,7 +176,7 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
               <Select onValueChange={(value) => setComponentId(value)}>
                 <SelectTrigger
                   className="max-w-[462px]"
-                  errorMessage={errorMessage.componentId}
+                  errorMessage={error.componentId}
                 >
                   <SelectValue placeholder="Select component set" />
                 </SelectTrigger>
@@ -198,7 +199,7 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
               </Select>
             </div>
             <div>
-              <Button disabled={loading} onClick={handleCreateSite}>
+              <Button loading={loading} onClick={handleCreateSite}>
                 Create site
               </Button>
             </div>

@@ -1,18 +1,13 @@
 'use client';
+import { ErrorMessageType } from '@cms/data/handleErrorMessages';
 import { useState } from 'react';
 
-const useErrorMessage = () => {
-  const [errorMessage, setErrorMessage] = useState('');
+const useErrorMessage = <T>(initialErrorState: ErrorMessageType<T>) => {
+  const [error, setError] = useState(initialErrorState);
 
-  const handleErrorMessage = (message: string = '') => {
-    if (!message) {
-      setErrorMessage('');
-    } else {
-      setErrorMessage(message);
-    }
-  };
+  const clearErrors = () => setError(initialErrorState);
 
-  return { errorMessage, handleErrorMessage };
+  return { error, setError, clearErrors };
 };
 
 export default useErrorMessage;

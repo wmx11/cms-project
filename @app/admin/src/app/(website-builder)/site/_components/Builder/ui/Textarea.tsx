@@ -1,14 +1,14 @@
-'use client';
-import React, { FC, useState } from 'react';
+import { MAX_META_DESCRIPTION_LENGTH } from '@cms/tiglee-engine/constants';
 import {
   Textarea as TextareaComponent,
   TextareaProps,
 } from '@cms/ui/components/Textarea';
-import { MAX_META_DESCRIPTION_LENGTH } from '@cms/tiglee-engine/constants';
+import { FC } from 'react';
 
-interface Props extends TextareaProps {
+interface Props extends Omit<TextareaProps, 'value'> {
   showLength?: boolean;
   maxLength?: number;
+  value: string;
 }
 
 export const Textarea: FC<Props> = ({
@@ -16,19 +16,15 @@ export const Textarea: FC<Props> = ({
   maxLength = MAX_META_DESCRIPTION_LENGTH,
   ...props
 }) => {
-  const [value, setValue] = useState<string>((props.value as string) || '');
-
   return (
     <div>
-      <TextareaComponent
-        {...props}
-        value={value}
-        onChange={(e) => setValue(e.currentTarget.value)}
-      />
+      <TextareaComponent {...props} />
       {showLength && (
         <p className="text-xs text-zinc-500">
-          <span className={value?.length > maxLength ? 'text-red-500' : ''}>
-            {value?.length}
+          <span
+            className={props.value?.length > maxLength ? 'text-red-500' : ''}
+          >
+            {props.value?.length}
           </span>
           /{maxLength}
         </p>

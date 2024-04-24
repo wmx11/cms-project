@@ -1,8 +1,5 @@
 import { UpdateSiteData, UpdateSiteMetadataData } from '@cms/controllers/site';
 import db from '@cms/db';
-import { StylesObjectWithBreakpoints } from '@cms/tiglee-engine/styles/jssStyles';
-import { Schema } from '@cms/tiglee-engine/types';
-import { string } from 'zod';
 
 interface CreateSiteData {
   userId: string;
@@ -207,6 +204,8 @@ export const updateSiteMetadata = async (data: UpdateSiteMetadataProps) => {
       },
       select: {
         id: true,
+        title: true,
+        description: true,
       },
     });
   } catch (error) {
