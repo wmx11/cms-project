@@ -1,4 +1,4 @@
-import { ErrorMessageType } from '@cms/data/handleErrorMessages';
+import { ErrorMessageType } from '@cms/lib/handleErrorMessages';
 import { BuilderStoreState } from './store/useBuilderStore';
 
 export type BuilderState = { state: BuilderStoreState };

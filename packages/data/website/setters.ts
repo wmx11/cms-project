@@ -11,7 +11,7 @@
 import { Website } from '@prisma/client';
 import slugify from 'slugify';
 import { z } from 'zod';
-import handleErrorMessages from '../handleErrorMessages';
+import handleErrorMessages from '../../lib/handleErrorMessages';
 import { MaybeWithError } from '../types';
 import db from '@cms/packages/db';
 

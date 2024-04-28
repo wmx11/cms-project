@@ -32,6 +32,7 @@ import {
   FaEyeSlash,
   FaHeading,
   FaGoogle,
+  FaExclamationCircle,
 } from 'react-icons/fa';
 import { GoDuplicate } from 'react-icons/go';
 import { GrPowerReset } from 'react-icons/gr';
@@ -103,6 +104,7 @@ export const RemoveStylesIcon = TbPaintOff;
 export const LogOut = LogOutIcon;
 export const GoogleIcon = FaGoogle;
 export const TemplateIcon = LayoutTemplateIcon;
+export const TooltipIcon = FaExclamationCircle;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;

@@ -11,6 +11,7 @@ import BuilderHeader from './builder-header';
 export interface BuilderSidebarProps {
   title: string | null;
   description: string | null;
+  icon: string | null;
 }
 
 interface BuilderPageProps extends BuilderStoreProps, BuilderSidebarProps {}
@@ -34,6 +35,7 @@ const BuilderPage: FC<BuilderPageProps> = (props) => {
             <div className="fixed bottom-0 right-0 top-[47px] z-10 w-full max-w-[320px] border-l border-zinc-200">
               <ScrollArea className="h-full w-full">
                 <BuilderSidebar
+                  icon={props.icon}
                   title={props.title}
                   description={props.description}
                 />

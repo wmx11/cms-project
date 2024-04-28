@@ -2,6 +2,11 @@ const path = require('path');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
+  },
   transpilePackages: [
     '@cms/packages/ui',
     '@cms/packages/tiglee-components',

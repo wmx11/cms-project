@@ -6,7 +6,6 @@
   "scripts": {
     "admin": "pnpm --filter @cms/admin",
     "client": "pnpm --filter @cms/client",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "components:register": "npx ts-node ./packages/tiglee-engine/registerComponents.ts"
   },
   "keywords": [],
@@ -14,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@auth/prisma-adapter": "^2.0.0",
+    "@aws-sdk/client-s3": "^3.556.0",
     "@cms/packages": "workspace:^",
     "@nextui-org/react": "^2.3.5",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -36,6 +36,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "dotenv": "^16.4.5",
     "eslint": "9.1.1",
     "eslint-config-next": "14.2.2",
     "framer-motion": "^11.1.7",
@@ -53,12 +54,14 @@
     "next-auth": "^4.24.7",
     "next-themes": "^0.3.0",
     "postcss": "8.4.38",
+    "pretty-bytes": "^6.1.1",
     "prisma-json-types-generator": "^3.0.4",
     "react": "18.2.0",
     "react-best-gradient-color-picker": "^3.0.7",
     "react-dom": "18.2.0",
     "react-icons": "^5.1.0",
     "sass": "^1.75.0",
+    "sharp": "^0.33.3",
     "slate": "^0.103.0",
     "slate-react": "^0.102.0",
     "slugify": "^1.6.6",

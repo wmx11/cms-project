@@ -17,6 +17,7 @@ import ZIndexControls from '../element-controls/ZIndexControls';
 import OverflowControls from '../element-controls/OverflowControls';
 import HeightAndWidthControls from '../element-controls/HeightAndWidthControls';
 import MarginAndPaddingControls from '../element-controls/MarginAndPaddingControls';
+import ImageControls from '../element-controls/ImageControls';
 
 const DynamicShadowControls = dynamic(
   () => import('../element-controls/ShadowControls'),
@@ -41,7 +42,19 @@ const DynamicTextColorControls = dynamic(
 
 export default [
   {
+    key: 'image',
+    display: 'image',
+    title: 'Image & Video',
+    description: 'Image and video controls',
+    component: (
+      <div className="space-y-2">
+        <ImageControls />
+      </div>
+    ),
+  },
+  {
     key: 'text',
+    display: 'default',
     title: 'Text & Typography',
     description: 'Text alignemnt, sizing, colors, and typography.',
     component: (
@@ -55,6 +68,7 @@ export default [
   },
   {
     key: 'effects',
+    display: 'default',
     title: 'Effects',
     description: 'Text & background colors, shadows, borders, etc.',
     component: (
@@ -71,6 +85,7 @@ export default [
   },
   {
     key: 'position',
+    display: 'default',
     title: 'Position',
     description: 'What position type the element uses',
     component: (
@@ -81,6 +96,7 @@ export default [
   },
   {
     key: 'positioned-controls',
+    display: 'default',
     title: 'Position Coordinates',
     description: 'How the element is positioned in the X and Y axis.',
     component: (
@@ -91,6 +107,7 @@ export default [
   },
   {
     key: 'layout-controls',
+    display: 'default',
     title: 'Layout',
     description: 'What is the selected element layout type',
     component: (
@@ -101,6 +118,7 @@ export default [
   },
   {
     key: 'columns-gaps',
+    display: 'default',
     title: 'Columns & Gaps',
     description: 'How many columns & gap spacing the element has',
     component: (
@@ -112,6 +130,7 @@ export default [
   },
   {
     key: 'horizontal-alignment',
+    display: 'default',
     title: 'Horizontal Alignment (X axis)',
     description: 'How the items inside the element are aligned on the X axis',
     component: (
@@ -122,6 +141,7 @@ export default [
   },
   {
     key: 'vertical-alignment',
+    display: 'default',
     title: 'Vertical Alignment (Y axis)',
     description: 'How the items inside the element are aligned on the Y axis',
     component: (
@@ -133,6 +153,7 @@ export default [
 
   {
     key: 'overflow',
+    display: 'default',
     title: 'Overflow & Stacking',
     description: 'Overflow and stacking controls of the element.',
     component: (
@@ -144,6 +165,7 @@ export default [
   },
   {
     key: 'height-width',
+    display: 'default',
     title: 'Height & Width',
     description: 'Height and width controls of the element.',
     component: (
@@ -154,6 +176,7 @@ export default [
   },
   {
     key: 'margin-padding',
+    display: 'default',
     title: 'Margin & Padding',
     description: 'Maring and padding controls of the element.',
     component: (

@@ -4,7 +4,7 @@ import {
   ActionReturnTypeWithoutError,
 } from '@admin/types';
 import { deleteSiteController } from '@cms/controllers/site';
-import handleErrorMessages from '@cms/data/handleErrorMessages';
+import handleErrorMessages from '@cms/lib/handleErrorMessages';
 
 const deleteSiteAction = async (id: string) => {
   try {

@@ -88,6 +88,7 @@ export const getSiteForBuilder = async (data: {
           select: {
             title: true,
             description: true,
+            icon: true,
             site_page_schema: {
               select: {
                 schema: true,

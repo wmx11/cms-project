@@ -1,4 +1,5 @@
 'use client';
+import useAssetUpload from '@admin/hooks/useAssetUpload';
 import useStyles from '@admin/hooks/useStyles';
 import { Label } from '@cms/ui/components/Label';
 import {
@@ -9,10 +10,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@cms/ui/components/Select';
-import { ChangeEvent, useState } from 'react';
-import { initialBackgroundState } from './ColorControls';
+import { useState } from 'react';
+import ImageUpload from '../../../ui/ImageUpload';
 import { BackgroundControlsProps } from '../types';
-import Input from '../../../ui/Input';
+import { initialBackgroundState } from './ColorControls';
 
 const BackgroundImageController = () => {
   const { applyStyles, getActiveStyles } = useStyles();
@@ -23,25 +24,7 @@ const BackgroundImageController = () => {
     activeStyles ? activeStyles['background'] : initialBackgroundState
   );
 
-  const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target?.files;
-
-    if (!files) {
-      return;
-    }
-
-    const url = URL.createObjectURL(files[0]);
-    const urlString = `url(${url})`;
-
-    setState((prevState) => {
-      return {
-        ...prevState,
-        image: urlString,
-      };
-    });
-
-    applyStyles({ background: { ...state, image: urlString } });
-  };
+  const { error, handleUpload, loading, setFile } = useAssetUpload();
 
   const handleSelectionChange = (
     prop: keyof typeof initialBackgroundState,
@@ -59,16 +42,39 @@ const BackgroundImageController = () => {
 
   return (
     <div className="space-y-2">
-      <div>
-        <Input type="file" onChange={(value, e) => handleUpload(e)} />
-      </div>
-      <div
-        className="w-[294px] h-[294px] bg-zinc-200 rounded-md"
-        style={{ background: state?.image ? state?.image : state?.color ?? '' }}
-      >
-        <div className="w-full h-full"></div>
-      </div>
-      <div className="space-y-2 flex gap-4 flex-wrap [&>*]:flex-1 items-end">
+      <ImageUpload
+        src={
+          state.image
+            ?.match(/('.*?')/g)
+            ?.at(0)
+            ?.replace(/'/g, '') || ''
+        }
+        variant="default"
+        loading={loading}
+        onChange={setFile}
+        onUpload={() =>
+          handleUpload({
+            assetType: 'image',
+            bucket: 'assets',
+            onSuccess: (result) => {
+              const url = `url('${result.data?.url}')`;
+
+              setState((prevState) => {
+                return {
+                  ...prevState,
+                  image: url,
+                };
+              });
+
+              applyStyles({ background: { ...state, image: url } });
+            },
+          })
+        }
+        error={error}
+        showDetails
+      />
+
+      <div className="flex flex-wrap items-end gap-4 space-y-2 [&>*]:flex-1">
         <div>
           <Label htmlFor="backgroundAttachment">Background attachment</Label>
           <Select

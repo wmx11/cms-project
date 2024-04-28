@@ -162,22 +162,24 @@ model Template {
 
 enum AssetType {
   image
+  icon
   video
   font
 }
 
 model Asset {
   id           String    @id @default(cuid())
-  name         String
+  name         String    @unique
   url          String
   type         AssetType
+  format       String
   size         Int
   user_id      String?
-  user         User?     @relation(fields: [user_id], references: [id])
+  user         User?     @relation(fields: [user_id], onDelete: Cascade, onUpdate: Cascade, references: [id])
   site_id      String?
-  site         Site?     @relation(fields: [site_id], references: [id])
+  site         Site?     @relation(fields: [site_id], onDelete: Cascade, onUpdate: Cascade, references: [id])
   page_id      String?
-  page         Page?     @relation(fields: [page_id], references: [id])
+  page         Page?     @relation(fields: [page_id], onDelete: Cascade, onUpdate: Cascade, references: [id])
   date_created DateTime  @default(now())
   date_updated DateTime  @updatedAt
 }

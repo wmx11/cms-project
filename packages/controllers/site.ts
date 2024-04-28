@@ -1,5 +1,10 @@
 import { withUser } from '@cms/lib/auth';
 import {
+  SiteMissingID,
+  SitePageDataCreationFailed,
+  SiteWithAliasExists,
+} from '@cms/lib/errors';
+import {
   createSite,
   createSitePageData,
   deleteSite,
@@ -15,24 +20,6 @@ import {
 import { Schema } from '@cms/tiglee-engine/types';
 import slugify from 'slugify';
 import { z } from 'zod';
-
-class SiteWithAliasExists extends Error {
-  constructor() {
-    super('Site with this alias already exists.');
-  }
-}
-
-class SitePageDataCreationFailed extends Error {
-  constructor() {
-    super('Failed to create Site or Page data. Please try again.');
-  }
-}
-
-class SiteMissingID extends Error {
-  constructor() {
-    super('Missing site ID.');
-  }
-}
 
 export interface CreateSiteData {
   alias: string;
@@ -147,6 +134,7 @@ export const updateSiteController = async (
 export interface UpdateSiteMetadataData {
   title?: string;
   description?: string;
+  icon?: string;
 }
 
 export const updateSiteMetadataController = async (
@@ -215,6 +203,7 @@ export const getSiteForBuilderController = async (id: string) => {
     site_page_data: {
       title,
       description,
+      icon,
       site_page_schema: { schema: siteSchema, styles_schema },
     },
   } = site;
@@ -238,11 +227,12 @@ export const getSiteForBuilderController = async (id: string) => {
   })();
 
   return {
+    icon,
+    title,
     schema,
     styles,
     components,
-    componentAlias: alias,
-    title,
     description,
+    componentAlias: alias,
   };
 };

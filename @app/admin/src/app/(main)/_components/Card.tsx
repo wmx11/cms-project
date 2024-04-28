@@ -7,7 +7,7 @@ interface Props extends PropsWithChildren {
   description?: string;
 }
 
-const Card: FC<Props> = ({ children, description, name }) => {
+const Card: FC<Props> = ({ children, description, name, alias }) => {
   return (
     <div className="space-y-2">
       <div>
@@ -19,6 +19,7 @@ const Card: FC<Props> = ({ children, description, name }) => {
           </CardContent>
         </CardWrapper>
         <div>{name && <p className="text-sm">{name}</p>}</div>
+        <div>{alias && <p className="text-sm">{name}</p>}</div>
         <div>
           {description && (
             <p className="text-xs text-zinc-500">{description}</p>
