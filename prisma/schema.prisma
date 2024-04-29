@@ -161,9 +161,10 @@ model Template {
 }
 
 enum AssetType {
+  meta_image
+  video
   image
   icon
-  video
   font
 }
 

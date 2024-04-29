@@ -89,6 +89,7 @@ export const getSiteForBuilder = async (data: {
             title: true,
             description: true,
             icon: true,
+            image: true,
             site_page_schema: {
               select: {
                 schema: true,
@@ -207,6 +208,8 @@ export const updateSiteMetadata = async (data: UpdateSiteMetadataProps) => {
         id: true,
         title: true,
         description: true,
+        icon: true,
+        image: true,
       },
     });
   } catch (error) {

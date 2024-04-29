@@ -14,7 +14,7 @@ const imageUploadVariants = cva(
     variants: {
       variant: {
         default: 'min-h-[100px] max-w-[100%] rounded-md p-1',
-        favicon: 'h-8 max-h-8 w-8 max-w-8',
+        favicon: 'h-10 max-h-10 w-10 max-w-10',
       },
     },
     defaultVariants: {

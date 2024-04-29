@@ -18,7 +18,18 @@ export const optimizeImageService = async (
             lossless: true,
           })
           .toBuffer({ resolveWithObject: true });
-
+      case 'meta_image':
+        return await sharp(data.asset)
+          .webp({
+            quality: 80,
+            lossless: true,
+          })
+          .resize({
+            width: 1200,
+            height: 630,
+            fit: 'cover',
+          })
+          .toBuffer({ resolveWithObject: true });
       case 'icon':
         return await sharp(data.asset)
           .png({

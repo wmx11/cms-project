@@ -135,6 +135,7 @@ export interface UpdateSiteMetadataData {
   title?: string;
   description?: string;
   icon?: string;
+  image?: string;
 }
 
 export const updateSiteMetadataController = async (
@@ -204,6 +205,7 @@ export const getSiteForBuilderController = async (id: string) => {
       title,
       description,
       icon,
+      image,
       site_page_schema: { schema: siteSchema, styles_schema },
     },
   } = site;
@@ -228,6 +230,7 @@ export const getSiteForBuilderController = async (id: string) => {
 
   return {
     icon,
+    image,
     title,
     schema,
     styles,

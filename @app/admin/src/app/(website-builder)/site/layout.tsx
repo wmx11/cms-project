@@ -15,7 +15,13 @@ const layout = ({ children }: { children: React.ReactNode }) => {
       <body className={`overflow-hidden ${inter.className}`}>
         <main>
           <Providers>{children}</Providers>
-          <Toaster position="top-center" />
+          <Toaster
+            position="top-center"
+            richColors
+            closeButton
+            visibleToasts={3}
+            expand={true}
+          />
         </main>
       </body>
     </html>

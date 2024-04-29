@@ -73,7 +73,7 @@ const registerComponents = async () => {
     }
 
     try {
-      const schema = JSON.stringify(componentSchemaArray);
+      const schema = JSON.stringify(componentSchemaArray) as unknown as Schema;
 
       const component = await prisma.component.upsert({
         create: {

@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, FC, PropsWithChildren } from 'react';
+import { ComponentPropsWithoutRef, FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 interface Props extends ComponentPropsWithoutRef<'div'> {

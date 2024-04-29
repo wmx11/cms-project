@@ -18,7 +18,7 @@ export const schema: Schema = {
     {
       name: 'src',
       type: 'string',
-      value: 'https://nextui.org/images/hero-card-complete.jpeg',
+      value: 'https://pub-74bba6d2bc6a4e40bd05762f56bd8a1b.r2.dev/no-image.png',
       displayName: 'Image source',
     },
     {

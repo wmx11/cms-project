@@ -6,7 +6,6 @@ import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import useErrorMessage from './useErrorMessage';
-import { ActionReturnTypeWithoutError } from '@admin/types';
 
 const useAssetUpload = () => {
   const params = useParams<{ id: string }>();
@@ -15,6 +14,7 @@ const useAssetUpload = () => {
   const { error, clearErrors, setError } = useErrorMessage({ general: '' });
 
   interface HandleUpload {
+    file?: File;
     bucket: keyof typeof BUCKET_LIST;
     assetType: AssetType;
     onError?: () => void;
@@ -25,19 +25,21 @@ const useAssetUpload = () => {
     setLoading(true);
     clearErrors();
 
-    if (!file) {
+    const _file = data.file || file;
+
+    if (!_file) {
       setLoading(false);
       return;
     }
 
-    const buffer = await file.arrayBuffer();
+    const buffer = await _file.arrayBuffer();
 
     const result = await uploadAssetAction({
       asset: new Uint8Array(buffer),
       bucket: data.bucket,
       assetType: data.assetType,
-      format: file.type as AllowedAssetFormats,
-      name: file.name,
+      format: _file.type as AllowedAssetFormats,
+      name: _file.name,
       siteId: params.id,
     });
 

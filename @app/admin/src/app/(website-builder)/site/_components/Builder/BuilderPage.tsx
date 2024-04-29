@@ -12,6 +12,7 @@ export interface BuilderSidebarProps {
   title: string | null;
   description: string | null;
   icon: string | null;
+  image: string | null;
 }
 
 interface BuilderPageProps extends BuilderStoreProps, BuilderSidebarProps {}
@@ -19,7 +20,7 @@ interface BuilderPageProps extends BuilderStoreProps, BuilderSidebarProps {}
 const BuilderPage: FC<BuilderPageProps> = (props) => {
   return (
     <BuilderProvider {...props}>
-      <TooltipProvider>
+      <TooltipProvider delayDuration={300}>
         <div className="overflow-hidden">
           <div className="fixed top-0 z-10 w-full">
             <BuilderHeader />
@@ -35,9 +36,7 @@ const BuilderPage: FC<BuilderPageProps> = (props) => {
             <div className="fixed bottom-0 right-0 top-[47px] z-10 w-full max-w-[320px] border-l border-zinc-200">
               <ScrollArea className="h-full w-full">
                 <BuilderSidebar
-                  icon={props.icon}
-                  title={props.title}
-                  description={props.description}
+                  {...props}
                 />
               </ScrollArea>
             </div>
