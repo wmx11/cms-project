@@ -30,9 +30,7 @@ const serializeComponentForBuilder = (
 
   const acceptsChildren = Array.isArray(componentNodeCopy?.props?.children);
 
-  const className: string = `${componentNodeCopy?.props?.className} ${
-    item.editable ? `outline-none cursor-text` : ''
-  }`;
+  const className: string = componentNodeCopy?.props?.className;
 
   Object.assign(componentNodeCopy, {
     props: {
@@ -47,7 +45,6 @@ const serializeComponentForBuilder = (
       [DATA_DISPLAY_NAME]: item.displayName,
       [DATA_DND_INITIALIZED]: false,
       [DATA_ACCEPTS_CHILDREN]: acceptsChildren,
-      ...(item.editable ? { contentEditable: true } : {}),
     },
   });
 

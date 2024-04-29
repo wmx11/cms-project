@@ -158,11 +158,9 @@ export const updateSite = async (data: UpdateSiteProps) => {
         site_page_data: {
           update: {
             site_page_schema: {
-              update: {
-                data: {
-                  schema: data.data.schema,
-                  styles_schema: data.data.stylesSchema,
-                },
+              create: {
+                schema: data.data.schema,
+                styles_schema: data.data.stylesSchema,
               },
             },
           },

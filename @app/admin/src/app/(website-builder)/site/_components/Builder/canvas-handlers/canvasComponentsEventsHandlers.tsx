@@ -1,5 +1,6 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import { handleEditableContentOnDoubleClick } from '@admin/utils/handleEditableContentOnDoubleClick';
 import { DATA_EDITABLE } from '@cms/packages/tiglee-engine/constants';
 import { useEffect } from 'react';
 
@@ -14,6 +15,10 @@ export const useEditableContentControls = () => {
     (state) => state.renderedTemplate
   );
 
+  const renderTemplate = useBuilderProviderState(
+    (state) => state.renderTemplate
+  );
+
   useEffect(() => {
     if (!selectedElement) {
       return;
@@ -23,43 +28,50 @@ export const useEditableContentControls = () => {
       return;
     }
 
-    // if (selectedElement.getAttribute('contenteditable') === 'true') {
-    //   return;
-    // }
+    const _selectedElement =
+      selectedComponent?.category === 'button'
+        ? (selectedElement.firstChild as HTMLElement)
+        : selectedElement;
+
+    const componentValue = selectedComponent?.props.find(
+      (item) => item.type === 'string' && item.name === 'children'
+    );
 
     const handleEditableContentInput = (event: Event) => {
       const target = event.target as HTMLBaseElement;
 
-      const componentValue = selectedComponent?.props.find(
-        (item) => item.type === 'string' && item.name === 'children'
-      );
-
       if (componentValue) {
-        componentValue.value = target.innerHTML;
+        componentValue.value = target.innerText;
       }
     };
 
     const handleEditableContentBlur = (event: Event) => {
       const target = event.target as HTMLBaseElement;
-      // target.classList.add(...STYLES_CONTENT_EDITABLE.split(' '));
-      // target.removeAttribute('contenteditable');
       target.removeEventListener('input', handleEditableContentInput, true);
       target.removeEventListener('blur', handleEditableContentBlur, true);
+      target.removeAttribute('contenteditable');
+      renderTemplate();
     };
 
-    // selectedElement.classList.remove(...STYLES_CONTENT_EDITABLE.split(' '));
-    selectedElement.addEventListener('input', handleEditableContentInput, true);
-    selectedElement.addEventListener('blur', handleEditableContentBlur, true);
-    // selectedElement.setAttribute('contenteditable', 'true');
-    selectedElement.focus();
+    _selectedElement.addEventListener(
+      'input',
+      handleEditableContentInput,
+      true
+    );
+    _selectedElement.addEventListener('blur', handleEditableContentBlur, true);
+    _selectedElement.addEventListener(
+      'dblclick',
+      handleEditableContentOnDoubleClick,
+      true
+    );
 
     return () => {
-      selectedElement.removeEventListener(
+      _selectedElement.removeEventListener(
         'input',
         handleEditableContentInput,
         true
       );
-      selectedElement.removeEventListener(
+      _selectedElement.removeEventListener(
         'blur',
         handleEditableContentBlur,
         true

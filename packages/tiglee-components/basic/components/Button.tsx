@@ -5,7 +5,11 @@ import { FC, HTMLAttributes, PropsWithChildren } from 'react';
 const Button: FC<PropsWithChildren & HTMLAttributes<HTMLButtonElement>> = (
   props
 ) => {
-  return <ButtonComponent {...props}></ButtonComponent>;
+  return (
+    <ButtonComponent {...props}>
+      <span>{props.children}</span>
+    </ButtonComponent>
+  );
 };
 
 export default Button;

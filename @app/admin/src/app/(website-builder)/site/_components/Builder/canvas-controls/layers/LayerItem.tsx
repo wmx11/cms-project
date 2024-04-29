@@ -2,8 +2,10 @@
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import useStyles from '@admin/hooks/useStyles';
 import handleOnBlur from '@admin/utils/handleOnBlur';
-import handleOnEscapeOrEnter from '@admin/utils/handleOnEscapeOrEnter';
-import { selectTextContent } from '@admin/utils/textSelections';
+import {
+  handleOnEnter,
+  handleOnEscape,
+} from '@admin/utils/handleOnEscapeOrEnter';
 import {
   DATA_CANVAS_OVERLAY_HIGHLIGHT,
   DATA_LAYER_ITEM,
@@ -18,6 +20,7 @@ import Button from '../../ui/buttons/Button';
 import { Eye, EyeSlash, Trash } from '@cms/ui/components/Icons';
 import RemoveStylesButton from '../../ui/buttons/RemoveStylesButton';
 import DefaultTooltip from '@admin/components/DefaultTooltip';
+import { handleEditableContentOnDoubleClick } from '@admin/utils/handleEditableContentOnDoubleClick';
 
 export interface LayerItemProps {
   label: string;
@@ -69,16 +72,6 @@ const LayerItem: FC<LayerItemProps> = ({
     setSelectedElement(target);
     target?.focus();
     target?.scrollIntoView({ block: 'center' });
-  };
-
-  const handleDoubleClick = (e: MouseEvent<HTMLDivElement>) => {
-    const target = e.currentTarget as HTMLElement;
-    if (!target) {
-      return;
-    }
-    target.setAttribute('contenteditable', 'true');
-    target.focus();
-    selectTextContent(target);
   };
 
   const setDisplayName = (target: HTMLElement) => {
@@ -173,8 +166,11 @@ const LayerItem: FC<LayerItemProps> = ({
           <div
             data-layer-item
             className="min-h-[10px] min-w-[20px] max-w-[120px] overflow-hidden truncate empty:bg-red-100"
-            onDoubleClick={handleDoubleClick}
-            onKeyUp={handleOnEscapeOrEnter((target) => setDisplayName(target))}
+            onDoubleClick={handleEditableContentOnDoubleClick}
+            onKeyUp={() => {
+              handleOnEscape((target) => setDisplayName(target));
+              handleOnEnter((target) => setDisplayName(target));
+            }}
             onBlur={handleOnBlur(setDisplayName)}
           >
             {label}
