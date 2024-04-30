@@ -8,9 +8,11 @@ export const useEditableContentControls = () => {
   const selectedElement = useBuilderProviderState(
     (state) => state.selectedElement
   );
+
   const selectedComponent = useBuilderProviderState(
     (state) => state.selectedComponent
   );
+
   const renderedTemplate = useBuilderProviderState(
     (state) => state.renderedTemplate
   );
@@ -50,7 +52,6 @@ export const useEditableContentControls = () => {
       target.removeEventListener('input', handleEditableContentInput, true);
       target.removeEventListener('blur', handleEditableContentBlur, true);
       target.removeAttribute('contenteditable');
-      renderTemplate();
     };
 
     _selectedElement.addEventListener(
@@ -77,5 +78,5 @@ export const useEditableContentControls = () => {
         true
       );
     };
-  }, [selectedElement, renderedTemplate]);
+  }, [selectedComponent, renderedTemplate]);
 };
