@@ -44,7 +44,7 @@ const BackgroundImageController = () => {
     <div className="space-y-2">
       <ImageUpload
         src={
-          state.image
+          state?.image
             ?.match(/('.*?')/g)
             ?.at(0)
             ?.replace(/'/g, '') || ''

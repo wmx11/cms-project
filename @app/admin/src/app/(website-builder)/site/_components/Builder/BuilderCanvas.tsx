@@ -66,12 +66,14 @@ const BuilderCanvas = () => {
 
   return (
     <div
-      className={`relative mt-[47px] flex min-h-screen items-center justify-center bg-zinc-100 px-3 pb-2 pt-12`}
+      className={`relative mt-[47px] flex min-h-screen items-center justify-center overflow-clip bg-zinc-100 px-3 pb-2 pt-12`}
       ref={canvasBackgroundRef}
     >
       <div
         className="flex transition-[scale] duration-100 ease-out"
-        style={{ transformOrigin: '50% 0', scale: canvasScale }}
+        data-x="0"
+        data-y="0"
+        style={{ transformOrigin: 'calc(50% - 220px) 50%', scale: canvasScale }}
         ref={canvasWrapperRef}
       >
         <div
