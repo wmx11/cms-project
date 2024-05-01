@@ -2,19 +2,24 @@ import serializeSchema from '@cms/packages/tiglee-engine/modules/serializeSchema
 import { Schema } from '@cms/packages/tiglee-engine/types';
 import { StateCreator } from 'zustand';
 import { SchemaSlice } from './createSchemaSlice';
+import { produce } from 'immer';
 
 export type SiteSlice = {
+  initialized: boolean;
   componentAlias: string;
   components: Schema[];
   renderedTemplate: Schema[];
+  setInitialized: (initialized: boolean) => void;
   renderTemplate: (schema?: Schema[]) => void;
   setComponentAlias: (componentAlias: string) => void;
 };
 
 const createSiteSlice: StateCreator<SiteSlice> = (set, get) => ({
+  initialized: false,
   componentAlias: '',
   components: [],
   renderedTemplate: [],
+  setInitialized: (initialized: boolean) => set(() => ({ initialized })),
   setComponentAlias: (componentAlias: string) =>
     set(() => ({ componentAlias })),
   renderTemplate: async (schema?: Schema[]) => {
@@ -31,7 +36,7 @@ const createSiteSlice: StateCreator<SiteSlice> = (set, get) => ({
       serializeForBuilder: true,
     });
 
-    const newRenderedTemplate = [...serializedSchema];
+    const newRenderedTemplate = produce(serializedSchema, (draft) => draft);
 
     set(() => ({
       renderedTemplate: newRenderedTemplate,

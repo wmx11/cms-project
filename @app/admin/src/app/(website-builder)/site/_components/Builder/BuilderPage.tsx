@@ -25,6 +25,7 @@ const BuilderPage: FC<BuilderPageProps> = (props) => {
           <div className="fixed top-0 z-10 w-full">
             <BuilderHeader />
           </div>
+
           <div className="grid grid-cols-[1fr,320px]">
             <ScrollArea
               data-builder-canvas-wrapper
@@ -35,12 +36,11 @@ const BuilderPage: FC<BuilderPageProps> = (props) => {
             </ScrollArea>
             <div className="fixed bottom-0 right-0 top-[47px] z-10 w-full max-w-[320px] border-l border-zinc-200">
               <ScrollArea className="h-full w-full">
-                <BuilderSidebar
-                  {...props}
-                />
+                <BuilderSidebar {...props} />
               </ScrollArea>
             </div>
           </div>
+
           <ComponentsListDialog />
         </div>
       </TooltipProvider>

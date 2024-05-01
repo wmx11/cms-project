@@ -1,6 +1,9 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import {
+  iterativeCheckComponent
+} from '@admin/utils/iterativeCheck';
+import {
   BREAKPOINT_DEFAULT,
   BREAKPOINT_DEFAULT_WIDTH,
   BUILDER_STYLES_META_TAG,
@@ -8,11 +11,11 @@ import {
 import builderJss from '@cms/packages/tiglee-engine/styles/builderJss';
 import Kbd from '@cms/packages/ui/components/Kbd';
 import { SheetsManager, Styles } from 'jss';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CanvasOverlay from './CanvasOverlay';
 import { useEditableContentControls } from './canvas-handlers/canvasComponentsEventsHandlers';
-import { initHandleDragAndDrop } from './canvas-handlers/canvasDragAndDropHandlers';
-import { handleCanvasClick } from './canvas-handlers/canvasEventsHandlers';
+import { useDragAndDrop } from './canvas-handlers/canvasDragAndDropHandlers';
+import { useCanvasEvents } from './canvas-handlers/canvasEventsHandlers';
 import { useKeyboardEvents } from './canvas-handlers/canvasKeyboardEventsHandlers';
 
 const BuilderCanvas = () => {
@@ -25,25 +28,30 @@ const BuilderCanvas = () => {
   const renderTemplate = useBuilderProviderState(
     (state) => state.renderTemplate
   );
+  const toggleGrid = useBuilderProviderState((state) => state.toggleGrid);
   const setStyleSheet = useBuilderProviderState((state) => state.setStyleSheet);
+  const setInitialized = useBuilderProviderState(
+    (state) => state.setInitialized
+  );
+  const initialized = useBuilderProviderState((state) => state.initialized);
 
-  const isStyleSheetSet = useRef(false);
+  const [stylesReady, setStylesReady] = useState(false);
+
   const canvasRef = useRef<HTMLDivElement>(null);
+  const canvasOverlayRef = useRef<HTMLDivElement>(null);
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
   const canvasBackgroundRef = useRef<HTMLDivElement>(null);
-  // const canvasOverlayRef = useRef<HTMLDivElement>(null);
-  const canvasOverlayHighlightHoverRef = useRef<HTMLDivElement>(null);
   const canvasOverlayLabelRef = useRef<HTMLDivElement>(null);
+  const canvasOverlayHighlightHoverRef = useRef<HTMLDivElement>(null);
 
-  // Initialize keyboard event handler
-  useKeyboardEvents({ canvasWrapperRef, canvasRef, canvasBackgroundRef });
-  useEditableContentControls();
-
-  // Initialize styles handler
+  /**
+   * Initialize styles
+   */
   useEffect(() => {
-    if (isStyleSheetSet.current) {
+    if (stylesReady) {
       return;
     }
+
     const manager = new SheetsManager();
     const styleSheet = builderJss.createStyleSheet(styles as Partial<Styles>, {
       meta: BUILDER_STYLES_META_TAG,
@@ -53,16 +61,50 @@ const BuilderCanvas = () => {
     manager.add(key, styleSheet);
     manager.manage(key);
     setStyleSheet(styleSheet);
-    renderTemplate();
-    isStyleSheetSet.current = true;
+    setStylesReady(true);
   }, []);
 
-  // Initialize drag and drop handler
+  /**
+   * Initialized template AFTER styles
+   */
+  useEffect(() => {
+    renderTemplate();
+  }, [stylesReady]);
+
+  /**
+   * Initialized template AFTER styles
+   */
   // useEffect(() => {
-  //   if (typeof window !== undefined) {
-  //     initHandleDragAndDrop({ canvasRef, canvasOverlayRef, state });
-  //   }
-  // }, [renderedTemplate]);
+  //   toggleGrid(true);
+  // }, [initialized]);
+
+  /**
+   * Initiate iterative check for DOM components and set initialized flag and display grids.
+   */
+
+  useEffect(() => {
+    iterativeCheckComponent({
+      callback: () => {
+        toggleGrid(true);
+        setInitialized(true);
+      },
+    });
+  }, []);
+
+  /**
+   * Initialize keyboard events
+   */
+  useKeyboardEvents({ canvasWrapperRef, canvasRef, canvasBackgroundRef });
+  /**
+   * Initialize editable content handler
+   */
+  useEditableContentControls();
+  /**
+   * Initialize drag and drop handler
+   */
+  useDragAndDrop({ canvasOverlayRef, canvasRef });
+
+  const { handleCanvasClick } = useCanvasEvents();
 
   return (
     <div
@@ -89,20 +131,7 @@ const BuilderCanvas = () => {
                 : `${BREAKPOINT_DEFAULT_WIDTH}px`,
             containerType: 'inline-size',
           }}
-          onClick={handleCanvasClick({
-            setSelectedComponent: useBuilderProviderState(
-              (state) => state.setSelectedComponent
-            ),
-            setSelectedComponentPath: useBuilderProviderState(
-              (state) => state.setSelectedComponentPath
-            ),
-            setSelectedElement: useBuilderProviderState(
-              (state) => state.setSelectedElement
-            ),
-            resetSelection: useBuilderProviderState(
-              (state) => state.resetSelection
-            ),
-          })}
+          onClick={handleCanvasClick}
         >
           <p className="text-muted-foreground absolute top-[-47px] p-4 text-sm">
             Press <Kbd>⌘</Kbd> + <Kbd>/</Kbd> to add a component...
@@ -110,6 +139,7 @@ const BuilderCanvas = () => {
 
           <CanvasOverlay
             canvasRef={canvasRef}
+            canvasOverlayRef={canvasOverlayRef}
             canvasOverlayLabelRef={canvasOverlayLabelRef}
             canvasOverlayHighlightHoverRef={canvasOverlayHighlightHoverRef}
           />

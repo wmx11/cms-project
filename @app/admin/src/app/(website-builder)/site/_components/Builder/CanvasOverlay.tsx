@@ -13,6 +13,7 @@ import ElementInfoButton from './canvas-controls/element-overlay-controls/Elemen
 
 export interface CanvasOverlayProps {
   canvasRef: RefObject<HTMLDivElement>;
+  canvasOverlayRef: RefObject<HTMLDivElement>;
   canvasOverlayHighlightHoverRef: RefObject<HTMLDivElement>;
   canvasOverlayLabelRef: RefObject<HTMLDivElement>;
 }
@@ -20,6 +21,7 @@ export interface CanvasOverlayProps {
 const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
   const {
     canvasRef: { current: canvas },
+    canvasOverlayRef,
   } = props;
 
   const selectedComonentPath = useBuilderProviderState(
@@ -35,7 +37,6 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
   const breakpoint = useBuilderProviderState((state) => state.breakpoint);
   const showGrid = useBuilderProviderState((state) => state.showGrid);
   const styles = useBuilderProviderState((state) => state.styles);
-
   const canvasOverlayControlsRef = useRef<HTMLDivElement>(null);
   const canvasOverlayHighlightRef = useRef<HTMLDivElement>(null);
   const [grid, setGrid] = useState<JSX.Element[] | null>(null);
@@ -71,7 +72,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
       top: `${_top}px`,
       left: `${_left}px`,
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [breakpoint, renderedTemplate, selectedElement, showGrid, styles]);
 
   useEffect(() => {
@@ -123,11 +124,12 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
     });
 
     setGrid(gridElements);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [breakpoint, renderedTemplate, showGrid, styles]);
 
   return (
     <div
+      ref={canvasOverlayRef}
       data-canvas-overlay
       className="pointer-events-none absolute inset-0 z-10"
     >

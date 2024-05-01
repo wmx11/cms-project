@@ -17,10 +17,6 @@ export const useEditableContentControls = () => {
     (state) => state.renderedTemplate
   );
 
-  const renderTemplate = useBuilderProviderState(
-    (state) => state.renderTemplate
-  );
-
   useEffect(() => {
     if (!selectedElement) {
       return;
@@ -59,7 +55,9 @@ export const useEditableContentControls = () => {
       handleEditableContentInput,
       true
     );
+
     _selectedElement.addEventListener('blur', handleEditableContentBlur, true);
+
     _selectedElement.addEventListener(
       'dblclick',
       handleEditableContentOnDoubleClick,
@@ -75,6 +73,11 @@ export const useEditableContentControls = () => {
       _selectedElement.removeEventListener(
         'blur',
         handleEditableContentBlur,
+        true
+      );
+      _selectedElement.removeEventListener(
+        'dblclick',
+        handleEditableContentOnDoubleClick,
         true
       );
     };

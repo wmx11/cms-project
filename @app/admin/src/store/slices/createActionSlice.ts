@@ -9,7 +9,7 @@ export interface ActionSlice {
   isScaling: boolean;
   setIsCommandOpen: (isCommandOpen: boolean) => void;
   setIsContextMenuOpen: (isContextMenuOpen: boolean) => void;
-  toggleGrid: () => void;
+  toggleGrid: (showGrid?: boolean) => void;
   setIsScaling: (isScaling: boolean) => void;
   setCanvasScale: (scaleBy: number, scale?: number) => void;
   resetCanvasScale: () => void;
@@ -18,13 +18,14 @@ export interface ActionSlice {
 const createActionSlice: StateCreator<ActionSlice> = (set, get) => ({
   isCommandOpen: false,
   isContextMenuOpen: false,
-  showGrid: true,
+  showGrid: false,
   canvasScale: 1,
   isScaling: false,
   setIsCommandOpen: (isCommandOpen: boolean) => set(() => ({ isCommandOpen })),
   setIsContextMenuOpen: (isContextMenuOpen: boolean) =>
     set(() => ({ isContextMenuOpen })),
-  toggleGrid: () => set(() => ({ showGrid: !get().showGrid })),
+  toggleGrid: (showGrid?: boolean) =>
+    set(() => ({ showGrid: showGrid ? showGrid : !get().showGrid })),
   setIsScaling: (isScaling: boolean) => set(() => ({ isScaling })),
   setCanvasScale: (scaleBy: number, scale?: number) =>
     set(() => {

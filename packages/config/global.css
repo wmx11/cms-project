@@ -76,10 +76,29 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
   }
 
   .tg-wrapper {
     @apply bg-tg-background;
+  }
+
+  .tg-grab {
+    cursor: grab;
+  }
+
+  .tg-grabbing {
+    cursor: grabbing;
+  }
+
+  .tg-grabbing * {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .tg-grabbing [data-canvas-overlay] {
+    display: none;
   }
 }

@@ -1,48 +1,56 @@
+import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import {
   DATA_CANVAS_OVERLAY,
   DATA_COMPONENT,
   DATA_TARGET_ID,
 } from '@cms/packages/tiglee-engine/constants';
-import { MouseEvent, RefObject } from 'react';
+import { MouseEvent } from 'react';
 
-export type CanvasHandlerProps = {
-  canvasRef: RefObject<HTMLDivElement>;
-  canvasOverlayRef: RefObject<HTMLDivElement>;
-};
+export const useCanvasEvents = () => {
+  const setSelectedElement = useBuilderProviderState(
+    (state) => state.setSelectedElement
+  );
+  const setSelectedComponentPath = useBuilderProviderState(
+    (state) => state.setSelectedComponentPath
+  );
+  const setSelectedComponent = useBuilderProviderState(
+    (state) => state.setSelectedComponent
+  );
+  const resetSelection = useBuilderProviderState(
+    (state) => state.resetSelection
+  );
 
-export const handleCanvasClick =
-  (state: {
-    setSelectedElement: (target: HTMLElement | null) => void;
-    setSelectedComponentPath: (value: string) => void;
-    setSelectedComponent: (value: string) => void;
-    resetSelection: () => void;
-  }) =>
-  (event: MouseEvent<HTMLDivElement>) => {
-    const _target = event.target as HTMLElement;
+  const handleCanvasClick = (event: MouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
 
-    let target;
+    let _target;
 
-    if (_target.hasAttribute(DATA_TARGET_ID)) {
-      target = document.getElementById(
-        _target?.getAttribute(DATA_TARGET_ID) as string
+    if (target.hasAttribute(DATA_TARGET_ID)) {
+      _target = document.getElementById(
+        target?.getAttribute(DATA_TARGET_ID) as string
       );
     } else {
-      target = _target;
+      _target = target;
     }
 
-    if (!target) {
+    if (!_target) {
       return null;
     }
 
-    if (target.hasAttribute(DATA_CANVAS_OVERLAY)) {
-      state.resetSelection();
+    if (_target.hasAttribute(DATA_CANVAS_OVERLAY)) {
+      resetSelection();
     }
 
-    if (!target.hasAttribute(DATA_COMPONENT)) {
+    if (!_target.hasAttribute(DATA_COMPONENT)) {
       return null;
     }
 
-    state.setSelectedElement(target);
-    state.setSelectedComponentPath(target.id || '');
-    state.setSelectedComponent(target.id || '');
+    setSelectedElement(_target);
+    setSelectedComponentPath(_target.id || '');
+    setSelectedComponent(_target.id || '');
   };
+
+  return {
+    handleCanvasClick,
+  };
+};

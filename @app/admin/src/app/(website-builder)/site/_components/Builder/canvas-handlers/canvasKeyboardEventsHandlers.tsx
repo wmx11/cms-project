@@ -138,8 +138,10 @@ export const useKeyboardEvents = ({
           isSpaceDown.current = false;
           isMouseDown.current = false;
           if (canvasBackgroundRef.current) {
-            canvasBackgroundRef.current.style.userSelect = 'auto';
-            canvasBackgroundRef.current.style.cursor = 'auto';
+            canvasBackgroundRef.current.classList.remove(
+              'tg-grabbing',
+              'tg-grab'
+            );
           }
           break;
         default:
@@ -169,7 +171,12 @@ export const useKeyboardEvents = ({
           break;
 
         case ' ':
-          if (selectedComponent?.editable) {
+          console.log(e);
+
+          if (
+            selectedElement?.hasAttribute('contenteditable') ||
+            (e.target as HTMLBaseElement).localName === 'textarea'
+          ) {
             return;
           }
 
@@ -183,8 +190,7 @@ export const useKeyboardEvents = ({
             e.preventDefault();
 
             if (!isMouseDown.current) {
-              canvasBackgroundRef.current.style.userSelect = 'none';
-              canvasBackgroundRef.current.style.cursor = 'grab';
+              canvasBackgroundRef.current.classList.add('tg-grab');
             }
           }
           break;
@@ -251,7 +257,7 @@ export const useKeyboardEvents = ({
       }
 
       if (isSpaceDown.current) {
-        canvasBackgroundRef.current.style.cursor = 'grabbing';
+        canvasBackgroundRef.current.classList.add('tg-grabbing');
       }
     };
 
@@ -272,8 +278,7 @@ export const useKeyboardEvents = ({
         return;
       }
 
-      canvasBackgroundRef.current.style.cursor = 'auto';
-      canvasBackgroundRef.current.style.userSelect = 'auto';
+      canvasBackgroundRef.current.classList.remove('tg-grabbing', 'tg-grab');
     };
 
     const handleMouseMove = (e: MouseEvent) => {
