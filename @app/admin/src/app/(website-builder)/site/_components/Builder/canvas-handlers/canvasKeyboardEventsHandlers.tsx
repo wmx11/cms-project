@@ -16,12 +16,16 @@ import { RefObject, useEffect, useRef } from 'react';
 
 interface UseKeyboardEventsProps {
   canvasWrapperRef: RefObject<HTMLDivElement>;
-  canvasRef: RefObject<HTMLDivElement>;
   canvasBackgroundRef: RefObject<HTMLDivElement>;
 }
 
+/**
+ * Hook that handles keyboard and mouse events.
+ * @note - This may need to be split into two different hooks to hande keyboard AND mouse events separately.
+ * To make things easier to follow.
+ */
+
 export const useKeyboardEvents = ({
-  canvasRef,
   canvasWrapperRef,
   canvasBackgroundRef,
 }: UseKeyboardEventsProps) => {
@@ -29,10 +33,6 @@ export const useKeyboardEvents = ({
 
   const selectedElement = useBuilderProviderState(
     (state) => state.selectedElement
-  );
-
-  const selectedComponent = useBuilderProviderState(
-    (state) => state.selectedComponent
   );
 
   const selectedComonentPath = useBuilderProviderState(
@@ -171,8 +171,6 @@ export const useKeyboardEvents = ({
           break;
 
         case ' ':
-          console.log(e);
-
           if (
             selectedElement?.hasAttribute('contenteditable') ||
             (e.target as HTMLBaseElement).localName === 'textarea'
@@ -331,8 +329,10 @@ export const useKeyboardEvents = ({
         'mousemove',
         handleMouseMove
       );
+
       document.removeEventListener('keydown', handleKeyDownEvents);
       document.removeEventListener('keyup', handleKeyUpEvents);
+
       window.removeEventListener('wheel', handleMouseWheelEvents);
     };
   }, [selectedComonentPath]);

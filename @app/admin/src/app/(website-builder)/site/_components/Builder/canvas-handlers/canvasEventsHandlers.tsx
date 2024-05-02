@@ -6,7 +6,10 @@ import {
 } from '@cms/packages/tiglee-engine/constants';
 import { MouseEvent } from 'react';
 
-export const useCanvasEvents = () => {
+/**
+ * Hook that handles canvas clicking to select elements on the canvas.
+ */
+export const useCanvasClick = () => {
   const setSelectedElement = useBuilderProviderState(
     (state) => state.setSelectedElement
   );

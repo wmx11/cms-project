@@ -11,11 +11,11 @@ import LayerGroup from './LayerGroup';
 import LayerItem from './LayerItem';
 
 const Layers = () => {
+  const schema = useBuilderProviderState((state) => state.schema);
+
   const selectedComonentPath = useBuilderProviderState(
     (state) => state.selectedComonentPath
   );
-
-  const schema = useBuilderProviderState((state) => state.schema);
 
   useEffect(() => {
     const layerItem = document.querySelector(

@@ -1,9 +1,16 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import { handleEditableContentOnDoubleClick } from '@admin/utils/handleEditableContentOnDoubleClick';
-import { DATA_EDITABLE } from '@cms/packages/tiglee-engine/constants';
+import {
+  DATA_CANVAS_OVERLAY,
+  DATA_EDITABLE,
+} from '@cms/packages/tiglee-engine/constants';
 import { useEffect } from 'react';
 
+/**
+ * Hook responsible for making sure the editable content can be edited by double clicking on it.
+ * It will set the new value on the Schema
+ */
 export const useEditableContentControls = () => {
   const selectedElement = useBuilderProviderState(
     (state) => state.selectedElement
@@ -16,6 +23,12 @@ export const useEditableContentControls = () => {
   const renderedTemplate = useBuilderProviderState(
     (state) => state.renderedTemplate
   );
+
+  const renderTemplate = useBuilderProviderState(
+    (state) => state.renderTemplate
+  );
+
+  const canvasOverlay = document.querySelector(`[${DATA_CANVAS_OVERLAY}]`);
 
   useEffect(() => {
     if (!selectedElement) {
@@ -41,6 +54,10 @@ export const useEditableContentControls = () => {
       if (componentValue) {
         componentValue.value = target.innerText;
       }
+
+      if (canvasOverlay) {
+        canvasOverlay.classList.add('hidden');
+      }
     };
 
     const handleEditableContentBlur = (event: Event) => {
@@ -48,6 +65,12 @@ export const useEditableContentControls = () => {
       target.removeEventListener('input', handleEditableContentInput, true);
       target.removeEventListener('blur', handleEditableContentBlur, true);
       target.removeAttribute('contenteditable');
+
+      if (canvasOverlay) {
+        canvasOverlay.classList.remove('hidden');
+      }
+
+      renderTemplate();
     };
 
     _selectedElement.addEventListener(

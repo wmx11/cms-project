@@ -1,12 +1,12 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import {
+  DATA_CANVAS,
   DATA_COMPONENT,
   DATA_DISPLAY_NAME,
-  DATA_LABEL,
+  DATA_LABEL
 } from '@cms/packages/tiglee-engine/constants';
 import { FC, RefObject, useEffect, useRef, useState } from 'react';
-import { twMerge } from 'tailwind-merge';
 import DeleteElementButton from './canvas-controls/element-overlay-controls/DeleteElementButton';
 import DuplicateElementButton from './canvas-controls/element-overlay-controls/DuplicateElementButton';
 import ElementInfoButton from './canvas-controls/element-overlay-controls/ElementInfoButton';
@@ -33,30 +33,50 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
   const selectedElement = useBuilderProviderState(
     (state) => state.selectedElement
   );
+  const initialized = useBuilderProviderState((state) => state.initialized);
   const canvasScale = useBuilderProviderState((state) => state.canvasScale);
-  const breakpoint = useBuilderProviderState((state) => state.breakpoint);
   const showGrid = useBuilderProviderState((state) => state.showGrid);
   const styles = useBuilderProviderState((state) => state.styles);
   const canvasOverlayControlsRef = useRef<HTMLDivElement>(null);
   const canvasOverlayHighlightRef = useRef<HTMLDivElement>(null);
   const [grid, setGrid] = useState<JSX.Element[] | null>(null);
+  const [transitioned, setTransitioned] = useState(new Date().getTime());
+  const toggleGrid = useBuilderProviderState((state) => state.toggleGrid);
 
   const scale = 1 / canvasScale || 1;
 
+  /**
+   * Toggle grid when everything has been initialized to avoid messed up grid displays.
+   */
   useEffect(() => {
-    if (!canvasOverlayHighlightRef.current) {
+    if (!initialized) {
       return;
     }
 
-    if (!canvas) {
+    const handleTransitionEnd = (e: TransitionEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.hasAttribute(DATA_CANVAS)) {
+        setTransitioned(new Date().getTime());
+      }
+    };
+
+    toggleGrid(true);
+
+    canvas?.addEventListener('transitionend', handleTransitionEnd, true);
+    return () => {
+      canvas?.removeEventListener('transitionend', handleTransitionEnd, true);
+    };
+  }, [initialized]);
+
+  /**
+   * This handles the overlay highlight grid when an element is selected.
+   */
+  useEffect(() => {
+    if (!canvasOverlayHighlightRef.current || !canvas || !selectedElement) {
       return;
     }
 
     const { x: canvasX, y: canvasY } = canvas.getBoundingClientRect();
-
-    if (!selectedElement) {
-      return;
-    }
 
     const { height, width, top, left } =
       selectedElement?.getBoundingClientRect();
@@ -73,8 +93,11 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
       left: `${_left}px`,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [breakpoint, renderedTemplate, selectedElement, showGrid, styles]);
+  }, [renderedTemplate, selectedElement, showGrid, styles, transitioned]);
 
+  /**
+   * This handles the overall grid display for each individual item on the canvas.
+   */
   useEffect(() => {
     if (!canvas) {
       return;
@@ -97,10 +120,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
           key={`canvas_overlay_grid_${index}`}
           data-target-id={item.id}
           data-canvas-overlay-highlight="hover"
-          className={twMerge(
-            `group group pointer-events-auto relative flex cursor-pointer justify-center border border-violet-200 transition-colors hover:border-violet-900`,
-            selectedComonentPath ? 'pointer-events-none' : ''
-          )}
+          className="group pointer-events-none relative flex cursor-pointer justify-center border border-violet-200 transition-all duration-100 hover:border-violet-900"
           style={{
             height: `${height * scale}px`,
             maxWidth: `${width * scale}px`,
@@ -113,7 +133,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
           <div
             data-canvas-overlay-highlight-label
             ref={props.canvasOverlayLabelRef}
-            className={`absolute hidden translate-y-[-10px] rounded-full bg-violet-900 px-3 py-0.5 text-xs text-white group-hover:block`}
+            className="absolute z-[1] translate-y-[-10px] rounded-full bg-violet-900 px-3 py-0.5 text-xs text-white group-hover:block"
           >
             {item.getAttribute(DATA_DISPLAY_NAME) ||
               item.getAttribute(DATA_LABEL) ||
@@ -125,7 +145,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
 
     setGrid(gridElements);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [breakpoint, renderedTemplate, showGrid, styles]);
+  }, [renderedTemplate, showGrid, styles, transitioned]);
 
   return (
     <div
@@ -135,7 +155,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
     >
       <div
         data-canvas-overlay-highlight="active"
-        className="absolute z-10 border-2 border-violet-500 empty:hidden"
+        className="absolute border-2 border-violet-500 empty:hidden"
         ref={canvasOverlayHighlightRef}
         data-target-id={selectedComonentPath}
       >

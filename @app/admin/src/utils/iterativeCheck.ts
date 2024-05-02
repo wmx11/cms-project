@@ -1,3 +1,5 @@
+import { DATA_COMPONENT } from '@cms/tiglee-engine/constants';
+
 interface IterativeCheckProps {
   check: () => void;
   delay?: number;
@@ -26,6 +28,6 @@ export const iterativeCheckComponent = (
   data: Omit<IterativeCheckProps, 'check'>
 ) =>
   iterativeCheck({
-    check: () => document.querySelector('[data-component]'),
+    check: () => document.querySelector(`[${DATA_COMPONENT}]`),
     ...data,
   });

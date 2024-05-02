@@ -6,42 +6,50 @@ import {
   DRAGGABLE,
 } from '@cms/packages/tiglee-engine/constants';
 import dragAndDropComponent from '@cms/packages/tiglee-engine/modules/dragAndDropComponent';
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 import { canvasDragAndDropHighlight } from './canvasOverlayElements';
-import { iterativeCheckComponent } from '@admin/utils/iterativeCheck';
 
-const RED = '#fee2e230';
-const GREEN = '#dcfce730';
+const RED = '#fee2e260';
+const GREEN = '#dcfce760';
 
 interface UseDragAndDropProps {
+  templateRef: RefObject<HTMLDivElement>;
   canvasRef: RefObject<HTMLDivElement>;
   canvasOverlayRef: RefObject<HTMLDivElement>;
 }
 
+/**
+ * A hook to handle drag and drop for draggable and dropzone elements.
+ * It should modify the Schema first and then re-render the template.
+ */
+
 export const useDragAndDrop = ({
+  templateRef,
   canvasRef,
   canvasOverlayRef,
 }: UseDragAndDropProps) => {
   const schema = useBuilderProviderState((state) => state.schema);
-
   const canvasScale = useBuilderProviderState((state) => state.canvasScale);
-
   const initialized = useBuilderProviderState((state) => state.initialized);
-
+  const selectedComonentPath = useBuilderProviderState(
+    (state) => state.selectedComonentPath
+  );
+  const renderedTemplate = useBuilderProviderState(
+    (state) => state.renderedTemplate
+  );
   const renderTemplate = useBuilderProviderState(
     (state) => state.renderTemplate
   );
-
   const draggableElement = useRef<{ element: HTMLElement | null }>({
     element: null,
   });
 
   useEffect(() => {
-    console.log('dnd init');
+    if (!templateRef.current) {
+      return;
+    }
 
     const scale = 1 / canvasScale || 1;
-
-    const canvasRect = canvasRef.current?.getBoundingClientRect();
 
     const getElementInsertPosition = (item: Element, cursorY: number) => {
       const { y, height } = item.getBoundingClientRect();
@@ -95,6 +103,8 @@ export const useDragAndDrop = ({
         canvasOverlay: canvasOverlayRef.current,
       });
 
+      const canvasRect = canvasRef.current?.getBoundingClientRect();
+
       if (highlight.element && canvasRect && draggableElement.current.element) {
         const { top, height, width, left } = target.getBoundingClientRect();
 
@@ -104,11 +114,12 @@ export const useDragAndDrop = ({
           }
 
           if (position.includes('end')) {
-            return (top + height - canvasRect?.y - 2) * scale;
+            return (top + height - canvasRect?.y) * scale;
           }
 
           return (top - canvasRect?.y) * scale;
         };
+
         Object.assign(highlight.element?.style, {
           position: 'absolute',
           width: `${width * scale}px`,
@@ -116,6 +127,7 @@ export const useDragAndDrop = ({
           height: '4px',
           top: `${getTopPosition()}px`,
           left: `${(left - canvasRect.x) * scale}px`,
+          display: 'block',
         });
       }
 
@@ -178,7 +190,7 @@ export const useDragAndDrop = ({
       });
 
       if (highlight.element) {
-        highlight.element.remove();
+        highlight.element.style.display = 'none';
       }
 
       Object.assign(target.style, {
@@ -204,59 +216,47 @@ export const useDragAndDrop = ({
       renderTemplate(newSchema);
     };
 
-    let dropZones: HTMLBaseElement[] = [];
-    let draggableItems: HTMLBaseElement[] = [];
+    const dropZones = document.querySelectorAll(
+      `[${DATA_ACCEPTS_CHILDREN}=true]:not([${DATA_DND_INITIALIZED}=true])`
+    ) as unknown as HTMLBaseElement[];
 
-    iterativeCheckComponent({
-      callback: () => {
-        /**
-         * Get all new, non-initialized DND elements and add all necessary events to them
-         */
-        dropZones = document.querySelectorAll(
-          `[${DATA_ACCEPTS_CHILDREN}=true]:not([${DATA_DND_INITIALIZED}=true])`
-        ) as unknown as HTMLBaseElement[];
+    const draggableItems = document.querySelectorAll(
+      `[${DRAGGABLE}]:not([${DATA_DND_INITIALIZED}=true])`
+    ) as unknown as HTMLBaseElement[];
 
-        draggableItems = document.querySelectorAll(
-          `[${DRAGGABLE}]:not([${DATA_DND_INITIALIZED}=true])`
-        ) as unknown as HTMLBaseElement[];
+    dropZones.forEach((dropZone) => {
+      dropZone.setAttribute(DATA_DND_INITIALIZED, 'true');
+      dropZone.addEventListener('dragover', handleDragOver);
+      dropZone.addEventListener('dragenter', handleDragEnter);
+      dropZone.addEventListener('dragleave', handleDragLeave);
+      dropZone.addEventListener('drop', handleDrop);
+    });
 
-        dropZones.forEach((dropZone) => {
-          dropZone.setAttribute(DATA_DND_INITIALIZED, 'true');
-          dropZone.addEventListener('dragover', handleDragOver);
-          dropZone.addEventListener('dragenter', handleDragEnter);
-          dropZone.addEventListener('dragleave', handleDragLeave);
-          dropZone.addEventListener('drop', handleDrop);
-        });
-
-        draggableItems.forEach((draggableItem) => {
-          draggableItem.setAttribute(DATA_DND_INITIALIZED, 'true');
-          draggableItem.addEventListener('dragstart', handleDragStart);
-          draggableItem.addEventListener('drag', handleDrag);
-          draggableItem.addEventListener('dragend', handleDragEnd);
-        });
-      },
+    draggableItems.forEach((draggableItem) => {
+      draggableItem.setAttribute(DATA_DND_INITIALIZED, 'true');
+      draggableItem.addEventListener('dragstart', handleDragStart);
+      draggableItem.addEventListener('drag', handleDrag);
+      draggableItem.addEventListener('dragend', handleDragEnd);
     });
 
     /**
      * Return a clean up and remove all event listeners
      */
-    // return () => {
-    //   console.log('this is a dnd cleanup');
+    return () => {
+      dropZones?.forEach((dropZone) => {
+        dropZone.setAttribute(DATA_DND_INITIALIZED, 'false');
+        dropZone.removeEventListener('dragover', handleDragOver);
+        dropZone.removeEventListener('dragenter', handleDragEnter);
+        dropZone.removeEventListener('dragleave', handleDragLeave);
+        dropZone.removeEventListener('drop', handleDrop);
+      });
 
-    //   dropZones?.forEach((dropZone) => {
-    //     dropZone.setAttribute(DATA_DND_INITIALIZED, 'false');
-    //     dropZone.removeEventListener('dragover', handleDragOver);
-    //     dropZone.removeEventListener('dragenter', handleDragEnter);
-    //     dropZone.removeEventListener('dragleave', handleDragLeave);
-    //     dropZone.removeEventListener('drop', handleDrop);
-    //   });
-
-    //   draggableItems?.forEach((draggableItem) => {
-    //     draggableItem.setAttribute(DATA_DND_INITIALIZED, 'false');
-    //     draggableItem.removeEventListener('dragstart', handleDragStart);
-    //     draggableItem.removeEventListener('drag', handleDrag);
-    //     draggableItem.removeEventListener('dragend', handleDragEnd);
-    //   });
-    // };
-  }, []);
+      draggableItems?.forEach((draggableItem) => {
+        draggableItem.setAttribute(DATA_DND_INITIALIZED, 'false');
+        draggableItem.removeEventListener('dragstart', handleDragStart);
+        draggableItem.removeEventListener('drag', handleDrag);
+        draggableItem.removeEventListener('dragend', handleDragEnd);
+      });
+    };
+  }, [initialized, canvasScale, renderedTemplate, selectedComonentPath]);
 };

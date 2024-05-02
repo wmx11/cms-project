@@ -3,12 +3,13 @@ import { Schema } from '@cms/packages/tiglee-engine/types';
 import { StateCreator } from 'zustand';
 import { SchemaSlice } from './createSchemaSlice';
 import { produce } from 'immer';
+import { ReactNode } from 'react';
 
 export type SiteSlice = {
   initialized: boolean;
   componentAlias: string;
   components: Schema[];
-  renderedTemplate: Schema[];
+  renderedTemplate: ReactNode;
   setInitialized: (initialized: boolean) => void;
   renderTemplate: (schema?: Schema[]) => void;
   setComponentAlias: (componentAlias: string) => void;
@@ -36,7 +37,10 @@ const createSiteSlice: StateCreator<SiteSlice> = (set, get) => ({
       serializeForBuilder: true,
     });
 
-    const newRenderedTemplate = produce(serializedSchema, (draft) => draft);
+    const newRenderedTemplate = produce(
+      serializedSchema,
+      (draft) => draft
+    ) as ReactNode;
 
     set(() => ({
       renderedTemplate: newRenderedTemplate,

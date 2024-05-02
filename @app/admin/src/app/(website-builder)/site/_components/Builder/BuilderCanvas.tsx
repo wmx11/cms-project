@@ -1,8 +1,6 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
-import {
-  iterativeCheckComponent
-} from '@admin/utils/iterativeCheck';
+import { iterativeCheckComponent } from '@admin/utils/iterativeCheck';
 import {
   BREAKPOINT_DEFAULT,
   BREAKPOINT_DEFAULT_WIDTH,
@@ -15,7 +13,7 @@ import { useEffect, useRef, useState } from 'react';
 import CanvasOverlay from './CanvasOverlay';
 import { useEditableContentControls } from './canvas-handlers/canvasComponentsEventsHandlers';
 import { useDragAndDrop } from './canvas-handlers/canvasDragAndDropHandlers';
-import { useCanvasEvents } from './canvas-handlers/canvasEventsHandlers';
+import { useCanvasClick } from './canvas-handlers/canvasEventsHandlers';
 import { useKeyboardEvents } from './canvas-handlers/canvasKeyboardEventsHandlers';
 
 const BuilderCanvas = () => {
@@ -28,15 +26,14 @@ const BuilderCanvas = () => {
   const renderTemplate = useBuilderProviderState(
     (state) => state.renderTemplate
   );
-  const toggleGrid = useBuilderProviderState((state) => state.toggleGrid);
   const setStyleSheet = useBuilderProviderState((state) => state.setStyleSheet);
   const setInitialized = useBuilderProviderState(
     (state) => state.setInitialized
   );
-  const initialized = useBuilderProviderState((state) => state.initialized);
 
   const [stylesReady, setStylesReady] = useState(false);
 
+  const templateRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const canvasOverlayRef = useRef<HTMLDivElement>(null);
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
@@ -72,20 +69,11 @@ const BuilderCanvas = () => {
   }, [stylesReady]);
 
   /**
-   * Initialized template AFTER styles
+   * Initiate iterative check for DOM components and set initialized flag.
    */
-  // useEffect(() => {
-  //   toggleGrid(true);
-  // }, [initialized]);
-
-  /**
-   * Initiate iterative check for DOM components and set initialized flag and display grids.
-   */
-
   useEffect(() => {
     iterativeCheckComponent({
       callback: () => {
-        toggleGrid(true);
         setInitialized(true);
       },
     });
@@ -94,7 +82,7 @@ const BuilderCanvas = () => {
   /**
    * Initialize keyboard events
    */
-  useKeyboardEvents({ canvasWrapperRef, canvasRef, canvasBackgroundRef });
+  useKeyboardEvents({ canvasWrapperRef, canvasBackgroundRef });
   /**
    * Initialize editable content handler
    */
@@ -102,15 +90,19 @@ const BuilderCanvas = () => {
   /**
    * Initialize drag and drop handler
    */
-  useDragAndDrop({ canvasOverlayRef, canvasRef });
-
-  const { handleCanvasClick } = useCanvasEvents();
+  useDragAndDrop({ templateRef, canvasOverlayRef, canvasRef });
+  /**
+   * Initialize canvas clicking
+   */
+  const { handleCanvasClick } = useCanvasClick();
 
   return (
+    // Canvas background
     <div
       className={`relative mt-[47px] flex min-h-screen items-center justify-center overflow-clip bg-zinc-100 px-3 pb-2 pt-12`}
       ref={canvasBackgroundRef}
     >
+      {/* The canvas wrapper  */}
       <div
         className="flex transition-[scale] duration-100 ease-out"
         data-x="0"
@@ -118,6 +110,7 @@ const BuilderCanvas = () => {
         style={{ transformOrigin: 'calc(50% - 220px) 50%', scale: canvasScale }}
         ref={canvasWrapperRef}
       >
+        {/*  The canvas itself */}
         <div
           data-tg-theme-type="light"
           data-tg-theme-name
@@ -137,6 +130,7 @@ const BuilderCanvas = () => {
             Press <Kbd>⌘</Kbd> + <Kbd>/</Kbd> to add a component...
           </p>
 
+          {/* Canvas overlay - grids and highlights */}
           <CanvasOverlay
             canvasRef={canvasRef}
             canvasOverlayRef={canvasOverlayRef}
@@ -144,7 +138,8 @@ const BuilderCanvas = () => {
             canvasOverlayHighlightHoverRef={canvasOverlayHighlightHoverRef}
           />
 
-          <>{renderedTemplate}</>
+          {/* The rendered template */}
+          <div ref={templateRef}>{renderedTemplate}</div>
         </div>
       </div>
     </div>
