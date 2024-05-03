@@ -206,17 +206,17 @@ export const getSiteForBuilderController = async (id: string) => {
       description,
       icon,
       image,
-      site_page_schema: { schema: siteSchema, styles_schema },
+      working_site_page_schema,
     },
   } = site;
 
-  const schema = (siteSchema as Schema[]) || [];
+  const schema = (working_site_page_schema?.schema as Schema[]) || [];
 
   const styles = (() => {
-    if (Array.isArray(styles_schema) && !styles_schema.length) {
+    if (Array.isArray(working_site_page_schema?.styles_schema) && !working_site_page_schema?.styles_schema.length) {
       return initialStyles;
     }
-    return styles_schema;
+    return working_site_page_schema?.styles_schema;
   })() as StylesObjectWithBreakpoints;
 
   const components = (() => {

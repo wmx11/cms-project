@@ -74,7 +74,6 @@ model Site {
   alias             String       @unique
   domain            String?      @unique
   image             String?
-  is_published      Boolean      @default(false)
   page              Page[]
   asset             Asset[]
   user_id           String
@@ -93,7 +92,6 @@ model Site {
 model Page {
   id                String       @id @default(cuid())
   alias             String
-  is_published      Boolean      @default(false)
   asset             Asset[]
   site_id           String
   site              Site         @relation(fields: [site_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -105,27 +103,35 @@ model Page {
 
 // SitePageData holds all the metadata about the Site or Page (title, description, OG tags, image, icon)
 model SitePageData {
-  id                  String         @id @default(cuid())
-  title               String?
-  description         String?
-  image               String?
-  icon                String?
-  site                Site[]
-  page                Page[]
-  site_page_schema_id String
-  site_page_schema    SitePageSchema @relation(fields: [site_page_schema_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  date_created        DateTime       @default(now())
-  date_updated        DateTime       @updatedAt
+  id                            String           @id @default(cuid())
+  title                         String?
+  description                   String?
+  image                         String?
+  icon                          String?
+  site                          Site[]
+  page                          Page[]
+  published_site_page_schema_id String?          @unique
+  published_site_page_schema    SitePageSchema?  @relation("PublishedSitePage", fields: [published_site_page_schema_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  working_site_page_schema_id   String?          @unique
+  working_site_page_schema      SitePageSchema?  @relation("WorkingSitePage", fields: [working_site_page_schema_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  site_page_schema              SitePageSchema[]
+  date_created                  DateTime         @default(now())
+  date_updated                  DateTime         @updatedAt
 }
 
 // SitePageSchema holds all data about the Site or Page schemas
+// This is the "History" of the Site or Page
 model SitePageSchema {
-  id             String         @id @default(cuid())
-  schema         Json           @default("[]")
-  styles_schema  Json           @default("[]")
-  site_page_data SitePageData[]
-  date_created   DateTime       @default(now())
-  date_updated   DateTime       @updatedAt
+  id                       String        @id @default(cuid())
+  is_published             Boolean       @default(false)
+  schema                   Json          @default("[]")
+  styles_schema            Json          @default("[]")
+  published_site_page_data SitePageData? @relation("PublishedSitePage")
+  working_site_page_data   SitePageData? @relation("WorkingSitePage")
+  site_page_data_id        String?
+  site_page_data           SitePageData? @relation(fields: [site_page_data_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  date_created             DateTime      @default(now())
+  date_updated             DateTime      @updatedAt
 }
 
 // Component is a set of components made to create sites

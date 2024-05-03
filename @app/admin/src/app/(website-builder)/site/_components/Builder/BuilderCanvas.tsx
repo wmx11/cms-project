@@ -33,7 +33,6 @@ const BuilderCanvas = () => {
 
   const [stylesReady, setStylesReady] = useState(false);
 
-  const templateRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
   const canvasOverlayRef = useRef<HTMLDivElement>(null);
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
@@ -86,11 +85,11 @@ const BuilderCanvas = () => {
   /**
    * Initialize editable content handler
    */
-  useEditableContentControls();
+  useEditableContentControls({ canvasOverlayRef });
   /**
    * Initialize drag and drop handler
    */
-  useDragAndDrop({ templateRef, canvasOverlayRef, canvasRef });
+  useDragAndDrop({ canvasOverlayRef, canvasRef });
   /**
    * Initialize canvas clicking
    */
@@ -139,7 +138,7 @@ const BuilderCanvas = () => {
           />
 
           {/* The rendered template */}
-          <div ref={templateRef}>{renderedTemplate}</div>
+          <>{renderedTemplate}</>
         </div>
       </div>
     </div>

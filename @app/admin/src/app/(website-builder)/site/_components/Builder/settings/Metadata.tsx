@@ -9,17 +9,23 @@ import { ICON_STYLES, Save } from '@cms/ui/components/Icons';
 import { Input } from '@cms/ui/components/Input';
 import { Label } from '@cms/ui/components/Label';
 import { useParams } from 'next/navigation';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import updateSiteMetadataAction from '../../../_actions/updateSiteMetadataAction';
-import { BuilderSidebarProps } from '../BuilderPage';
 import ImageUpload from '../ui/ImageUpload';
 import { Textarea } from '../ui/Textarea';
+import useBuilderSidebarProviderState from '@admin/hooks/useBuilderSidebarProviderState';
 
-const Metadata: FC<BuilderSidebarProps> = (props) => {
+const Metadata = () => {
   const params = useParams<{ id: string }>();
-  const [title, setTitle] = useState(props.title || '');
-  const [description, setDescription] = useState(props.description || '');
+  const _title = useBuilderSidebarProviderState((state) => state.title);
+  const _description = useBuilderSidebarProviderState(
+    (state) => state.description
+  );
+  const _icon = useBuilderSidebarProviderState((state) => state.icon);
+  const _image = useBuilderSidebarProviderState((state) => state.image);
+  const [title, setTitle] = useState(_title || '');
+  const [description, setDescription] = useState(_description || '');
   const [loading, setLoading] = useState(false);
   const [icon, setIcon] = useState<File>();
   const [image, setImage] = useState<File>();
@@ -95,7 +101,7 @@ const Metadata: FC<BuilderSidebarProps> = (props) => {
             <Label>Icon</Label>
           </DefaultTooltip>
           <ImageUpload
-            src={icon ? URL.createObjectURL(icon) : props.icon || ''}
+            src={icon ? URL.createObjectURL(icon) : _icon || ''}
             onChange={setIcon}
             variant="favicon"
           />
@@ -111,7 +117,7 @@ const Metadata: FC<BuilderSidebarProps> = (props) => {
         </div>
       </div>
 
-      <BrowserTab icon={icon ? URL.createObjectURL(icon) : props.icon || ''}>
+      <BrowserTab icon={icon ? URL.createObjectURL(icon) : _icon || ''}>
         {title}
       </BrowserTab>
 
@@ -134,7 +140,7 @@ const Metadata: FC<BuilderSidebarProps> = (props) => {
           <Label>Site meta image</Label>
         </DefaultTooltip>
         <ImageUpload
-          src={image ? URL.createObjectURL(image) : props.image || ''}
+          src={image ? URL.createObjectURL(image) : _image || ''}
           onChange={setImage}
           variant="default"
         />

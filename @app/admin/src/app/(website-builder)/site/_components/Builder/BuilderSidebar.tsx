@@ -10,13 +10,11 @@ import {
   TabsList,
   TabsTrigger,
 } from '@cms/ui/components/Tabs';
-import { FC } from 'react';
-import { BuilderSidebarProps } from './BuilderPage';
 import Layers from './canvas-controls/layers/Layers';
 import StyleControls from './canvas-controls/style-controls/StyleControls';
 import Settings from './settings/Settings';
 
-const BuilderSidebar: FC<BuilderSidebarProps> = (props) => {
+const BuilderSidebar = () => {
   return (
     <>
       <div className="bg-background w-full p-4">
@@ -40,7 +38,7 @@ const BuilderSidebar: FC<BuilderSidebarProps> = (props) => {
             <Layers />
           </TabsContent>
           <TabsContent value="settings">
-            <Settings {...props} />
+            <Settings />
           </TabsContent>
         </Tabs>
       </div>

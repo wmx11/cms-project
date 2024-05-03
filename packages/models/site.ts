@@ -40,9 +40,6 @@ export const createSitePageData = async (data: CreateSitePageData) => {
       data: {
         description: data.description,
         title: data.title,
-        site_page_schema: {
-          create: {},
-        },
       },
       select: {
         id: true,
@@ -90,10 +87,11 @@ export const getSiteForBuilder = async (data: {
             description: true,
             icon: true,
             image: true,
-            site_page_schema: {
+            working_site_page_schema: {
               select: {
                 schema: true,
                 styles_schema: true,
+                is_published: true,
               },
             },
           },
@@ -119,18 +117,9 @@ export const deleteSite = async (data: { id: string; userId: string }) => {
       },
     });
 
-    const sitePageSchema = await db.sitePageData.delete({
+    await db.sitePageData.delete({
       where: {
         id: site.site_page_data_id,
-      },
-      select: {
-        site_page_schema_id: true,
-      },
-    });
-
-    await db.sitePageSchema.delete({
-      where: {
-        id: sitePageSchema.site_page_schema_id,
       },
     });
 
@@ -149,7 +138,7 @@ interface UpdateSiteProps {
 
 export const updateSite = async (data: UpdateSiteProps) => {
   try {
-    return await db.site.update({
+    const site = await db.site.update({
       where: {
         user_id: data.userId,
         id: data.id,
@@ -157,7 +146,7 @@ export const updateSite = async (data: UpdateSiteProps) => {
       data: {
         site_page_data: {
           update: {
-            site_page_schema: {
+            working_site_page_schema: {
               create: {
                 schema: data.data.schema,
                 styles_schema: data.data.stylesSchema,
@@ -166,7 +155,26 @@ export const updateSite = async (data: UpdateSiteProps) => {
           },
         },
       },
+      select: {
+        site_page_data: {
+          select: {
+            id: true,
+            working_site_page_schema_id: true,
+          },
+        },
+      },
     });
+
+    if (site.site_page_data.working_site_page_schema_id) {
+      await db.sitePageSchema.update({
+        where: {
+          id: site.site_page_data.working_site_page_schema_id,
+        },
+        data: {
+          site_page_data_id: site.site_page_data.id,
+        },
+      });
+    }
   } catch (error) {
     console.error(error);
     return null;

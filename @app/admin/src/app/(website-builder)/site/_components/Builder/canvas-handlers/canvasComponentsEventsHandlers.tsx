@@ -5,13 +5,19 @@ import {
   DATA_CANVAS_OVERLAY,
   DATA_EDITABLE,
 } from '@cms/packages/tiglee-engine/constants';
-import { useEffect } from 'react';
+import { RefObject, useEffect } from 'react';
+
+interface UseEditableContentControlsProps {
+  canvasOverlayRef: RefObject<HTMLDivElement>;
+}
 
 /**
  * Hook responsible for making sure the editable content can be edited by double clicking on it.
  * It will set the new value on the Schema
  */
-export const useEditableContentControls = () => {
+export const useEditableContentControls = ({
+  canvasOverlayRef: { current: canvasOverlay },
+}: UseEditableContentControlsProps) => {
   const selectedElement = useBuilderProviderState(
     (state) => state.selectedElement
   );
@@ -27,8 +33,6 @@ export const useEditableContentControls = () => {
   const renderTemplate = useBuilderProviderState(
     (state) => state.renderTemplate
   );
-
-  const canvasOverlay = document.querySelector(`[${DATA_CANVAS_OVERLAY}]`);
 
   useEffect(() => {
     if (!selectedElement) {

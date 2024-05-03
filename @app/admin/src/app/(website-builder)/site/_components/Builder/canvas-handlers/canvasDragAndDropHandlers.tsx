@@ -13,7 +13,6 @@ const RED = '#fee2e260';
 const GREEN = '#dcfce760';
 
 interface UseDragAndDropProps {
-  templateRef: RefObject<HTMLDivElement>;
   canvasRef: RefObject<HTMLDivElement>;
   canvasOverlayRef: RefObject<HTMLDivElement>;
 }
@@ -24,7 +23,6 @@ interface UseDragAndDropProps {
  */
 
 export const useDragAndDrop = ({
-  templateRef,
   canvasRef,
   canvasOverlayRef,
 }: UseDragAndDropProps) => {
@@ -45,10 +43,6 @@ export const useDragAndDrop = ({
   });
 
   useEffect(() => {
-    if (!templateRef.current) {
-      return;
-    }
-
     const scale = 1 / canvasScale || 1;
 
     const getElementInsertPosition = (item: Element, cursorY: number) => {

@@ -18,35 +18,16 @@ import {
   ColorPalette,
   ICON_STYLES,
   Trash,
+  Warning,
 } from '@cms/ui/components/Icons';
-import { useParams, useRouter } from 'next/navigation';
-import PurgeStylesButton from '../../../canvas-controls/PurgeStylesButton';
+import DeleteWebsiteButton from '../../../ui/buttons/DeleteWebsiteButton';
 import ThemeSelector from './ThemeSelector';
-import { useState } from 'react';
-import deleteSiteAction from '@admin/app/(website-builder)/site/_actions/deleteSiteAction';
-import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 import routes from '@admin/utils/routes';
+import PurgeStylesButton from '../../../ui/buttons/PurgeStylesButton';
 
 const SiteOptions = () => {
-  const params = useParams<{ id: string }>();
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-
-  const handleDelete = async () => {
-    setLoading(true);
-
-    const site = await deleteSiteAction(params.id);
-
-    if (!site.error) {
-      toast.success('Site deleted successfully.');
-
-      setTimeout(() => {
-        router.push(routes.site.default);
-      }, 500);
-    }
-
-    setLoading(false);
-  };
 
   return (
     <DropdownMenu>
@@ -57,7 +38,7 @@ const SiteOptions = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
-          <DropdownMenuItem onSelect={() => router.back()}>
+          <DropdownMenuItem onSelect={() => router.push(routes.site.default)}>
             <span>Back to files</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
@@ -78,20 +59,27 @@ const SiteOptions = () => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuLabel>Danger zone</DropdownMenuLabel>
-          <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-            <PurgeStylesButton />
-          </DropdownMenuItem>
+          <PurgeStylesButton>
+            <DropdownMenuItem
+              className="text-destructive"
+              onSelect={(e) => e.preventDefault()}
+            >
+              <Warning className={ICON_STYLES} />
+              <span>Purge styles</span>
+            </DropdownMenuItem>
+          </PurgeStylesButton>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            className="text-destructive"
-            onSelect={(e) => {
-              e.preventDefault();
-              handleDelete();
-            }}
-          >
-            <Trash className={ICON_STYLES} />
-            <span>Delete site</span>
-          </DropdownMenuItem>
+          <DeleteWebsiteButton>
+            <DropdownMenuItem
+              className="text-destructive"
+              onSelect={(e) => {
+                e.preventDefault();
+              }}
+            >
+              <Trash className={ICON_STYLES} />
+              <span>Delete site</span>
+            </DropdownMenuItem>
+          </DeleteWebsiteButton>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
