@@ -1,22 +1,27 @@
 import {
   Button as ButtonElement,
   ButtonProps as ButtonElementProps,
+  ButtonProps,
 } from '@cms/packages/ui/components/Button';
 import { ICON_STYLES } from '@cms/ui/components/Icons';
-import React, { ComponentPropsWithRef, FC, forwardRef } from 'react';
+import React, {
+  ComponentPropsWithoutRef,
+  ComponentPropsWithRef,
+  FC,
+  forwardRef,
+} from 'react';
 
-interface ButtonProps extends ComponentPropsWithRef<'button'> {
+interface Props extends ComponentPropsWithoutRef<'button'>, ButtonProps {
   asChild?: boolean;
   variant?: ButtonElementProps['variant'];
   size?: ButtonElementProps['size'];
   icon?: React.ReactElement | string;
 }
 
-const Button: FC<ButtonProps> = forwardRef((props, ref) => {
+const Button: FC<Props> = forwardRef((props, ref) => {
   return (
     <ButtonElement
       {...props}
-      ref={ref}
       size={props.size || 'xs'}
       variant={props.variant || 'default'}
       color="secondary"

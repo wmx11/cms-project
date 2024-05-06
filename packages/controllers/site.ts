@@ -8,8 +8,11 @@ import {
   createSite,
   createSitePageData,
   deleteSite,
+  getPublishedSite,
   getSiteByAlias,
   getSiteForBuilder,
+  publishSite,
+  unpublishSite,
   updateSite,
   updateSiteMetadata,
 } from '@cms/models/site';
@@ -154,7 +157,7 @@ export const updateSiteMetadataController = async (
     }
 
     return await updateSiteMetadata({
-      siteId: id,
+      id,
       userId: user.id,
       data,
     });
@@ -213,7 +216,10 @@ export const getSiteForBuilderController = async (id: string) => {
   const schema = (working_site_page_schema?.schema as Schema[]) || [];
 
   const styles = (() => {
-    if (Array.isArray(working_site_page_schema?.styles_schema) && !working_site_page_schema?.styles_schema.length) {
+    if (
+      Array.isArray(working_site_page_schema?.styles_schema) &&
+      !working_site_page_schema?.styles_schema.length
+    ) {
       return initialStyles;
     }
     return working_site_page_schema?.styles_schema;
@@ -238,4 +244,53 @@ export const getSiteForBuilderController = async (id: string) => {
     description,
     componentAlias: alias,
   };
+};
+
+export interface PublishSiteData extends UpdateSiteData {
+  id: string;
+}
+
+export const publishSiteController = async (data: PublishSiteData) => {
+  if (!data.id) {
+    throw new SiteMissingID();
+  }
+
+  const site = await withUser(async (user) => {
+    if (!user) {
+      return null;
+    }
+
+    const updatedSite = await updateSite({
+      id: data.id,
+      userId: user.id,
+      data: { ...data },
+    });
+
+    if (!updatedSite?.site_page_data.working_site_page_schema_id) {
+      return null;
+    }
+
+    const existingPublishedSite = await getPublishedSite({
+      id: data.id,
+      userId: user.id,
+    });
+
+    if (existingPublishedSite) {
+      await unpublishSite({
+        id: data.id,
+        userId: user.id,
+      });
+    }
+
+    const publishedSite = await publishSite({
+      id: data.id,
+      userId: user.id,
+      publishedSitePageSchemaId:
+        updatedSite.site_page_data.working_site_page_schema_id,
+    });
+
+    return publishedSite;
+  });
+
+  return site;
 };

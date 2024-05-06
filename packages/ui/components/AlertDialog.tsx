@@ -129,6 +129,7 @@ AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName;
 interface AlertProps
   extends React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Root> {
   triggerClassName?: string;
+  triggerAsChild?: boolean;
   trigger: React.ReactNode;
   title?: string;
   description?: string;
@@ -137,15 +138,16 @@ interface AlertProps
 
 const Alert: React.FC<AlertProps> = ({
   triggerClassName,
+  triggerAsChild,
   trigger,
   children,
   title = 'Are you sure?',
-  description,
   cancel = 'Cancel',
+  description,
 }) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger className={triggerClassName}>
+      <AlertDialogTrigger asChild={triggerAsChild} className={triggerClassName}>
         {trigger}
       </AlertDialogTrigger>
       <AlertDialogContent>

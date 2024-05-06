@@ -1,8 +1,8 @@
 import { UpdateSiteData, UpdateSiteMetadataData } from '@cms/controllers/site';
 import db from '@cms/db';
+import { WithUser } from '@cms/types';
 
-interface CreateSiteData {
-  userId: string;
+interface CreateSiteData extends WithUser {
   data: {
     alias: string;
     componentId: string;
@@ -64,10 +64,11 @@ export const getSiteByAlias = async (alias: string) => {
   }
 };
 
-export const getSiteForBuilder = async (data: {
+interface GetSiteForBuilderData extends WithUser {
   id: string;
-  userId: string;
-}) => {
+}
+
+export const getSiteForBuilder = async (data: GetSiteForBuilderData) => {
   try {
     return await db.site.findUnique({
       where: {
@@ -104,7 +105,11 @@ export const getSiteForBuilder = async (data: {
   }
 };
 
-export const deleteSite = async (data: { id: string; userId: string }) => {
+interface DeleteSiteData extends WithUser {
+  id: string;
+}
+
+export const deleteSite = async (data: DeleteSiteData) => {
   try {
     const site = await db.site.delete({
       where: {
@@ -130,9 +135,8 @@ export const deleteSite = async (data: { id: string; userId: string }) => {
   }
 };
 
-interface UpdateSiteProps {
+interface UpdateSiteProps extends WithUser {
   id: string;
-  userId: string;
   data: UpdateSiteData;
 }
 
@@ -175,15 +179,16 @@ export const updateSite = async (data: UpdateSiteProps) => {
         },
       });
     }
+
+    return site;
   } catch (error) {
     console.error(error);
     return null;
   }
 };
 
-interface UpdateSiteMetadataProps {
-  siteId: string;
-  userId: string;
+interface UpdateSiteMetadataProps extends WithUser {
+  id: string;
   data: UpdateSiteMetadataData;
 }
 
@@ -191,7 +196,7 @@ export const updateSiteMetadata = async (data: UpdateSiteMetadataProps) => {
   try {
     const site = await db.site.findUnique({
       where: {
-        id: data.siteId,
+        id: data.id,
         user_id: data.userId,
       },
       select: {
@@ -218,6 +223,105 @@ export const updateSiteMetadata = async (data: UpdateSiteMetadataProps) => {
         image: true,
       },
     });
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+interface GetPublishedSiteData extends WithUser {
+  id: string;
+}
+
+export const getPublishedSite = async (data: GetPublishedSiteData) => {
+  try {
+    const site = await db.site.findUnique({
+      where: {
+        id: data.id,
+        user_id: data.userId,
+      },
+      select: {
+        site_page_data: {
+          select: {
+            published_site_page_schema_id: true,
+          },
+        },
+      },
+    });
+
+    return site;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+interface UnpublishSiteData extends WithUser {
+  id: string;
+}
+
+export const unpublishSite = async (data: UnpublishSiteData) => {
+  try {
+    const site = await db.site.update({
+      where: {
+        id: data.id,
+        user_id: data.userId,
+      },
+      data: {
+        site_page_data: {
+          update: {
+            published_site_page_schema_id: undefined,
+            published_site_page_schema: {
+              update: {
+                is_published: false,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return site;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+interface PublishSiteData extends WithUser {
+  id: string;
+  publishedSitePageSchemaId: string;
+}
+
+export const publishSite = async (data: PublishSiteData) => {
+  try {
+    const site = await db.site.update({
+      where: {
+        id: data.id,
+        user_id: data.userId,
+      },
+      data: {
+        site_page_data: {
+          update: {
+            data: {
+              published_site_page_schema_id: data.publishedSitePageSchemaId,
+              site_page_schema: {
+                update: {
+                  where: {
+                    id: data.publishedSitePageSchemaId,
+                  },
+                  data: {
+                    is_published: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return site;
   } catch (error) {
     console.error(error);
     return null;

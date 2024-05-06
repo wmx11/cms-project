@@ -10,11 +10,11 @@ import {
 import handleErrorMessages from '@cms/lib/handleErrorMessages';
 
 const updateSiteMetadataAction = async (
-  siteId: string,
+  id: string,
   data: UpdateSiteMetadataData
 ) => {
   try {
-    const site = await updateSiteMetadataController(siteId, data);
+    const site = await updateSiteMetadataController(id, data);
     return { data: { ...site } } as ActionReturnTypeWithoutError<typeof site>;
   } catch (error) {
     return {

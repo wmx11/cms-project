@@ -17,7 +17,7 @@ const RemoveStylesButton: FC<RemoveStylesButtonProps> = ({
 }) => {
   const { removeStyles } = useStyles();
 
-  const handleClick = (style?: string) => {
+  const handleOnClick = (style?: string) => {
     removeStyles(style);
   };
 
@@ -32,7 +32,7 @@ const RemoveStylesButton: FC<RemoveStylesButtonProps> = ({
       <Button
         size="xs"
         variant="outline"
-        onClick={() => handleClick(styleProp)}
+        onClick={() => handleOnClick(styleProp)}
         {...buttonDisplay}
       />
     </DefaultTooltip>
