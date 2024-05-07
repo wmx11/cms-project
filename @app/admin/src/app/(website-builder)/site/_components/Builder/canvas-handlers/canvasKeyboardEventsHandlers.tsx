@@ -171,9 +171,14 @@ export const useKeyboardEvents = ({
           break;
 
         case ' ':
+          const target = e.target as HTMLBaseElement;
+
           if (
             selectedElement?.hasAttribute('contenteditable') ||
-            (e.target as HTMLBaseElement).localName === 'textarea'
+            target.localName === 'textarea' ||
+            target.localName === 'input' ||
+            target.localName === 'span' ||
+            target.localName === 'div'
           ) {
             return;
           }

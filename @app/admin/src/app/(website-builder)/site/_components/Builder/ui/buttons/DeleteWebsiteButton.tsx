@@ -2,15 +2,32 @@
 import deleteSiteAction from '@admin/app/(website-builder)/site/_actions/deleteSiteAction';
 import routes from '@admin/utils/routes';
 import { Alert, AlertDialogAction } from '@cms/ui/components/AlertDialog';
-import { Button } from '@cms/ui/components/Button';
+import { Button, ButtonProps } from '@cms/ui/components/Button';
 import { ICON_STYLES, Trash } from '@cms/ui/components/Icons';
 import { useParams, useRouter } from 'next/navigation';
-import { ComponentPropsWithoutRef, FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { toast } from 'sonner';
 
-interface Props extends ComponentPropsWithoutRef<'button'> {}
+interface Props extends ButtonProps {}
 
-const DeleteWebsiteButton: FC<Props> = ({ children }) => {
+export const DeleteWebsiteButtonContent = () => {
+  return (
+    <>
+      <Trash className={ICON_STYLES} />
+      <span>Delete site</span>
+    </>
+  );
+};
+
+export const DeleteWebsiteButton: FC<Props> = (props) => {
+  return (
+    <Button {...props}>
+      <DeleteWebsiteButtonContent />{' '}
+    </Button>
+  );
+};
+
+const DeleteWebsiteAlertButton: FC<Props> = ({ children }) => {
   const router = useRouter();
   const params = useParams<{ id: string }>();
   const [loading, setLoading] = useState(false);
@@ -38,13 +55,14 @@ const DeleteWebsiteButton: FC<Props> = ({ children }) => {
       trigger={children}
     >
       <AlertDialogAction asChild>
-        <Button variant="destructive" onClick={handleDelete} loading={loading}>
-          <Trash className={ICON_STYLES} />
-          <span>Delete site</span>
-        </Button>
+        <DeleteWebsiteButton
+          variant="destructive"
+          onClick={handleDelete}
+          loading={loading}
+        />
       </AlertDialogAction>
     </Alert>
   );
 };
 
-export default DeleteWebsiteButton;
+export default DeleteWebsiteAlertButton;

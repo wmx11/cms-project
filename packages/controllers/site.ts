@@ -16,6 +16,8 @@ import {
   updateSite,
   updateSiteMetadata,
 } from '@cms/models/site';
+import { getTemplate } from '@cms/models/template';
+import { MAX_STRING_LENGTH } from '@cms/tiglee-engine/constants';
 import {
   initialStyles,
   StylesObjectWithBreakpoints,
@@ -33,15 +35,24 @@ export interface CreateSiteData {
 }
 
 const validationSchema = z.object({
-  alias: z.string().min(3, {
-    message: 'Site alias must be at least 3 characters long.',
-  }),
-  title: z.string().min(3, {
-    message: 'Site title must be at least 3 characters long.',
-  }),
-  description: z.string().min(3, {
-    message: 'Site description must be at least 3 characters long.',
-  }),
+  alias: z
+    .string()
+    .min(3, {
+      message: 'Site alias must be at least 3 characters long.',
+    })
+    .max(MAX_STRING_LENGTH),
+  title: z
+    .string()
+    .min(3, {
+      message: 'Site title must be at least 3 characters long.',
+    })
+    .max(MAX_STRING_LENGTH),
+  description: z
+    .string()
+    .min(3, {
+      message: 'Site description must be at least 3 characters long.',
+    })
+    .max(MAX_STRING_LENGTH),
   componentId: z.string().min(1, { message: 'Please select a component set.' }),
   templateId: z.string().optional(),
 });
@@ -49,7 +60,7 @@ const validationSchema = z.object({
 export const createSiteController = async (data: CreateSiteData) => {
   validationSchema.parse(data);
 
-  const site = await withUser(async (user) => {
+  return await withUser(async (user) => {
     if (!user) {
       return null;
     }
@@ -71,17 +82,34 @@ export const createSiteController = async (data: CreateSiteData) => {
       throw new SitePageDataCreationFailed();
     }
 
-    return await createSite({
+    const site = await createSite({
+      alias,
       userId: user.id,
-      data: {
-        alias,
-        componentId: data.componentId,
-        sitePageDataId: sitePageData?.id,
-      },
+      componentId: data.componentId,
+      sitePageDataId: sitePageData?.id,
+      templateId: data?.templateId,
     });
-  });
 
-  return site;
+    if (!site) {
+      return null;
+    }
+
+    if (data.templateId) {
+      const template = await getTemplate(data.templateId);
+
+      await updateSite({
+        id: site?.id,
+        userId: user.id,
+        data: {
+          schema: template?.schema as unknown as Schema[],
+          stylesSchema:
+            template?.styles_schema as unknown as StylesObjectWithBreakpoints,
+        },
+      });
+    }
+
+    return site;
+  });
 };
 
 export const deleteSiteController = async (id: string) => {
@@ -89,7 +117,7 @@ export const deleteSiteController = async (id: string) => {
     throw new SiteMissingID();
   }
 
-  const site = await withUser(async (user) => {
+  return await withUser(async (user) => {
     if (!user) {
       return null;
     }
@@ -99,8 +127,6 @@ export const deleteSiteController = async (id: string) => {
       userId: user.id,
     });
   });
-
-  return site;
 };
 
 export interface UpdateSiteData {
@@ -116,7 +142,7 @@ export const updateSiteController = async (
     throw new SiteMissingID();
   }
 
-  const site = await withUser(async (user) => {
+  return await withUser(async (user) => {
     if (!user) {
       return null;
     }
@@ -130,8 +156,6 @@ export const updateSiteController = async (
       },
     });
   });
-
-  return site;
 };
 
 export interface UpdateSiteMetadataData {
@@ -151,7 +175,7 @@ export const updateSiteMetadataController = async (
 
   validationSchema.pick({ title: true, description: true }).parse(data);
 
-  const site = await withUser(async (user) => {
+  return await withUser(async (user) => {
     if (!user) {
       return null;
     }
@@ -162,12 +186,6 @@ export const updateSiteMetadataController = async (
       data,
     });
   });
-
-  if (!site) {
-    return null;
-  }
-
-  return site;
 };
 
 export const getSiteByAliasController = async (alias: string) => {
@@ -176,13 +194,7 @@ export const getSiteByAliasController = async (alias: string) => {
     return null;
   }
 
-  const site = await getSiteByAlias(alias);
-
-  if (!site) {
-    return null;
-  }
-
-  return site;
+  return await getSiteByAlias(alias);
 };
 
 export const getSiteForBuilderController = async (id: string) => {
@@ -211,6 +223,7 @@ export const getSiteForBuilderController = async (id: string) => {
       image,
       working_site_page_schema,
     },
+    template,
   } = site;
 
   const schema = (working_site_page_schema?.schema as Schema[]) || [];
@@ -240,8 +253,10 @@ export const getSiteForBuilderController = async (id: string) => {
     title,
     schema,
     styles,
+    template,
     components,
     description,
+    isPublished: working_site_page_schema?.is_published || false,
     componentAlias: alias,
   };
 };

@@ -1,3 +1,11 @@
+import {
+  ChevronDownIcon,
+  LayoutTemplateIcon,
+  LogOutIcon,
+  MoveLeft,
+  PlusIcon,
+} from 'lucide-react';
+import { BsBorderStyle } from 'react-icons/bs';
 import { CgDisplayFlex, CgSpaceBetween } from 'react-icons/cg';
 import {
   CiAlignBottom,
@@ -11,100 +19,91 @@ import {
   CiTextAlignRight,
 } from 'react-icons/ci';
 import {
-  FaAngleDown,
-  FaArrowLeft,
   FaBold,
   FaCog,
   FaDesktop,
+  FaExclamationCircle,
   FaEye,
+  FaEyeSlash,
+  FaGoogle,
+  FaHeading,
   FaInfoCircle,
   FaItalic,
-  FaPlus,
+  FaLayerGroup,
   FaRedo,
   FaRegEdit,
+  FaRegFolder,
   FaRegSquare,
   FaSave,
   FaTabletAlt,
   FaTrash,
   FaUnderline,
   FaUndo,
-  FaLayerGroup,
-  FaEyeSlash,
-  FaHeading,
-  FaGoogle,
-  FaExclamationCircle,
 } from 'react-icons/fa';
 import { GoDuplicate } from 'react-icons/go';
 import { GrPowerReset } from 'react-icons/gr';
 import { IoIosWarning, IoMdColorPalette } from 'react-icons/io';
 import {
+  MdBlurOn,
   MdColorize,
+  MdDesignServices,
   MdGrid4X4,
   MdOutlineDragIndicator,
   MdOutlinePhoneIphone,
   MdPublish,
-  MdDesignServices,
-  MdBlurOn,
 } from 'react-icons/md';
 import { RxBorderWidth } from 'react-icons/rx';
 import {
-  TbRadiusTopLeft,
-  TbTransform,
-  TbBorderSides,
-  TbBorderOuter,
   TbBorderBottom,
   TbBorderLeft,
+  TbBorderOuter,
   TbBorderRight,
+  TbBorderSides,
   TbBorderTop,
   TbPaintOff,
+  TbRadiusTopLeft,
+  TbTransform,
 } from 'react-icons/tb';
-import { BsBorderStyle } from 'react-icons/bs';
-import {
-  ChevronDownIcon,
-  LayoutTemplateIcon,
-  LogOutIcon,
-  MoveLeft,
-  PlusIcon,
-} from 'lucide-react';
 
 export const ICON_STYLES = 'h-3 w-3 mr-2';
 
-export const Plus = PlusIcon;
-export const Cog = FaCog;
-export const Trash = FaTrash;
-export const Edit = FaRegEdit;
-export const ArrowLeft = MoveLeft;
-export const ColorPickerPipette = MdColorize;
-export const Publish = MdPublish;
-export const Undo = FaUndo;
-export const Redo = FaRedo;
-export const Info = FaInfoCircle;
-export const Draggable = MdOutlineDragIndicator;
-export const Transform = TbTransform;
+export const ArrowLeft = <MoveLeft className={ICON_STYLES} />;
+export const Blur = MdBlurOn;
 export const Bold = FaBold;
-export const Italic = FaItalic;
-export const Underline = FaUnderline;
-export const Duplicate = GoDuplicate;
 export const ChevronDown = ChevronDownIcon;
-export const Save = FaSave;
+export const Cog = FaCog;
+export const ColorPalette = IoMdColorPalette;
+export const ColorPickerPipette = MdColorize;
+export const DesignIcon = MdDesignServices;
 export const Desktop = FaDesktop;
-export const Tablet = FaTabletAlt;
-export const Mobile = MdOutlinePhoneIphone;
-export const Reset = GrPowerReset;
-export const Grid = MdGrid4X4;
+export const Draggable = MdOutlineDragIndicator;
+export const Duplicate = GoDuplicate;
+export const Edit = FaRegEdit;
 export const Eye = FaEye;
 export const EyeSlash = FaEyeSlash;
-export const Warning = IoIosWarning;
-export const LayersIcon = FaLayerGroup;
-export const DesignIcon = MdDesignServices;
-export const Heading = FaHeading;
-export const Blur = MdBlurOn;
-export const ColorPalette = IoMdColorPalette;
-export const RemoveStylesIcon = TbPaintOff;
-export const LogOut = LogOutIcon;
+export const Folder = FaRegFolder;
 export const GoogleIcon = FaGoogle;
+export const Grid = MdGrid4X4;
+export const Heading = FaHeading;
+export const Info = FaInfoCircle;
+export const Italic = FaItalic;
+export const LayersIcon = FaLayerGroup;
+export const LogOut = LogOutIcon;
+export const Mobile = MdOutlinePhoneIphone;
+export const Plus = PlusIcon;
+export const Publish = MdPublish;
+export const Redo = FaRedo;
+export const RemoveStylesIcon = TbPaintOff;
+export const Reset = GrPowerReset;
+export const Save = FaSave;
+export const Tablet = FaTabletAlt;
 export const TemplateIcon = LayoutTemplateIcon;
 export const TooltipIcon = FaExclamationCircle;
+export const Transform = TbTransform;
+export const Trash = FaTrash;
+export const Underline = FaUnderline;
+export const Undo = FaUndo;
+export const Warning = IoIosWarning;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;

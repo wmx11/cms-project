@@ -82,6 +82,8 @@ model Site {
   component         Component    @relation(fields: [component_id], references: [id])
   site_page_data_id String
   site_page_data    SitePageData @relation(fields: [site_page_data_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  template_id       String?
+  template          Template?    @relation(fields: [template_id], references: [id])
   date_created      DateTime     @default(now())
   date_updated      DateTime     @updatedAt
 
@@ -124,7 +126,9 @@ model SitePageData {
 model SitePageSchema {
   id                       String        @id @default(cuid())
   is_published             Boolean       @default(false)
+  /// [_Schema]
   schema                   Json          @default("[]")
+  /// [_StylesSchema]
   styles_schema            Json          @default("[]")
   published_site_page_data SitePageData? @relation("PublishedSitePage")
   working_site_page_data   SitePageData? @relation("WorkingSitePage")
@@ -158,10 +162,13 @@ model Template {
   description   String?
   image         String?
   is_published  Boolean   @default(false)
+  /// [_Schema]
   schema        Json      @default("[]")
+  /// [_StylesSchema]
   styles_schema Json      @default("[]")
   component_id  String
   component     Component @relation(fields: [component_id], references: [id])
+  site          Site[]
   date_created  DateTime  @default(now())
   date_updated  DateTime  @updatedAt
 }

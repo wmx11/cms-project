@@ -1,4 +1,5 @@
 'use client';
+import routes from '@admin/utils/routes';
 import { Button } from '@cms/ui/components/Button';
 import {
   DropdownMenu,
@@ -16,31 +17,53 @@ import {
 import {
   ChevronDown,
   ColorPalette,
+  Folder,
   ICON_STYLES,
-  Trash,
-  Warning,
+  TemplateIcon,
 } from '@cms/ui/components/Icons';
-import DeleteWebsiteButton from '../../../ui/buttons/DeleteWebsiteButton';
-import ThemeSelector from './ThemeSelector';
 import { useRouter } from 'next/navigation';
-import routes from '@admin/utils/routes';
-import PurgeStylesButton from '../../../ui/buttons/PurgeStylesButton';
+import DeleteWebsiteAlertButton, {
+  DeleteWebsiteButtonContent,
+} from '../../../ui/buttons/DeleteWebsiteButton';
+import PurgeStylesAlertButton, {
+  PurgetStylesButtonContent,
+} from '../../../ui/buttons/PurgeStylesButton';
+import ThemeSelector from './ThemeSelector';
+import SaveTemplate from './SaveTemplate';
 
-const SiteOptions = () => {
+const SiteOptionsMenu = () => {
   const router = useRouter();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="xs" className="group">
-          <ChevronDown className="ml-2 h-4 w-4 transition-transform group-hover:translate-y-1" />
+          <ChevronDown className="ml-2 h-3 w-3 transition-transform group-hover:translate-y-1" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
           <DropdownMenuItem onSelect={() => router.push(routes.site.default)}>
+            <Folder className={ICON_STYLES} />
             <span>Back to files</span>
           </DropdownMenuItem>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <TemplateIcon className={ICON_STYLES} />
+              <span>Template</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent className="w-56">
+                <SaveTemplate>
+                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                    Save template
+                  </DropdownMenuItem>
+                </SaveTemplate>
+                <DropdownMenuItem>Save as new template</DropdownMenuItem>
+                <DropdownMenuItem>Delete</DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
@@ -59,31 +82,29 @@ const SiteOptions = () => {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuLabel>Danger zone</DropdownMenuLabel>
-          <PurgeStylesButton>
+          <PurgeStylesAlertButton>
             <DropdownMenuItem
               className="text-destructive"
               onSelect={(e) => e.preventDefault()}
             >
-              <Warning className={ICON_STYLES} />
-              <span>Purge styles</span>
+              <PurgetStylesButtonContent />
             </DropdownMenuItem>
-          </PurgeStylesButton>
+          </PurgeStylesAlertButton>
           <DropdownMenuSeparator />
-          <DeleteWebsiteButton>
+          <DeleteWebsiteAlertButton>
             <DropdownMenuItem
               className="text-destructive"
               onSelect={(e) => {
                 e.preventDefault();
               }}
             >
-              <Trash className={ICON_STYLES} />
-              <span>Delete site</span>
+              <DeleteWebsiteButtonContent />
             </DropdownMenuItem>
-          </DeleteWebsiteButton>
+          </DeleteWebsiteAlertButton>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 };
 
-export default SiteOptions;
+export default SiteOptionsMenu;

@@ -1,13 +1,30 @@
 'use client';
 import useStyles from '@admin/hooks/useStyles';
 import { Alert, AlertDialogAction } from '@cms/ui/components/AlertDialog';
-import { Button } from '@cms/ui/components/Button';
+import { Button, ButtonProps } from '@cms/ui/components/Button';
 import { ICON_STYLES, Warning } from '@cms/ui/components/Icons';
-import React, { ComponentPropsWithoutRef, FC } from 'react';
+import { FC } from 'react';
 
-interface Props extends ComponentPropsWithoutRef<'button'> {}
+interface Props extends ButtonProps {}
 
-const PurgeStylesButton: FC<Props> = ({ children }) => {
+export const PurgetStylesButtonContent = () => {
+  return (
+    <>
+      <Warning className={ICON_STYLES} />
+      <span>Purge styles</span>
+    </>
+  );
+};
+
+export const PurgeStylesButton: FC<Props> = (props) => {
+  return (
+    <Button {...props}>
+      <PurgetStylesButtonContent />
+    </Button>
+  );
+};
+
+const PurgeStylesAlertButton: FC<Props> = ({ children }) => {
   const { purgeStyles } = useStyles();
 
   return (
@@ -19,13 +36,10 @@ const PurgeStylesButton: FC<Props> = ({ children }) => {
       trigger={children}
     >
       <AlertDialogAction asChild>
-        <Button onClick={purgeStyles} variant="destructive">
-          <Warning className={ICON_STYLES} />
-          <span>Purge styles</span>
-        </Button>
+        <PurgeStylesButton onClick={purgeStyles} variant="destructive" />
       </AlertDialogAction>
     </Alert>
   );
 };
 
-export default PurgeStylesButton;
+export default PurgeStylesAlertButton;

@@ -30,7 +30,7 @@ const LayerGroup: FC<LayerGroupProps> = ({
             startContent={
               <CollapsibleTrigger>
                 <ChevronDown
-                  className={`transition-transform ${
+                  className={`transition-transform h-3 w-3 ${
                     isOpen ? 'rotate-180' : ''
                   }`}
                 />

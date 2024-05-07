@@ -30,15 +30,25 @@ import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 import slugify from 'slugify';
 import createSiteAction from '../actions/createSiteAction';
-import { MAX_META_DESCRIPTION_LENGTH } from '@cms/tiglee-engine/constants';
+import { MAX_STRING_LENGTH } from '@cms/tiglee-engine/constants';
 import useErrorMessage from '@admin/hooks/useErrorMessage';
 import { CreateSiteData } from '@cms/controllers/site';
 
 interface Props {
-  components?: Component[];
+  components: Component[];
+  templateName?: string;
+  templateDescription?: string;
+  templateImage?: string;
+  templateId?: string;
 }
 
-const CreateSiteCardModal: FC<Props> = ({ components }) => {
+const CreateSiteCardModal: FC<Props> = ({
+  components,
+  templateDescription,
+  templateId,
+  templateImage,
+  templateName,
+}) => {
   const [loading, setLoading] = useState(false);
   const [alias, setAlias] = useState<string>('');
   const [title, setTitle] = useState<string>('');
@@ -57,12 +67,14 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
 
   const handleCreateSite = async () => {
     setLoading(true);
+    clearErrors();
 
     const result = await createSiteAction({
       alias,
       title,
       componentId,
       description,
+      templateId,
     });
 
     if (!result) {
@@ -87,20 +99,25 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <button>
-          <Card>
-            <div className="flex h-full w-full items-center justify-center">
-              <div className="text-center">
-                <p>Start from scratch</p>
-                <p className="text-xs">
-                  Select this option if you want to create a site without using
-                  a template.
-                </p>
-              </div>
-            </div>
+      <DialogTrigger className="text-left">
+        <>
+          <Card
+            name={templateName ? templateName : 'Start from scratch'}
+            description={
+              templateDescription
+                ? templateDescription
+                : 'Select this option if you want to create a site without using a template.'
+            }
+          >
+            {templateImage && (
+              <img
+                src={templateImage}
+                alt={`${templateName} Image`}
+                className="origin-top scale-50"
+              />
+            )}
           </Card>
-        </button>
+        </>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -157,14 +174,14 @@ const CreateSiteCardModal: FC<Props> = ({ components }) => {
               <p className="text-xs text-zinc-500">
                 <span
                   className={
-                    description?.length > MAX_META_DESCRIPTION_LENGTH
+                    description?.length > MAX_STRING_LENGTH
                       ? 'text-red-500'
                       : ''
                   }
                 >
                   {description?.length}
                 </span>
-                /{MAX_META_DESCRIPTION_LENGTH}
+                /{MAX_STRING_LENGTH}
               </p>
             </div>
 

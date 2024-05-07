@@ -29,7 +29,7 @@ const SelectTrigger = React.forwardRef<
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDown className="h-4 w-4 opacity-50" />
+        <ChevronDown className="h-3 w-3 opacity-50" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
     <ErrorMessage errorMessage={errorMessage} />
@@ -66,7 +66,7 @@ const SelectScrollDownButton = React.forwardRef<
     )}
     {...props}
   >
-    <ChevronDown className="h-4 w-4" />
+    <ChevronDown className="h-3 w-3" />
   </SelectPrimitive.ScrollDownButton>
 ));
 SelectScrollDownButton.displayName =

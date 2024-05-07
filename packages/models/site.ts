@@ -1,23 +1,26 @@
-import { UpdateSiteData, UpdateSiteMetadataData } from '@cms/controllers/site';
+import {
+  UpdateSiteData,
+  UpdateSiteMetadataData,
+  CreateSiteData,
+} from '@cms/controllers/site';
 import db from '@cms/db';
 import { WithUser } from '@cms/types';
 
-interface CreateSiteData extends WithUser {
-  data: {
-    alias: string;
-    componentId: string;
-    sitePageDataId: string;
-  };
+interface CreateSiteDataModel
+  extends Omit<CreateSiteData, 'title' | 'description'>,
+    WithUser {
+  sitePageDataId: string;
 }
 
-export const createSite = async (data: CreateSiteData) => {
+export const createSite = async (data: CreateSiteDataModel) => {
   try {
     return await db.site.create({
       data: {
         user_id: data.userId,
-        alias: data.data.alias,
-        component_id: data.data.componentId,
-        site_page_data_id: data.data.sitePageDataId,
+        alias: data.alias,
+        component_id: data.componentId,
+        site_page_data_id: data.sitePageDataId,
+        template_id: data?.templateId,
       },
       select: {
         id: true,
@@ -64,6 +67,19 @@ export const getSiteByAlias = async (alias: string) => {
   }
 };
 
+export const getSiteById = async (id: string) => {
+  try {
+    return await db.site.findUnique({
+      where: {
+        id,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 interface GetSiteForBuilderData extends WithUser {
   id: string;
 }
@@ -95,6 +111,13 @@ export const getSiteForBuilder = async (data: GetSiteForBuilderData) => {
                 is_published: true,
               },
             },
+          },
+        },
+        template: {
+          select: {
+            name: true,
+            description: true,
+            image: true,
           },
         },
       },

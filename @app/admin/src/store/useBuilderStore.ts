@@ -33,6 +33,11 @@ export const createBuilderStore = (initProps?: BuilderStoreProps) => {
 
 export interface BuilderHeaderStoreProps {
   isPublished: boolean;
+  template: {
+    name: string;
+    description: string | null;
+    image: string | null;
+  } | null;
 }
 
 export const createBuilderHeaderStore = (

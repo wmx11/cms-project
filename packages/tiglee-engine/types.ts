@@ -1,6 +1,9 @@
+import { StylesObjectWithBreakpoints } from './styles/jssStyles';
+
 declare global {
   namespace PrismaJson {
-    type _Schema = Schema;
+    type _Schema = Schema[];
+    type _StylesSchema = StylesObjectWithBreakpoints;
   }
 }
 

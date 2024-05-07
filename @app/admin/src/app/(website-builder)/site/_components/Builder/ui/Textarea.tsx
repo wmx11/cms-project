@@ -1,4 +1,4 @@
-import { MAX_META_DESCRIPTION_LENGTH } from '@cms/tiglee-engine/constants';
+import { MAX_STRING_LENGTH } from '@cms/tiglee-engine/constants';
 import {
   Textarea as TextareaComponent,
   TextareaProps,
@@ -13,7 +13,7 @@ interface Props extends Omit<TextareaProps, 'value'> {
 
 export const Textarea: FC<Props> = ({
   showLength,
-  maxLength = MAX_META_DESCRIPTION_LENGTH,
+  maxLength = MAX_STRING_LENGTH,
   ...props
 }) => {
   return (
