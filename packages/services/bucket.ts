@@ -12,6 +12,7 @@ import {
 } from '@aws-sdk/client-s3';
 
 export const BUCKET_LIST = {
+  thumbnails: { url: process.env.ASSETS_BUCKET_URL },
   assets: { url: process.env.ASSETS_BUCKET_URL },
   favicon: { url: process.env.FAVICON_BUCKET_URL },
 };

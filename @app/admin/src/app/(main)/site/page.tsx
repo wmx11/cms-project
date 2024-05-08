@@ -3,6 +3,7 @@ import { withUser } from '@cms/data/user/getters';
 import db from '@cms/db';
 import Link from 'next/link';
 import Card from '../_components/Card';
+import GridWrapper from '@admin/components/layout/GridWrapper';
 
 const page = async () => {
   const sites = await withUser(async (user) => {
@@ -29,7 +30,7 @@ const page = async () => {
   });
 
   return (
-    <div className="grid grid-cols-5 gap-8">
+    <GridWrapper>
       {sites?.map((item, index) => (
         <Link
           key={`site_${index}`}
@@ -42,7 +43,7 @@ const page = async () => {
           />
         </Link>
       ))}
-    </div>
+    </GridWrapper>
   );
 };
 

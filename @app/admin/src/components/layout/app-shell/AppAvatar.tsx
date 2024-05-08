@@ -37,7 +37,7 @@ const AppAvatar: FC<AppAvatarProps> = ({ session }) => {
           <ChevronDown className={ICON_STYLES} />
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent>
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <UserCog className={ICON_STYLES} />

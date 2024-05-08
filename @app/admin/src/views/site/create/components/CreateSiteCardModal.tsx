@@ -100,24 +100,23 @@ const CreateSiteCardModal: FC<Props> = ({
   return (
     <Dialog>
       <DialogTrigger className="text-left">
-        <>
-          <Card
-            name={templateName ? templateName : 'Start from scratch'}
-            description={
-              templateDescription
-                ? templateDescription
-                : 'Select this option if you want to create a site without using a template.'
-            }
-          >
-            {templateImage && (
-              <img
-                src={templateImage}
-                alt={`${templateName} Image`}
-                className="origin-top scale-50"
-              />
-            )}
-          </Card>
-        </>
+        <Card
+          name={templateName ? templateName : 'Start from scratch'}
+          templateId={templateId}
+          description={
+            templateDescription
+              ? templateDescription
+              : 'Select this option if you want to create a site without using a template.'
+          }
+        >
+          {templateImage && (
+            <img
+              src={templateImage}
+              alt={`${templateName} Image`}
+              className="origin-top scale-50"
+            />
+          )}
+        </Card>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

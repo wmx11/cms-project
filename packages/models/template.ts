@@ -1,4 +1,7 @@
-import { SaveTemplateData } from '@cms/controllers/template';
+import {
+  DeleteTemplateData,
+  SaveTemplateData,
+} from '@cms/controllers/template';
 import db from '@cms/db';
 
 export const saveTemplate = async (data: SaveTemplateData) => {
@@ -60,14 +63,30 @@ export const getTemplates = async () => {
   }
 };
 
-export const deleteTemplate = async (id: string) => {
+export const deleteTemplateBySideId = async (id: string) => {
   try {
-    const template = await db.template.delete({
+    return await db.template.deleteMany({
+      where: {
+        site: {
+          every: {
+            id,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const deleteTemplateById = async (id: string) => {
+  try {
+    return await db.template.delete({
       where: {
         id,
       },
     });
-    return template;
   } catch (error) {
     console.error(error);
     return null;

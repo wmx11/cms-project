@@ -1,5 +1,6 @@
 import {
   ChevronDownIcon,
+  EllipsisVertical,
   LayoutTemplateIcon,
   LogOutIcon,
   MoveLeft,
@@ -67,7 +68,8 @@ import {
 
 export const ICON_STYLES = 'h-3 w-3 mr-2';
 
-export const ArrowLeft = <MoveLeft className={ICON_STYLES} />;
+export const ElipsisVerticalIcon = EllipsisVertical;
+export const ArrowLeft = MoveLeft;
 export const Blur = MdBlurOn;
 export const Bold = FaBold;
 export const ChevronDown = ChevronDownIcon;

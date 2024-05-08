@@ -1,6 +1,7 @@
 import { Component, Template } from '@prisma/client';
 import { FC } from 'react';
 import CreateSiteCardModal from './components/CreateSiteCardModal';
+import GridWrapper from '@admin/components/layout/GridWrapper';
 
 interface Props {
   templates: Template[];
@@ -9,7 +10,7 @@ interface Props {
 
 const Create: FC<Props> = ({ templates, components }) => {
   return (
-    <div className="grid grid-cols-5 gap-8">
+    <GridWrapper>
       <CreateSiteCardModal components={components} />
 
       {templates?.map((template, index) => {
@@ -24,7 +25,7 @@ const Create: FC<Props> = ({ templates, components }) => {
           />
         );
       })}
-    </div>
+    </GridWrapper>
   );
 };
 

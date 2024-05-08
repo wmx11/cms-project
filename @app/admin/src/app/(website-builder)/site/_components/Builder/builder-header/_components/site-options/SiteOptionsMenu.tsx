@@ -30,6 +30,7 @@ import PurgeStylesAlertButton, {
 } from '../../../ui/buttons/PurgeStylesButton';
 import ThemeSelector from './ThemeSelector';
 import SaveTemplate from './SaveTemplate';
+import DeleteTemplateAlertButton from '../../../ui/buttons/DeleteTemplateButton';
 
 const SiteOptionsMenu = () => {
   const router = useRouter();
@@ -41,7 +42,7 @@ const SiteOptionsMenu = () => {
           <ChevronDown className="ml-2 h-3 w-3 transition-transform group-hover:translate-y-1" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
+      <DropdownMenuContent>
         <DropdownMenuGroup>
           <DropdownMenuItem onSelect={() => router.push(routes.site.default)}>
             <Folder className={ICON_STYLES} />
@@ -53,14 +54,25 @@ const SiteOptionsMenu = () => {
               <span>Template</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
-              <DropdownMenuSubContent className="w-56">
+              <DropdownMenuSubContent>
                 <SaveTemplate>
                   <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                     Save template
                   </DropdownMenuItem>
                 </SaveTemplate>
-                <DropdownMenuItem>Save as new template</DropdownMenuItem>
-                <DropdownMenuItem>Delete</DropdownMenuItem>
+                <SaveTemplate saveNew>
+                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                    Save as new template
+                  </DropdownMenuItem>
+                </SaveTemplate>
+                <DeleteTemplateAlertButton>
+                  <DropdownMenuItem
+                    className="text-destructive"
+                    onSelect={(e) => e.preventDefault()}
+                  >
+                    Delete
+                  </DropdownMenuItem>
+                </DeleteTemplateAlertButton>
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
@@ -73,7 +85,7 @@ const SiteOptionsMenu = () => {
               <span>Themes</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
-              <DropdownMenuSubContent className="w-56">
+              <DropdownMenuSubContent>
                 <ThemeSelector />
               </DropdownMenuSubContent>
             </DropdownMenuPortal>

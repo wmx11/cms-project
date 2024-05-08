@@ -22,9 +22,11 @@ import { Textarea } from '../../../ui/Textarea';
 import ImageUpload from '../../../ui/ImageUpload';
 import useAssetUpload from '@admin/hooks/useAssetUpload';
 
-interface Props extends ComponentPropsWithoutRef<'div'> {}
+interface Props extends ComponentPropsWithoutRef<'div'> {
+  saveNew?: boolean;
+}
 
-const SaveTemplate: FC<Props> = ({ children }) => {
+const SaveTemplate: FC<Props> = ({ children, saveNew }) => {
   const schema = useBuilderProviderState((state) => state.schema);
   const stylesSchema = useBuilderProviderState((state) => state.styles);
   const templateName = useBuilderHeaderProviderState(
@@ -82,6 +84,7 @@ const SaveTemplate: FC<Props> = ({ children }) => {
       description,
       schema,
       stylesSchema,
+      saveNew,
       ..._image,
     });
 

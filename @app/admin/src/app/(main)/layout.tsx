@@ -1,7 +1,7 @@
 import '@cms/packages/config/global.css';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-import AppShell from '../../components/Layout/AppShell';
+import AppShell from '../../components/layout/app-shell';
 import Providers from '../../components/Providers';
 
 const font = Roboto({

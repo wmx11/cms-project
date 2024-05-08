@@ -86,7 +86,7 @@ const CanvasOptions = () => {
             <ChevronDown className="ml-2 h-3 w-3 transition-transform group-hover:translate-y-1" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56">
+        <DropdownMenuContent>
           <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
             <Input
               type="number"

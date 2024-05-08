@@ -1,7 +1,11 @@
 import { withUser } from '@cms/lib/auth';
 import { SiteMissingID } from '@cms/lib/errors';
 import { getSiteById } from '@cms/models/site';
-import { getTemplates, saveTemplate } from '@cms/models/template';
+import {
+  deleteTemplateById,
+  getTemplates,
+  saveTemplate,
+} from '@cms/models/template';
 import { MAX_STRING_LENGTH } from '@cms/tiglee-engine/constants';
 import { StylesObjectWithBreakpoints } from '@cms/tiglee-engine/styles/jssStyles';
 import { Schema } from '@cms/tiglee-engine/types';
@@ -13,7 +17,8 @@ export interface SaveTemplateData {
   image?: string;
   description?: string;
   componentId: string;
-  templateId?: string | null;
+  templateId?: string;
+  saveNew?: boolean;
   schema: Schema[];
   stylesSchema: StylesObjectWithBreakpoints;
 }
@@ -50,9 +55,13 @@ export const saveTemplateController = async (
       return null;
     }
 
+    const templateId = data.saveNew
+      ? undefined
+      : existingSite.template_id || undefined;
+
     return await saveTemplate({
       ...data,
-      templateId: existingSite?.template_id,
+      templateId: templateId,
       componentId: existingSite.component_id,
     });
   });
@@ -67,15 +76,24 @@ export const getTemplateController = async () => {
 };
 
 export const getTemplatesController = async () => {
-  return await withUser(async (user) => {
+  return await withUser(async () => {
     return await getTemplates();
   });
 };
 
-export const deleteTemplateController = async () => {
-  return await withUser(async (user) => {
-    if (!user) {
-      return null;
+export interface DeleteTemplateData {
+  siteId?: string;
+  templateId?: string;
+}
+
+export const deleteTemplateController = async (data: DeleteTemplateData) => {
+  return await withUser(async () => {
+    if (data.siteId) {
+      return await deleteTemplateById(data.siteId);
+    }
+
+    if (data.templateId) {
+      return await deleteTemplateById(data.templateId);
     }
   });
 };
