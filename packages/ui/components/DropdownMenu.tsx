@@ -5,6 +5,7 @@ import { Check, ChevronRight, Circle } from 'lucide-react';
 import * as React from 'react';
 
 import { cn } from '@cms/packages/lib/utils';
+import { ElipsisVerticalIcon } from './Icons';
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 
@@ -179,6 +180,7 @@ const DropdownMenuShortcut = ({
     />
   );
 };
+
 DropdownMenuShortcut.displayName = 'DropdownMenuShortcut';
 
 export interface MenuProps {
@@ -195,6 +197,10 @@ interface DropdownMenuBuilderProps
   extends React.ComponentPropsWithoutRef<typeof DropdownMenu> {
   menu: MenuProps[];
 }
+
+const DropdownMenuTriggerElipsis = () => (
+  <ElipsisVerticalIcon className="w-4 text-zinc-500" />
+);
 
 export const DropdownMenuBuilder: React.FC<DropdownMenuBuilderProps> = ({
   children,
@@ -236,7 +242,9 @@ export const DropdownMenuBuilder: React.FC<DropdownMenuBuilderProps> = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
+      <DropdownMenuTrigger>
+        {children ?? <DropdownMenuTriggerElipsis />}
+      </DropdownMenuTrigger>
       <DropdownMenuContent>{renderData()}</DropdownMenuContent>
     </DropdownMenu>
   );

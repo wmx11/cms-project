@@ -1,5 +1,5 @@
 import { withUser } from '@cms/lib/auth';
-import { SiteMissingID } from '@cms/lib/errors';
+import { NoAdminRights, SiteMissingID } from '@cms/lib/errors';
 import { getSiteById } from '@cms/models/site';
 import {
   deleteTemplateById,
@@ -48,7 +48,11 @@ export const saveTemplateController = async (
 
   validationSchema.parse(data);
 
-  return await withUser(async () => {
+  return await withUser(async (user) => {
+    if (!user?.is_admin) {
+      throw new NoAdminRights();
+    }
+
     const existingSite = await getSiteById(data.siteId);
 
     if (!existingSite) {
@@ -82,18 +86,19 @@ export const getTemplatesController = async () => {
 };
 
 export interface DeleteTemplateData {
-  siteId?: string;
   templateId?: string;
 }
 
 export const deleteTemplateController = async (data: DeleteTemplateData) => {
-  return await withUser(async () => {
-    if (data.siteId) {
-      return await deleteTemplateById(data.siteId);
+  return await withUser(async (user) => {
+    if (!user?.is_admin) {
+      throw new NoAdminRights();
     }
 
-    if (data.templateId) {
-      return await deleteTemplateById(data.templateId);
+    if (!data.templateId) {
+      return null;
     }
+
+    return await deleteTemplateById(data.templateId);
   });
 };

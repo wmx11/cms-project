@@ -144,9 +144,11 @@ const Alert: React.FC<AlertProps> = ({
   title = 'Are you sure?',
   cancel = 'Cancel',
   description,
+  open,
+  onOpenChange,
 }) => {
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogTrigger asChild={triggerAsChild} className={triggerClassName}>
         {trigger}
       </AlertDialogTrigger>

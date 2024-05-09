@@ -1,10 +1,8 @@
 'use client';
 import deleteTemplateAction from '@admin/app/(website-builder)/site/_actions/deleteTemplateAction';
-import routes from '@admin/utils/routes';
 import { Alert, AlertDialogAction } from '@cms/ui/components/AlertDialog';
 import { Button, ButtonProps } from '@cms/ui/components/Button';
 import { ICON_STYLES, Trash } from '@cms/ui/components/Icons';
-import { useParams, useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -21,7 +19,7 @@ export const DeleteTemplateButtonContent = () => {
   );
 };
 
-export const DeleteTemplateButton: FC<Props> = (props) => {
+const DeleteTemplateButton: FC<Props> = (props) => {
   return (
     <Button {...props}>
       <DeleteTemplateButtonContent />
@@ -30,33 +28,21 @@ export const DeleteTemplateButton: FC<Props> = (props) => {
 };
 
 const DeleteTemplateAlertButton: FC<Props> = ({ children, templateId }) => {
-  console.log(templateId);
-
-  const router = useRouter();
-  const params = useParams<{ id: string }>();
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
     setLoading(true);
 
-    let deleteParams = {};
-
-    if (!templateId) {
-      deleteParams = { siteId: params?.id };
-    } else {
-      deleteParams = { templateId };
-    }
-
     const site = await deleteTemplateAction({
-      ...deleteParams,
+      templateId,
     });
 
-    if (!site.error) {
+    if (site.error) {
+      toast.error(
+        `There has been an issue deleting the template. ${site.error.general}`
+      );
+    } else {
       toast.success('Template deleted successfully.');
-
-      setTimeout(() => {
-        router.push(routes.site.create);
-      }, 500);
     }
 
     setLoading(false);

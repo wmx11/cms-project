@@ -1,5 +1,5 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
-import prisma from '@cms/packages/data/prisma';
+import prisma from '@cms/packages/db';
 import NextAuth, { Profile } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import routes from '../../../../../utils/routes';
@@ -36,10 +36,14 @@ const handler = NextAuth({
     redirect: ({ url, baseUrl }) => {
       return baseUrl;
     },
-    jwt: async ({ token, account, profile }) => {
+    jwt: async ({ token, account, profile, user }) => {
+      if (user) {
+        token.is_admin = user.is_admin;
+      }
       return token;
     },
     session: ({ session, token, user }) => {
+      session.user.is_admin = token.is_admin;
       return session;
     },
   },

@@ -1,6 +1,5 @@
 import {
-  DeleteTemplateData,
-  SaveTemplateData,
+  SaveTemplateData
 } from '@cms/controllers/template';
 import db from '@cms/db';
 

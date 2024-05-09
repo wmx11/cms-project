@@ -4,11 +4,13 @@ import routes from '@admin/utils/routes';
 import { Alert, AlertDialogAction } from '@cms/ui/components/AlertDialog';
 import { Button, ButtonProps } from '@cms/ui/components/Button';
 import { ICON_STYLES, Trash } from '@cms/ui/components/Icons';
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 import { toast } from 'sonner';
 
-interface Props extends ButtonProps {}
+interface Props extends ButtonProps {
+  siteId: string;
+}
 
 export const DeleteWebsiteButtonContent = () => {
   return (
@@ -19,23 +21,22 @@ export const DeleteWebsiteButtonContent = () => {
   );
 };
 
-export const DeleteWebsiteButton: FC<Props> = (props) => {
+export const DeleteWebsiteButton: FC<Omit<Props, 'siteId'>> = (props) => {
   return (
     <Button {...props}>
-      <DeleteWebsiteButtonContent />{' '}
+      <DeleteWebsiteButtonContent />
     </Button>
   );
 };
 
-const DeleteWebsiteAlertButton: FC<Props> = ({ children }) => {
+const DeleteWebsiteAlertButton: FC<Props> = ({ children, siteId }) => {
   const router = useRouter();
-  const params = useParams<{ id: string }>();
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
     setLoading(true);
 
-    const site = await deleteSiteAction(params.id);
+    const site = await deleteSiteAction(siteId);
 
     if (!site.error) {
       toast.success('Site deleted successfully.');

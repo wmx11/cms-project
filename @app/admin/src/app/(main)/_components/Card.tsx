@@ -1,28 +1,27 @@
 'use client';
-import cardOptionsMenu from '@admin/components/menus/CardOptions';
 import { CardContent, Card as CardWrapper } from '@cms/ui/components/Card';
-import { DropdownMenuBuilder } from '@cms/ui/components/DropdownMenu';
-import { ElipsisVerticalIcon } from '@cms/ui/components/Icons';
-import { FC, PropsWithChildren } from 'react';
+import {
+  DropdownMenuBuilder,
+  MenuProps,
+} from '@cms/ui/components/DropdownMenu';
+import { ComponentPropsWithoutRef, FC } from 'react';
 
-interface Props extends PropsWithChildren {
+interface Props extends ComponentPropsWithoutRef<'div'> {
   alias?: string;
   name?: string;
   description?: string;
-  templateId?: string;
+  menu?: MenuProps[] | null;
 }
 
-const Card: FC<Props> = ({ children, description, name, templateId }) => {
-  const menu = cardOptionsMenu({ templateId });
-  
+const Card: FC<Props> = ({ children, description, name, menu }) => {
   return (
     <div>
-      <CardWrapper className="hover:border-primary relative max-h-[180px] min-h-[180px] overflow-hidden transition-colors">
-        <div className="absolute right-0 top-0 z-10">
-          <DropdownMenuBuilder menu={menu}>
-            <ElipsisVerticalIcon />
-          </DropdownMenuBuilder>
-        </div>
+      <CardWrapper className="hover:border-primary group relative max-h-[180px] min-h-[180px] overflow-hidden transition-colors">
+        {menu && (
+          <div className="absolute right-1 top-2 z-10 opacity-0 group-hover:opacity-100">
+            <DropdownMenuBuilder menu={menu} />
+          </div>
+        )}
         <CardContent>
           <div className="object-fit absolute inset-0 overflow-hidden bg-zinc-100">
             {children}

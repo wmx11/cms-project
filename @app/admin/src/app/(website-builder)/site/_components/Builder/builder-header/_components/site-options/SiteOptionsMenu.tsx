@@ -21,19 +21,21 @@ import {
   ICON_STYLES,
   TemplateIcon,
 } from '@cms/ui/components/Icons';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import DeleteWebsiteAlertButton, {
   DeleteWebsiteButtonContent,
 } from '../../../ui/buttons/DeleteWebsiteButton';
 import PurgeStylesAlertButton, {
   PurgetStylesButtonContent,
 } from '../../../ui/buttons/PurgeStylesButton';
-import ThemeSelector from './ThemeSelector';
 import SaveTemplate from './SaveTemplate';
-import DeleteTemplateAlertButton from '../../../ui/buttons/DeleteTemplateButton';
+import ThemeSelector from './ThemeSelector';
+import { useSession } from 'next-auth/react';
 
 const SiteOptionsMenu = () => {
   const router = useRouter();
+  const params = useParams<{ id: string }>();
+  const { data: session } = useSession();
 
   return (
     <DropdownMenu>
@@ -48,34 +50,28 @@ const SiteOptionsMenu = () => {
             <Folder className={ICON_STYLES} />
             <span>Back to files</span>
           </DropdownMenuItem>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <TemplateIcon className={ICON_STYLES} />
-              <span>Template</span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <SaveTemplate>
-                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                    Save template
-                  </DropdownMenuItem>
-                </SaveTemplate>
-                <SaveTemplate saveNew>
-                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                    Save as new template
-                  </DropdownMenuItem>
-                </SaveTemplate>
-                <DeleteTemplateAlertButton>
-                  <DropdownMenuItem
-                    className="text-destructive"
-                    onSelect={(e) => e.preventDefault()}
-                  >
-                    Delete
-                  </DropdownMenuItem>
-                </DeleteTemplateAlertButton>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
+          {session?.user.is_admin && (
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                <TemplateIcon className={ICON_STYLES} />
+                <span>Template</span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  <SaveTemplate>
+                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                      Save template
+                    </DropdownMenuItem>
+                  </SaveTemplate>
+                  <SaveTemplate saveNew>
+                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                      Save as new template
+                    </DropdownMenuItem>
+                  </SaveTemplate>
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
@@ -103,7 +99,7 @@ const SiteOptionsMenu = () => {
             </DropdownMenuItem>
           </PurgeStylesAlertButton>
           <DropdownMenuSeparator />
-          <DeleteWebsiteAlertButton>
+          <DeleteWebsiteAlertButton siteId={params.id}>
             <DropdownMenuItem
               className="text-destructive"
               onSelect={(e) => {

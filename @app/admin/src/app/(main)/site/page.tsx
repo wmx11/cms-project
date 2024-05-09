@@ -1,9 +1,9 @@
+import GridWrapper from '@admin/components/layout/GridWrapper';
 import routes from '@admin/utils/routes';
 import { withUser } from '@cms/data/user/getters';
 import db from '@cms/db';
 import Link from 'next/link';
 import Card from '../_components/Card';
-import GridWrapper from '@admin/components/layout/GridWrapper';
 
 const page = async () => {
   const sites = await withUser(async (user) => {

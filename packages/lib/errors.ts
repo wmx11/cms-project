@@ -15,3 +15,9 @@ export class SiteMissingID extends Error {
     super('Missing site ID.');
   }
 }
+
+export class NoAdminRights extends Error {
+  constructor() {
+    super('You are not permitted to do that.');
+  }
+}

@@ -1,7 +1,11 @@
 'use client';
 import Card from '@admin/app/(main)/_components/Card';
 import BrowserTab from '@admin/components/BrowserTab';
+import { templateCardOptions } from '@admin/components/menus/CardOptions';
+import useErrorMessage from '@admin/hooks/useErrorMessage';
 import routes from '@admin/utils/routes';
+import { CreateSiteData } from '@cms/controllers/site';
+import { MAX_STRING_LENGTH } from '@cms/tiglee-engine/constants';
 import { Badge } from '@cms/ui/components/Badge';
 import { Button } from '@cms/ui/components/Button';
 import {
@@ -26,13 +30,11 @@ import {
 } from '@cms/ui/components/Select';
 import { Textarea } from '@cms/ui/components/Textarea';
 import { Component } from '@prisma/client';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { FC, useState } from 'react';
 import slugify from 'slugify';
 import createSiteAction from '../actions/createSiteAction';
-import { MAX_STRING_LENGTH } from '@cms/tiglee-engine/constants';
-import useErrorMessage from '@admin/hooks/useErrorMessage';
-import { CreateSiteData } from '@cms/controllers/site';
 
 interface Props {
   components: Component[];
@@ -49,6 +51,7 @@ const CreateSiteCardModal: FC<Props> = ({
   templateImage,
   templateName,
 }) => {
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alias, setAlias] = useState<string>('');
   const [title, setTitle] = useState<string>('');
@@ -62,6 +65,12 @@ const CreateSiteCardModal: FC<Props> = ({
     title: '',
     templateId: '',
   });
+
+  const { data: session } = useSession();
+
+  const menu = session?.user?.is_admin
+    ? templateCardOptions({ templateId })
+    : null;
 
   const router = useRouter();
 
@@ -98,11 +107,12 @@ const CreateSiteCardModal: FC<Props> = ({
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="text-left">
         <Card
+          onClick={() => setOpen(true)}
+          menu={menu}
           name={templateName ? templateName : 'Start from scratch'}
-          templateId={templateId}
           description={
             templateDescription
               ? templateDescription

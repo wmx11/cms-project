@@ -1,20 +1,31 @@
 import DeleteTemplateAlertButton, {
   DeleteTemplateButtonContent,
 } from '@admin/app/(website-builder)/site/_components/Builder/ui/buttons/DeleteTemplateButton';
+import DeleteWebsiteAlertButton, {
+  DeleteWebsiteButtonContent,
+} from '@admin/app/(website-builder)/site/_components/Builder/ui/buttons/DeleteWebsiteButton';
 import { MenuProps } from '@cms/ui/components/DropdownMenu';
+import { RefObject } from 'react';
 
-interface Props {
-  templateId?: string;
-}
-
-const cardOptionsMenu = ({ templateId }: Props) => {
-  const menu: MenuProps[] = [
+const generalOptions = (): MenuProps[] => {
+  return [
     {
       items: [
-        { item: 'Open', onSelect: () => {} },
-        { item: 'Open in new tab', onSelect: () => {} },
+        {
+          item: 'Open',
+        },
+        { item: 'Open in new tab' },
       ],
     },
+  ];
+};
+
+export const templateCardOptions = ({
+  templateId,
+}: {
+  templateId?: string;
+}): MenuProps[] => {
+  return [
     {
       items: [
         {
@@ -25,8 +36,27 @@ const cardOptionsMenu = ({ templateId }: Props) => {
       ],
     },
   ];
-
-  return menu;
 };
 
-export default cardOptionsMenu;
+interface SiteCardOptions {
+  siteId: string;
+  cardRef: RefObject<'div'>;
+}
+
+export const siteCardOptions = ({
+  siteId,
+  cardRef,
+}: SiteCardOptions): MenuProps[] => {
+  return [
+    ...generalOptions(),
+    {
+      items: [
+        {
+          item: <DeleteWebsiteButtonContent />,
+          wrapper: <DeleteWebsiteAlertButton siteId={siteId} />,
+          onSelect: (e) => e.preventDefault(),
+        },
+      ],
+    },
+  ];
+};

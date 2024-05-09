@@ -6,9 +6,8 @@ import {
 import { ICON_STYLES } from '@cms/ui/components/Icons';
 import React, {
   ComponentPropsWithoutRef,
-  ComponentPropsWithRef,
   FC,
-  forwardRef,
+  forwardRef
 } from 'react';
 
 interface Props extends ComponentPropsWithoutRef<'button'>, ButtonProps {
