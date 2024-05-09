@@ -1,9 +1,9 @@
 import DeleteTemplateAlertButton, {
   DeleteTemplateButtonContent,
-} from '@admin/app/(website-builder)/site/_components/Builder/ui/buttons/DeleteTemplateButton';
+} from '@admin/app/(website-builder)/site/_components/builder/ui/buttons/DeleteTemplateButton';
 import DeleteWebsiteAlertButton, {
   DeleteWebsiteButtonContent,
-} from '@admin/app/(website-builder)/site/_components/Builder/ui/buttons/DeleteWebsiteButton';
+} from '@admin/app/(website-builder)/site/_components/builder/ui/buttons/DeleteWebsiteButton';
 import { MenuProps } from '@cms/ui/components/DropdownMenu';
 import { RefObject } from 'react';
 
@@ -43,10 +43,7 @@ interface SiteCardOptions {
   cardRef: RefObject<'div'>;
 }
 
-export const siteCardOptions = ({
-  siteId,
-  cardRef,
-}: SiteCardOptions): MenuProps[] => {
+export const siteCardOptions = ({ siteId }: SiteCardOptions): MenuProps[] => {
   return [
     ...generalOptions(),
     {

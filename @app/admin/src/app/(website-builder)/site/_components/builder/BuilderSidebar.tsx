@@ -10,9 +10,9 @@ import {
   TabsList,
   TabsTrigger,
 } from '@cms/ui/components/Tabs';
-import Layers from './canvas-controls/layers/Layers';
-import StyleControls from './canvas-controls/style-controls/StyleControls';
-import Settings from './settings/Settings';
+import Layers from './site-canvas-controls/layers/Layers';
+import StyleControls from './site-canvas-controls/style-controls/StyleControls';
+import Settings from './site-canvas-controls/site-settings/Settings';
 
 const BuilderSidebar = () => {
   return (

@@ -1,10 +1,10 @@
 'use client';
 import deleteTemplateAction from '@admin/app/(website-builder)/site/_actions/deleteTemplateAction';
+import routes from '@admin/utils/routes';
 import { Alert, AlertDialogAction } from '@cms/ui/components/AlertDialog';
 import { Button, ButtonProps } from '@cms/ui/components/Button';
 import { ICON_STYLES, Trash } from '@cms/ui/components/Icons';
 import { FC, useState } from 'react';
-import { toast } from 'sonner';
 
 interface Props extends ButtonProps {
   templateId?: string;
@@ -33,17 +33,10 @@ const DeleteTemplateAlertButton: FC<Props> = ({ children, templateId }) => {
   const handleDelete = async () => {
     setLoading(true);
 
-    const site = await deleteTemplateAction({
+    await deleteTemplateAction({
       templateId,
+      revalidate: routes.site.create,
     });
-
-    if (site.error) {
-      toast.error(
-        `There has been an issue deleting the template. ${site.error.general}`
-      );
-    } else {
-      toast.success('Template deleted successfully.');
-    }
 
     setLoading(false);
   };

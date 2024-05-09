@@ -1,4 +1,3 @@
-'use client';
 import { CardContent, Card as CardWrapper } from '@cms/ui/components/Card';
 import {
   DropdownMenuBuilder,
@@ -7,13 +6,12 @@ import {
 import { ComponentPropsWithoutRef, FC } from 'react';
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
-  alias?: string;
-  name?: string;
+  title?: string;
   description?: string;
   menu?: MenuProps[] | null;
 }
 
-const Card: FC<Props> = ({ children, description, name, menu }) => {
+const Card: FC<Props> = ({ children, description, title, menu }) => {
   return (
     <div>
       <CardWrapper className="hover:border-primary group relative max-h-[180px] min-h-[180px] overflow-hidden transition-colors">
@@ -28,7 +26,7 @@ const Card: FC<Props> = ({ children, description, name, menu }) => {
           </div>
         </CardContent>
       </CardWrapper>
-      <div>{name && <p className="text-sm">{name}</p>}</div>
+      <div>{title && <p className="text-sm">{title}</p>}</div>
       <div>
         {description && <p className="text-xs text-zinc-500">{description}</p>}
       </div>

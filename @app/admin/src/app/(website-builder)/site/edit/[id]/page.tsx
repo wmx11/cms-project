@@ -1,5 +1,5 @@
 import { getSiteForBuilderController } from '@cms/controllers/site';
-import BuilderPage from '../../_components/Builder/BuilderPage';
+import BuilderPage from '../../_components/builder/BuilderPage';
 
 interface Props {
   params: {

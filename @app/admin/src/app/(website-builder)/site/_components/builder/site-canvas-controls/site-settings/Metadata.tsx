@@ -1,7 +1,9 @@
 'use client';
+import updateSiteMetadataAction from '@admin/app/(website-builder)/site/_actions/updateSiteMetadataAction';
 import BrowserTab from '@admin/components/BrowserTab';
 import DefaultTooltip from '@admin/components/DefaultTooltip';
 import useAssetUpload from '@admin/hooks/useAssetUpload';
+import useBuilderSidebarProviderState from '@admin/hooks/useBuilderSidebarProviderState';
 import useErrorMessage from '@admin/hooks/useErrorMessage';
 import { UpdateSiteMetadataData } from '@cms/controllers/site';
 import { Button } from '@cms/ui/components/Button';
@@ -11,10 +13,8 @@ import { Label } from '@cms/ui/components/Label';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import updateSiteMetadataAction from '../../../_actions/updateSiteMetadataAction';
-import ImageUpload from '../ui/ImageUpload';
-import { Textarea } from '../ui/Textarea';
-import useBuilderSidebarProviderState from '@admin/hooks/useBuilderSidebarProviderState';
+import ImageUpload from '../../ui/ImageUpload';
+import { Textarea } from '../../ui/Textarea';
 
 const Metadata = () => {
   const params = useParams<{ id: string }>();

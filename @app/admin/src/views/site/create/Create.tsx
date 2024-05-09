@@ -1,6 +1,6 @@
 import { Component, Template } from '@prisma/client';
 import { FC } from 'react';
-import CreateSiteCardModal from './components/CreateSiteCardModal';
+import CardModal from './components/create-site/CardModal';
 import GridWrapper from '@admin/components/layout/GridWrapper';
 
 interface Props {
@@ -11,16 +11,14 @@ interface Props {
 const Create: FC<Props> = ({ templates, components }) => {
   return (
     <GridWrapper>
-      <CreateSiteCardModal components={components} />
-
+      <CardModal components={components} />
       {templates?.map((template, index) => {
         return (
-          <CreateSiteCardModal
+          <CardModal
             key={`template_card_${index}`}
-            templateName={template.name}
-            templateDescription={template.description || ''}
+            {...template}
+            title={template.name}
             templateId={template.id}
-            templateImage={template.image || ''}
             components={components}
           />
         );

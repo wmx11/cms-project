@@ -38,8 +38,7 @@ const page = async () => {
         >
           <Card
             description={item.site_page_data.description || ''}
-            name={item.site_page_data.title || ''}
-            alias={item.alias}
+            title={item.site_page_data.title || ''}
           />
         </Link>
       ))}

@@ -4,12 +4,12 @@ import {
   DATA_CANVAS,
   DATA_COMPONENT,
   DATA_DISPLAY_NAME,
-  DATA_LABEL
+  DATA_LABEL,
 } from '@cms/packages/tiglee-engine/constants';
 import { FC, RefObject, useEffect, useRef, useState } from 'react';
-import DeleteElementButton from './canvas-controls/element-overlay-controls/DeleteElementButton';
-import DuplicateElementButton from './canvas-controls/element-overlay-controls/DuplicateElementButton';
-import ElementInfoButton from './canvas-controls/element-overlay-controls/ElementInfoButton';
+import DeleteElementButton from './site-canvas-controls/element-overlay-controls/DeleteElementButton';
+import DuplicateElementButton from './site-canvas-controls/element-overlay-controls/DuplicateElementButton';
+import ElementInfoButton from './site-canvas-controls/element-overlay-controls/ElementInfoButton';
 
 export interface CanvasOverlayProps {
   canvasRef: RefObject<HTMLDivElement>;
