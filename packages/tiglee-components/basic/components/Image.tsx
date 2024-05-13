@@ -1,8 +1,8 @@
 import { Schema } from '@cms/packages/tiglee-engine/types';
-import { FC, HTMLProps } from 'react';
+import { ComponentPropsWithoutRef, FC } from 'react';
 import ImageComponent from '../client-components/Image';
 
-const Image: FC<HTMLProps<HTMLImageElement>> = (props) => {
+const Image: FC<ComponentPropsWithoutRef<'img'>> = (props) => {
   return <ImageComponent {...props} />;
 };
 

@@ -1,10 +1,8 @@
 import { Schema } from '@cms/packages/tiglee-engine/types';
-import { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import { ComponentPropsWithoutRef, FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Subtitle: FC<PropsWithChildren & HTMLAttributes<HTMLTitleElement>> = (
-  props
-) => {
+const Subtitle: FC<ComponentPropsWithoutRef<'h2'>> = (props) => {
   return (
     <h2
       className={twMerge('text-tg-foreground mb-2', props.className)}

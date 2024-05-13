@@ -30,7 +30,7 @@ const ElementsGapsControls = () => {
         value={activeStyles ? activeStyles[GAP]?.replace(DEFAULT_UNIT, '') : ''}
         onValueChange={handleOnChange}
       >
-        <SelectTrigger id="gapSize">
+        <SelectTrigger id="gapSize" size="xs">
           <SelectValue placeholder="Gap size" />
         </SelectTrigger>
         <SelectContent>

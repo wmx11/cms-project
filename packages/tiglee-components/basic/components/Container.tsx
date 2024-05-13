@@ -1,10 +1,8 @@
 import { Schema } from '@cms/packages/tiglee-engine/types';
-import { FC, HTMLProps, PropsWithChildren } from 'react';
+import { ComponentPropsWithoutRef, FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Container: FC<PropsWithChildren & HTMLProps<HTMLDivElement>> = (
-  props
-) => {
+const Container: FC<ComponentPropsWithoutRef<'div'>> = (props) => {
   return (
     <div
       {...props}

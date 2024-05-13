@@ -1,10 +1,8 @@
 import { Schema } from '@cms/packages/tiglee-engine/types';
-import { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import { ComponentPropsWithoutRef, FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Section: FC<PropsWithChildren & HTMLAttributes<HTMLBaseElement>> = (
-  props
-) => {
+const Section: FC<ComponentPropsWithoutRef<'section'>> = (props) => {
   return (
     <section {...props} className={twMerge('py-24', props.className)}></section>
   );

@@ -49,6 +49,7 @@ const ImageControls = () => {
           handleUpload({
             assetType: 'image',
             bucket: 'assets',
+            description: altDescription.current,
             onSuccess: (result) => {
               const src = selectedComponent?.props.find(
                 (item) => item.name === 'src'

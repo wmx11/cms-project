@@ -185,6 +185,7 @@ enum AssetType {
 model Asset {
   id           String    @id @default(cuid())
   name         String    @unique
+  description  String?
   url          String
   type         AssetType
   format       String

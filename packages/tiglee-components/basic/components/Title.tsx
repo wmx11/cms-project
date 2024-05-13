@@ -1,8 +1,8 @@
 import { Schema } from '@cms/packages/tiglee-engine/types';
-import { FC, HTMLProps, PropsWithChildren } from 'react';
+import { ComponentPropsWithoutRef, FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Title: FC<PropsWithChildren & HTMLProps<HTMLTitleElement>> = (props) => {
+const Title: FC<ComponentPropsWithoutRef<'h1'>> = (props) => {
   return (
     <h1
       className={twMerge(

@@ -28,7 +28,7 @@ const PositionControls = () => {
         value={activeStyles?.position || 'static'}
         onValueChange={handleOnChange}
       >
-        <SelectTrigger id="elementPosition">
+        <SelectTrigger id="elementPosition" size="xs">
           <SelectValue placeholder="Position" />
         </SelectTrigger>
         <SelectContent>

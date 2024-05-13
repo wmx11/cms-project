@@ -1,10 +1,11 @@
 import { Schema } from '@cms/packages/tiglee-engine/types';
-import React, { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  FC
+} from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Block: FC<PropsWithChildren & HTMLAttributes<HTMLDivElement>> = (
-  props
-) => {
+const Block: FC<ComponentPropsWithoutRef<'div'>> = (props) => {
   return <div {...props} className={twMerge('', props.className)}></div>;
 };
 

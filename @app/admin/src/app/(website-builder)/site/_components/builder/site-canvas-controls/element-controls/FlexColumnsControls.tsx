@@ -46,7 +46,7 @@ const FlexColumnsControls = () => {
         value={activeStyles ? activeStyles[FLEX_COLUMNS]?.toString() : ''}
         onValueChange={handleOnChange}
       >
-        <SelectTrigger id="columns">
+        <SelectTrigger id="columns" size="xs">
           <SelectValue placeholder="Columns" />
         </SelectTrigger>
         <SelectContent>

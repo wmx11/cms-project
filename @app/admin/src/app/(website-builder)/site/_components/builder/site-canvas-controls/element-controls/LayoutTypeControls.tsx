@@ -54,7 +54,7 @@ const LayoutTypeControls = () => {
         value={activeStyles?.[LAYOUT_TYPE] || 'block'}
         onValueChange={handleOnChange}
       >
-        <SelectTrigger id="elementLayoutType">
+        <SelectTrigger id="elementLayoutType" size="xs">
           <SelectValue placeholder="Element Layout Type" />
         </SelectTrigger>
         <SelectContent>

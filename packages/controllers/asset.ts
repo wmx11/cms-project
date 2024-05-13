@@ -34,6 +34,7 @@ export interface UploadAssetData {
   name: string;
   format: AllowedAssetFormats;
   assetType: AssetType;
+  description?: string;
   siteId: string;
   pageId?: string;
 }
@@ -59,7 +60,7 @@ export const uploadAssetController = async (data: UploadAssetData) => {
     }
 
     // Declares the MIME type of the asset (image/webp)
-    const format = `image/${image.info.format}`;
+    const format = `image/${image.info.format}` as AllowedAssetFormats;
 
     // Declares the file name of the saved asset on the bucket (name.format)
     const fileName =
@@ -93,6 +94,7 @@ export const uploadAssetController = async (data: UploadAssetData) => {
       siteId: data.siteId,
       size: image.info.size,
       format: format,
+      description: data?.description,
     });
 
     return asset;

@@ -1,10 +1,11 @@
 import { Schema } from '@cms/packages/tiglee-engine/types';
-import { Button as ButtonComponent } from '@cms/packages/ui/components/Button';
-import { FC, HTMLAttributes, PropsWithChildren } from 'react';
+import {
+  Button as ButtonComponent,
+  ButtonProps,
+} from '@cms/packages/ui/components/Button';
+import { FC } from 'react';
 
-const Button: FC<PropsWithChildren & HTMLAttributes<HTMLButtonElement>> = (
-  props
-) => {
+const Button: FC<ButtonProps> = (props) => {
   return (
     <ButtonComponent {...props}>
       <span>{props.children}</span>

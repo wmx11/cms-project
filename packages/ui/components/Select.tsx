@@ -6,6 +6,18 @@ import * as React from 'react';
 
 import { cn } from '@cms/packages/lib/utils';
 import ErrorMessage, { ErrorMessageProps } from './ErrorMessage';
+import { cva, VariantProps } from 'class-variance-authority';
+
+const selectTriggerVariants = cva(
+  'border-input bg-background ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+  {
+    variants: {
+      size: {
+        xs: 'h-8 text-xs',
+      },
+    },
+  }
+);
 
 const Select = SelectPrimitive.Root;
 
@@ -16,15 +28,13 @@ const SelectValue = SelectPrimitive.Value;
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> &
-    ErrorMessageProps
->(({ className, children, errorMessage, ...props }, ref) => (
+    ErrorMessageProps &
+    VariantProps<typeof selectTriggerVariants>
+>(({ className, size, children, errorMessage, ...props }, ref) => (
   <div>
     <SelectPrimitive.Trigger
       ref={ref}
-      className={cn(
-        'border-input bg-background ring-offset-background placeholder:text-muted-foreground focus:ring-ring flex h-10 w-full items-center justify-between rounded-md border px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
-        className
-      )}
+      className={cn(selectTriggerVariants({ className, size }))}
       {...props}
     >
       {children}
@@ -162,9 +172,7 @@ const SelectItemWithDescription: React.FC<SelectItemWithDescriptionProps> = (
   return (
     <div className="text-left">
       <div>{props.label}</div>
-      <div className="max-w-[200px] text-xs text-dim">
-        {props.description}
-      </div>
+      <div className="text-dim max-w-[200px] text-xs">{props.description}</div>
     </div>
   );
 };

@@ -24,7 +24,7 @@ const OverflowControls = () => {
     <div>
       <Label htmlFor="overflowControls">Overflow</Label>
       <Select value={activeStyles?.overflow} onValueChange={handleOnChange}>
-        <SelectTrigger id="overflowControls">
+        <SelectTrigger id="overflowControls" size="xs">
           <SelectValue placeholder="Overflow type" />
         </SelectTrigger>
         <SelectContent>
