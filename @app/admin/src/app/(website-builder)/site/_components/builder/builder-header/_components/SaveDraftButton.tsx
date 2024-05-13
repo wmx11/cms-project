@@ -16,7 +16,8 @@ const SaveDraftButton = () => {
   const handleOnClick = async () => {
     setLoading(true);
 
-    const site = await updateSiteAction(params.id, {
+    const site = await updateSiteAction({
+      id: params.id,
       schema,
       stylesSchema: styles,
     });

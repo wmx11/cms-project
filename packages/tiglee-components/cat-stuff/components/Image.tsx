@@ -10,7 +10,7 @@ export default Image;
 
 export const schema: Schema = {
   component: 'Image',
-  category: 'media',
+  category: 'image',
   description:
     'Use Button components to link to other pages or add a call to action',
   displayName: 'Image',

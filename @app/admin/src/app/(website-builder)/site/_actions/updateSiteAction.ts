@@ -6,9 +6,9 @@ import {
 import { updateSiteController, UpdateSiteData } from '@cms/controllers/site';
 import handleErrorMessages from '@cms/lib/handleErrorMessages';
 
-const updateSiteAction = async (id: string, data: UpdateSiteData) => {
+const updateSiteAction = async (data: UpdateSiteData) => {
   try {
-    const site = await updateSiteController(id, data);
+    const site = await updateSiteController(data);
     return {
       data: {
         ...site,

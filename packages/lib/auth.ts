@@ -23,10 +23,9 @@ export const getUserBySession = async () => {
   return user;
 };
 
-export const withUser = async <T>(
-  func: (user: Awaited<ReturnType<typeof getUserBySession>>) => T
-) => {
+export type AuthUser = Awaited<ReturnType<typeof getUserBySession>>;
 
+export const withUser = async <T>(func: (user: NonNullable<AuthUser>) => T) => {
   const user = await getUserBySession();
 
   if (!user) {
@@ -35,5 +34,3 @@ export const withUser = async <T>(
 
   return func(user);
 };
-
-

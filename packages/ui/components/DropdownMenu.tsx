@@ -199,7 +199,7 @@ interface DropdownMenuBuilderProps
 }
 
 const DropdownMenuTriggerElipsis = () => (
-  <ElipsisVerticalIcon className="w-4 text-zinc-500" />
+  <ElipsisVerticalIcon className="w-4 text-dim" />
 );
 
 export const DropdownMenuBuilder: React.FC<DropdownMenuBuilderProps> = ({

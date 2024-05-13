@@ -22,7 +22,7 @@ import {
   SelectValue,
 } from '@cms/ui/components/Select';
 import { useState } from 'react';
-import ControlsPopover from '../ControlsPopover';
+import ControlsPopover from '../../ui/ControlsPopover';
 import Input from '../../ui/Input';
 import ColorControls from './color-controls';
 import { BorderTypes } from './types';
@@ -57,9 +57,9 @@ const BorderControls = () => {
 
   const controls = (
     <ControlsPopover icon={<Cog />} style={{ background: state?.color || '' }}>
-      <div className="border-b text-sm mb-2">Border controls</div>
+      <div className="mb-2 border-b text-sm">Border controls</div>
       <div className="flex flex-wrap items-end gap-4">
-        <div className="flex-grow flex gap-4 justify-between">
+        <div className="flex flex-grow justify-between gap-4">
           <Input
             type="number"
             label="Border radius"
@@ -85,7 +85,7 @@ const BorderControls = () => {
             onChange={(value) => handleChange('width', value)}
           />
         </div>
-        <div className="flex-grow flex gap-4 justify-between">
+        <div className="flex flex-grow justify-between gap-4">
           <div className="flex-1">
             <Select
               onValueChange={(value) => handleChange('style', value)}
@@ -126,31 +126,31 @@ const BorderControls = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="border">
-                  <div className="flex gap-2 items-center">
+                  <div className="flex items-center gap-2">
                     <span>All</span>
                     <BorderOuter className={ICON_STYLES} />
                   </div>
                 </SelectItem>
                 <SelectItem value="border-top">
-                  <div className="flex gap-2 items-center">
+                  <div className="flex items-center gap-2">
                     <span>Top</span>
                     <BorderTop className={ICON_STYLES} />
                   </div>
                 </SelectItem>
                 <SelectItem value="border-right">
-                  <div className="flex gap-2 items-center">
+                  <div className="flex items-center gap-2">
                     <span>Right</span>
                     <BorderRight className={ICON_STYLES} />
                   </div>
                 </SelectItem>
                 <SelectItem value="border-bottom">
-                  <div className="flex gap-2 items-center">
+                  <div className="flex items-center gap-2">
                     <span>Bottom</span>
                     <BorderBottom className={ICON_STYLES} />
                   </div>
                 </SelectItem>
                 <SelectItem value="border-left">
-                  <div className="flex gap-2 items-center">
+                  <div className="flex items-center gap-2">
                     <span>Left</span>
                     <BorderLeft className={ICON_STYLES} />
                   </div>
@@ -171,7 +171,7 @@ const BorderControls = () => {
   );
 
   return (
-    <div className="flex gap-2 items-end">
+    <div className="flex items-end gap-2">
       <div>{controls}</div>
       <div className="flex-1">
         <div></div>

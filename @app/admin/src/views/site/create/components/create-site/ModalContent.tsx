@@ -84,7 +84,7 @@ const ModalContent: FC<Props> = ({ components, templateId }) => {
       <div className="space-y-4">
         <div>
           <Label htmlFor="alias">Site alias</Label>
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-dim">
             Site alias is used to identify your site.
           </p>
           <Input
@@ -102,7 +102,7 @@ const ModalContent: FC<Props> = ({ components, templateId }) => {
 
         <div>
           <Label htmlFor="title">Site title</Label>
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-dim">
             Site title will be displayed on the browser tab and preview cards.
           </p>
           <Input
@@ -117,7 +117,7 @@ const ModalContent: FC<Props> = ({ components, templateId }) => {
 
         <div>
           <Label htmlFor="description">Site description</Label>
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-dim">
             Site description will be used for SEO purposes and will be displayed
             on preview cards.
           </p>
@@ -132,7 +132,7 @@ const ModalContent: FC<Props> = ({ components, templateId }) => {
 
         <div>
           <Label>Component set</Label>
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-dim">
             Component set will define the look of your website and template.
           </p>
           <Select onValueChange={(value) => setComponentId(value)}>
@@ -148,7 +148,7 @@ const ModalContent: FC<Props> = ({ components, templateId }) => {
                 {components?.map((component, index) => (
                   <SelectItem key={`component_${index}`} value={component.id}>
                     <p className="text-left">{component.name}</p>
-                    <p className="text-xs text-zinc-500">
+                    <p className="text-xs text-dim">
                       {component.description}
                     </p>
                   </SelectItem>

@@ -20,7 +20,7 @@ export const Textarea: FC<Props> = ({
     <div>
       <TextareaComponent {...props} />
       {showLength && (
-        <p className="text-xs text-zinc-500">
+        <p className="text-xs text-dim">
           <span
             className={props.value?.length > maxLength ? 'text-red-500' : ''}
           >

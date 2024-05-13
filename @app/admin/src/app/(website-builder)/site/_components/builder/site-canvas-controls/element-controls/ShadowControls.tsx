@@ -2,7 +2,7 @@
 import useStyles from '@admin/hooks/useStyles';
 import { Cog } from '@cms/ui/components/Icons';
 import { FC } from 'react';
-import ControlsPopover from '../ControlsPopover';
+import ControlsPopover from '../../ui/ControlsPopover';
 import Input from '../../ui/Input';
 import ColorControls from './color-controls';
 import { ShadowControlsProps } from './types';
@@ -51,9 +51,9 @@ const ShadowControls: FC<ShadowControlsProps> = (props) => {
 
   const controls = (
     <ControlsPopover icon={<Cog />} style={{ background: state?.color || '' }}>
-      <div className="border-b text-sm mb-2">{props.label}</div>
+      <div className="mb-2 border-b text-sm">{props.label}</div>
       <div className="flex flex-wrap gap-4">
-        <div className="flex-1 w-full">
+        <div className="w-full flex-1">
           <Input
             type="number"
             label="X axis"
@@ -67,7 +67,7 @@ const ShadowControls: FC<ShadowControlsProps> = (props) => {
             onChange={(value) => handleChange('y', value)}
           />
         </div>
-        <div className="flex-1 w-full">
+        <div className="w-full flex-1">
           <Input
             type="number"
             label="Blur"
@@ -99,7 +99,7 @@ const ShadowControls: FC<ShadowControlsProps> = (props) => {
   );
 
   return (
-    <div className="flex gap-2 items-end">
+    <div className="flex items-end gap-2">
       <div>{controls}</div>
       <div className="flex-1">
         <Input

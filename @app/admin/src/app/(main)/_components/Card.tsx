@@ -28,7 +28,7 @@ const Card: FC<Props> = ({ children, description, title, menu }) => {
       </CardWrapper>
       <div>{title && <p className="text-sm">{title}</p>}</div>
       <div>
-        {description && <p className="text-xs text-zinc-500">{description}</p>}
+        {description && <p className="text-xs text-dim">{description}</p>}
       </div>
     </div>
   );

@@ -4,8 +4,8 @@ import { renderInputControlComponents } from '@admin/utils/renderControlComponen
 import { DEFAULT_UNIT } from '@cms/packages/tiglee-engine/constants';
 import { JssStyle } from 'jss';
 import { useState } from 'react';
-import UnitSelect from '../../../UnitSelect';
-import ControlsWrapper from '../ControlsWrapper';
+import UnitSelect from '../../ui/UnitSelect';
+import ControlsWrapper from '../../ui/ControlsWrapper';
 
 const HeightAndWidthControls = () => {
   const { applyStyles, getActiveStyles } = useStyles();

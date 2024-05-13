@@ -1,6 +1,6 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
-import Content from './Content';
+import Content from './StyleControlsContent';
 import Header from './Header';
 import NoSelection from './NoSelection';
 

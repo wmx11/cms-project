@@ -25,6 +25,7 @@ import {
 import { Schema } from '@cms/tiglee-engine/types';
 import slugify from 'slugify';
 import { z } from 'zod';
+import { authenticatedController } from './_controller';
 
 export interface CreateSiteData {
   alias: string;
@@ -100,11 +101,9 @@ export const createSiteController = async (data: CreateSiteData) => {
       await updateSite({
         id: site?.id,
         userId: user.id,
-        data: {
-          schema: template?.schema as unknown as Schema[],
-          stylesSchema:
-            template?.styles_schema as unknown as StylesObjectWithBreakpoints,
-        },
+        schema: template?.schema as unknown as Schema[],
+        stylesSchema:
+          template?.styles_schema as unknown as StylesObjectWithBreakpoints,
       });
     }
 
@@ -112,53 +111,32 @@ export const createSiteController = async (data: CreateSiteData) => {
   });
 };
 
-export const deleteSiteController = async (id: string) => {
-  if (!id) {
-    throw new SiteMissingID();
-  }
-
-  return await withUser(async (user) => {
-    if (!user) {
-      return null;
-    }
-
+export const deleteSiteController = (id: string) =>
+  authenticatedController(async (user) => {
     return await deleteSite({
       id,
       userId: user.id,
     });
   });
-};
 
 export interface UpdateSiteData {
+  id: string;
   schema: Schema[];
   stylesSchema: StylesObjectWithBreakpoints;
 }
 
-export const updateSiteController = async (
-  id: string,
-  data: UpdateSiteData
-) => {
-  if (!id) {
-    throw new SiteMissingID();
-  }
-
-  return await withUser(async (user) => {
-    if (!user) {
-      return null;
-    }
-
+export const updateSiteController = (data: UpdateSiteData) =>
+  authenticatedController(async (user) => {
     return await updateSite({
-      id,
+      id: data.id,
+      schema: data.schema,
+      stylesSchema: data.stylesSchema,
       userId: user.id,
-      data: {
-        schema: data.schema,
-        stylesSchema: data.stylesSchema,
-      },
     });
   });
-};
 
 export interface UpdateSiteMetadataData {
+  id: string;
   title?: string;
   description?: string;
   icon?: string;
@@ -166,27 +144,20 @@ export interface UpdateSiteMetadataData {
 }
 
 export const updateSiteMetadataController = async (
-  id: string,
   data: UpdateSiteMetadataData
-) => {
-  if (!id) {
-    throw new SiteMissingID();
-  }
-
-  validationSchema.pick({ title: true, description: true }).parse(data);
-
-  return await withUser(async (user) => {
-    if (!user) {
-      return null;
+) =>
+  authenticatedController(async (user) => {
+    if (!data.id) {
+      throw new SiteMissingID();
     }
 
+    validationSchema.pick({ title: true, description: true }).parse(data);
+
     return await updateSiteMetadata({
-      id,
       userId: user.id,
-      data,
+      ...data,
     });
   });
-};
 
 export const getSiteByAliasController = async (alias: string) => {
   if (!alias) {
@@ -203,10 +174,6 @@ export const getSiteForBuilderController = async (id: string) => {
   }
 
   const site = await withUser(async (user) => {
-    if (!user) {
-      return null;
-    }
-
     return await getSiteForBuilder({ id, userId: user?.id });
   });
 
@@ -261,9 +228,7 @@ export const getSiteForBuilderController = async (id: string) => {
   };
 };
 
-export interface PublishSiteData extends UpdateSiteData {
-  id: string;
-}
+export interface PublishSiteData extends UpdateSiteData {}
 
 export const publishSiteController = async (data: PublishSiteData) => {
   if (!data.id) {
@@ -278,7 +243,8 @@ export const publishSiteController = async (data: PublishSiteData) => {
     const updatedSite = await updateSite({
       id: data.id,
       userId: user.id,
-      data: { ...data },
+      schema: data.schema,
+      stylesSchema: data.stylesSchema,
     });
 
     if (!updatedSite?.site_page_data.working_site_page_schema_id) {

@@ -9,7 +9,7 @@ import {
 } from '@cms/ui/components/Tabs';
 import { FC } from 'react';
 import { useColorPicker } from 'react-best-gradient-color-picker';
-import ControlsPopover from '../../ControlsPopover';
+import ControlsPopover from '../../../ui/ControlsPopover';
 import BackgroundImageController from './BackgroundImageController';
 import ColorPicker from './ColorPicker';
 import { ColorControlsProps } from '../types';
@@ -63,7 +63,7 @@ const ColorControls: FC<ColorControlsProps> = (props) => {
   const hexValue = valueToHex();
 
   return (
-    <div className="flex gap-2 items-end">
+    <div className="flex items-end gap-2">
       <ControlsPopover
         icon={<ColorPickerPipette />}
         style={{
@@ -93,7 +93,7 @@ const ColorControls: FC<ColorControlsProps> = (props) => {
           )}
         </Tabs>
       </ControlsPopover>
-      <div className="flex items-end gap-2 flex-1">
+      <div className="flex flex-1 items-end gap-2">
         <Input
           id={`colorPicker${props.type}`}
           label={props.label || 'Color'}

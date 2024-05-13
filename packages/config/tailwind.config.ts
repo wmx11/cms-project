@@ -36,6 +36,7 @@ import {
 import type { Config } from 'tailwindcss';
 import tailwindCssAnimate from 'tailwindcss-animate';
 import { fontFamily } from 'tailwindcss/defaultTheme';
+import colors from 'tailwindcss/colors';
 
 const hsl = (value: string) =>
   `hsl(var(${value}, var(${value.replace(`${BUILDER_PREFIX}-`, '')})))`;
@@ -56,6 +57,7 @@ const tailwindConfig: Config = {
   theme: {
     extend: {
       colors: {
+        dim: colors.zinc[500],
         [BORDER]: hsl(BORDER_VAR),
         border: 'hsl(var(--border))',
         [INPUT]: hsl(INPUT_VAR),

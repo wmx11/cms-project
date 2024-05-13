@@ -6,7 +6,7 @@ import {
 import { ScrollArea, ScrollBar } from '@cms/packages/ui/components/ScrollArea';
 import { TooltipProvider } from '@cms/ui/components/Tooltip';
 import { FC } from 'react';
-import ComponentsListDialog from '../ComponentsListDialog';
+import ComponentsListDialog from './ui/ComponentsListDialog';
 import BuilderCanvas from './BuilderCanvas';
 import BuilderProvider from './providers/BuilderProvider';
 import BuilderSidebar from './BuilderSidebar';

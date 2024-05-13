@@ -30,7 +30,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           )}
         >
           {startContent && (
-            <div className="mr-2 text-xs text-zinc-500">{startContent}</div>
+            <div className="mr-2 text-xs text-dim">{startContent}</div>
           )}
           <div className="flex-1">
             <input
@@ -44,7 +44,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             />
           </div>
           {endContent && (
-            <div className="text-xs text-zinc-500">{endContent}</div>
+            <div className="text-xs text-dim">{endContent}</div>
           )}
         </div>
         <ErrorMessage errorMessage={errorMessage} />

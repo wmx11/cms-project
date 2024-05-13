@@ -9,7 +9,7 @@ import prettyBytes from 'pretty-bytes';
 import { ComponentPropsWithoutRef, FC, useState } from 'react';
 
 const imageUploadVariants = cva(
-  'group relative flex items-center justify-center overflow-clip border border-dashed border-zinc-500 transition-colors hover:border-zinc-900 cursor-pointer',
+  'group relative flex items-center justify-center overflow-clip border border-dashed border-dim transition-colors hover:border-zinc-900 cursor-pointer',
   {
     variants: {
       variant: {
@@ -57,9 +57,9 @@ const ImageUpload: FC<Props> = ({
           />
         ) : (
           <div className="text-center">
-            <Plus className="mx-auto text-zinc-500 transition-colors group-hover:text-zinc-900" />
+            <Plus className="mx-auto text-dim transition-colors group-hover:text-zinc-900" />
             {variant === 'default' && (
-              <span className="text-xs text-zinc-500 transition-colors group-hover:text-zinc-900">
+              <span className="text-xs text-dim transition-colors group-hover:text-zinc-900">
                 Click here to upload your image
               </span>
             )}

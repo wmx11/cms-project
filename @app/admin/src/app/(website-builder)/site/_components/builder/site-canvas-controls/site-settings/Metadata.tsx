@@ -32,9 +32,10 @@ const Metadata = () => {
   const { handleUpload } = useAssetUpload();
   const { error, setError, clearErrors } =
     useErrorMessage<UpdateSiteMetadataData>({
-      title: undefined,
-      description: undefined,
-      general: undefined,
+      title: '',
+      description: '',
+      general: '',
+      id: '',
     });
 
   const handleOnClick = async () => {
@@ -69,7 +70,8 @@ const Metadata = () => {
       });
     }
 
-    const site = await updateSiteMetadataAction(params.id, {
+    const site = await updateSiteMetadataAction({
+      id: params.id,
       title,
       description,
       ..._icon,

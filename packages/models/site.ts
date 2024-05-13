@@ -158,10 +158,7 @@ export const deleteSite = async (data: DeleteSiteData) => {
   }
 };
 
-interface UpdateSiteProps extends WithUser {
-  id: string;
-  data: UpdateSiteData;
-}
+interface UpdateSiteProps extends UpdateSiteData, WithUser {}
 
 export const updateSite = async (data: UpdateSiteProps) => {
   try {
@@ -175,8 +172,8 @@ export const updateSite = async (data: UpdateSiteProps) => {
           update: {
             working_site_page_schema: {
               create: {
-                schema: data.data.schema,
-                styles_schema: data.data.stylesSchema,
+                schema: data.schema,
+                styles_schema: data.stylesSchema,
               },
             },
           },
@@ -210,10 +207,7 @@ export const updateSite = async (data: UpdateSiteProps) => {
   }
 };
 
-interface UpdateSiteMetadataProps extends WithUser {
-  id: string;
-  data: UpdateSiteMetadataData;
-}
+interface UpdateSiteMetadataProps extends UpdateSiteMetadataData, WithUser {}
 
 export const updateSiteMetadata = async (data: UpdateSiteMetadataProps) => {
   try {
@@ -236,7 +230,7 @@ export const updateSiteMetadata = async (data: UpdateSiteMetadataProps) => {
         id: site?.site_page_data_id,
       },
       data: {
-        ...data.data,
+        ...data,
       },
       select: {
         id: true,

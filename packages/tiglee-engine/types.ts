@@ -10,7 +10,7 @@ declare global {
 /**
  * Possible categories of the component
  */
-type SchemaCategory =
+export type SchemaCategory =
   | 'layout'
   | 'button'
   | 'navigation'
@@ -18,7 +18,8 @@ type SchemaCategory =
   | 'heading'
   | 'form'
   | 'custom'
-  | 'media';
+  | 'video'
+  | 'image';
 
 /**
  * Possible categories of templates

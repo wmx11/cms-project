@@ -5,8 +5,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@cms/packages/ui/components/Accordion';
-import React from 'react';
-import controls from './ControlElements';
+import React, { useMemo } from 'react';
+import createControls from './ControlElements';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 
 const Content = () => {
@@ -14,14 +14,10 @@ const Content = () => {
     (state) => state.selectedComponent
   );
 
-  // const _controls = (() => {
-  //   switch (selectedComponent?.component) {
-  //     case 'Image':
-  //       return controls.filter((item) => item.key === 'image');
-  //     default:
-  //       return controls;
-  //   }
-  // })();
+  const controls = useMemo(
+    () => createControls(selectedComponent?.category),
+    [selectedComponent]
+  );
 
   return (
     <Accordion type="multiple" defaultValue={controls.map((item) => item.key)}>

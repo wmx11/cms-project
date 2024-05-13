@@ -21,3 +21,8 @@ export class NoAdminRights extends Error {
     super('You are not permitted to do that.');
   }
 }
+export class Unauthenticated extends Error {
+  constructor() {
+    super('You are not authenticated.');
+  }
+}

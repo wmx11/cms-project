@@ -28,7 +28,7 @@ const FontSizeControls = () => {
           onValueChange={handleOnChange}
           value={activeStyles ? activeStyles['font-size'] : ''}
         >
-          <SelectTrigger className="bg-secondary m-0 h-8 rounded-md px-1.5 py-2 text-xs"></SelectTrigger>
+          <SelectTrigger className="bg-secondary m-0 h-8 rounded-md px-2 py-2 text-xs"></SelectTrigger>
           <SelectContent>
             {fontSize.map((item) => (
               <SelectItem value={item.toString()} key={item}>
