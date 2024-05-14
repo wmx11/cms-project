@@ -1,4 +1,3 @@
-import { Component } from '@prisma/client';
 import { Schema } from '../types';
 import { getComponentChildrenArray } from './getComponentChildrenArray';
 import getPathArray, {
@@ -29,7 +28,7 @@ const mapSelectedComponentPropsToComponentSchema = (
 
 interface TurnIntoComponentProps {
   schema: Schema[];
-  newComponent: Component;
+  newComponent: Schema;
   path: string;
 }
 
@@ -51,11 +50,8 @@ const turnIntoComponent = (props: TurnIntoComponentProps) => {
 
   const { newComponent, path, schema } = props;
 
-  const newComponentSchema = JSON.parse(
-    (newComponent.schema as string) || '{}'
-  );
-
-  const copySchema = [...schema];
+  const newComponentSchema = structuredClone(newComponent);
+  const copySchema = structuredClone(schema);
   const pathArray = getPathArray(path);
   const isTopLevel = checkTopLevel(pathArray);
 

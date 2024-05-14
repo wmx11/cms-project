@@ -34,17 +34,17 @@ const ComponentsListDialog = () => {
   );
 
   const handleSelect = (component: string, path: string) => {
-    const selectedComponent = components?.find(
+    const _selectedComponent = components?.find(
       (item) => item?.component === component
     );
 
-    if (!selectedComponent) {
+    if (!_selectedComponent) {
       return;
     }
 
     try {
       const newSchema = addComponent({
-        componentSchema: selectedComponent,
+        componentSchema: _selectedComponent,
         schema,
         path,
       });

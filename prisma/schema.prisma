@@ -207,6 +207,7 @@ enum PaymentPlanName {
   pro
 }
 
+// TODO: Change it to usage plan
 // Payment plan of the user (subscription or one-time payment)
 model PaymentPlan {
   id                String          @id @default(cuid())

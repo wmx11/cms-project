@@ -20,7 +20,8 @@ const addComponent = (props: AddComponentProps) => {
 
   const { componentSchema, schema, path } = props;
 
-  const copySchema = [...schema];
+  const copySchema = structuredClone(schema);
+  const copyComponentSchema = structuredClone(componentSchema);
 
   if (path) {
     const component = traverseComponentsTree({
@@ -41,13 +42,14 @@ const addComponent = (props: AddComponentProps) => {
     )?.value;
 
     if (childrenArray && Array.isArray(childrenArray)) {
-      childrenArray.push(componentSchema);
+      childrenArray.push(copyComponentSchema);
     }
 
     return copySchema;
   }
 
-  copySchema.push(componentSchema);
+  copySchema.push(copyComponentSchema);
+
   return copySchema;
 };
 

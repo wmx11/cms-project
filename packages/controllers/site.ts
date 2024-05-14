@@ -207,7 +207,9 @@ export const getSiteForBuilderController = async (id: string) => {
 
   const components = (() => {
     try {
-      return JSON.parse(componentsSchema as unknown as string);
+      const parsedSchema = JSON.parse(componentsSchema as unknown as string);
+      Object.freeze(parsedSchema);
+      return parsedSchema;
     } catch (error) {
       console.error(error);
       return [];

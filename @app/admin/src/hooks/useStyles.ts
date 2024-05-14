@@ -294,6 +294,7 @@ const useStyles = () => {
     getActiveTheme,
     getDocumentTheme,
     setDocumentTheme,
+    setDocumentCSS
   };
 };
 
