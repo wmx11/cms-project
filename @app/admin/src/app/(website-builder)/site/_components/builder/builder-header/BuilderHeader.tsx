@@ -1,7 +1,7 @@
 import PublishSiteButton from '../ui/buttons/PublishSiteButton';
 import BreakpointControls from './_components/BreakpointControls';
 import CanvasOptions from './_components/CanvasOptions';
-import SaveDraftButton from './_components/SaveDraftButton';
+import SaveDraftButton from '../ui/buttons/SaveDraftButton';
 import SiteOptionsMenu from './_components/site-options/SiteOptionsMenu';
 
 const BuilderHeader = () => {

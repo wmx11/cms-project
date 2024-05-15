@@ -12,6 +12,7 @@ import createSidebarSlice from './slices/createSidebarSlice';
 export interface BuilderStoreProps {
   styles: StylesObjectWithBreakpoints;
   schema: Schema[];
+  alias: string;
   componentAlias: string;
   components: Schema[];
 }

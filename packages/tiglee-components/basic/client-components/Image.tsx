@@ -5,8 +5,8 @@ const Image: FC<HTMLProps<HTMLImageElement>> = (props) => {
   return (
     <img
       {...props}
-      alt="alt stuff"
-      className={twMerge('mb-2', props.className)}
+      alt={props.alt}
+      className={twMerge(props.className)}
       width={props.width}
       height={props.height}
     />

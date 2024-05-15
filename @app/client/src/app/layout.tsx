@@ -1,5 +1,4 @@
 import '@cms/packages/config/global.css';
-import Providers from '@/components/Providers';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 
@@ -24,9 +23,7 @@ export default function RootLayout({
         data-tg-theme-type="light"
         className={`tg-wrapper ${inter.className}`}
       >
-        <main>
-          <Providers>{children}</Providers>
-        </main>
+        <main>{children}</main>
       </body>
     </html>
   );

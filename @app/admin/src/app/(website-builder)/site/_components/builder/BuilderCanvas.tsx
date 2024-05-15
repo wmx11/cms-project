@@ -17,6 +17,7 @@ import { useCanvasClick } from './canvas-handlers/canvasEventsHandlers';
 import { useKeyboardEvents } from './canvas-handlers/canvasKeyboardEventsHandlers';
 
 const BuilderCanvas = () => {
+  const alias = useBuilderProviderState((state) => state.alias);
   const styles = useBuilderProviderState((state) => state.styles);
   const breakpoint = useBuilderProviderState((state) => state.breakpoint);
   const renderedTemplate = useBuilderProviderState(
@@ -128,9 +129,12 @@ const BuilderCanvas = () => {
           }}
           onClick={handleCanvasClick}
         >
-          <p className="text-muted-foreground absolute top-[-47px] p-4 text-sm">
-            Press <Kbd>⌘</Kbd> + <Kbd>/</Kbd> to add a component...
-          </p>
+          <div className="text-muted-foreground absolute top-[-60px] py-4 text-sm">
+            <p>{alias}</p>
+            <p>
+              Press <Kbd>⌘</Kbd> + <Kbd>/</Kbd> to add a component...
+            </p>
+          </div>
 
           {/* Canvas overlay - grids and highlights */}
           <CanvasOverlay

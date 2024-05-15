@@ -1,5 +1,6 @@
 'use client';
 import publishSiteAction from '@admin/app/(website-builder)/site/_actions/publishSiteAction';
+import useBuilderHeaderProviderState from '@admin/hooks/useBuilderHeaderProviderState';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import { Alert, AlertDialogAction } from '@cms/ui/components/AlertDialog';
 import { Button, ButtonProps } from '@cms/ui/components/Button';
@@ -10,12 +11,18 @@ import { toast } from 'sonner';
 
 interface Props extends ComponentPropsWithoutRef<'button'>, ButtonProps {}
 
-const PublishButton: FC<Props> = (props) => (
-  <Button {...props}>
-    <Publish className={ICON_STYLES} />
-    <span>Publish</span>
-  </Button>
-);
+const PublishButton: FC<Props> = (props) => {
+  const isPublished = useBuilderHeaderProviderState(
+    (state) => state.isPublished
+  );
+
+  return (
+    <Button {...props}>
+      <Publish className={ICON_STYLES} />
+      <span>{isPublished ? 'Publish changes' : 'Publish'}</span>
+    </Button>
+  );
+};
 
 const PublishSiteButton: FC<Props> = ({ children }) => {
   const params = useParams<{ id: string }>();

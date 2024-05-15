@@ -7,6 +7,7 @@ import { ReactNode } from 'react';
 
 export type SiteSlice = {
   initialized: boolean;
+  alias: string;
   componentAlias: string;
   components: Schema[];
   renderedTemplate: ReactNode;
@@ -17,6 +18,7 @@ export type SiteSlice = {
 
 const createSiteSlice: StateCreator<SiteSlice> = (set, get) => ({
   initialized: false,
+  alias: '',
   componentAlias: '',
   components: [],
   renderedTemplate: [],

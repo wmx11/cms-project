@@ -60,6 +60,18 @@ export const getSiteByAlias = async (alias: string) => {
       where: {
         alias,
       },
+      include: {
+        component: {
+          select: {
+            alias: true,
+          },
+        },
+        site_page_data: {
+          include: {
+            published_site_page_schema: true,
+          },
+        },
+      },
     });
   } catch (error) {
     console.error(error);
@@ -92,6 +104,7 @@ export const getSiteForBuilder = async (data: GetSiteForBuilderData) => {
         user_id: data.userId,
       },
       select: {
+        alias: true,
         component: {
           select: {
             alias: true,
@@ -225,12 +238,14 @@ export const updateSiteMetadata = async (data: UpdateSiteMetadataProps) => {
       return null;
     }
 
+    const { userId, ..._data } = data;
+
     return await db.sitePageData.update({
       where: {
         id: site?.site_page_data_id,
       },
       data: {
-        ...data,
+        ..._data,
       },
       select: {
         id: true,

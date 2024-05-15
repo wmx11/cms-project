@@ -40,7 +40,7 @@ const SaveDraftButton = () => {
         loading={loading}
       >
         <Save className={ICON_STYLES} />
-        <span>Save Draft</span>
+        <span>Save draft</span>
       </Button>
     </>
   );

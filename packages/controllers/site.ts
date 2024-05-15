@@ -182,7 +182,8 @@ export const getSiteForBuilderController = async (id: string) => {
   }
 
   const {
-    component: { alias, schema: componentsSchema },
+    alias,
+    component: { alias: componentAlias, schema: componentsSchema },
     site_page_data: {
       title,
       description,
@@ -220,13 +221,14 @@ export const getSiteForBuilderController = async (id: string) => {
     icon,
     image,
     title,
+    alias,
     schema,
     styles,
     template,
     components,
     description,
     isPublished: working_site_page_schema?.is_published || false,
-    componentAlias: alias,
+    componentAlias,
   };
 };
 

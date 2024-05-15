@@ -22,11 +22,8 @@ import { produce } from 'immer';
 
 const useStyles = () => {
   const schema = useBuilderProviderState((state) => state.schema);
-
   const styles = useBuilderProviderState((state) => state.styles);
-
   const styleSheet = useBuilderProviderState((state) => state.styleSheet);
-
   const breakpoint = useBuilderProviderState((state) => state.breakpoint);
 
   const selectedComonentPath = useBuilderProviderState(
