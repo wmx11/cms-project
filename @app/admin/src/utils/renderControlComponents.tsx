@@ -1,5 +1,5 @@
-import Button from '@admin/app/(website-builder)/website/_components/Builder/ui/buttons/Button';
-import Input from '@admin/app/(website-builder)/website/_components/Builder/ui/Input';
+import Button from '@admin/app/(website-builder)/site/_components/builder/ui/buttons/Button';
+import Input from '@admin/app/(website-builder)/site/_components/builder/ui/Input';
 import { ButtonProps } from '@cms/ui/components/Button';
 import React from 'react';
 

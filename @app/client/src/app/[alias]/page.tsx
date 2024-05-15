@@ -1,48 +1,69 @@
-import prisma from '@cms/packages/data/prisma';
-import { Metadata } from 'next';
+import TigleeProvider from '@client/components/TigleeProvider';
+import { getSiteByAliasController } from '@cms/packages/controllers/site';
+import serializeSchema from '@cms/tiglee-engine/modules/serializeSchema';
+import { Schema } from '@cms/tiglee-engine/types';
+import { Styles } from 'jss';
+import { Metadata, ResolvingMetadata } from 'next';
 import { IconURL } from 'next/dist/lib/metadata/types/metadata-types';
-import React, { cache } from 'react';
 
-type Props = {
+interface Props {
   params: { alias: string };
-};
+}
 
-export const revalidate = 10;
-
-const getPageData = cache(async (alias: string) => {
-  const pageData = await prisma.page.findFirst({
-    where: {
-      alias,
-    },
-  });
-
-  return pageData;
-});
-
-export const generateMetadata = async ({
-  params,
-}: Props): Promise<Metadata> => {
-  console.time('cache');
-  const pageData = await getPageData(params.alias);
-  console.timeEnd('cache');
+export const generateMetadata = async (
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> => {
+  const site = await getSiteByAliasController(params.alias);
+  const previousImages = (await parent).openGraph?.images || [];
 
   return {
-    title: pageData?.title,
-    description: pageData?.description,
+    title: site?.site_page_data.title,
+    description: site?.site_page_data.description,
     icons: {
-      icon: pageData?.icon as IconURL,
+      icon: site?.site_page_data.icon as IconURL,
+    },
+    openGraph: {
+      title: site?.site_page_data.title || '',
+      description: site?.site_page_data.description || '',
+      siteName: site?.site_page_data.title || '',
+      images: [
+        {
+          url: site?.site_page_data.image || '',
+        },
+        ...previousImages,
+      ],
+      type: 'website',
+      locale: 'en_US',
     },
   };
 };
 
 const page = async ({ params }: Props) => {
-  const pageData = await getPageData(params.alias);
+  const site = await getSiteByAliasController(params.alias);
 
-  if (!pageData) {
-    return <>Cannot find a page by {params.alias}</>;
+  if (!site || !site.site_page_data.published_site_page_schema_id) {
+    return <>Cannot find site by {params.alias}</>;
   }
 
-  return <div>page</div>;
+  const template = serializeSchema({
+    schema: site.site_page_data.published_site_page_schema
+      ?.schema as unknown as Schema[],
+    componentAlias: site.component.alias,
+  });
+
+  return (
+    <>
+      <TigleeProvider
+        stylesSchema={
+          site.site_page_data.published_site_page_schema
+            ?.styles_schema as Partial<Styles>
+        }
+      >
+        <>{template}</>
+      </TigleeProvider>
+    </>
+  );
 };
 
 export default page;

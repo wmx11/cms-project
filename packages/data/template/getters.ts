@@ -1,7 +1,7 @@
-import prisma from '../prisma';
+import db from '@cms/db';
 
 export const getTemplates = async () => {
-  return await prisma.template.findMany({
+  return await db.template.findMany({
     where: {
       is_published: true,
     },
@@ -9,7 +9,6 @@ export const getTemplates = async () => {
       description: true,
       image: true,
       name: true,
-      slug: true,
       id: true,
     },
   });

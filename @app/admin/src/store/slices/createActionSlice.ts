@@ -1,4 +1,4 @@
-import { SCALE_MAX, SCALE_MIN } from '@cms/template-engine/constants';
+import { SCALE_MAX, SCALE_MIN } from '@cms/packages/tiglee-engine/constants';
 import { StateCreator } from 'zustand';
 
 export interface ActionSlice {
@@ -9,7 +9,7 @@ export interface ActionSlice {
   isScaling: boolean;
   setIsCommandOpen: (isCommandOpen: boolean) => void;
   setIsContextMenuOpen: (isContextMenuOpen: boolean) => void;
-  toggleGrid: () => void;
+  toggleGrid: (showGrid?: boolean) => void;
   setIsScaling: (isScaling: boolean) => void;
   setCanvasScale: (scaleBy: number, scale?: number) => void;
   resetCanvasScale: () => void;
@@ -24,7 +24,8 @@ const createActionSlice: StateCreator<ActionSlice> = (set, get) => ({
   setIsCommandOpen: (isCommandOpen: boolean) => set(() => ({ isCommandOpen })),
   setIsContextMenuOpen: (isContextMenuOpen: boolean) =>
     set(() => ({ isContextMenuOpen })),
-  toggleGrid: () => set(() => ({ showGrid: !get().showGrid })),
+  toggleGrid: (showGrid?: boolean) =>
+    set(() => ({ showGrid: showGrid ? showGrid : !get().showGrid })),
   setIsScaling: (isScaling: boolean) => set(() => ({ isScaling })),
   setCanvasScale: (scaleBy: number, scale?: number) =>
     set(() => {

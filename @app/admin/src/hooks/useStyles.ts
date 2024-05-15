@@ -1,31 +1,29 @@
+'use client';
 import {
   StylesObjectWithBreakpoints,
   initialStyles,
-} from '@cms/packages/template-engine/styles/jssStyles';
+} from '@cms/packages/tiglee-engine/styles/jssStyles';
 import {
   BREAKPOINTS_MAP,
   BUILDER_DATA_THEME_NAME,
   BUILDER_DATA_THEME_TYPE,
   BUILDER_STYLES_META_TAG_SELECTOR,
   THEME_NAME_VAR,
-} from '@cms/packages/template-engine/constants';
+} from '@cms/packages/tiglee-engine/constants';
 import { JssStyle } from 'jss';
 import useBuilderProviderState from './useBuilderProviderState';
 import {
   BuilderThemes,
   ThemeNames,
   ThemeTypes,
-} from '@cms/template-engine/themes';
-import removeStylesModule from '@cms/template-engine/modules/removeStyles';
+} from '@cms/packages/tiglee-engine/themes';
+import removeStylesModule from '@cms/packages/tiglee-engine/modules/removeStyles';
 import { produce } from 'immer';
 
 const useStyles = () => {
   const schema = useBuilderProviderState((state) => state.schema);
-
   const styles = useBuilderProviderState((state) => state.styles);
-
   const styleSheet = useBuilderProviderState((state) => state.styleSheet);
-
   const breakpoint = useBuilderProviderState((state) => state.breakpoint);
 
   const selectedComonentPath = useBuilderProviderState(
@@ -293,6 +291,7 @@ const useStyles = () => {
     getActiveTheme,
     getDocumentTheme,
     setDocumentTheme,
+    setDocumentCSS
   };
 };
 

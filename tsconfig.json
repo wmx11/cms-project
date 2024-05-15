@@ -15,24 +15,13 @@
     "jsx": "preserve",
     "incremental": true,
     "downlevelIteration": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+
     "paths": {
       "@client/*": ["./@app/client/src/*"],
       "@admin/*": ["./@app/admin/src/*"],
       "@cms/*": ["./packages/*"]
     }
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "types.d.ts"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types.d.ts"]
 }

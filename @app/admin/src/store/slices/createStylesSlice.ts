@@ -1,9 +1,9 @@
-import { initialStyles } from '@cms/packages/template-engine/styles/jssStyles';
+import { BREAKPOINT_DEFAULT } from '@cms/packages/tiglee-engine/constants';
 import type {
   Breakpoints,
   StylesObjectWithBreakpoints,
-} from '@cms/packages/template-engine/styles/jssStyles';
-import { BREAKPOINT_DEFAULT } from '@cms/template-engine/constants';
+} from '@cms/packages/tiglee-engine/styles/jssStyles';
+import { initialStyles } from '@cms/packages/tiglee-engine/styles/jssStyles';
 import { StyleSheet } from 'jss';
 import { StateCreator } from 'zustand';
 

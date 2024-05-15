@@ -1,3 +1,4 @@
+import db from '@cms/db';
 import { getServerSession } from 'next-auth';
 
 export class AuthError extends Error {
@@ -6,18 +7,30 @@ export class AuthError extends Error {
   }
 }
 
-export type User = {
-  userId: string;
-};
-
-export type GetUser = () => User | undefined;
-
-export const auth = async () => {
+export const getUserBySession = async () => {
   const session = await getServerSession();
 
-  const getUser = () => {};
+  if (!session) {
+    return null;
+  }
 
-  return {
-    getUser,
-  };
+  const user = await db.user.findUnique({
+    where: {
+      email: session?.user?.email || '',
+    },
+  });
+
+  return user;
+};
+
+export type AuthUser = Awaited<ReturnType<typeof getUserBySession>>;
+
+export const withUser = async <T>(func: (user: NonNullable<AuthUser>) => T) => {
+  const user = await getUserBySession();
+
+  if (!user) {
+    throw new AuthError();
+  }
+
+  return func(user);
 };

@@ -1,4 +1,4 @@
-const generateRoutes = (baseRouteName: string) => {
+const makeRoutes = (baseRouteName: string) => {
   const defaultPath = `/${baseRouteName}`;
   return {
     create: `${defaultPath}/create`,
@@ -8,11 +8,8 @@ const generateRoutes = (baseRouteName: string) => {
 };
 
 const routes = {
-  website: generateRoutes('website'),
-  blog: generateRoutes('blog'),
-  testimonials: generateRoutes('testimonial'),
-  templates: generateRoutes('templates'),
-  accounts: '/accounts'
+  site: makeRoutes('site'),
+  accounts: '/accounts',
 };
 
 export default routes;

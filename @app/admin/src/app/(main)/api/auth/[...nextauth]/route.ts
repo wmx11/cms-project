@@ -1,5 +1,5 @@
 import { PrismaAdapter } from '@auth/prisma-adapter';
-import prisma from '@cms/packages/data/prisma';
+import prisma from '@cms/packages/db';
 import NextAuth, { Profile } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import routes from '../../../../../utils/routes';
@@ -18,30 +18,6 @@ const handler = NextAuth({
   events: {
     createUser: async ({ user }) => {
       try {
-        const existingProfile = await prisma.profile.findFirst({
-          where: {
-            user: {
-              email: user.email,
-            },
-          },
-        });
-
-        const existingUser = await prisma.user.findUnique({
-          where: {
-            email: user.email || '',
-          },
-          select: {
-            id: true,
-          },
-        });
-
-        if (!existingProfile && existingUser) {
-          await prisma.profile.create({
-            data: {
-              user_id: existingUser.id,
-            },
-          });
-        }
       } catch (error) {
         console.error('next_auth_createUser', error);
       }
@@ -60,29 +36,14 @@ const handler = NextAuth({
     redirect: ({ url, baseUrl }) => {
       return baseUrl;
     },
-    jwt: async ({ token, account, profile }) => {
-      const user = await prisma.user.findUnique({
-        where: {
-          email: token.email || '',
-        },
-        select: {
-          profile: {
-            select: {
-              id: true,
-            },
-          },
-        },
-      });
-
-      Object.assign(token, { profileId: user?.profile?.id });
-
+    jwt: async ({ token, account, profile, user }) => {
+      if (user) {
+        token.is_admin = user.is_admin;
+      }
       return token;
     },
     session: ({ session, token, user }) => {
-      if (token && session.user) {
-        Object.assign(session.user, { profileId: token.profileId });
-      }
-
+      session.user.is_admin = token.is_admin;
       return session;
     },
   },

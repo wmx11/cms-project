@@ -32,18 +32,19 @@ import {
   SECONDARY,
   SECONDARY_FOREGROUND_VAR,
   SECONDARY_VAR,
-} from '@cms/packages/template-engine/constants';
+} from '@cms/packages/tiglee-engine/constants';
 import type { Config } from 'tailwindcss';
 import tailwindCssAnimate from 'tailwindcss-animate';
 import { fontFamily } from 'tailwindcss/defaultTheme';
+import colors from 'tailwindcss/colors';
 
 const hsl = (value: string) =>
   `hsl(var(${value}, var(${value.replace(`${BUILDER_PREFIX}-`, '')})))`;
 
 const tailwindConfig: Config = {
   content: [
-    '../../packages/template-engine/**/*.{js,ts,jsx,tsx,mdx,json}',
-    '../../packages/templates/**/*.{js,ts,jsx,tsx,mdx,json}',
+    '../../packages/tiglee-engine/**/*.{js,ts,jsx,tsx,mdx,json}',
+    '../../packages/tiglee-components/**/*.{js,ts,jsx,tsx,mdx,json}',
     '../../packages/ui/**/*.{js,ts,jsx,tsx,mdx,json}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/views/**/*.{js,ts,jsx,tsx,mdx}',
@@ -56,6 +57,7 @@ const tailwindConfig: Config = {
   theme: {
     extend: {
       colors: {
+        dim: colors.zinc[500],
         [BORDER]: hsl(BORDER_VAR),
         border: 'hsl(var(--border))',
         [INPUT]: hsl(INPUT_VAR),

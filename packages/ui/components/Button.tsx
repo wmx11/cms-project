@@ -1,10 +1,11 @@
 import { cn } from '@cms/packages/lib/utils';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { Loader } from '@cms/packages/ui/components/Loader';
 import * as React from 'react';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  'relative inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -39,6 +40,7 @@ export interface ButtonProps
   asChild?: boolean;
   startContent?: React.ReactElement;
   endContent?: React.ReactElement;
+  loading?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -50,6 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       asChild = false,
       startContent,
       endContent,
+      loading,
       ...props
     },
     ref
@@ -60,7 +63,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
+        disabled={loading}
       >
+        {loading && <Loader className="absolute mr-2" />}
         {props.children}
       </Comp>
     );

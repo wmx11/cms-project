@@ -1,21 +1,37 @@
-import { Component } from '@prisma/client';
-import { RefObject } from 'react';
+import { JWT } from 'next-auth/jwt';
+import NextAuth, { DefaultSession } from 'next-auth';
+import { ErrorMessageType } from '@cms/lib/handleErrorMessages';
 import { BuilderStoreState } from './store/useBuilderStore';
 
-export type Target = { target: HTMLBaseElement };
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      is_admin: boolean;
+    } & DefaultSession['user'];
+  }
 
-export type TemplateComponents = {
-  templateComponents: Component[];
-};
+  interface User {
+    is_admin: boolean;
+  }
+}
 
-export type SetTriggerRef = {
-  setTriggerRef: (ref: RefObject<HTMLElement>) => void;
-};
-
-export type SetIsOpen = { setIsOpen: (isOpen: boolean) => void };
-
-export type HandleSelect = {
-  handleSelect: (key: React.Key, path: string) => void;
-};
+declare module 'next-auth/jwt' {
+  interface JWT {
+    is_admin: boolean;
+  }
+}
 
 export type BuilderState = { state: BuilderStoreState };
+
+export type ActionReturnTypeWithError<T> = {
+  data: never;
+  error: ErrorMessageType<T>;
+};
+
+export type ActionReturnTypeWithoutError<T> = {
+  data: T;
+  error: never;
+};
+
+export type ActionReturnType<T> = ActionReturnTypeWithError<T> &
+  ActionReturnTypeWithoutError<T>;

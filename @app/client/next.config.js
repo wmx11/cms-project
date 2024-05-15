@@ -2,8 +2,8 @@
 const nextConfig = {
   transpilePackages: [
     '@cms/packages/ui',
-    '@cms/packages/templates',
-    '@cms/packages/template-engine',
+    '@cms/packages/tiglee-components',
+    '@cms/packages/tiglee-engine',
   ],
 };
 
