@@ -81,7 +81,7 @@ const CanvasOptions = () => {
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="xs" className="group w-[70px]">
+          <Button variant="ghost" size="xs" className="group w-[70px]">
             {canvasScalePercentage}%{' '}
             <ChevronDown className="ml-2 h-3 w-3 transition-transform group-hover:translate-y-1" />
           </Button>

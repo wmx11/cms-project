@@ -31,6 +31,8 @@ import PurgeStylesAlertButton, {
 import SaveTemplate from './SaveTemplate';
 import ThemeSelector from './ThemeSelector';
 import { useSession } from 'next-auth/react';
+import TigleeLogo from '@admin/assets/tiglee-logo.png';
+import Image from 'next/image';
 
 const SiteOptionsMenu = () => {
   const router = useRouter();
@@ -40,7 +42,13 @@ const SiteOptionsMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="xs" className="group">
+        <Button variant="ghost" size="xs" className="group">
+          <Image
+            src={TigleeLogo}
+            alt="Menu tiglee logo"
+            width={20}
+            height={20}
+          />
           <ChevronDown className="ml-2 h-3 w-3 transition-transform group-hover:translate-y-1" />
         </Button>
       </DropdownMenuTrigger>
