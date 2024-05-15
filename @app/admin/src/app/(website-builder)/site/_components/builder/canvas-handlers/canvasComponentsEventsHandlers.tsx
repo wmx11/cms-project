@@ -56,7 +56,7 @@ export const useEditableContentControls = ({
       const target = event.target as HTMLBaseElement;
 
       if (componentValue) {
-        componentValue.value = target.innerText;
+        componentValue.value = target.innerHTML;
       }
 
       if (canvasOverlay) {

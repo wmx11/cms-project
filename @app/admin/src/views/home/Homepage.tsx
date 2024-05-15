@@ -1,6 +1,6 @@
 import Card from '@admin/app/(main)/_components/Card';
 import db from '@cms/db';
-import { withUser } from '@cms/packages/data/user/getters';
+import { withUser } from '@cms/lib/auth';
 
 const Homepage = async () => {
   const sites = await withUser(async (user) => {

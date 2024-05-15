@@ -1,10 +1,10 @@
 import GridWrapper from '@admin/components/layout/GridWrapper';
 import routes from '@admin/utils/routes';
-import { withUser } from '@cms/data/user/getters';
 import db from '@cms/db';
+import { withUser } from '@cms/lib/auth';
+import { Metadata } from 'next';
 import Link from 'next/link';
 import Card from '../_components/Card';
-import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'My files',

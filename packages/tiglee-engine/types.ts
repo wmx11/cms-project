@@ -11,24 +11,30 @@ declare global {
  * Possible categories of the component
  */
 export type SchemaCategory =
-  | 'layout'
   | 'button'
+  | 'custom'
+  | 'footer'
+  | 'form'
+  | 'input'
+  | 'header'
+  | 'heading'
+  | 'image'
+  | 'layout'
+  | 'link'
   | 'navigation'
   | 'text'
-  | 'heading'
-  | 'form'
-  | 'custom'
-  | 'video'
-  | 'image';
+  | 'video';
 
 /**
  * Possible categories of templates
  */
 type TemplateCategory =
-  | 'profile'
-  | 'landing'
   | 'form'
+  | 'landing'
+  | 'marketing'
   | 'portfolio'
+  | 'profile'
+  | 'saas'
   | 'sectioned';
 
 type StringProps = { type: 'string'; value: string };
