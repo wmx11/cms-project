@@ -9,6 +9,8 @@ import { ElipsisVerticalIcon } from './Icons';
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
 
+const DropdownMenuArrow = DropdownMenuPrimitive.Arrow;
+
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger;
 
 const DropdownMenuGroup = DropdownMenuPrimitive.Group;
@@ -60,7 +62,7 @@ DropdownMenuSubContent.displayName =
 const DropdownMenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
->(({ className, sideOffset = 4, ...props }, ref) => (
+>(({ className, sideOffset = 4, children, ...props }, ref) => (
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuPrimitive.Content
       ref={ref}
@@ -70,7 +72,12 @@ const DropdownMenuContent = React.forwardRef<
         className
       )}
       {...props}
-    />
+    >
+      <>
+        {children}
+        <DropdownMenuArrow />
+      </>
+    </DropdownMenuPrimitive.Content>
   </DropdownMenuPrimitive.Portal>
 ));
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
@@ -199,7 +206,7 @@ interface DropdownMenuBuilderProps
 }
 
 const DropdownMenuTriggerElipsis = () => (
-  <ElipsisVerticalIcon className="w-4 text-dim" />
+  <ElipsisVerticalIcon className="text-dim w-4" />
 );
 
 export const DropdownMenuBuilder: React.FC<DropdownMenuBuilderProps> = ({
