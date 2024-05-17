@@ -2,11 +2,11 @@ import { Schema } from '@cms/packages/tiglee-engine/types';
 import { ComponentPropsWithoutRef, FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const Title: FC<ComponentPropsWithoutRef<'h1'>> = (props) => {
+const Heading1: FC<ComponentPropsWithoutRef<'h1'>> = (props) => {
   return (
     <h1
       className={twMerge(
-        'text-tg-foreground mb-8 text-7xl font-black uppercase leading-tight',
+        'text-tg-foreground mb-8 text-7xl leading-tight',
         props.className
       )}
       dangerouslySetInnerHTML={{ __html: props.children || '' }}
@@ -14,27 +14,24 @@ const Title: FC<ComponentPropsWithoutRef<'h1'>> = (props) => {
   );
 };
 
-export default Title;
+export default Heading1;
 
 export const schema: Schema = {
-  component: 'Title',
+  component: 'Heading1',
   category: 'heading',
   editable: true,
-  description: 'Use this to give titles to something',
-  displayName: 'Title',
+  description: 'Big section heading.',
+  displayName: 'Heading 1',
   props: [
     {
       name: 'children',
       type: 'string',
-      value: 'Title',
-      displayName: 'Your title',
+      value: 'Heading 1',
     },
     {
       name: 'className',
       type: 'string',
       value: '',
-      displayName: 'Title classes',
-      description: 'You can use Tailwind classes to style this title',
     },
   ],
 };

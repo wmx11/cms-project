@@ -37,6 +37,12 @@ type TemplateCategory =
   | 'saas'
   | 'sectioned';
 
+type SelectProps = {
+  type: 'select';
+  value: string;
+  options: { value: string; label: string; id?: string }[];
+};
+
 type StringProps = { type: 'string'; value: string };
 
 type NumberProps = { type: 'number'; value: string };
@@ -45,11 +51,27 @@ type ComponentProps = { type: 'component'; value: Schema[] };
 
 type BooleanProps = { type: 'boolean'; value: boolean };
 
+type ClassNameProps = { name: 'className' } & StringProps;
+
+type HtmlProps = { name: 'html' } & StringProps;
+
+type ChildrenProps = { name: 'children' } & (ComponentProps | StringProps);
+
+type PropTypes =
+  | StringProps
+  | NumberProps
+  | ComponentProps
+  | BooleanProps
+  | SelectProps
+  | ClassNameProps
+  | HtmlProps
+  | ChildrenProps;
+
 export type Props = {
-  name: 'children' | 'className' | string;
+  name: string & {};
   displayName?: string | undefined;
   description?: string | undefined;
-} & (StringProps | NumberProps | ComponentProps | BooleanProps);
+} & PropTypes;
 
 /**
  * Indicates whether the element is editable and will be contenteditable=true in the builder

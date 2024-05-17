@@ -15,7 +15,6 @@
     "jsx": "preserve",
     "incremental": true,
     "downlevelIteration": true,
-
     "paths": {
       "@client/*": ["./@app/client/src/*"],
       "@admin/*": ["./@app/admin/src/*"],

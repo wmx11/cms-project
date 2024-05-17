@@ -14,15 +14,15 @@ export default CustomHtml;
 export const schema: Schema = {
   component: 'CustomHtml',
   category: 'custom',
-  description: 'Use this to insert custom HTML code',
+  description: 'Insert custom HTML code.',
   displayName: 'Custom HTML code',
   props: [
     {
       name: 'html',
       type: 'string',
-      value: '',
-      description: 'Takes in custom HTML',
-      displayName: 'Custom HTML',
+      value: '<div>Custom HMTL code will be shown here</div>',
+      description: 'Paste or write your custom HTML code.',
+      displayName: 'Custom HTML Code',
     },
   ],
 };

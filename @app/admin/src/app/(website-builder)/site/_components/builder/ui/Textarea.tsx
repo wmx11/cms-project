@@ -8,7 +8,7 @@ import { FC } from 'react';
 interface Props extends Omit<TextareaProps, 'value'> {
   showLength?: boolean;
   maxLength?: number;
-  value: string;
+  value?: string;
 }
 
 export const Textarea: FC<Props> = ({

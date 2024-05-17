@@ -3,7 +3,7 @@ import DefaultTooltip from '@admin/components/DefaultTooltip';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
 import duplicateComponent from '@cms/packages/tiglee-engine/modules/duplicateComponent';
 import { Button } from '@cms/packages/ui/components/Button';
-import { Duplicate } from '@cms/packages/ui/components/Icons';
+import { Duplicate, ICON_STYLES } from '@cms/packages/ui/components/Icons';
 import Kbd from '@cms/ui/components/Kbd';
 
 const DuplicateElementButton = () => {
@@ -37,13 +37,8 @@ const DuplicateElementButton = () => {
         selectedComponent?.displayName ?? selectedComponent?.component
       }`}
     >
-      <Button
-        variant="outline"
-        size="xs"
-        onClick={handleOnClick}
-        className="rounded-none"
-      >
-        <Duplicate className="mr-2 h-3 w-3" />
+      <Button variant="ghost" size="xs" onClick={handleOnClick}>
+        <Duplicate className={ICON_STYLES} />
         <span className="mr-2">Duplicate</span>
         <Kbd>⌘D</Kbd>
       </Button>

@@ -10,6 +10,8 @@ import { FC, RefObject, useEffect, useRef, useState } from 'react';
 import DeleteElementButton from './site-canvas-controls/element-overlay-controls/DeleteElementButton';
 import DuplicateElementButton from './site-canvas-controls/element-overlay-controls/DuplicateElementButton';
 import ElementInfoButton from './site-canvas-controls/element-overlay-controls/ElementInfoButton';
+import { Separator } from '@cms/ui/components/Separator';
+import TurnIntoButton from './site-canvas-controls/element-overlay-controls/TurnIntoButton';
 
 export interface CanvasOverlayProps {
   canvasRef: RefObject<HTMLDivElement>;
@@ -163,10 +165,26 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
           <div
             data-canvas-overlay-controls
             ref={canvasOverlayControlsRef}
-            className="pointer-events-auto absolute top-0 z-30 flex translate-x-[-2px] translate-y-[-32px] bg-white shadow-xl"
+            className="text-dim animate-in fade-in-0 zoom-in-95 pointer-events-auto absolute top-0 z-30 flex translate-x-[-2px] translate-y-[-36px] overflow-clip rounded-lg border border-zinc-100 bg-white shadow-md"
           >
             <ElementInfoButton />
+            <Separator
+              orientation="vertical"
+              decorative={false}
+              className="my-1 h-auto"
+            />
             <DuplicateElementButton />
+            <Separator
+              orientation="vertical"
+              decorative={false}
+              className="my-1 h-auto"
+            />
+            <TurnIntoButton />
+            <Separator
+              orientation="vertical"
+              decorative={false}
+              className="my-1 h-auto"
+            />
             <DeleteElementButton />
           </div>
         )}

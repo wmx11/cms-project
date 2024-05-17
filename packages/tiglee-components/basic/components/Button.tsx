@@ -19,22 +19,18 @@ export const schema: Schema = {
   component: 'Button',
   category: 'button',
   editable: true,
-  description:
-    'Use Button components to link to other pages or add a call to action',
+  description: 'Link to other pages or call to action.',
   displayName: 'Button',
   props: [
     {
       name: 'children',
       type: 'string',
       value: 'Button',
-      displayName: 'Button text',
     },
     {
       name: 'className',
       type: 'string',
       value: '',
-      displayName: 'Button classes',
-      description: 'You can use Tailwind classes to style this button',
     },
   ],
 };
