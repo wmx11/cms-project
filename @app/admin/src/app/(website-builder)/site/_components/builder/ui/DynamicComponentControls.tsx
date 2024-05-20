@@ -14,6 +14,7 @@ import { Switch } from '@cms/ui/components/Switch';
 import DOMPurify from 'dompurify';
 import { useEffect } from 'react';
 import HtmlEditor from './codemirror/HtmlEditor';
+import Input from './Input';
 
 const DynamicComponentControls = () => {
   const selectedComponent = useBuilderProviderState(
@@ -138,6 +139,31 @@ const DynamicComponentControls = () => {
               <Label htmlFor={prop.name}>{prop.displayName}</Label>
             </div>
           );
+        }
+
+        if (prop.type === 'string') {
+          const target = selectedElement?.querySelector(`[data-${prop.name}]`);
+          const handleOnChange = (value: string) => {
+            prop.value = value;
+
+            if (!target) {
+              return;
+            }
+
+            target.innerHTML = value;
+          };
+          return (
+            <Input
+              key={`${selectedComponent.id}_${index}`}
+              label={prop.displayName}
+              defaultValue={prop.value}
+              onChange={handleOnChange}
+            />
+          );
+        }
+
+        if (prop.type === 'component' && prop.name !== 'children') {
+          return 'add component';
         }
 
         return <></>;

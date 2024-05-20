@@ -9,7 +9,7 @@ const Title: FC<PropsWithChildren & HTMLProps<HTMLTitleElement>> = (props) => {
         'text-tg-foreground mb-8 text-7xl font-black uppercase leading-tight',
         props.className
       )}
-      dangerouslySetInnerHTML={{ __html: props.children || '' }}
+      dangerouslySetInnerHTML={{ __html: props.children as string }}
     ></h1>
   );
 };

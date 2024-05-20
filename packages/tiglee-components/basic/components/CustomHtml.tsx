@@ -2,11 +2,13 @@ import { Schema } from '@cms/tiglee-engine/types';
 import { FC } from 'react';
 
 interface CustomHtmlProps {
-  html: string;
+  html: string | TrustedHTML;
 }
 
 const CustomHtml: FC<CustomHtmlProps> = ({ html }) => {
-  return <div dangerouslySetInnerHTML={{ __html: html }}></div>;
+  return (
+    <div data-component-parent dangerouslySetInnerHTML={{ __html: html }}></div>
+  );
 };
 
 export default CustomHtml;

@@ -23,6 +23,7 @@ export type SchemaCategory =
   | 'link'
   | 'navigation'
   | 'text'
+  | 'block'
   | 'video';
 
 /**

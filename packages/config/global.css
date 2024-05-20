@@ -94,9 +94,14 @@
   }
 
   .tg-grabbing *,
-  [data-editable='true'] > * {
+  [data-editable='true'] > *,
+  [data-component-parent] > * {
     pointer-events: none;
     user-select: none;
+  }
+
+  [data-children] > * {
+    pointer-events: auto;
   }
 
   .tg-grabbing [data-canvas-overlay] {
