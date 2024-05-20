@@ -1,8 +1,9 @@
 'use client';
 import DefaultTooltip from '@admin/components/DefaultTooltip';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import turnIntoComponent from '@cms/tiglee-engine/modules/turnIntoComponent';
 import { Button } from '@cms/ui/components/Button';
-import { Command, CommandInput } from '@cms/ui/components/Command';
+import { Command } from '@cms/ui/components/Command';
 import { ElipsisIcon, ICON_STYLES } from '@cms/ui/components/Icons';
 import {
   Popover,
@@ -11,34 +12,13 @@ import {
 } from '@cms/ui/components/Popover';
 import ComponentsList from '../../ui/ComponentsList';
 
-// Turns component into a different component
+/**
+ * @description - This button displays a popover with a component list. The component list will turn a selected component into a new one.
+ */
 const TurnIntoButton = () => {
   const selectedComponent = useBuilderProviderState(
     (state) => state.selectedComponent
   );
-  const selectedComonentPath = useBuilderProviderState(
-    (state) => state.selectedComonentPath
-  );
-  const schema = useBuilderProviderState((state) => state.schema);
-  const renderTemplate = useBuilderProviderState(
-    (state) => state.renderTemplate
-  );
-
-  // const handleSelect = (key: React.Key, path: string) => {
-  //   const newComponent = templateComponents.find((item) => item.id === key);
-
-  //   if (!newComponent) {
-  //     return null;
-  //   }
-
-  //   const newSchema = turnIntoComponent({ schema, newComponent, path });
-
-  //   if (!newSchema) {
-  //     return null;
-  //   }
-
-  //   renderTemplate(newSchema);
-  // };
 
   return (
     <DefaultTooltip
@@ -51,10 +31,9 @@ const TurnIntoButton = () => {
             <ElipsisIcon className={ICON_STYLES} />
           </Button>
         </PopoverTrigger>
-        <PopoverContent>
+        <PopoverContent asChild>
           <Command>
-            <CommandInput placeholder="Type a command to search..." />
-            <ComponentsList />
+            <ComponentsList turnIntoComponent={turnIntoComponent} />
           </Command>
         </PopoverContent>
       </Popover>

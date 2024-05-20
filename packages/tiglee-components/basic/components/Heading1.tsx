@@ -9,7 +9,7 @@ const Heading1: FC<ComponentPropsWithoutRef<'h1'>> = (props) => {
         'text-tg-foreground mb-8 text-7xl leading-tight',
         props.className
       )}
-      dangerouslySetInnerHTML={{ __html: props.children || '' }}
+      dangerouslySetInnerHTML={{ __html: props.children as string }}
     ></h1>
   );
 };

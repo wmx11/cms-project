@@ -11,8 +11,9 @@ import {
   SelectValue,
 } from '@cms/ui/components/Select';
 import { Switch } from '@cms/ui/components/Switch';
-import { Textarea } from '@cms/ui/components/Textarea';
+import DOMPurify from 'dompurify';
 import { useEffect } from 'react';
+import HtmlEditor from './codemirror/HtmlEditor';
 
 const DynamicComponentControls = () => {
   const selectedComponent = useBuilderProviderState(
@@ -62,30 +63,31 @@ const DynamicComponentControls = () => {
           );
         }
 
-        if (prop.name === 'html' && prop.type === 'string') {
+        if (
+          (prop.name === 'children' && prop.type === 'string') ||
+          (prop.name === 'html' && prop.type === 'string')
+        ) {
           return (
-            <Textarea
-              key={`${selectedComponent.id}_${index}`}
-              label="Custom HTML code"
-              defaultValue={prop.value}
-            />
-          );
-        }
+            <div className="max-w-[270px]">
+              <HtmlEditor
+                key={`${selectedComponent.id}_${index}`}
+                value={prop.value}
+                onChange={(value) => {
+                  if (!selectedElement) {
+                    return;
+                  }
 
-        if (prop.name === 'children' && prop.type === 'string') {
-          return (
-            <Textarea
-              key={`${selectedComponent.id}_${index}`}
-              label="Content"
-              defaultValue={prop.value}
-              onChange={(e) => {
-                if (!selectedElement) {
-                  return;
-                }
-                selectedElement.innerHTML = e.currentTarget.value;
-                prop.value = e.currentTarget.value;
-              }}
-            />
+                  const sanitizedValue = DOMPurify.sanitize(value, {
+                    ADD_ATTR: ['style', 'script', 'type', 'href', 'rel'],
+                    ADD_TAGS: ['style', 'script'],
+                    FORCE_BODY: true,
+                  });
+
+                  prop.value = sanitizedValue;
+                  selectedElement.innerHTML = sanitizedValue;
+                }}
+              />
+            </div>
           );
         }
 

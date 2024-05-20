@@ -5,11 +5,8 @@ import { twMerge } from 'tailwind-merge';
 const Heading2: FC<ComponentPropsWithoutRef<'h2'>> = (props) => {
   return (
     <h2
-      className={twMerge(
-        'text-tg-foreground mb-4 text-3xl',
-        props.className
-      )}
-      dangerouslySetInnerHTML={{ __html: props.children || '' }}
+      className={twMerge('text-tg-foreground mb-4 text-3xl', props.className)}
+      dangerouslySetInnerHTML={{ __html: props.children as string }}
     ></h2>
   );
 };

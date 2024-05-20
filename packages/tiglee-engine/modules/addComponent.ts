@@ -1,7 +1,7 @@
 import { Schema } from '../types';
 import traverseComponentsTree from './traverseComponentsTree';
 
-interface AddComponentProps {
+export interface AddComponentProps {
   schema: Schema[];
   componentSchema: Schema;
   path?: string;

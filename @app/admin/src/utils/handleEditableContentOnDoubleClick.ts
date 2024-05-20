@@ -9,6 +9,7 @@ export const handleEditableContentOnDoubleClick = <T extends MouseEvent>(
   if (!target) {
     return;
   }
+
   target.setAttribute('contenteditable', 'true');
   target.focus();
   selectTextContent(target);

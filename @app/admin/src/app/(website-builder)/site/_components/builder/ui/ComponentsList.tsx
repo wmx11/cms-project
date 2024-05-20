@@ -1,20 +1,37 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
-import addComponent from '@cms/tiglee-engine/modules/addComponent';
+import { AddComponentProps } from '@cms/tiglee-engine/modules/addComponent';
+import { TurnIntoComponentProps } from '@cms/tiglee-engine/modules/turnIntoComponent';
+import { Schema } from '@cms/tiglee-engine/types';
 import {
-  Command,
   CommandEmpty,
   CommandGroup,
+  CommandInput,
   CommandItem,
   CommandList,
 } from '@cms/ui/components/Command';
-import React, { FC } from 'react';
+import { ScrollArea } from '@cms/ui/components/ScrollArea';
+import { FC } from 'react';
 
-interface Props {
+type PropsWithAddComponent = {
+  addComponent?: (props: AddComponentProps) => Schema[] | null;
+  turnIntoComponent?: never;
+};
+
+type PropsWithTurnIntoComponent = {
+  addComponent?: never;
+  turnIntoComponent?: (props: TurnIntoComponentProps) => Schema[] | null;
+};
+
+type Props = {
   onSelect?: () => void;
-}
+} & (PropsWithAddComponent | PropsWithTurnIntoComponent);
 
-const ComponentsList: FC<Props> = ({ onSelect }) => {
+const ComponentsList: FC<Props> = ({
+  onSelect,
+  addComponent,
+  turnIntoComponent,
+}) => {
   const components = useBuilderProviderState((state) => state.components);
 
   const selectedComonentPath = useBuilderProviderState(
@@ -40,12 +57,22 @@ const ComponentsList: FC<Props> = ({ onSelect }) => {
       return;
     }
 
+    const data = {
+      componentSchema: _selectedComponent,
+      schema,
+      path,
+    };
+
     try {
-      const newSchema = addComponent({
-        componentSchema: _selectedComponent,
-        schema,
-        path,
-      });
+      let newSchema;
+
+      if (addComponent) {
+        newSchema = addComponent(data);
+      }
+
+      if (turnIntoComponent) {
+        newSchema = turnIntoComponent(data);
+      }
 
       if (!newSchema) {
         return null;
@@ -75,31 +102,34 @@ const ComponentsList: FC<Props> = ({ onSelect }) => {
 
   return (
     <>
+      <CommandInput placeholder="Find component..." />
       <CommandList>
-        <CommandEmpty>No components found.</CommandEmpty>
-        <CommandGroup heading="Components">
-          {componentsToRender().map((item) => (
-            <CommandItem
-              key={item.id}
-              onSelect={() => {
-                handleSelect(item.component, selectedComonentPath);
-                onSelect && onSelect();
-              }}
-            >
-              <div className="cursor-pointer p-2">
-                <div className="flex items-center gap-2">
-                  <div className="h-[45px] w-[45px] rounded-md border bg-white"></div>
-                  <div className="flex-1">
-                    <div className="font-bold">
-                      {item.displayName || item.component}
+        <ScrollArea className="h-72">
+          <CommandEmpty>Co components by this name found.</CommandEmpty>
+          <CommandGroup heading="Components">
+            {componentsToRender().map((item) => (
+              <CommandItem
+                key={item.id}
+                onSelect={() => {
+                  handleSelect(item.component, selectedComonentPath);
+                  onSelect && onSelect();
+                }}
+              >
+                <div className="cursor-pointer p-2">
+                  <div className="flex items-center gap-2">
+                    <div className="h-[45px] w-[45px] rounded-md border bg-white"></div>
+                    <div className="flex-1">
+                      <div className="font-bold">
+                        {item.displayName || item.component}
+                      </div>
+                      <div className="text-xs">{item.description}</div>
                     </div>
-                    <div className="text-xs">{item.description}</div>
                   </div>
                 </div>
-              </div>
-            </CommandItem>
-          ))}
-        </CommandGroup>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </ScrollArea>
       </CommandList>
     </>
   );

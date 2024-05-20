@@ -93,7 +93,8 @@
     cursor: grabbing;
   }
 
-  .tg-grabbing * {
+  .tg-grabbing *,
+  [data-editable='true'] > * {
     pointer-events: none;
     user-select: none;
   }
