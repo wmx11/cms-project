@@ -6,7 +6,7 @@ import {
 } from '@cms/packages/tiglee-engine/constants';
 import { Badge } from '@cms/packages/ui/components/Badge';
 import RemoveStylesButton from '../../ui/buttons/RemoveStylesButton';
-import DynamicComponentControls from '../../ui/DynamicComponentControls';
+import DynamicComponentControls from '../../ui/dynamic-component-controls/DynamicComponentControls';
 
 const Header = () => {
   const selectedElement = useBuilderProviderState(
@@ -31,7 +31,7 @@ const Header = () => {
           <RemoveStylesButton />
         </div>
       </div>
-      <DynamicComponentControls />
+      {/* <DynamicComponentControls /> */}
     </div>
   );
 };

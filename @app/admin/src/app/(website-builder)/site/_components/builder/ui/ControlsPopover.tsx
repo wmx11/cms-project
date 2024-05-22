@@ -7,11 +7,13 @@ import {
 import React, { CSSProperties, FC, PropsWithChildren } from 'react';
 
 interface ControlsPopoverProps extends PropsWithChildren {
-  icon: React.ReactElement;
+  buttonContent?: React.ReactElement;
+  icon?: React.ReactElement;
   style?: CSSProperties;
 }
 
 const ControlsPopover: FC<ControlsPopoverProps> = ({
+  buttonContent,
   icon,
   style,
   children,
@@ -20,7 +22,7 @@ const ControlsPopover: FC<ControlsPopoverProps> = ({
     <Popover>
       <PopoverTrigger asChild>
         <Button size="xs" className="border" style={style}>
-          {icon}
+          {buttonContent ?? icon}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[330px]" side="left">

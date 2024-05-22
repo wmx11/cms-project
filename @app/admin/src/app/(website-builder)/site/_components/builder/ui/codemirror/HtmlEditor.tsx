@@ -1,6 +1,6 @@
 'use client';
 import { html } from '@codemirror/lang-html';
-import CodeMirror from '@uiw/react-codemirror';
+import CodeMirror, { EditorView } from '@uiw/react-codemirror';
 import { FC, useCallback, useState } from 'react';
 
 interface Props {
@@ -20,8 +20,8 @@ const HtmlEditor: FC<Props> = ({ value, onChange }) => {
     <CodeMirror
       value={_value}
       onChange={_onChange}
-      extensions={[html()]}
-      height="200px"
+      extensions={[html(), EditorView.lineWrapping]}
+      height="250px"
     />
   );
 };

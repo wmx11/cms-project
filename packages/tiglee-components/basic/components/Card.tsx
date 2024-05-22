@@ -1,4 +1,3 @@
-import { Schema } from '@cms/tiglee-engine/types';
 import {
   CardContent,
   CardDescription,
@@ -7,7 +6,9 @@ import {
   Card as CardPrimitive,
   CardTitle,
 } from '@cms/packages/ui/components/Card';
+import { Schema } from '@cms/tiglee-engine/types';
 import { ComponentPropsWithoutRef, FC, ReactNode } from 'react';
+import { schema as TextSchema } from './Text';
 
 interface Props extends ComponentPropsWithoutRef<'div'> {
   title?: string;
@@ -26,12 +27,12 @@ const Card: FC<Props> = ({
   return (
     <div {...props} data-component-parent>
       <CardPrimitive className={className}>
-        <CardHeader data-header>
+        <CardHeader>
           <CardTitle data-title>{title}</CardTitle>
           <CardDescription data-description>{description}</CardDescription>
         </CardHeader>
-        <CardContent data-children>{children}</CardContent>
-        <CardFooter data-footer>{footer}</CardFooter>
+        <CardContent data-component-children>{children}</CardContent>
+        <CardFooter data-component-children>{footer}</CardFooter>
       </CardPrimitive>
     </div>
   );
@@ -54,18 +55,19 @@ export const schema: Schema = {
       name: 'title',
       type: 'string',
       displayName: 'Card title',
-      value: '',
+      value: 'Card title',
     },
     {
       name: 'description',
       displayName: 'Card description',
+      controlType: 'textarea',
       type: 'string',
-      value: '',
+      value: 'Card description',
     },
     {
       name: 'children',
       type: 'component',
-      value: [],
+      value: [TextSchema],
     },
     {
       name: 'footer',

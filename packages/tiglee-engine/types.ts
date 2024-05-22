@@ -38,6 +38,8 @@ type TemplateCategory =
   | 'saas'
   | 'sectioned';
 
+type ControlTypes = 'input' | 'textarea';
+
 type SelectProps = {
   type: 'select';
   value: string;
@@ -72,6 +74,8 @@ export type Props = {
   name: string & {};
   displayName?: string | undefined;
   description?: string | undefined;
+  controlType?: ControlTypes;
+  allowedComponents?: string[];
 } & PropTypes;
 
 /**
@@ -91,6 +95,7 @@ export type Schema = {
   displayName?: string;
   description?: string | undefined;
   category?: SchemaCategory;
+  allowedComponents?: string[];
 } & (SchemaWithEditable | SchemaWithRichText);
 
 export type TemplateMetadata = {

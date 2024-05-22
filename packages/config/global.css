@@ -74,6 +74,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings:
@@ -100,8 +101,9 @@
     user-select: none;
   }
 
-  [data-children] > * {
+  [data-component-children] > * {
     pointer-events: auto;
+    user-select: auto;
   }
 
   .tg-grabbing [data-canvas-overlay] {

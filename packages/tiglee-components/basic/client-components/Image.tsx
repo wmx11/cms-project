@@ -9,6 +9,7 @@ const Image: FC<HTMLProps<HTMLImageElement>> = (props) => {
       className={twMerge(props.className)}
       width={props.width}
       height={props.height}
+      loading="lazy"
     />
   );
 };

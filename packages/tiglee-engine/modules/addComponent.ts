@@ -5,6 +5,7 @@ export interface AddComponentProps {
   schema: Schema[];
   componentSchema: Schema;
   path?: string;
+  target?: string;
 }
 
 const addComponent = (props: AddComponentProps) => {
@@ -37,9 +38,13 @@ const addComponent = (props: AddComponentProps) => {
       return copySchema;
     }
 
-    const childrenArray = component.props.find(
-      (item) => item.type === 'component' && item.name === 'children'
-    )?.value;
+    const childrenArray = component.props.find((item) => {
+      if (props.target) {
+        return item.type === 'component' && item.name === props.target;
+      }
+
+      return item.type === 'component' && item.name === 'children';
+    })?.value;
 
     if (childrenArray && Array.isArray(childrenArray)) {
       childrenArray.push(copyComponentSchema);

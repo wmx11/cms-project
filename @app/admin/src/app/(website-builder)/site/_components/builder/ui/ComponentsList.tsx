@@ -25,9 +25,11 @@ type PropsWithTurnIntoComponent = {
 
 type Props = {
   onSelect?: () => void;
+  target?: string;
 } & (PropsWithAddComponent | PropsWithTurnIntoComponent);
 
 const ComponentsList: FC<Props> = ({
+  target,
   onSelect,
   addComponent,
   turnIntoComponent,
@@ -61,6 +63,7 @@ const ComponentsList: FC<Props> = ({
       componentSchema: _selectedComponent,
       schema,
       path,
+      target,
     };
 
     try {
@@ -87,6 +90,18 @@ const ComponentsList: FC<Props> = ({
   const componentsToRender = () => {
     if (!selectedComponent) {
       return components?.filter((item) => item?.category === 'layout');
+    }
+
+    const allowedComponents = selectedComponent.props.find(
+      (prop) => prop.allowedComponents
+    );
+
+    if (allowedComponents?.allowedComponents?.length) {
+      return components?.filter((item) => {
+        return allowedComponents?.allowedComponents?.find(
+          (component) => component === item.component
+        );
+      });
     }
 
     if (

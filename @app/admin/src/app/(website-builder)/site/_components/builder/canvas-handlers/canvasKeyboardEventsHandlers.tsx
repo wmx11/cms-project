@@ -166,8 +166,11 @@ export const useKeyboardEvents = ({
           break;
 
         case KEY_RESET_SELECTION:
-          selectedElement?.blur();
-          resetSelection();
+          if (selectedElement?.getAttribute('contenteditable') === 'true') {
+            selectedElement?.blur();
+          } else {
+            resetSelection();
+          }
           break;
 
         case ' ':

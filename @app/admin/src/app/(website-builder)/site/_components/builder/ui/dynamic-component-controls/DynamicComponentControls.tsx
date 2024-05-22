@@ -1,7 +1,9 @@
 'use client';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import addComponent from '@cms/tiglee-engine/modules/addComponent';
 import { Badge } from '@cms/ui/components/Badge';
-import { CloseIcon } from '@cms/ui/components/Icons';
+import { Command } from '@cms/ui/components/Command';
+import { CloseIcon, ElipsisIcon } from '@cms/ui/components/Icons';
 import { Label } from '@cms/ui/components/Label';
 import {
   Select,
@@ -13,8 +15,11 @@ import {
 import { Switch } from '@cms/ui/components/Switch';
 import DOMPurify from 'dompurify';
 import { useEffect } from 'react';
-import HtmlEditor from './codemirror/HtmlEditor';
-import Input from './Input';
+import HtmlEditor from '../codemirror/HtmlEditor';
+import ComponentsList from '../ComponentsList';
+import ControlsPopover from '../ControlsPopover';
+import Input from '../Input';
+import { Textarea } from '../Textarea';
 
 const DynamicComponentControls = () => {
   const selectedComponent = useBuilderProviderState(
@@ -37,7 +42,6 @@ const DynamicComponentControls = () => {
       {selectedComponent?.props.map((prop, index) => {
         if (prop.name === 'className' && prop.type === 'string') {
           const classNames = prop.value ? prop.value.trim().split(' ') : [];
-
           return (
             <div key={`${selectedComponent.id}_${index}`}>
               <Label>Component classes</Label>
@@ -68,13 +72,18 @@ const DynamicComponentControls = () => {
           (prop.name === 'children' && prop.type === 'string') ||
           (prop.name === 'html' && prop.type === 'string')
         ) {
+          const target =
+            selectedElement?.querySelector(`[data-children]`) ??
+            selectedElement;
+
           return (
             <div className="max-w-[270px]">
+              <Label>Component content</Label>
               <HtmlEditor
                 key={`${selectedComponent.id}_${index}`}
                 value={prop.value}
                 onChange={(value) => {
-                  if (!selectedElement) {
+                  if (!target) {
                     return;
                   }
 
@@ -85,7 +94,8 @@ const DynamicComponentControls = () => {
                   });
 
                   prop.value = sanitizedValue;
-                  selectedElement.innerHTML = sanitizedValue;
+
+                  target.innerHTML = sanitizedValue;
                 }}
               />
             </div>
@@ -143,6 +153,7 @@ const DynamicComponentControls = () => {
 
         if (prop.type === 'string') {
           const target = selectedElement?.querySelector(`[data-${prop.name}]`);
+
           const handleOnChange = (value: string) => {
             prop.value = value;
 
@@ -152,18 +163,54 @@ const DynamicComponentControls = () => {
 
             target.innerHTML = value;
           };
+
+          if (prop.controlType === 'textarea') {
+            return (
+              <>
+                <Textarea
+                  key={`${selectedComponent.id}_${index}`}
+                  label={prop.displayName}
+                  defaultValue={prop.value}
+                  onChange={(e) => handleOnChange(e.currentTarget.value)}
+                />
+                <p className="text-dim text-xs">{prop.description}</p>
+              </>
+            );
+          }
+
           return (
-            <Input
-              key={`${selectedComponent.id}_${index}`}
-              label={prop.displayName}
-              defaultValue={prop.value}
-              onChange={handleOnChange}
-            />
+            <>
+              <Input
+                key={`${selectedComponent.id}_${index}`}
+                label={prop.displayName}
+                defaultValue={prop.value}
+                onChange={handleOnChange}
+              />
+              <p className="text-dim text-xs">{prop.description}</p>
+            </>
           );
         }
 
         if (prop.type === 'component' && prop.name !== 'children') {
-          return 'add component';
+          return (
+            <div className="flex flex-col gap-y-2">
+              <Label>{prop.displayName || prop.name}</Label>
+              <ControlsPopover
+                buttonContent={
+                  <>
+                    <span className="mr-2">Add component</span> <ElipsisIcon />
+                  </>
+                }
+              >
+                <Command>
+                  <ComponentsList
+                    addComponent={addComponent}
+                    target={prop.name}
+                  />
+                </Command>
+              </ControlsPopover>
+            </div>
+          );
         }
 
         return <></>;

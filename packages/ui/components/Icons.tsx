@@ -6,6 +6,7 @@ import {
   LayoutTemplateIcon,
   LogOutIcon,
   MoveLeft,
+  MoveRight,
   PlusIcon,
 } from 'lucide-react';
 import { BsBorderStyle } from 'react-icons/bs';
@@ -73,6 +74,7 @@ export const ICON_STYLES = 'h-3 w-3 mr-2';
 export const ElipsisVerticalIcon = EllipsisVertical;
 export const ElipsisIcon = Ellipsis;
 export const ArrowLeft = MoveLeft;
+export const ArrowRight = MoveRight;
 export const Blur = MdBlurOn;
 export const Bold = FaBold;
 export const ChevronDown = ChevronDownIcon;

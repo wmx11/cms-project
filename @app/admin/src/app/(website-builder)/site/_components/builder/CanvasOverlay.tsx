@@ -12,6 +12,7 @@ import DuplicateElementButton from './site-canvas-controls/element-overlay-contr
 import ElementInfoButton from './site-canvas-controls/element-overlay-controls/ElementInfoButton';
 import { Separator } from '@cms/ui/components/Separator';
 import TurnIntoButton from './site-canvas-controls/element-overlay-controls/TurnIntoButton';
+import AdditionalSettingsButton from './site-canvas-controls/element-overlay-controls/AdditionalSettingsButton';
 
 export interface CanvasOverlayProps {
   canvasRef: RefObject<HTMLDivElement>;
@@ -132,7 +133,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
             position: 'absolute',
           }}
         >
-          <div
+          {/* <div
             data-canvas-overlay-highlight-label
             ref={props.canvasOverlayLabelRef}
             className="absolute z-[1] translate-y-[-10px] rounded-full bg-violet-900 px-3 py-0.5 text-xs text-white group-hover:block"
@@ -140,7 +141,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
             {item.getAttribute(DATA_DISPLAY_NAME) ||
               item.getAttribute(DATA_LABEL) ||
               ''}
-          </div>
+          </div> */}
         </div>
       );
     });
@@ -186,6 +187,12 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
               className="my-1 h-auto"
             />
             <DeleteElementButton />
+            <Separator
+              orientation="vertical"
+              decorative={false}
+              className="my-1 h-auto"
+            />
+            <AdditionalSettingsButton />
           </div>
         )}
       </div>
