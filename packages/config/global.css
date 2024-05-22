@@ -74,6 +74,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings:
@@ -93,9 +94,16 @@
     cursor: grabbing;
   }
 
-  .tg-grabbing * {
+  .tg-grabbing *,
+  [data-editable='true'] > *,
+  [data-component-parent] > * {
     pointer-events: none;
     user-select: none;
+  }
+
+  [data-component-children] > * {
+    pointer-events: auto;
+    user-select: auto;
   }
 
   .tg-grabbing [data-canvas-overlay] {

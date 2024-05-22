@@ -21,6 +21,7 @@ import ImageControls from '../element-controls/ImageControls';
 import Loading from './Loading';
 import React from 'react';
 import { SchemaCategory } from '@cms/tiglee-engine/types';
+import DynamicComponentControls from '../../ui/dynamic-component-controls/DynamicComponentControls';
 
 interface Controls {
   key: string;
@@ -57,9 +58,9 @@ const imageControls: Controls = {
   title: 'Image & Video',
   description: 'Image and video controls',
   component: (
-    <div className="space-y-2">
+    <>
       <ImageControls />
-    </div>
+    </>
   ),
 };
 
@@ -206,8 +207,21 @@ const marginAndPaddingControls: Controls = {
   ),
 };
 
+const dynamicPropsControls: Controls = {
+  key: 'dynamic-props',
+  category: 'custom',
+  title: 'Component props',
+  description: 'Manage component props',
+  component: (
+    <>
+      <DynamicComponentControls />
+    </>
+  ),
+};
+
 const createControls = (category?: SchemaCategory) => {
   const controls = [
+    // dynamicPropsControls,
     textControls,
     effectsControls,
     positionControls,

@@ -26,9 +26,9 @@ const mapSelectedComponentPropsToComponentSchema = (
   return mappedComponent;
 };
 
-interface TurnIntoComponentProps {
+export interface TurnIntoComponentProps {
   schema: Schema[];
-  newComponent: Schema;
+  componentSchema: Schema;
   path: string;
 }
 
@@ -38,7 +38,7 @@ const turnIntoComponent = (props: TurnIntoComponentProps) => {
     return null;
   }
 
-  if (!props.newComponent) {
+  if (!props.componentSchema) {
     console.error('[turnIntoComponent]: No component schema provided');
     return null;
   }
@@ -48,9 +48,9 @@ const turnIntoComponent = (props: TurnIntoComponentProps) => {
     return null;
   }
 
-  const { newComponent, path, schema } = props;
+  const { componentSchema, path, schema } = props;
 
-  const newComponentSchema = structuredClone(newComponent);
+  const newComponentSchema = structuredClone(componentSchema);
   const copySchema = structuredClone(schema);
   const pathArray = getPathArray(path);
   const isTopLevel = checkTopLevel(pathArray);

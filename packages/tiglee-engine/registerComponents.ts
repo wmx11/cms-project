@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
-import prisma from '@cms/packages/data/prisma';
 import { Schema } from './types';
 import { TigleeComponentsInterface } from '@cms/tiglee-components/types';
+import db from '../db';
 
 const COMPONENTS_FOLDER_NAME = 'tiglee-components';
 
@@ -73,9 +73,11 @@ const registerComponents = async () => {
     }
 
     try {
-      const schema = JSON.stringify(componentSchemaArray) as unknown as Schema[];
+      const schema = JSON.stringify(
+        componentSchemaArray
+      ) as unknown as Schema[];
 
-      const component = await prisma.component.upsert({
+      const component = await db.component.upsert({
         create: {
           name: componentsMetaData.default?.name,
           description: componentsMetaData.default?.description,

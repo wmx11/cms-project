@@ -13,23 +13,18 @@ export default Section;
 export const schema: Schema = {
   component: 'Section',
   category: 'layout',
-  description:
-    'Use Section components to split your website into different sections',
+  description: 'Split your website into sections.',
   displayName: 'Section',
   props: [
     {
       name: 'children',
       type: 'component',
       value: [],
-      displayName: 'Section components',
-      description: 'Put other components inside the section',
     },
     {
       name: 'className',
       type: 'string',
       value: '',
-      displayName: 'Section classes',
-      description: 'You can use Tailwind classes to style this section',
     },
   ],
 };

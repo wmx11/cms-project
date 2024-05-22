@@ -21,7 +21,7 @@ const createSchemaSlice: StateCreator<SchemaSlice> = (set, get) => ({
   selectedComonentPath: '',
   setSchema: (schema: Schema[]) =>
     set(() => {
-      const updatedSchema = [...schema];
+      const updatedSchema = structuredClone(schema);
       return {
         schema: updatedSchema,
       };

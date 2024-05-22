@@ -65,6 +65,12 @@ export const useDragAndDrop = ({
 
     const handleDragStart = (e: DragEvent) => {
       const target = e.target as HTMLBaseElement;
+
+      if (target.getAttribute('contenteditable') === 'true') {
+        e.preventDefault();
+        return;
+      }
+
       draggableElement.current.element = target;
       e.dataTransfer?.clearData();
       e.dataTransfer?.setData(

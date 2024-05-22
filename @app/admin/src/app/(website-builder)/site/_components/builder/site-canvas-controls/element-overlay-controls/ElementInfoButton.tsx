@@ -6,7 +6,7 @@ import {
   DATA_DISPLAY_NAME,
   DATA_LABEL,
 } from '@cms/packages/tiglee-engine/constants';
-import { Info } from '@cms/packages/ui/components/Icons';
+import { ICON_STYLES, Info } from '@cms/packages/ui/components/Icons';
 
 const ElementInfoButton = () => {
   const selectedElement = useBuilderProviderState(
@@ -14,12 +14,12 @@ const ElementInfoButton = () => {
   );
 
   return (
-    <div className="flex border px-2 text-xs text-violet-500">
+    <div className="flex px-2 text-xs text-violet-500">
       <DefaultTooltip
         content={selectedElement?.getAttribute(DATA_DESCRIPTION) || ''}
       >
         <div className="flex items-center">
-          <Info className="mr-2 h-3 w-3" />
+          <Info className={ICON_STYLES} />
           <span className="max-w-[140px] truncate">
             {selectedElement?.getAttribute(DATA_DISPLAY_NAME) ||
               selectedElement?.getAttribute(DATA_LABEL)}

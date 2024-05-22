@@ -1,9 +1,12 @@
 import {
   ChevronDownIcon,
+  CircleX,
+  Ellipsis,
   EllipsisVertical,
   LayoutTemplateIcon,
   LogOutIcon,
   MoveLeft,
+  MoveRight,
   PlusIcon,
 } from 'lucide-react';
 import { BsBorderStyle } from 'react-icons/bs';
@@ -69,7 +72,9 @@ import {
 export const ICON_STYLES = 'h-3 w-3 mr-2';
 
 export const ElipsisVerticalIcon = EllipsisVertical;
+export const ElipsisIcon = Ellipsis;
 export const ArrowLeft = MoveLeft;
+export const ArrowRight = MoveRight;
 export const Blur = MdBlurOn;
 export const Bold = FaBold;
 export const ChevronDown = ChevronDownIcon;
@@ -106,6 +111,7 @@ export const Trash = FaTrash;
 export const Underline = FaUnderline;
 export const Undo = FaUndo;
 export const Warning = IoIosWarning;
+export const CloseIcon = CircleX;
 
 // Text alignment
 export const TextAlignLeft = CiTextAlignLeft;
