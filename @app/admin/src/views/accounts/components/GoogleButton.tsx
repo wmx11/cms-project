@@ -7,12 +7,12 @@ import React from 'react';
 const GoogleButton = () => {
   return (
     <Button
-      color="primary"
+      variant="outline"
       className="relative w-full"
       onClick={() => signIn('google')}
     >
       <GoogleIcon className="absolute left-0 ml-4 mr-4" />
-      <span>Sign In With Google</span>
+      <span>Continue with Google</span>
     </Button>
   );
 };

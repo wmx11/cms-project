@@ -1,13 +1,9 @@
 import '@cms/packages/config/global.css';
+import '@admin/app/global.css';
 import Providers from '@admin/components/Providers';
-import { Roboto } from 'next/font/google';
-import { Metadata } from 'next';
+import font from '@admin/utils/fonts';
 import { defaultMetadata } from '@admin/utils/metadata';
-
-const font = Roboto({
-  subsets: ['latin'],
-  weight: ['100', '300', '400', '700'],
-});
+import { Metadata } from 'next';
 
 export const metadata: Metadata = defaultMetadata;
 

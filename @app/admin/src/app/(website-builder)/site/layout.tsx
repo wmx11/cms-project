@@ -1,15 +1,10 @@
 import '@cms/packages/config/global.css';
-import { Toaster } from '@cms/ui/components/Toaster';
 import Providers from '@admin/components/Providers';
-import React from 'react';
-import { Roboto } from 'next/font/google';
-import { Metadata } from 'next';
+import font from '@admin/utils/fonts';
 import { defaultMetadata } from '@admin/utils/metadata';
-
-const font = Roboto({
-  subsets: ['latin'],
-  weight: ['100', '300', '400', '700'],
-});
+import { Toaster } from '@cms/ui/components/Toaster';
+import { Metadata } from 'next';
+import React from 'react';
 
 export const metadata: Metadata = defaultMetadata;
 
