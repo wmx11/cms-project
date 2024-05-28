@@ -4,7 +4,7 @@ import {
   ActionReturnTypeWithoutError,
 } from '@admin/types';
 import { updateSiteController, UpdateSiteData } from '@cms/controllers/site';
-import handleErrorMessages from '@cms/lib/handleErrorMessages';
+import handleErrorMessages from '@cms/lib/handle-error-messages';
 
 const updateSiteAction = async (data: UpdateSiteData) => {
   try {

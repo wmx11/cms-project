@@ -7,7 +7,7 @@ import {
   saveTemplateController,
   SaveTemplateData,
 } from '@cms/controllers/template';
-import handleErrorMessages from '@cms/lib/handleErrorMessages';
+import handleErrorMessages from '@cms/lib/handle-error-messages';
 
 const saveTemplateAction = async (
   data: Omit<SaveTemplateData, 'componentId'>

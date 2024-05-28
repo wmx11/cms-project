@@ -1,7 +1,6 @@
 import GridWrapper from '@admin/components/layout/GridWrapper';
 import routes from '@admin/utils/routes';
-import db from '@cms/db';
-import { withUser } from '@cms/lib/auth';
+import { getUserSitesController } from '@cms/controllers/site';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import Card from '../_components/Card';
@@ -11,28 +10,7 @@ export const metadata: Metadata = {
 };
 
 const page = async () => {
-  const sites = await withUser(async (user) => {
-    if (!user) {
-      return;
-    }
-
-    return db.site.findMany({
-      where: {
-        user_id: user?.id,
-      },
-      select: {
-        alias: true,
-        id: true,
-        site_page_data: {
-          select: {
-            title: true,
-            description: true,
-            image: true,
-          },
-        },
-      },
-    });
-  });
+  const sites = await getUserSitesController();
 
   return (
     <GridWrapper>
@@ -44,6 +22,8 @@ const page = async () => {
           <Card
             description={item.site_page_data.description || ''}
             title={item.site_page_data.title || ''}
+            date={item.site_page_data.date_updated}
+            dateLabel="Edited"
           />
         </Link>
       ))}

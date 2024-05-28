@@ -8,6 +8,7 @@ import createSiteSlice, { SiteSlice } from './slices/createSiteSlice';
 import createStylesSlice, { StylesSlice } from './slices/createStylesSlice';
 import createHeaderSlice from './slices/createHeaderSlice';
 import createSidebarSlice from './slices/createSidebarSlice';
+import createHistorySlice, { HistorySlice } from './slices/createHistorySlice';
 
 export interface BuilderStoreProps {
   styles: StylesObjectWithBreakpoints;
@@ -20,6 +21,7 @@ export interface BuilderStoreProps {
 export type BuilderStoreState = SchemaSlice &
   SiteSlice &
   ActionSlice &
+  HistorySlice &
   StylesSlice;
 
 export const createBuilderStore = (initProps?: BuilderStoreProps) => {
@@ -28,6 +30,7 @@ export const createBuilderStore = (initProps?: BuilderStoreProps) => {
     ...createSiteSlice(...a),
     ...createActionSlice(...a),
     ...createStylesSlice(...a),
+    ...createHistorySlice(...a),
     ...initProps,
   }));
 };

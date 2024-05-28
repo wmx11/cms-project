@@ -7,7 +7,7 @@ import {
   updateSiteMetadataController,
   UpdateSiteMetadataData,
 } from '@cms/controllers/site';
-import handleErrorMessages from '@cms/lib/handleErrorMessages';
+import handleErrorMessages from '@cms/lib/handle-error-messages';
 
 const updateSiteMetadataAction = async (data: UpdateSiteMetadataData) => {
   try {

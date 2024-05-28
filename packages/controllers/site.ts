@@ -11,6 +11,7 @@ import {
   getPublishedSite,
   getSiteByAlias,
   getSiteForBuilder,
+  getUserSites,
   publishSite,
   unpublishSite,
   updateSite,
@@ -279,3 +280,6 @@ export const publishSiteController = async (data: PublishSiteData) => {
 
   return site;
 };
+
+export const getUserSitesController = async () =>
+  authenticatedController(async (user) => await getUserSites(user.id));

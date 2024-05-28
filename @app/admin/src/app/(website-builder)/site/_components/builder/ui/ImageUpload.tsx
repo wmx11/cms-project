@@ -1,5 +1,5 @@
 'use client';
-import { ErrorMessageType } from '@cms/lib/handleErrorMessages';
+import { ErrorMessageType } from '@cms/lib/handle-error-messages';
 import { cn } from '@cms/lib/utils';
 import { Button } from '@cms/ui/components/Button';
 import ErrorMessage from '@cms/ui/components/ErrorMessage';
@@ -57,9 +57,9 @@ const ImageUpload: FC<Props> = ({
           />
         ) : (
           <div className="text-center">
-            <Plus className="mx-auto text-dim transition-colors group-hover:text-zinc-900" />
+            <Plus className="text-dim mx-auto transition-colors group-hover:text-zinc-900" />
             {variant === 'default' && (
-              <span className="text-xs text-dim transition-colors group-hover:text-zinc-900">
+              <span className="text-dim text-xs transition-colors group-hover:text-zinc-900">
                 Click here to upload your image
               </span>
             )}

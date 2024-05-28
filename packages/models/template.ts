@@ -1,6 +1,4 @@
-import {
-  SaveTemplateData
-} from '@cms/controllers/template';
+import { SaveTemplateData } from '@cms/controllers/template';
 import db from '@cms/db';
 
 export const saveTemplate = async (data: SaveTemplateData) => {

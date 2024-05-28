@@ -359,3 +359,33 @@ export const publishSite = async (data: PublishSiteData) => {
     return null;
   }
 };
+
+export const getUserSites = async (userId: string) => {
+  try {
+    return db.site.findMany({
+      where: {
+        user_id: userId,
+      },
+      select: {
+        alias: true,
+        id: true,
+        site_page_data: {
+          select: {
+            date_updated: true,
+            title: true,
+            description: true,
+            image: true,
+          },
+        },
+      },
+      orderBy: {
+        site_page_data: {
+          date_updated: 'desc',
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

@@ -1,4 +1,3 @@
-import { withUser } from '@cms/lib/auth';
 import { NoAdminRights, SiteMissingID } from '@cms/lib/errors';
 import { getSiteById } from '@cms/models/site';
 import {
@@ -10,6 +9,7 @@ import { MAX_STRING_LENGTH } from '@cms/tiglee-engine/constants';
 import { StylesObjectWithBreakpoints } from '@cms/tiglee-engine/styles/jssStyles';
 import { Schema } from '@cms/tiglee-engine/types';
 import { z } from 'zod';
+import { authenticatedController } from './_controller';
 
 export interface SaveTemplateData {
   siteId: string;
@@ -48,8 +48,8 @@ export const saveTemplateController = async (
 
   validationSchema.parse(data);
 
-  return await withUser(async (user) => {
-    if (!user?.is_admin) {
+  return await authenticatedController(async (user) => {
+    if (!user.is_admin) {
       throw new NoAdminRights();
     }
 
@@ -71,27 +71,16 @@ export const saveTemplateController = async (
   });
 };
 
-export const getTemplateController = async () => {
-  return await withUser(async (user) => {
-    if (!user) {
-      return null;
-    }
-  });
-};
-
-export const getTemplatesController = async () => {
-  return await withUser(async () => {
-    return await getTemplates();
-  });
-};
+export const getTemplatesController = async () =>
+  authenticatedController(getTemplates);
 
 export interface DeleteTemplateData {
   templateId?: string;
 }
 
-export const deleteTemplateController = async (data: DeleteTemplateData) => {
-  return await withUser(async (user) => {
-    if (!user?.is_admin) {
+export const deleteTemplateController = async (data: DeleteTemplateData) =>
+  authenticatedController(async (user) => {
+    if (!user.is_admin) {
       throw new NoAdminRights();
     }
 
@@ -101,4 +90,3 @@ export const deleteTemplateController = async (data: DeleteTemplateData) => {
 
     return await deleteTemplateById(data.templateId);
   });
-};

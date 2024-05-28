@@ -1,5 +1,5 @@
 'use client';
-import { ErrorMessageType } from '@cms/lib/handleErrorMessages';
+import { ErrorMessageType } from '@cms/lib/handle-error-messages';
 import { useState } from 'react';
 
 const useErrorMessage = <T>(initialErrorState: ErrorMessageType<T>) => {

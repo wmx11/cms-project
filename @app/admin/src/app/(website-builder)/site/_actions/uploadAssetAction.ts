@@ -3,7 +3,7 @@ import {
   ActionReturnTypeWithError,
   ActionReturnTypeWithoutError,
 } from '@admin/types';
-import handleErrorMessages from '@cms/lib/handleErrorMessages';
+import handleErrorMessages from '@cms/lib/handle-error-messages';
 import {
   uploadAssetController,
   UploadAssetData,

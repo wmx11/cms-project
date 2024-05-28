@@ -1,8 +1,5 @@
-import { withUser } from '@cms/lib/auth';
 import { getComponents } from '@cms/models/component';
+import { authenticatedController } from './_controller';
 
-export const getComponentsController = async () => {
-  return await withUser(async () => {
-    return await getComponents();
-  });
-};
+export const getComponentsController = async () =>
+  authenticatedController(getComponents);

@@ -4,7 +4,7 @@ import {
   ActionReturnTypeWithoutError,
 } from '@admin/types';
 import { createSiteController } from '@cms/controllers/site';
-import handleErrorMessages from '@cms/lib/handleErrorMessages';
+import handleErrorMessages from '@cms/lib/handle-error-messages';
 
 interface Props {
   alias: string;

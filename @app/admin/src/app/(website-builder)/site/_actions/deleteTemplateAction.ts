@@ -7,7 +7,7 @@ import {
   deleteTemplateController,
   DeleteTemplateData,
 } from '@cms/controllers/template';
-import handleErrorMessages from '@cms/lib/handleErrorMessages';
+import handleErrorMessages from '@cms/lib/handle-error-messages';
 import { revalidatePath } from 'next/cache';
 
 const deleteTemplateAction = async (

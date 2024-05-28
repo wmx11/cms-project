@@ -1,6 +1,6 @@
 import { JWT } from 'next-auth/jwt';
 import NextAuth, { DefaultSession } from 'next-auth';
-import { ErrorMessageType } from '@cms/lib/handleErrorMessages';
+import { ErrorMessageType } from '@cms/lib/handle-error-messages';
 import { BuilderStoreState } from './store/useBuilderStore';
 
 declare module 'next-auth' {
