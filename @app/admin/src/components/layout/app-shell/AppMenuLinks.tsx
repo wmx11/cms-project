@@ -8,11 +8,40 @@ import {
   CommandSeparator,
 } from '@cms/ui/components/Command';
 import { ICON_STYLES, Plus } from '@cms/ui/components/Icons';
+import clsx from 'clsx';
 import { Home, PanelsTopLeft } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useMemo } from 'react';
 
 const AppMenuLinks = () => {
   const router = useRouter();
+  const pathName = usePathname();
+
+  const links = useMemo(
+    () => [
+      {
+        key: routes.site.default,
+        onSelect: () => router.push(routes.site.default),
+        label: (
+          <>
+            <PanelsTopLeft className={ICON_STYLES} />
+            <span>My sites</span>
+          </>
+        ),
+      },
+      {
+        key: routes.site.create,
+        onSelect: () => router.push(routes.site.create),
+        label: (
+          <>
+            <Plus className={ICON_STYLES} />
+            <span>Create new site</span>
+          </>
+        ),
+      },
+    ],
+    []
+  );
 
   return (
     <Command className="p-2">
@@ -25,14 +54,15 @@ const AppMenuLinks = () => {
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading="Sites">
-          <CommandItem onSelect={() => router.push(routes.site.default)}>
-            <PanelsTopLeft className={ICON_STYLES} />
-            <span>My sites</span>
-          </CommandItem>
-          <CommandItem onSelect={() => router.push(routes.site.create)}>
-            <Plus className={ICON_STYLES} />
-            <span>Create new site</span>
-          </CommandItem>
+          {links.map((item) => (
+            <CommandItem
+              key={item.key}
+              onSelect={item.onSelect}
+              className={clsx([item.key === pathName && 'bg-accent'])}
+            >
+              {item.label}
+            </CommandItem>
+          ))}
         </CommandGroup>
       </CommandList>
     </Command>

@@ -9,7 +9,7 @@ const AppShell: FC<PropsWithChildren> = ({ children }) => {
           <AppMenu />
         </div>
         <div className="flex-1 [&>*]:p-4">
-          <div className="">{children}</div>
+          <div>{children}</div>
         </div>
       </div>
     </>
