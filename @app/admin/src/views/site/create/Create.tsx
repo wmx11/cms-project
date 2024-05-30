@@ -1,6 +1,6 @@
 import { Component, Template } from '@prisma/client';
 import { FC } from 'react';
-import CardModal from './components/create-site/CardModal';
+import CardModal from './_components/create-site/CardModal';
 import GridWrapper from '@admin/components/layout/GridWrapper';
 
 interface Props {

@@ -37,6 +37,7 @@ import type { Config } from 'tailwindcss';
 import tailwindCssAnimate from 'tailwindcss-animate';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 import colors from 'tailwindcss/colors';
+import typography from '@tailwindcss/typography';
 
 const hsl = (value: string) =>
   `hsl(var(${value}, var(${value.replace(`${BUILDER_PREFIX}-`, '')})))`;
@@ -53,7 +54,7 @@ const tailwindConfig: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   darkMode: 'class',
-  plugins: [tailwindCssAnimate],
+  plugins: [tailwindCssAnimate, typography],
   theme: {
     extend: {
       colors: {

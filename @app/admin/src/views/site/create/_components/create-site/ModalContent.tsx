@@ -19,11 +19,12 @@ import {
 } from '@cms/ui/components/Select';
 import React, { FC, useState } from 'react';
 import slugify from 'slugify';
-import createSiteAction from '../../actions/createSiteAction';
+import createSiteAction from '../../_actions/createSiteAction';
 import { useRouter } from 'next/navigation';
 import routes from '@admin/utils/routes';
 import { Component } from '@prisma/client';
 import { MAX_STRING_LENGTH } from '@cms/tiglee-engine/constants';
+import config from '@cms/config';
 
 interface Props {
   components: Component[];
@@ -84,7 +85,7 @@ const ModalContent: FC<Props> = ({ components, templateId }) => {
       <div className="space-y-4">
         <div>
           <Label htmlFor="alias">Site alias</Label>
-          <p className="text-xs text-dim">
+          <p className="text-dim text-xs">
             Site alias is used to identify your site.
           </p>
           <Input
@@ -95,14 +96,14 @@ const ModalContent: FC<Props> = ({ components, templateId }) => {
             id="alias"
           />
           <Badge className="mt-2">
-            https://{alias ? slugify(alias).toLowerCase() : 'site-alias'}
-            .tiglee.io
+            https://{alias ? slugify(alias).toLowerCase() : 'site-alias'}.
+            {config.projectUrl}
           </Badge>
         </div>
 
         <div>
           <Label htmlFor="title">Site title</Label>
-          <p className="text-xs text-dim">
+          <p className="text-dim text-xs">
             Site title will be displayed on the browser tab and preview cards.
           </p>
           <Input
@@ -117,7 +118,7 @@ const ModalContent: FC<Props> = ({ components, templateId }) => {
 
         <div>
           <Label htmlFor="description">Site description</Label>
-          <p className="text-xs text-dim">
+          <p className="text-dim text-xs">
             Site description will be used for SEO purposes and will be displayed
             on preview cards.
           </p>
@@ -132,14 +133,11 @@ const ModalContent: FC<Props> = ({ components, templateId }) => {
 
         <div>
           <Label>Component set</Label>
-          <p className="text-xs text-dim">
+          <p className="text-dim text-xs">
             Component set will define the look of your website and template.
           </p>
           <Select onValueChange={(value) => setComponentId(value)}>
-            <SelectTrigger
-              className="max-w-[462px]"
-              errorMessage={error.componentId}
-            >
+            <SelectTrigger errorMessage={error.componentId}>
               <SelectValue placeholder="Select component set" />
             </SelectTrigger>
             <SelectContent>
@@ -148,9 +146,7 @@ const ModalContent: FC<Props> = ({ components, templateId }) => {
                 {components?.map((component, index) => (
                   <SelectItem key={`component_${index}`} value={component.id}>
                     <p className="text-left">{component.name}</p>
-                    <p className="text-xs text-dim">
-                      {component.description}
-                    </p>
+                    <p className="text-dim text-xs">{component.description}</p>
                   </SelectItem>
                 ))}
               </SelectGroup>

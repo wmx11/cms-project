@@ -1,16 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
-import GoogleButton from './components/GoogleButton';
+import AlphaBadge from '@admin/components/AlphaBadge';
 import Title from '@cms/packages/ui/components/Title';
 import {
   Card,
   CardContent,
-  CardTitle,
+  CardDescription,
   CardFooter,
   CardHeader,
-  CardDescription,
+  CardTitle,
 } from '@cms/ui/components/Card';
-import { Badge } from '@cms/ui/components/Badge';
+import GoogleButton from './_components/GoogleButton';
 
 const Authenticate = () => {
   return (
@@ -22,7 +21,7 @@ const Authenticate = () => {
             <span>
               with{' '}
               <span className="inline-flex items-center justify-start gap-2">
-                Tiglee <Badge className="text-xs">Alpha</Badge>
+                Tiglee <AlphaBadge />
               </span>
             </span>
           </Title>
