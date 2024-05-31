@@ -4,6 +4,7 @@ import { StateCreator } from 'zustand';
 import { SchemaSlice } from './createSchemaSlice';
 import { produce } from 'immer';
 import { ReactNode } from 'react';
+import { ComponentsList } from '@cms/controllers/component';
 
 export type SiteSlice = {
   initialized: boolean;
@@ -11,6 +12,7 @@ export type SiteSlice = {
   componentAlias: string;
   components: Schema[];
   renderedTemplate: ReactNode;
+  componentsList: ComponentsList;
   setInitialized: (initialized: boolean) => void;
   renderTemplate: (schema?: Schema[]) => void;
   setComponentAlias: (componentAlias: string) => void;
@@ -22,6 +24,7 @@ const createSiteSlice: StateCreator<SiteSlice> = (set, get) => ({
   componentAlias: '',
   components: [],
   renderedTemplate: [],
+  componentsList: [],
   setInitialized: (initialized: boolean) => set(() => ({ initialized })),
   setComponentAlias: (componentAlias: string) =>
     set(() => ({ componentAlias })),

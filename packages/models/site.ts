@@ -389,3 +389,25 @@ export const getUserSites = async (userId: string) => {
     return null;
   }
 };
+
+export interface UpdateSiteComponentSet extends WithUser {
+  id: string;
+  componentId: string;
+}
+
+export const updateSiteComponentSet = async (data: UpdateSiteComponentSet) => {
+  try {
+    return await db.site.update({
+      where: {
+        id: data.id,
+        user_id: data.userId,
+      },
+      data: {
+        component_id: data.componentId,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

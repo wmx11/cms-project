@@ -4,6 +4,7 @@ import {
   SitePageDataCreationFailed,
   SiteWithAliasExists,
 } from '@cms/lib/errors';
+import { getComponentsList } from '@cms/models/component';
 import {
   createSite,
   createSitePageData,
@@ -15,6 +16,7 @@ import {
   publishSite,
   unpublishSite,
   updateSite,
+  updateSiteComponentSet,
   updateSiteMetadata,
 } from '@cms/models/site';
 import { getTemplate } from '@cms/models/template';
@@ -182,6 +184,8 @@ export const getSiteForBuilderController = async (id: string) => {
     return null;
   }
 
+  const componentsList = await getComponentsList();
+
   const {
     alias,
     component: { alias: componentAlias, schema: componentsSchema },
@@ -229,6 +233,7 @@ export const getSiteForBuilderController = async (id: string) => {
     components,
     description,
     isPublished: working_site_page_schema?.is_published || false,
+    componentsList,
     componentAlias,
   };
 };
@@ -282,4 +287,16 @@ export const publishSiteController = async (data: PublishSiteData) => {
 };
 
 export const getUserSitesController = async () =>
-  authenticatedController(async (user) => await getUserSites(user.id));
+  authenticatedController((user) => getUserSites(user.id));
+
+export interface UpdateSiteComponentSetData {
+  id: string;
+  componentId: string;
+}
+
+export const updateSiteComponentSetController = async (
+  data: UpdateSiteComponentSetData
+) =>
+  authenticatedController((user) =>
+    updateSiteComponentSet({ ...data, userId: user.id })
+  );

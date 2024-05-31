@@ -190,15 +190,37 @@ const DropdownMenuShortcut = ({
 
 DropdownMenuShortcut.displayName = 'DropdownMenuShortcut';
 
-export interface MenuProps {
+type MenuItems = {
+  item: React.ReactNode;
+  wrapper?: React.JSX.Element;
+  asChild?: boolean;
+  onSelect?: (event: Event) => void;
+};
+
+type MenuPropsDefault = {
+  items: MenuItems[];
+  trigger?: never;
+  submenu?: never;
+  element?: never;
+};
+
+type MenuPropsWithSubemnu = {
+  trigger: React.ReactNode;
+  submenu: MenuProps[];
+  items?: never;
+  element?: never;
+};
+
+type MenuPropsWithElement = {
+  element: React.JSX.Element;
+  trigger?: never;
+  submenu?: never;
+  items?: never;
+};
+
+export type MenuProps = {
   label?: string;
-  items: {
-    item: React.ReactNode;
-    wrapper?: React.JSX.Element;
-    asChild?: boolean;
-    onSelect?: (event: Event) => void;
-  }[];
-}
+} & (MenuPropsDefault | MenuPropsWithSubemnu | MenuPropsWithElement);
 
 interface DropdownMenuBuilderProps
   extends React.ComponentPropsWithoutRef<typeof DropdownMenu> {
@@ -213,15 +235,42 @@ export const DropdownMenuBuilder: React.FC<DropdownMenuBuilderProps> = ({
   children,
   menu,
 }) => {
-  const renderData = () => {
+  const renderData = (menu: MenuProps[]) => {
     return menu?.map((group, index) => {
+      /**
+       * @description Handles submenu rendering
+       */
+      if (group.trigger && group.submenu) {
+        return (
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>{group.trigger}</DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                {renderData(group.submenu)}
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+        );
+      }
+
+      /**
+       * @description Handles rendering of JSX Elements (Dropdown item checkbox, etc.)
+       */
+      if (group.element) {
+        return group.element;
+      }
+
+      /**
+       * @description Handles default Menu item rendering
+       */
       return (
         <>
           <DropdownMenuGroup key={`dropdown_group_${index}`}>
             {group.label && (
               <DropdownMenuLabel>{group.label}</DropdownMenuLabel>
             )}
-            {group.items.map((item, itemIndex) => {
+
+            {group?.items?.map((item, itemIndex) => {
               const menuItem = (
                 <DropdownMenuItem
                   key={`dropdown_item_${itemIndex}`}
@@ -252,7 +301,7 @@ export const DropdownMenuBuilder: React.FC<DropdownMenuBuilderProps> = ({
       <DropdownMenuTrigger>
         {children ?? <DropdownMenuTriggerElipsis />}
       </DropdownMenuTrigger>
-      <DropdownMenuContent>{renderData()}</DropdownMenuContent>
+      <DropdownMenuContent>{renderData(menu)}</DropdownMenuContent>
     </DropdownMenu>
   );
 };

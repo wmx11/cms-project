@@ -1,18 +1,9 @@
 'use client';
+import TigleeLogo from '@admin/assets/tiglee-logo.png';
 import routes from '@admin/utils/routes';
-import { Button } from '@cms/ui/components/Button';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
+  DropdownMenuBuilder,
+  MenuProps,
 } from '@cms/ui/components/DropdownMenu';
 import {
   ChevronDown,
@@ -21,7 +12,10 @@ import {
   ICON_STYLES,
   TemplateIcon,
 } from '@cms/ui/components/Icons';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
+import { useMemo } from 'react';
 import DeleteWebsiteAlertButton, {
   DeleteWebsiteButtonContent,
 } from '../../../ui/buttons/DeleteWebsiteButton';
@@ -30,96 +24,108 @@ import PurgeStylesAlertButton, {
 } from '../../../ui/buttons/PurgeStylesButton';
 import SaveTemplate from './SaveTemplate';
 import ThemeSelector from './ThemeSelector';
-import { useSession } from 'next-auth/react';
-import TigleeLogo from '@admin/assets/tiglee-logo.png';
-import Image from 'next/image';
+import ComponentSetSelector from './ComponentSetSelector';
 
 const SiteOptionsMenu = () => {
   const router = useRouter();
   const params = useParams<{ id: string }>();
   const { data: session } = useSession();
 
+  const adminMenu = useMemo<MenuProps[]>(() => {
+    if (!session?.user.is_admin) {
+      return [];
+    }
+
+    return [
+      {
+        trigger: (
+          <>
+            <TemplateIcon className={ICON_STYLES} />
+            <span>Template</span>
+          </>
+        ),
+        submenu: [
+          {
+            items: [
+              {
+                item: 'Save template',
+                wrapper: <SaveTemplate />,
+                onSelect: (e) => e.preventDefault(),
+              },
+              {
+                item: 'Save as new template',
+                wrapper: <SaveTemplate saveNew />,
+                onSelect: (e) => e.preventDefault(),
+              },
+            ],
+          },
+        ],
+      },
+    ];
+  }, [session]);
+
+  const menu = useMemo<MenuProps[]>(() => {
+    return [
+      {
+        items: [
+          {
+            item: (
+              <>
+                <Folder className={ICON_STYLES} />
+                <span>Back to files</span>
+              </>
+            ),
+            onSelect: () => router.push(routes.site.default),
+          },
+        ],
+      },
+      ...adminMenu,
+      {
+        trigger: (
+          <>
+            <ColorPalette className={ICON_STYLES} />
+            <span>Themes</span>
+          </>
+        ),
+        submenu: [
+          {
+            element: <ThemeSelector />,
+          },
+        ],
+      },
+      {
+        trigger: 'Component set',
+        submenu: [
+          {
+            element: <ComponentSetSelector />,
+          },
+        ],
+      },
+      {
+        label: 'Danger zone',
+        items: [
+          {
+            item: <PurgetStylesButtonContent />,
+            wrapper: <PurgeStylesAlertButton />,
+            onSelect: (e) => e.preventDefault(),
+          },
+          {
+            item: <DeleteWebsiteButtonContent />,
+            wrapper: <DeleteWebsiteAlertButton siteId={params.id} />,
+            onSelect: (e) => e.preventDefault(),
+          },
+        ],
+      },
+    ];
+  }, []);
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="xs" className="group">
-          <Image
-            src={TigleeLogo}
-            alt="Menu tiglee logo"
-            width={20}
-            height={20}
-          />
-          <ChevronDown className="ml-2 h-3 w-3 transition-transform group-hover:translate-y-1" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuGroup>
-          <DropdownMenuItem onSelect={() => router.push(routes.site.default)}>
-            <Folder className={ICON_STYLES} />
-            <span>Back to files</span>
-          </DropdownMenuItem>
-          {session?.user.is_admin && (
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
-                <TemplateIcon className={ICON_STYLES} />
-                <span>Template</span>
-              </DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                  <SaveTemplate>
-                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                      Save template
-                    </DropdownMenuItem>
-                  </SaveTemplate>
-                  <SaveTemplate saveNew>
-                    <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                      Save as new template
-                    </DropdownMenuItem>
-                  </SaveTemplate>
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
-          )}
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <ColorPalette className={ICON_STYLES} />
-              <span>Themes</span>
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <ThemeSelector />
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuLabel>Danger zone</DropdownMenuLabel>
-          <PurgeStylesAlertButton>
-            <DropdownMenuItem
-              className="text-destructive"
-              onSelect={(e) => e.preventDefault()}
-            >
-              <PurgetStylesButtonContent />
-            </DropdownMenuItem>
-          </PurgeStylesAlertButton>
-          <DropdownMenuSeparator />
-          <DeleteWebsiteAlertButton siteId={params.id}>
-            <DropdownMenuItem
-              className="text-destructive"
-              onSelect={(e) => {
-                e.preventDefault();
-              }}
-            >
-              <DeleteWebsiteButtonContent />
-            </DropdownMenuItem>
-          </DeleteWebsiteAlertButton>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <DropdownMenuBuilder menu={menu}>
+      <span className="group">
+        <Image src={TigleeLogo} alt="Menu tiglee logo" width={20} height={20} />
+        <ChevronDown className="ml-2 h-3 w-3 transition-transform group-hover:translate-y-1" />
+      </span>
+    </DropdownMenuBuilder>
   );
 };
 

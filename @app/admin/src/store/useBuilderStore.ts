@@ -9,6 +9,7 @@ import createStylesSlice, { StylesSlice } from './slices/createStylesSlice';
 import createHeaderSlice from './slices/createHeaderSlice';
 import createSidebarSlice from './slices/createSidebarSlice';
 import createHistorySlice, { HistorySlice } from './slices/createHistorySlice';
+import { ComponentsList } from '@cms/controllers/component';
 
 export interface BuilderStoreProps {
   styles: StylesObjectWithBreakpoints;
@@ -16,6 +17,7 @@ export interface BuilderStoreProps {
   alias: string;
   componentAlias: string;
   components: Schema[];
+  componentsList: ComponentsList;
 }
 
 export type BuilderStoreState = SchemaSlice &
