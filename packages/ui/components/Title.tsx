@@ -12,7 +12,7 @@ const Title: FC<TitleProps> = ({ order = 1, className, ...props }) => {
       return (
         <h1
           {...props}
-          className={twMerge('mb-4 text-6xl font-bold', className)}
+          className={twMerge('mb-4 text-6xl font-bold leading-snug', className)}
         ></h1>
       );
     case 2:

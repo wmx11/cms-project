@@ -31,8 +31,8 @@ const Authenticate = () => {
         <div>
           <Card className="w-full min-w-[320px] max-w-[620px]">
             <CardHeader>
-              <CardTitle className="flex items-start gap-2">Welcome!</CardTitle>
-              <CardDescription></CardDescription>
+              <CardTitle className="flex items-start gap-2">Log in</CardTitle>
+              <CardDescription>Log in or create a new account.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <GoogleButton />

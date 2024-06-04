@@ -117,7 +117,7 @@ const SiteOptionsMenu = () => {
         ],
       },
     ];
-  }, []);
+  }, [session]);
 
   return (
     <DropdownMenuBuilder menu={menu}>

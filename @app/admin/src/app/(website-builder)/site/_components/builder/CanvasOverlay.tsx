@@ -123,7 +123,7 @@ const CanvasOverlay: FC<CanvasOverlayProps> = (props) => {
           key={`canvas_overlay_grid_${index}`}
           data-target-id={item.id}
           data-canvas-overlay-highlight="hover"
-          className="group pointer-events-none relative flex cursor-pointer justify-center border border-violet-200 transition-all duration-100 hover:border-violet-900"
+          className="group pointer-events-none relative flex cursor-pointer justify-center border border-dashed border-violet-200 transition-all duration-100 hover:border-violet-900"
           style={{
             height: `${height * scale}px`,
             maxWidth: `${width * scale}px`,

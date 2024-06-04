@@ -143,7 +143,7 @@ const LayerItem: FC<LayerItemProps> = ({
       )}"]`
     );
 
-    grid?.classList[type]('border-4', 'border-violet-900');
+    grid?.classList[type]('border-2', 'border-violet-900');
   };
 
   return (
