@@ -72,7 +72,12 @@ const serializeSchema = async (props: SerializeSchemaProps) => {
 
   for (const [index, item] of schema?.entries()) {
     const component = await importComponent(componentAlias, item.component);
-    const componentProps: Record<Props['name'], string> = {};
+
+    const componentProps: Record<Props['name'], string> = {
+      className: '',
+      children: '',
+      html: '',
+    };
 
     // If it's the first time serializing this schema, we will add a new data-id to it
     // data-id attribute is used to link components with other components, for selectors, or other business logic

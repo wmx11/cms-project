@@ -7,9 +7,10 @@ import { ICON_STYLES, Plus, Publish } from '@cms/ui/components/Icons';
 import { cva, VariantProps } from 'class-variance-authority';
 import prettyBytes from 'pretty-bytes';
 import { ComponentPropsWithoutRef, FC, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 const imageUploadVariants = cva(
-  'group relative flex items-center justify-center overflow-clip border border-dashed border-dim transition-colors hover:border-zinc-900 cursor-pointer',
+  'group relative flex items-center justify-center overflow-clip border border-dashed border-dim transition-colors hover:border-zinc-900 cursor-pointer max-h-[300px] overflow-auto',
   {
     variants: {
       variant: {
@@ -30,6 +31,7 @@ interface Props
   error?: ErrorMessageType<{ general: string }>;
   loading?: boolean;
   showDetails?: boolean;
+  imageClassName?: string;
   onChange?: (file: File) => void;
   onUpload?: () => void;
 }
@@ -41,6 +43,7 @@ const ImageUpload: FC<Props> = ({
   loading,
   showDetails,
   error,
+  imageClassName,
   onChange,
   onUpload,
 }) => {
@@ -53,7 +56,7 @@ const ImageUpload: FC<Props> = ({
           <img
             src={image ? URL.createObjectURL(image) : src || ''}
             alt="image upload alt description"
-            className="w-full"
+            className={twMerge('w-full', imageClassName)}
           />
         ) : (
           <div className="text-center">

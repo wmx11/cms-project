@@ -133,6 +133,7 @@ const SaveTemplate: FC<Props> = ({ children, saveNew }) => {
           <div>
             <Label>Template image</Label>
             <ImageUpload
+              imageClassName='max-w-[220px]'
               src={image ? URL.createObjectURL(image) : templateImage || ''}
               onChange={setImage}
               loading={uploadLoading}
