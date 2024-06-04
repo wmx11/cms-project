@@ -1,6 +1,7 @@
 'use client';
 import TigleeLogo from '@admin/assets/tiglee-logo.png';
 import routes from '@admin/utils/routes';
+import { Button } from '@cms/ui/components/Button';
 import {
   DropdownMenuBuilder,
   MenuProps,
@@ -22,9 +23,9 @@ import DeleteWebsiteAlertButton, {
 import PurgeStylesAlertButton, {
   PurgetStylesButtonContent,
 } from '../../../ui/buttons/PurgeStylesButton';
+import ComponentSetSelector from './ComponentSetSelector';
 import SaveTemplate from './SaveTemplate';
 import ThemeSelector from './ThemeSelector';
-import ComponentSetSelector from './ComponentSetSelector';
 
 const SiteOptionsMenu = () => {
   const router = useRouter();
@@ -120,11 +121,11 @@ const SiteOptionsMenu = () => {
   }, [session]);
 
   return (
-    <DropdownMenuBuilder menu={menu}>
-      <span className="group">
+    <DropdownMenuBuilder menu={menu} triggerAsChild>
+      <Button size="xs" variant="ghost" className="group">
         <Image src={TigleeLogo} alt="Menu tiglee logo" width={20} height={20} />
         <ChevronDown className="ml-2 h-3 w-3 transition-transform group-hover:translate-y-1" />
-      </span>
+      </Button>
     </DropdownMenuBuilder>
   );
 };

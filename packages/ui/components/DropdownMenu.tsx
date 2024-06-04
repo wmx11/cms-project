@@ -225,6 +225,7 @@ export type MenuProps = {
 interface DropdownMenuBuilderProps
   extends React.ComponentPropsWithoutRef<typeof DropdownMenu> {
   menu: MenuProps[];
+  triggerAsChild?: boolean;
 }
 
 const DropdownMenuTriggerElipsis = () => (
@@ -234,6 +235,7 @@ const DropdownMenuTriggerElipsis = () => (
 export const DropdownMenuBuilder: React.FC<DropdownMenuBuilderProps> = ({
   children,
   menu,
+  triggerAsChild,
 }) => {
   const renderData = (menu: MenuProps[]) => {
     return menu?.map((group, index) => {
@@ -298,7 +300,7 @@ export const DropdownMenuBuilder: React.FC<DropdownMenuBuilderProps> = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild={triggerAsChild}>
         {children ?? <DropdownMenuTriggerElipsis />}
       </DropdownMenuTrigger>
       <DropdownMenuContent>{renderData(menu)}</DropdownMenuContent>
