@@ -4,7 +4,7 @@ import { AccordionSingleProps } from '@radix-ui/react-accordion';
 import { FC } from 'react';
 import { schema as AccordionItemSchema } from './AccordionItem';
 
-interface Props extends AccordionSingleProps {}
+export interface Props extends AccordionSingleProps {}
 
 const Accordion: FC<Props> = ({ ...props }) => {
   return (

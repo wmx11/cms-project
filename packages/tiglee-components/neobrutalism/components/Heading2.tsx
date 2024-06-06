@@ -1,4 +1,3 @@
-import { Schema } from '@cms/packages/tiglee-engine/types';
 import { ComponentPropsWithoutRef, FC } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -16,22 +15,4 @@ const Heading2: FC<ComponentPropsWithoutRef<'h2'>> = (props) => {
 
 export default Heading2;
 
-export const schema: Schema = {
-  component: 'Heading2',
-  category: 'heading',
-  editable: true,
-  description: 'Medium section heading.',
-  displayName: 'Heading 2',
-  props: [
-    {
-      name: 'children',
-      type: 'string',
-      value: 'Heading 2',
-    },
-    {
-      name: 'className',
-      type: 'string',
-      value: '',
-    },
-  ],
-};
+export { schema } from '@cms/packages/tiglee-components/basic/components/Heading2';

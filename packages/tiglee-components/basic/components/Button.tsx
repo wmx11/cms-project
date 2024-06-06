@@ -8,7 +8,7 @@ import { ArrowRight, ICON_STYLES } from '@cms/packages/ui/components/Icons';
 import Link from 'next/link';
 import { FC } from 'react';
 
-interface Props extends ButtonProps {
+export interface Props extends ButtonProps {
   href?: string;
   target?: boolean;
   showLinkIcon?: boolean;

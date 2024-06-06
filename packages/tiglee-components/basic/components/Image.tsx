@@ -1,9 +1,9 @@
 import { Schema } from '@cms/packages/tiglee-engine/types';
 import { ComponentPropsWithoutRef, FC } from 'react';
-import ImageComponent from '../client-components/Image';
+import Client_Image from '../client-components/Image';
 
 const Image: FC<ComponentPropsWithoutRef<'img'>> = (props) => {
-  return <ImageComponent {...props} />;
+  return <Client_Image {...props} />;
 };
 
 export default Image;
