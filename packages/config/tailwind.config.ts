@@ -127,6 +127,7 @@ const tailwindConfig: Config = {
         },
       },
       borderRadius: {
+        base: '5px',
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
         sm: 'calc(var(--radius) - 4px)',
@@ -150,6 +151,13 @@ const tailwindConfig: Config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      boxShadow: {
+        base: '4px 4px 0px 0px rgba(0,0,0,1)',
+      },
+      translate: {
+        boxShadowX: '4px',
+        boxShadowY: '4px',
       },
     },
   },
