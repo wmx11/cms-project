@@ -34,7 +34,7 @@ const BuilderCanvas = () => {
 
   const [stylesReady, setStylesReady] = useState(false);
 
-  const initialRun = useRef(false);
+  const isLoaded = useRef(false);
   const canvasRef = useRef<HTMLDivElement>(null);
   const canvasOverlayRef = useRef<HTMLDivElement>(null);
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
@@ -47,11 +47,11 @@ const BuilderCanvas = () => {
    */
   useEffect(() => {
     // Prevent duplicate runs in Strict Mode
-    if (initialRun.current) {
+    if (isLoaded.current) {
       return;
     }
 
-    initialRun.current = true;
+    isLoaded.current = true;
     const manager = new SheetsManager();
     const styleSheet = builderJss.createStyleSheet(styles as Partial<Styles>, {
       meta: BUILDER_STYLES_META_TAG,

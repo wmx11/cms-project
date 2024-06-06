@@ -1,10 +1,12 @@
 'use client';
 import updateSiteAction from '@admin/app/(website-builder)/site/_actions/updateSiteAction';
 import useBuilderProviderState from '@admin/hooks/useBuilderProviderState';
+import { debounce } from '@cms/lib/utils';
 import { Button } from '@cms/packages/ui/components/Button';
 import { ICON_STYLES, Save } from '@cms/packages/ui/components/Icons';
+import { SAVE_DRAFT_TIMEOUT } from '@cms/tiglee-engine/constants';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 const SaveDraftButton = () => {
@@ -12,6 +14,8 @@ const SaveDraftButton = () => {
   const schema = useBuilderProviderState((state) => state.schema);
   const styles = useBuilderProviderState((state) => state.styles);
   const [loading, setLoading] = useState(false);
+  const isModified = useRef(false);
+  const isLoaded = useRef(false);
 
   const handleOnClick = async () => {
     setLoading(true);
@@ -30,6 +34,24 @@ const SaveDraftButton = () => {
 
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (!isLoaded.current) {
+      isLoaded.current = true;
+      return;
+    }
+
+    if (isModified.current) {
+      return;
+    }
+
+    isModified.current = true;
+
+    debounce(() => {
+      isModified.current = false;
+      handleOnClick();
+    }, SAVE_DRAFT_TIMEOUT)();
+  }, [schema, styles]);
 
   return (
     <>
