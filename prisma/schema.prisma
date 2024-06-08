@@ -52,20 +52,20 @@ model VerificationToken {
 }
 
 model User {
-  id              String       @id @default(cuid())
-  email           String?      @unique
-  emailVerified   DateTime?    @map("email_verified")
-  name            String?
-  image           String?
-  is_admin        Boolean      @default(false)
-  accounts        Account[]
-  sessions        Session[]
-  site            Site[]
-  asset           Asset[]
-  payment_plan_id String?
-  payment_plan    PaymentPlan? @relation(fields: [payment_plan_id], references: [id])
-  date_created    DateTime     @default(now())
-  date_updated    DateTime     @updatedAt
+  id            String     @id @default(cuid())
+  email         String?    @unique
+  emailVerified DateTime?  @map("email_verified")
+  name          String?
+  image         String?
+  is_admin      Boolean    @default(false)
+  accounts      Account[]
+  sessions      Session[]
+  site          Site[]
+  asset         Asset[]
+  usage_plan_id String?
+  usage_plan    UsagePlan? @relation(fields: [usage_plan_id], references: [id])
+  date_created  DateTime   @default(now())
+  date_updated  DateTime   @updatedAt
 }
 
 // Site holds all data about the Site (Website that is created and displayed on the internet)
@@ -200,24 +200,23 @@ model Asset {
   date_updated DateTime  @updatedAt
 }
 
-enum PaymentPlanName {
+enum UsagePlanName {
   early
   free
   basic
   pro
 }
 
-// TODO: Change it to usage plan
-// Payment plan of the user (subscription or one-time payment)
-model PaymentPlan {
-  id                String          @id @default(cuid())
-  name              PaymentPlanName @unique
+model UsagePlan {
+  id                String        @id @default(cuid())
+  name              UsagePlanName @unique
   price             Int?
-  has_custom_domain Boolean         @default(false)
+  has_custom_domain Boolean       @default(false)
   number_of_sites   Int?
   number_of_pages   Int?
   max_upload_size   Int?
+  days_save_history Int?
   user              User[]
-  date_created      DateTime        @default(now())
-  date_updated      DateTime        @updatedAt
+  date_created      DateTime      @default(now())
+  date_updated      DateTime      @updatedAt
 }
