@@ -1,3 +1,4 @@
+import MadeWithBadge from '@client/components/MadeWithBadge';
 import TigleeProvider from '@client/components/TigleeProvider';
 import { getSiteByAliasController } from '@cms/packages/controllers/site';
 import serializeSchema from '@cms/tiglee-engine/modules/serializeSchema';
@@ -61,6 +62,9 @@ const page = async ({ params }: Props) => {
         }
       >
         <>{template}</>
+        <div className="fixed bottom-4 left-4">
+          <MadeWithBadge />
+        </div>
       </TigleeProvider>
     </>
   );

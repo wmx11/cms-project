@@ -1,5 +1,5 @@
 'use client';
-import TigleeLogo from '@admin/assets/tiglee-logo.png';
+import TigleeLogo from '@cms/assets/tiglee-logo.png';
 import routes from '@admin/utils/routes';
 import { Button } from '@cms/ui/components/Button';
 import {
