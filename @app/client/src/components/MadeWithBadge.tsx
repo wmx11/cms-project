@@ -7,7 +7,7 @@ import Image from 'next/image';
 const MadeWithBadge = () => {
   return (
     <Link href="https://tiglee.io" target="_blank">
-      <Badge className="flex items-center justify-center gap-2 bg-gradient-to-r from-violet-600 to-purple-500">
+      <Badge className="flex gap-2 bg-gradient-to-r from-violet-600 to-purple-500">
         <Image src={TigleeLogo} width={15} alt="Tiglee logo" />
         <span>Made in Tiglee</span>
       </Badge>
